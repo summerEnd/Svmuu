@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="clear" type="id"/>
+    <item name="title" type="id"/>
+    <item name="anim_info" type="id"/>
+
+    <item name="gridview" type="id"/>
+    <item name="webview" type="id"/>
+    <item name="scrollview" type="id"/>
+    <item name="parallax_view_tag" type="id"/>
+    <item name="parallax_pager" type="id"/>
+    <item name="brand_add_id" type="id" />
+
+    <item name="slib_toast_text_1" type="id"/>
+    <item name="slib_share" type="id"/>
+    <item name="slib_next" type="id"/>
+    <item name="slib_previous" type="id"/>
+    <item name="slib_delete" type="id"/>
+    <item name="slib_clear" type="id"/>
+    <item name="slib_color" type="id"/>
+    <item name="slib_orientation" type="id"/>
+</resources>

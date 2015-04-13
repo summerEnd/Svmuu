@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    >
+
+    <item
+        android:showAsAction="always"
+        android:title="prevous"
+        android:icon="@drawable/ic_menu_back"
+        android:id="@id/slib_previous"/>
+    <item
+        android:showAsAction="always"
+        android:title="next"
+        android:icon="@drawable/ic_menu_forward"
+        android:id="@id/slib_next"/>
+    <item
+        android:title="发送"
+        android:showAsAction="ifRoom"
+        android:id="@id/slib_share"
+        android:icon="@android:drawable/ic_menu_share"
+        />
+    <item
+        android:title="清空"
+        android:showAsAction="never"
+        android:id="@id/slib_clear"/>
+    <item
+        android:showAsAction="ifRoom"
+        android:title="删除"
+        android:icon="@drawable/ic_menu_close_cancel"
+        android:id="@id/slib_delete"/>
+
+    <item
+        android:title="@string/landscape"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_menu_orientation"
+        android:id="@id/slib_orientation"/>
+    <item
+        android:title="应用信息"
+        android:showAsAction="ifRoom"
+        android:id="@+id/slib_application"/>
+</menu>
