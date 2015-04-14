@@ -5,10 +5,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -30,7 +30,6 @@ import static com.sp.lib.activity.album.PhotoDirAdapter.PhotoDirInfo;
  */
 public class PhotoAlbumActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
-    private final String TAG = "PhotoAlbumActivity";
     GridView grid;
     LinearLayout bottom_ll;
 
@@ -63,8 +62,6 @@ public class PhotoAlbumActivity extends BaseActivity implements AdapterView.OnIt
     private LinkedList<String> curAlbumList;
     PhotoGridAdapter pictureAdapter;
     private PhotoDirWindow dirWindow;
-    private final String ALL = "全部";
-    private final String OTHER = "其他";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -112,18 +109,23 @@ public class PhotoAlbumActivity extends BaseActivity implements AdapterView.OnIt
 
         LinkedList<String> totalList = new LinkedList<String>();
         //全部
-        urlsMap.put(ALL, totalList);
+        String dir_all = getString(R.string.all);
+        //其他
+        String dir_other = getString(R.string.other);
+        //sdcard 路径
+        String sdcard = Environment.getExternalStorageDirectory().getPath();
+
+        urlsMap.put(dir_all, totalList);
         while (cursor.moveToNext()) {
             String url = cursor.getString(0);
-            String dirName = url.replace("/mnt", "")
-                    .replace("/sdcard/", "")
+            String dirName = url.replace(sdcard, "").replace("/mnt", "")
                     .replace("/ext_sdcard/", "")
                     .replace("/sdcard0/", "");
             //获取目录名称
             try {
                 dirName = dirName.substring(0, dirName.indexOf('/'));
             } catch (Exception e) {
-                dirName = OTHER;
+                dirName = dir_other;
             }
             //从map中获取一个 list，如果没有就创建一个
             LinkedList<String> tempList = urlsMap.get(dirName);
@@ -139,15 +141,13 @@ public class PhotoAlbumActivity extends BaseActivity implements AdapterView.OnIt
             //在14以上版本，cursor会自动关闭，如果手动关闭在resume的时候会抛出异常。
             cursor.close();
         }
-        pictureAdapter = new PhotoGridAdapter(this, urlsMap.get(ALL));
+        pictureAdapter = new PhotoGridAdapter(this, urlsMap.get(dir_all));
         grid.setAdapter(pictureAdapter);
         grid.setOnItemClickListener(this);
     }
 
     /**
      * 创建popupWindow
-     *
-     * @return
      */
     private void showWindow() {
         if (dirWindow == null) {
@@ -194,7 +194,6 @@ public class PhotoAlbumActivity extends BaseActivity implements AdapterView.OnIt
     /**
      * 返回图片uri
      *
-     * @param uri
      */
     private void returnUri(Uri uri) {
         Intent data = new Intent();
@@ -206,9 +205,8 @@ public class PhotoAlbumActivity extends BaseActivity implements AdapterView.OnIt
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_OK) {
-            Toast.makeText(this, "失败", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.fail, Toast.LENGTH_SHORT).show();
         } else if (requestCode == OPEN_CAMERA) {
-            Log.i(TAG, "CROP_IMAGE output:" + cameraUri);
             cropImage(cameraUri);
         } else if (requestCode == CROP_IMAGE) {
             returnUri(cameraUri);
@@ -217,8 +215,6 @@ public class PhotoAlbumActivity extends BaseActivity implements AdapterView.OnIt
 
     /**
      * 剪裁图片
-     *
-     * @param uri
      */
     private void cropImage(Uri uri) {
 
