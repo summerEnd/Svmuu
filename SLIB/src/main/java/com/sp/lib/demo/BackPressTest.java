@@ -5,7 +5,7 @@ import android.widget.TextView;
 public class BackPressTest extends SlibDemoWrapper {
 
     private static final String DESCRIPTION = "This is a test for Back Press test";
-    int count = 10;
+    int count;
     TextView textView;
 
     public BackPressTest(SlibDemo demo) {
@@ -14,6 +14,7 @@ public class BackPressTest extends SlibDemoWrapper {
 
     @Override
     public void onCreate() {
+        count = 10;
         textView = new TextView(getActivity());
         showPress(count);
         setContentView(textView);

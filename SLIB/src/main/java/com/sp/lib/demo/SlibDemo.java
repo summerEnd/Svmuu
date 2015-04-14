@@ -41,6 +41,8 @@ public class SlibDemo extends Activity implements AdapterView.OnItemClickListene
             mTests.add(new BackPressTest(this));
             mTests.add(new DownloadTest(this));
             mTests.add(new ContentProviderTest(this));
+            mTests.add(new NotificationTest(this));
+            mTests.add(new SlidingTest(this));
         }
         ListView listView = new ListView(this);
         setContentView(listView);

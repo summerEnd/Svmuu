@@ -65,7 +65,7 @@ public class CacheManager {
 
     private ICache getCache() {
         if (mCache == null) {
-            throw new SlibInitialiseException(CacheManager.class.getName() + "请调用init()进行初始化！");
+            throw new SlibInitialiseException(CacheManager.class);
         }
         return mCache;
     }

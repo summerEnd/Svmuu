@@ -4,5 +4,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="landscape">横屏</string>
     <string name="portrait">竖屏</string>
+    <string name="network_is_not_open">没有可用的网络连接</string>
 
 </resources>
