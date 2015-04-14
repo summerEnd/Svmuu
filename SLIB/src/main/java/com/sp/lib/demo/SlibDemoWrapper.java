@@ -15,6 +15,10 @@ public abstract class SlibDemoWrapper {
     private String label;
     private String description;
 
+    protected SlibDemoWrapper(SlibDemo demo) {
+        this(demo,null,null);
+    }
+
     public SlibDemoWrapper(SlibDemo demo, String label, String description) {
         this.demo = demo;
         this.label = label;

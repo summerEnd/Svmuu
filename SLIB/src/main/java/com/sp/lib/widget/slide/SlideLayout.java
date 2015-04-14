@@ -25,7 +25,6 @@ public class SlideLayout extends FrameLayout {
     /**
      * 0到{@link SlideLayout#MAX_WIDTH}
      */
-    float slideWidth;
 
     /**
      * 滑动的View
@@ -112,10 +111,7 @@ public class SlideLayout extends FrameLayout {
             final int leftBound = getPaddingLeft();
             final int rightBound = MAX_WIDTH;
             final int newLeft = Math.min(Math.max(left, leftBound), rightBound);
-            slideWidth = newLeft;
-            float rate = slideWidth / (float) MAX_WIDTH;
-            dispatchTransform(rate);
-
+            dispatchTransform(newLeft);
             return newLeft;
         }
     }
@@ -131,14 +127,14 @@ public class SlideLayout extends FrameLayout {
     @Override
     public void computeScroll() {
         if (mDragHelper.continueSettling(true)) {
-            float rate = mSlideView.getLeft() / (float) MAX_WIDTH;
-            dispatchTransform(rate);
+            dispatchTransform(mSlideView.getLeft());
             ViewCompat.postInvalidateOnAnimation(this);
         }
     }
 
-    void dispatchTransform(float rate) {
+    void dispatchTransform(float left) {
         if (transformer != null) {
+            float rate = left / (float) MAX_WIDTH;
             transformer.transform(getChildAt(1), getChildAt(0), Math.abs(rate));
         }
     }
@@ -152,9 +148,7 @@ public class SlideLayout extends FrameLayout {
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         mSlideView = getChildAt(getChildCount() - 1);
-        if (mSlideView != null) {
-            slideWidth = mSlideView.getLeft();
-        }
+
     }
 
     @Override
@@ -169,26 +163,36 @@ public class SlideLayout extends FrameLayout {
         return true;
     }
 
+    /**
+     * @return the max width
+     */
     public int getMaxWidth() {
         return MAX_WIDTH;
     }
 
+    /**
+     * @return true the pane is open,false otherwise
+     */
     public boolean isOpen() {
         return isOpen;
     }
 
+    /**
+     * open the pane
+     */
     public void open() {
-
         mDragHelper.smoothSlideViewTo(mSlideView, MAX_WIDTH, mSlideView.getTop());
         invalidate();
-        isOpen=true;
+        isOpen = true;
     }
 
+    /**
+     * close the pane
+     */
     public void close() {
-
         mDragHelper.smoothSlideViewTo(mSlideView, 0, mSlideView.getTop());
         invalidate();
-        isOpen=false;
+        isOpen = false;
 
     }
 }

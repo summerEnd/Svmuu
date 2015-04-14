@@ -18,6 +18,11 @@
             android:label="@string/app_name">
 
         </activity>
+        <activity
+            android:name="com.sp.lib.activity.album.PhotoAlbumActivity"
+            android:label="@string/app_name">
+
+        </activity>
         <activity android:name="com.sp.lib.demo.SlibDemo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
