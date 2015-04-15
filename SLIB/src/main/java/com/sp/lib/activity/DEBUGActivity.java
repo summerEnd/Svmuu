@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -82,21 +85,25 @@ public class DEBUGActivity extends FragmentActivity implements ViewPager.OnPageC
             StringBuilder message = new StringBuilder();
 
             message
-                    .append("包名：").append(info.packageName).append("\n")
-                    .append("应用名：").append(getString(info.applicationInfo.labelRes)).append("\n")
-                    .append("版本：").append(info.versionName).append("\n")
-                    .append("版本号：").append(info.versionCode).append("\n")
-                    .append("DEBUG：").append(Slib.DEBUG).append("\n")
+                    .append("<table>")
+                    .append("")
+                    .append("<th>pkg_name :</th>").append("<tr>").append(info.packageName).append("</tr>")
+                    .append("<th>app_name :</th>").append("<tr>").append(getString(info.applicationInfo.labelRes)).append("</tr>")
+                    .append("<th>ver_name :</th>").append("<tr>").append(info.versionName).append("</tr>")
+                    .append("<th>ver_code :</th>").append("<tr>").append(info.versionCode).append("</tr>")
+                    .append("<th>log_open :</th>").append("<tr>").append(Slib.DEBUG).append("</tr>")
+                    .append("</table>")
             ;
+
+            Spannable spannable=new SpannableString(message.toString());
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(item.getTitle())
-                    .setMessage(message)
-                    .setPositiveButton("确定", null)
+                    .setMessage(Html.toHtml(spannable))
+                    .setPositiveButton(getString(R.string.yes), null)
                     .show();
             return true;
         }
-
 
         if (logList == null || logList.isEmpty()) {
             viewPager.setVisibility(View.INVISIBLE);
@@ -141,6 +148,7 @@ public class DEBUGActivity extends FragmentActivity implements ViewPager.OnPageC
 
         return true;
     }
+
 
 
     boolean isLastPage() {

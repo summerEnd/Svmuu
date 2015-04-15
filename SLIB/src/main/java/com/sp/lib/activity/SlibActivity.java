@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
-/**
- * @copy
- */
-public class BaseActivity extends Activity {
+
+public class SlibActivity extends Activity {
 
     private boolean showLifeCircle = false;
 

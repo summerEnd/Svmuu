@@ -29,13 +29,12 @@ public class SlidingTest extends SlibDemoWrapper {
         SlibDemo context = getActivity();
         layout = new SlideLayout(context);
         layout.setBackgroundResource(R.drawable.ic_launcher);
-        layout.setTransformer(new QQTransform());
         setContentView(layout);
 
         {
             LinearLayout child = new LinearLayout(context);
             child.setOrientation(LinearLayout.VERTICAL);
-            child.addView(createButton(new QQTransform()));
+            child.addView(createButton(new QQTransform(200,100,0.5f)));
             child.addView(createButton(new FollowTransform(200)));
             layout.addView(child, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         }
@@ -44,25 +43,23 @@ public class SlidingTest extends SlibDemoWrapper {
             LinearLayout child = new LinearLayout(context);
             child.setBackgroundColor(Color.rgb(150, 150, 150));
             child.setOrientation(LinearLayout.VERTICAL);
-            Button open = new Button(context);
+            final Button open = new Button(context);
             open.setText("open");
             open.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    layout.open();
+                    if (layout.isOpen()){
+                        layout.close();
+                        open.setText("open");
+                    }else{
+                        layout.open();
+                        open.setText("close");
+                    }
                 }
             });
 
-            Button close = new Button(context);
-            close.setText("close");
-            close.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    layout.close();
-                }
-            });
+
             child.addView(open);
-            child.addView(close);
             layout.addView(child, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         }
     }

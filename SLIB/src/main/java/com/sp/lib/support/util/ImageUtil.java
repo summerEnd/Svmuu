@@ -3,12 +3,17 @@ package com.sp.lib.support.util;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Base64;
+import android.view.View;
+import android.widget.TextView;
+
+import com.sp.lib.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -50,10 +55,11 @@ public class ImageUtil {
      * @return 处理后的推按
      */
     public static Bitmap roundBitmap(Bitmap src, int radius) {
-        int output_size = radius * 2;
 
+        int output_size = radius * 2;
         if (src == null) {
-            ColorDrawable drawable = new ColorDrawable(0xDDe53769);
+            //如果图片不存在，就创建一个色块
+            ColorDrawable drawable = new ColorDrawable(Color.GRAY);
             src = Bitmap.createBitmap(
                     output_size,
                     output_size,
@@ -66,35 +72,42 @@ public class ImageUtil {
         }
         int src_w = src.getWidth();
         int src_h = src.getHeight();
-        float scale;
-        if (src_w > src_h) {
-            scale = output_size / (float) src_h;
-        } else {
-            scale = output_size / (float) src_w;
-        }
-        src_w *= scale;
-        src_h *= scale;
-        Bitmap resizeSrc = Bitmap.createScaledBitmap(src, src_w, src_h, false);//缩放后的Bitmap
+
+        //按照图片宽高较小的值来计算缩放比例。即，如果宽小就按照宽缩放，反之亦然。
+        float scale = output_size / (float) Math.min(src_h, src_w);
+
+        //缩放后的Bitmap
+        Bitmap scaledSrc = Bitmap.createScaledBitmap(src, (int) (src_w * scale), (int) (src_h * scale), false);
 
         final Paint paint = new Paint();
         paint.setAntiAlias(true);
+
         Bitmap result = Bitmap.createBitmap(output_size, output_size, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(result);
-        //        canvas.drawARGB(0,0,0,0);//背景透明效果
+        //canvas.drawARGB(0,0,0,0);//背景透明效果
         canvas.drawCircle(radius, radius, radius, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 
-        float translate_x = (result.getWidth() - resizeSrc.getWidth()) / 2;
-        float translate_y = (result.getHeight() - resizeSrc.getHeight()) / 2;
+        float translate_x = (result.getWidth() - scaledSrc.getWidth()) / 2;
+        float translate_y = (result.getHeight() - scaledSrc.getHeight()) / 2;
 
         canvas.save();
         canvas.translate(translate_x, translate_y);
-        canvas.drawBitmap(resizeSrc, 0, 0, paint);
+        canvas.drawBitmap(scaledSrc, 0, 0, paint);
         canvas.restore();
 
-        if (result != resizeSrc && !resizeSrc.isRecycled())
-            resizeSrc.recycle();
+        if (src != scaledSrc && !scaledSrc.isRecycled())
+            scaledSrc.recycle();
 
+        return result;
+    }
+
+    public static Bitmap convertView2Bitmap(View v) {
+        final Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        Bitmap result = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(result);
+        v.draw(canvas);
         return result;
     }
 

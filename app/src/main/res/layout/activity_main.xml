@@ -3,5 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:id="@+id/menuContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:background="#cfea22"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/toggle"
+            android:layout_height="wrap_content"
+            android:text="open" />
+    </FrameLayout>
 </android.support.v4.widget.SlidingPaneLayout>
 

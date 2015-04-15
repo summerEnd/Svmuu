@@ -1,9 +1,6 @@
-package com.yjy998.client;
-
-import android.app.Dialog;
+package com.yjy998.common.http;
 
 import com.sp.lib.support.net.client.SHttpClient;
-import com.sp.lib.support.net.client.SHttpProgressHandler;
 import com.sp.lib.support.net.client.SRequest;
 
 /**

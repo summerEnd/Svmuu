@@ -76,6 +76,7 @@ public abstract class SlibDemoWrapper {
 
     public void startActivity(Intent intent) {
         demo.startActivity(intent);
+        getActivity().mStacks.pop();
     }
 
     public void startActivityForResult(Intent intent, int requestCode) {
@@ -101,6 +102,7 @@ public abstract class SlibDemoWrapper {
     public boolean onOptionsItemSelected(MenuItem item) {
         return demo.onOptionsItemSelected(item);
     }
+
 
     protected void onRestart() {
     }

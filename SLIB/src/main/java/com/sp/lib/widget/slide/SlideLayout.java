@@ -1,13 +1,16 @@
 package com.sp.lib.widget.slide;
 
 import android.content.Context;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.sp.lib.support.util.ContextUtil;
 import com.sp.lib.widget.slide.transform.Transformer;
 
 public class SlideLayout extends FrameLayout {
@@ -23,13 +26,13 @@ public class SlideLayout extends FrameLayout {
     int mDragOffset;
 
     /**
-     * 0到{@link SlideLayout#MAX_WIDTH}
-     */
-
-    /**
      * 滑动的View
      */
     View mSlideView;
+    /**
+     * 菜单
+     */
+    View mMenuView;
 
     /**
      * 打开的最大宽度
@@ -43,7 +46,7 @@ public class SlideLayout extends FrameLayout {
      *
      * @param context
      */
-    int EFFECT_WIDTH = 90;
+    int TOUCHE_SLOP = 90;
 
     Transformer transformer;
 
@@ -67,12 +70,12 @@ public class SlideLayout extends FrameLayout {
         @Override
         public boolean tryCaptureView(View child, int pointerId) {
             boolean canSlide = (child == mSlideView);
+
             return canSlide;
         }
 
         @Override
         public void onViewDragStateChanged(int state) {
-
         }
 
         @Override
@@ -83,22 +86,24 @@ public class SlideLayout extends FrameLayout {
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
 
+            //拖动距离太小，返回
+            if (Math.abs(mDragOffset) < TOUCHE_SLOP) {
+                mDragHelper.abort();
+                if (isOpen()) {
+                    open();
+                } else {
+                    close();
+                }
+                return;
+            }
+
             if (mDragOffset >= 0) {
                 //向右滑动
-                if (mDragOffset > EFFECT_WIDTH) {
-                    open();
-                } else {
-                    close();
-                }
+                open();
             } else {
                 //向左滑动
-                if (Math.abs(mDragOffset) > EFFECT_WIDTH) {
-                    close();
-                } else {
-                    open();
-                }
+                close();
             }
-            invalidate();
         }
 
         @Override
@@ -120,6 +125,7 @@ public class SlideLayout extends FrameLayout {
         return transformer;
     }
 
+
     public void setTransformer(Transformer transformer) {
         this.transformer = transformer;
     }
@@ -133,30 +139,43 @@ public class SlideLayout extends FrameLayout {
     }
 
     void dispatchTransform(float left) {
+
         if (transformer != null) {
             float rate = left / (float) MAX_WIDTH;
-            transformer.transform(getChildAt(1), getChildAt(0), Math.abs(rate));
+            transformer.transform(mSlideView, mMenuView, Math.abs(rate));
+        }
+
+        //设置菜单不可见，不然它也会相应触屏事件
+        int menuVisibility = mMenuView.getVisibility();
+        if (left == 0 && menuVisibility != INVISIBLE) {
+            mMenuView.setVisibility(INVISIBLE);
+        } else if (left != 0 && menuVisibility != VISIBLE) {
+            mMenuView.setVisibility(VISIBLE);
         }
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return mDragHelper.shouldInterceptTouchEvent(ev);
+        return mDragHelper.shouldInterceptTouchEvent(ev) || super.onInterceptTouchEvent(ev);
     }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         mSlideView = getChildAt(getChildCount() - 1);
-
+        mMenuView = getChildAt(0);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (super.onTouchEvent(event)) {
+            return true;
+        }
         mDragHelper.processTouchEvent(event);
         int action = event.getAction();
         if (action == MotionEvent.ACTION_DOWN) {
             lastToucheX = mSlideView.getLeft();
+            mDragOffset = 0;
         } else {
             mDragOffset = mSlideView.getLeft() - lastToucheX;
         }
@@ -193,6 +212,13 @@ public class SlideLayout extends FrameLayout {
         mDragHelper.smoothSlideViewTo(mSlideView, 0, mSlideView.getTop());
         invalidate();
         isOpen = false;
+    }
 
+    public void toggle() {
+        if (isOpen()) {
+            close();
+        } else {
+            open();
+        }
     }
 }

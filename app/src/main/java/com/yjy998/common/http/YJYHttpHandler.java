@@ -1,4 +1,4 @@
-package com.yjy998.client;
+package com.yjy998.common.http;
 
 import android.app.Dialog;
 

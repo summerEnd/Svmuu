@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -14,12 +15,17 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.yjy998.MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name">
 
         </activity>
         <activity
             android:name="com.sp.lib.activity.album.PhotoAlbumActivity"
+            android:label="@string/app_name">
+
+        </activity>
+        <activity
+            android:name="com.sp.lib.activity.DEBUGActivity"
             android:label="@string/app_name">
 
         </activity>

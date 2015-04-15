@@ -231,8 +231,8 @@ containing a value of this type.
     }
     public static final class drawable {
         public static int album=0x7f020000;
-        public static int album_btn_normal=0x7f020018;
-        public static int album_btn_pressed=0x7f020019;
+        public static int album_btn_normal=0x7f020019;
+        public static int album_btn_pressed=0x7f02001a;
         public static int album_ic=0x7f020001;
         public static int album_ic_normal=0x7f020002;
         public static int album_ic_pre=0x7f020003;
@@ -248,15 +248,16 @@ containing a value of this type.
         public static int ic_menu_close_cancel=0x7f02000d;
         public static int ic_menu_forward=0x7f02000e;
         public static int ic_menu_orientation=0x7f02000f;
-        public static int intro_item_manrun_1=0x7f020010;
-        public static int intro_item_manrun_2=0x7f020011;
-        public static int man_run=0x7f020012;
-        public static int s_progress=0x7f020013;
-        public static int slib_tab_bg=0x7f020014;
-        public static int tab_selector=0x7f020015;
-        public static int tran=0x7f02001a;
-        public static int xsearch_loading=0x7f020016;
-        public static int xsearch_msg_pull_arrow_down=0x7f020017;
+        public static int image_failed=0x7f020010;
+        public static int intro_item_manrun_1=0x7f020011;
+        public static int intro_item_manrun_2=0x7f020012;
+        public static int man_run=0x7f020013;
+        public static int s_progress=0x7f020014;
+        public static int slib_tab_bg=0x7f020015;
+        public static int tab_selector=0x7f020016;
+        public static int tran=0x7f02001b;
+        public static int xsearch_loading=0x7f020017;
+        public static int xsearch_msg_pull_arrow_down=0x7f020018;
     }
     public static final class id {
         public static int NotifyCationId_1=0x7f070000;
@@ -338,32 +339,37 @@ containing a value of this type.
         public static int download=0x7f0b0001;
     }
     public static final class string {
-        public static int hello_world=0x7f090000;
-        public static int landscape=0x7f090001;
-        public static int network_is_not_open=0x7f090002;
-        public static int picture_image_loading=0x7f090003;
-        public static int picture_load_image_failed=0x7f090004;
-        public static int picture_next_album=0x7f090005;
-        public static int picture_previous_album=0x7f090006;
-        public static int picture_save_fail=0x7f090007;
-        public static int picture_save_succeed=0x7f090008;
-        public static int portrait=0x7f090009;
-        public static int pull_to_refresh_footer_hint_ready=0x7f09000a;
-        public static int pull_to_refresh_header_hint_loading=0x7f09000b;
-        public static int pull_to_refresh_header_hint_normal=0x7f09000c;
-        public static int pull_to_refresh_header_hint_normal2=0x7f09000d;
-        public static int pull_to_refresh_header_hint_ready=0x7f09000e;
-        public static int pull_to_refresh_header_last_time=0x7f09000f;
-        public static int pull_to_refresh_network_error=0x7f090010;
-        public static int pull_to_refresh_no_more_data=0x7f090011;
-        public static int pull_to_refresh_refreshing_label=0x7f090012;
-        public static int pushmsg_center_load_more_ongoing_text=0x7f090013;
-        public static int pushmsg_center_no_more_msg=0x7f090014;
-        public static int pushmsg_center_pull_down_text=0x7f090015;
-        public static int pushmsg_center_pull_down_update_time=0x7f090016;
-        public static int pushmsg_center_pull_release_text=0x7f090017;
-        public static int pushmsg_center_pull_up_text=0x7f090018;
-        public static int xsearch_loading=0x7f090019;
+        public static int all=0x7f090000;
+        public static int fail=0x7f090001;
+        public static int hello_world=0x7f090002;
+        public static int landscape=0x7f090003;
+        public static int loadFaile=0x7f090004;
+        public static int network_is_not_open=0x7f090005;
+        public static int other=0x7f090006;
+        public static int picture_image_loading=0x7f090007;
+        public static int picture_load_image_failed=0x7f090008;
+        public static int picture_next_album=0x7f090009;
+        public static int picture_previous_album=0x7f09000a;
+        public static int picture_save_fail=0x7f09000b;
+        public static int picture_save_succeed=0x7f09000c;
+        public static int portrait=0x7f09000d;
+        public static int pull_to_refresh_footer_hint_ready=0x7f09000e;
+        public static int pull_to_refresh_header_hint_loading=0x7f09000f;
+        public static int pull_to_refresh_header_hint_normal=0x7f090010;
+        public static int pull_to_refresh_header_hint_normal2=0x7f090011;
+        public static int pull_to_refresh_header_hint_ready=0x7f090012;
+        public static int pull_to_refresh_header_last_time=0x7f090013;
+        public static int pull_to_refresh_network_error=0x7f090014;
+        public static int pull_to_refresh_no_more_data=0x7f090015;
+        public static int pull_to_refresh_refreshing_label=0x7f090016;
+        public static int pushmsg_center_load_more_ongoing_text=0x7f090017;
+        public static int pushmsg_center_no_more_msg=0x7f090018;
+        public static int pushmsg_center_pull_down_text=0x7f090019;
+        public static int pushmsg_center_pull_down_update_time=0x7f09001a;
+        public static int pushmsg_center_pull_release_text=0x7f09001b;
+        public static int pushmsg_center_pull_up_text=0x7f09001c;
+        public static int xsearch_loading=0x7f09001d;
+        public static int yes=0x7f09001e;
     }
     public static final class style {
         public static int debug_button=0x7f0a0000;
