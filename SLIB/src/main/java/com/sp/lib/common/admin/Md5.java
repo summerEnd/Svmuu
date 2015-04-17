@@ -1,4 +1,4 @@
-package com.sp.lib.common.util;
+package com.sp.lib.common.admin;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

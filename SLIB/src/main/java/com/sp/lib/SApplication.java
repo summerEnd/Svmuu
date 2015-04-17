@@ -12,13 +12,14 @@ import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.sp.lib.common.preference.AppInfo;
 import com.sp.lib.demo.SlibDemo;
 import com.sp.lib.common.exception.ExceptionHandler;
 import com.sp.lib.common.exception.SlibInitialiseException;
 import com.sp.lib.common.support.cache.CacheManager;
 import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.FileUtil;
-import com.sp.lib.common.util.PreferenceUtil;
+import com.sp.lib.common.preference.PreferenceUtil;
 
 import java.io.File;
 import java.util.List;
@@ -133,5 +134,9 @@ public class SApplication extends Application {
             return System.currentTimeMillis() - enterBackgroundTimeMillis > BACK_DURATION;
         }
         return false;
+    }
+
+    public void unLockScreen() {
+        setEnterBackground(false);
     }
 }

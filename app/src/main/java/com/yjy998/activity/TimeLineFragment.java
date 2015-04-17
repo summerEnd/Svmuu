@@ -1,18 +1,26 @@
 package com.yjy998.activity;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sp.lib.common.support.net.client.SRequest;
+import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.JsonUtil;
+import com.sp.lib.common.util.SLog;
 import com.yjy998.R;
-import com.yjy998.common.http.YJYHttpClient;
-import com.yjy998.common.http.YJYHttpHandler;
+import com.yjy998.common.Constant;
 import com.yjy998.view.TimeLineCover;
 
 import org.achartengine.ChartFactory;
@@ -23,13 +31,16 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-import org.apache.http.Header;
+import org.achartengine.tools.PanListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * 分时线
@@ -43,6 +54,13 @@ public class TimeLineFragment extends BaseFragment implements View.OnClickListen
     XYMultipleSeriesDataset dataSet = new XYMultipleSeriesDataset();
     XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
     private int TIME_UNIT = 30;
+    List<Trend> list = new ArrayList<Trend>();
+    /**
+     * 右侧边距
+     */
+    private final int LEFT_MARGIN = 15;
+    float coverX;
+    private TextView mText;
 
     @Nullable
     @Override
@@ -51,13 +69,19 @@ public class TimeLineFragment extends BaseFragment implements View.OnClickListen
         mChartView = ChartFactory.getLineChartView(getActivity(), dataSet, mRenderer);
         mChartView.setOnClickListener(this);
         mChartView.setBackgroundColor(Color.LTGRAY);
-        layout.addView(mChartView);
-        layout.addView(new TimeLineCover(getActivity()) {
-            @Override
-            protected void onSelect(float touchPoint) {
+        final ChartCover child = new ChartCover(getActivity());
 
+        mChartView.addPanListener(new PanListener() {
+            @Override
+            public void panApplied() {
+                child.onSelect(coverX);
             }
         });
+
+        mText = new TextView(getActivity());
+        layout.addView(mChartView);
+        layout.addView(child);
+        layout.addView(mText, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM));
         return layout;
     }
 
@@ -65,23 +89,31 @@ public class TimeLineFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         initRender();
-        SRequest request = new SRequest();
-        request.setUrl("https://yjy998.com/yjy/quote/stock/601899/trend_data");
-        YJYHttpClient.get(request, new YJYHttpHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    JSONObject data = response.getJSONObject("data");
-                    JSONArray array = data.getJSONArray("trendList");
-                    addTrendListToChart(array);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+//        SRequest request = new SRequest();
+//        request.setUrl("https://yjy998.com/yjy/quote/stock/601899/trend_data");
+//        YJYHttpClient.get(request, new YJYHttpHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                super.onSuccess(statusCode, headers, response);
+//                try {
+//                    JSONObject data = response.getJSONObject("data");
+//                    JSONArray array = data.getJSONArray("trendList");
+//                    addTrendListToChart(array);
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+        try {
+            JSONObject data = new JSONObject(Constant.DATA);
+            JSONArray array = data.getJSONObject("data").getJSONArray("trendList");
+            addTrendListToChart(array);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
+
 
     /**
      * 将数据解析，并添加到图表中
@@ -92,22 +124,22 @@ public class TimeLineFragment extends BaseFragment implements View.OnClickListen
         XYSeries average = new XYSeries(getString(R.string.average_price));
         int length = array.length();
         int amLength = Math.min(length, 120);
-
         //9:30-11:30
         for (int i = 0; i < amLength; i++) {
             Trend trend = JsonUtil.get(array.getString(i), Trend.class);
-            newPrice.add(i, trend.newPrice);
-            average.add(i, trend.averagePrice);
+            list.add(trend);
+            newPrice.add(i, format(trend.newPrice));
+            average.add(i, format(trend.averagePrice));
         }
 
         if (length >= 120) {
             for (int i = 120; i < length; i++) {
                 Trend trend = JsonUtil.get(array.getString(i), Trend.class);
-                newPrice.add(i, trend.newPrice);
-                average.add(i, trend.averagePrice);
+                list.add(trend);
+                newPrice.add(i, format(trend.newPrice));
+                average.add(i, format(trend.averagePrice));
             }
         }
-
         dataSet.addSeries(newPrice);
         dataSet.addSeries(average);
         XYSeriesRenderer newPriceRender = createSeriesRender(getResources().getColor(R.color.newPriceLineColor));
@@ -119,21 +151,30 @@ public class TimeLineFragment extends BaseFragment implements View.OnClickListen
         mChartView.repaint();
     }
 
+    float format(float value) {
+//        BigDecimal decimal = new BigDecimal(value);
+//        float v = decimal.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+//        Log.i("value","v:"+value);
+        return value;
+    }
+
     /**
      * 初始化render参数
      */
     private void initRender() {
-
         mRenderer.setAxisTitleTextSize(16);
         mRenderer.setChartTitleTextSize(20);
+
         mRenderer.setLabelsTextSize(15);
-        mRenderer.setLegendTextSize(15);
-        mRenderer.setMargins(new int[]{0, 0, 0, 0});
+        mRenderer.setXLabelsColor(Color.RED);
+        mRenderer.setXLabels(0);
+
+        mRenderer.setMargins(new int[]{LEFT_MARGIN, 15, 0, 0});
         mRenderer.setZoomButtonsVisible(false);
         mRenderer.setPointSize(3);
-        mRenderer.setXLabels(0);
+        mRenderer.setClickEnabled(true);
+        mRenderer.setSelectableBuffer(20);
         mRenderer.setShowGrid(true);
-
         //边界颜色
         mRenderer.setMarginsColor(Color.GRAY);
         //设置起始时间为9:30
@@ -164,9 +205,9 @@ public class TimeLineFragment extends BaseFragment implements View.OnClickListen
         render.setPointStyle(PointStyle.POINT);
         render.setFillPoints(true);
         render.setDisplayChartValues(false);
+        render.setChartValuesFormat(new DecimalFormat(".00"));
         render.setDisplayChartValuesDistance(10);
         render.setColor(color);
-
         return render;
     }
 
@@ -181,6 +222,37 @@ public class TimeLineFragment extends BaseFragment implements View.OnClickListen
                             + " data point index " + seriesSelection.getPointIndex() + " was clicked"
                             + " closest point value X=" + seriesSelection.getXValue() + ", Y="
                             + seriesSelection.getValue(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class ChartCover extends TimeLineCover {
+        public ChartCover(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void onSelect(float touchX) {
+            coverX = touchX;
+            float xInChart = touchX - LEFT_MARGIN;
+            int startX = (int) mRenderer.getXAxisMin();
+
+            //当前屏幕坐标点数
+            int axisPointNumber = (int) (mRenderer.getXAxisMax() - mRenderer.getXAxisMin());
+            //当前屏幕x轴宽度
+            float axisWidth = getWidth() - LEFT_MARGIN;
+
+            int offset = (int) ((xInChart / axisWidth) * axisPointNumber);
+
+            int position = startX + offset;
+
+            XYSeries seriesAt = dataSet.getSeriesAt(0);
+            position = Math.max(0, position);
+            position = Math.min(list.size() - 1, position);
+
+            Trend trend = list.get(position);
+            String o = "position:" + position + " newPrice:" + trend.newPrice + " avePrice:" + trend.averagePrice;
+            SLog.debug_format(o);
+            mText.setText(o);
         }
     }
 

@@ -2,7 +2,7 @@ package com.sp.lib.common.support.cache;
 
 import com.sp.lib.common.exception.SlibInitialiseException;
 import com.sp.lib.common.util.FileUtil;
-import com.sp.lib.common.util.Md5;
+import com.sp.lib.common.admin.Md5;
 
 import java.io.File;
 import java.io.IOException;

@@ -13,12 +13,12 @@ public class LockTest extends SlibDemoWrapper {
     protected void onCreate() {
         setContentView(R.layout.sample_slock_view);
         LockView lockView = (LockView) findViewById(R.id.lock);
-        lockView.setLock(new MyLock(new char[]{}));
+        lockView.setLock(new MyLock(""));
     }
 
     private class MyLock extends NineLock {
 
-        public MyLock(char[] secret) {
+        public MyLock(String secret) {
             super(secret);
         }
 

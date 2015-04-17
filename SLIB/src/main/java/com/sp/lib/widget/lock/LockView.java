@@ -1,6 +1,7 @@
 package com.sp.lib.widget.lock;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -23,8 +24,9 @@ public class LockView extends View {
     //水平间隔
     private int horizontalSpacing;
 
-    private final int[] SELECTED = new int[]{android.R.attr.state_checked};
-    private final int[] UNSELECTED = new int[]{-android.R.attr.state_checked};
+    private final int[] STATUS_SELECTED = new int[]{-android.R.attr.state_first, android.R.attr.state_checked};
+    private final int[] STATUS_ERROR = new int[]{-android.R.attr.state_first, -android.R.attr.state_checked};
+    private final int[] STATUS_FIRST = new int[]{android.R.attr.state_first};
     //锁
     NineLock mLock;
     //绘制路线的画笔
@@ -37,6 +39,10 @@ public class LockView extends View {
     float touchY = NO_TOUCH;
 
     private int mLayoutSquare;
+
+    private int lineFailColor;
+    private int lineSuccessColor;
+    private int lineNormalColor;
 
     public LockView(Context context) {
         this(context, null);
@@ -60,13 +66,16 @@ public class LockView extends View {
         if (TextUtils.isEmpty(password)) {
             password = "";
         }
-        mLock = new NineLock(password.toCharArray());
+        mLock = new NineLock(password);
+        ColorStateList lineColor = a.getColorStateList(R.styleable.LockView_lineColor);
+        lineFailColor = lineColor.getColorForState(new int[]{-android.R.attr.state_first, -android.R.attr.state_checked}, Color.RED);
+        lineSuccessColor = lineColor.getColorForState(new int[]{-android.R.attr.state_first, android.R.attr.state_checked}, Color.GREEN);
+        lineNormalColor = lineColor.getColorForState(new int[]{android.R.attr.state_first}, Color.WHITE);
 
         pathPaint = new Paint();
-        pathPaint.setColor(Color.GREEN);
         pathPaint.setStyle(Paint.Style.STROKE);
         pathPaint.setStrokeWidth(8);
-        pathPaint.setColor(a.getColor(R.styleable.LockView_lineColor, Color.WHITE));
+        pathPaint.setColor(lineNormalColor);
         a.recycle();
     }
 
@@ -110,15 +119,17 @@ public class LockView extends View {
         int drawableWidth = drawable.getBounds().width();
         int drawableHeight = drawable.getBounds().height();
 
-
         for (int row = 0; row < 3; row++) {
+            //绘制9个锁
             canvas.save();
             canvas.translate(paddingLeft, getY(row));
             for (int column = 0; column < 3; column++) {
                 if (isSelected(row, column)) {
-                    drawable.setState(SELECTED);
+                    drawable.setState(touchX == NO_TOUCH && !mLock.tryUnLock()
+                            ? STATUS_ERROR
+                            : STATUS_SELECTED);
                 } else {
-                    drawable.setState(UNSELECTED);
+                    drawable.setState(STATUS_FIRST);
                 }
                 drawable.draw(canvas);
                 canvas.translate(horizontalSpacing + drawableWidth, 0);
@@ -192,20 +203,36 @@ public class LockView extends View {
         }
 
         int action = event.getAction();
+
+        if (action == MotionEvent.ACTION_DOWN) {
+            mLock.reset();
+            removeCallbacks(showUnlockResult);
+        }
+
         if (action == MotionEvent.ACTION_UP) {
             if (mLock.tryUnLock()) {
-                pathPaint.setColor(Color.GREEN);
+                pathPaint.setColor(lineSuccessColor);
             } else {
-                pathPaint.setColor(Color.RED);
+                pathPaint.setColor(lineFailColor);
             }
             touchX = NO_TOUCH;
             touchY = NO_TOUCH;
+            postDelayed(showUnlockResult, 1000);
         } else {
-            pathPaint.setColor(Color.WHITE);
+            pathPaint.setColor(lineNormalColor);
         }
         invalidate();
+
         return true;
     }
 
+    private Runnable showUnlockResult = new Runnable() {
+
+        @Override
+        public void run() {
+            mLock.reset();
+            invalidate();
+        }
+    };
 
 }

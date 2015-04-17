@@ -1,10 +1,10 @@
 package com.yjy998.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
+import com.sp.lib.widget.lock.LockView;
+import com.sp.lib.widget.lock.NineLock;
+import com.yjy998.AppDelegate;
 import com.yjy998.R;
 
 public class LockActivity extends YJYActivity {
@@ -14,6 +14,22 @@ public class LockActivity extends YJYActivity {
         super.onCreate(savedInstanceState);
         getActionBar().hide();
         setContentView(R.layout.activity_lock);
+        LockView lockView = (LockView) findViewById(R.id.lockView);
+        lockView.setLock(new NineLock() {
+            @Override
+            public boolean tryUnLock() {
+                boolean equals = "456".equals(getSecret());
+                if (equals) {
+                    AppDelegate.getInstance().unLockScreen();
+                    finish();
+                }
+                return equals;
+            }
+        });
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
 }

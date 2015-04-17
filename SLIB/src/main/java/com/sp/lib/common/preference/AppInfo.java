@@ -1,4 +1,4 @@
-package com.sp.lib;
+package com.sp.lib.common.preference;
 
 public class AppInfo {
     public static final String background = "background";

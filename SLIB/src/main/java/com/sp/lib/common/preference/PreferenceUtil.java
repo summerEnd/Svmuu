@@ -1,8 +1,10 @@
-package com.sp.lib.common.util;
+package com.sp.lib.common.preference;
 
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.sp.lib.common.util.ContextUtil;
 
 public class PreferenceUtil {
     public static SharedPreferences getPreference(Class cls) {

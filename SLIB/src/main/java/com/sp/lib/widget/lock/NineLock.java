@@ -12,11 +12,14 @@ public class NineLock implements ILock {
 
     private String mSecret = "";
 
+    public NineLock(){
+        this("");
+    }
 
-    public NineLock(char[] secret) {
-        int length = Math.min(secret.length, RAW_PASSWORD.length);
+    public NineLock(String secret) {
+        int length = Math.min(secret.length(), RAW_PASSWORD.length);
         for (int i = 0; i < length; i++) {
-            appendSecret(secret[i]);
+            appendSecret(secret.charAt(i));
         }
     }
 
@@ -114,7 +117,6 @@ public class NineLock implements ILock {
 
     @Override
     public boolean tryUnLock() {
-        reset();
         return false;
     }
 

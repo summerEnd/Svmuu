@@ -18,7 +18,7 @@ public abstract class TimeLineCover extends View {
         super(context);
         paint = new Paint();
         paint.setColor(Color.WHITE);
-        PathEffect effects = new DashPathEffect(new float[] { 1, 1.5f}, 1);
+        PathEffect effects = new DashPathEffect(new float[]{1, 1.5f}, 1);
         paint.setPathEffect(effects);
     }
 
@@ -28,6 +28,7 @@ public abstract class TimeLineCover extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 drawLine = true;
+                onSelect(touchX);
                 break;
             case MotionEvent.ACTION_MOVE:
                 break;
@@ -47,8 +48,5 @@ public abstract class TimeLineCover extends View {
             canvas.drawLine(touchX, 0, touchX, getHeight(), paint);
     }
 
-    /**
-     * @param touchPoint 触摸点,取值范围0.0-1.0。0最左，1最右
-     */
     protected abstract void onSelect(float touchPoint);
 }

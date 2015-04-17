@@ -9,15 +9,16 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/logo" />
+        android:src="@drawable/logo" />
 
     <com.sp.lib.widget.lock.LockView
+        android:id="@+id/lockView"
         android:layout_width="@dimen/lock_layout_width"
         app:src="@drawable/lock"
         app:layoutSquare="width"
         app:verticalSpacing="@dimen/lock_spacing"
         app:horizontalSpacing="@dimen/lock_spacing"
-        app:lineColor="#00264f"
+        app:lineColor="@drawable/lock_line"
         android:layout_height="match_parent" />
 
     <TextView

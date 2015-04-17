@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--success-->
+    <item android:state_first="false" android:state_checked="true" android:color="#00264f" />
+    <!--fail-->
+    <item android:state_first="false" android:state_checked="false" android:color="#960015" />
+    <!--normal-->
+    <item android:state_first="true" android:color="#00264f" />
+</selector>
