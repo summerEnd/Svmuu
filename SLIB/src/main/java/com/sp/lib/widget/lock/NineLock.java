@@ -78,10 +78,10 @@ public class NineLock implements ILock {
         } else if (lastColumn == curColumn) {
             //同一列
             fixedColumn = lastColumn;
-            if (Math.abs(lastRow - curColumn) == 2) {
+            if (Math.abs(lastRow - curRow) == 2) {
                 fixedRow = (lastRow + curRow) / 2;
             }
-        } else if (Math.abs(lastColumn - curColumn) == 2 && Math.abs(lastRow - curColumn) == 2) {
+        } else if (Math.abs(lastColumn - curColumn) == 2 && Math.abs(lastRow - curRow) == 2) {
             //对角线
             fixedColumn = (lastColumn + curColumn) / 2;
             fixedRow = (lastRow + curRow) / 2;

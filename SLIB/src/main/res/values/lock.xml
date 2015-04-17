@@ -5,5 +5,12 @@
         <attr name="verticalSpacing" format="dimension" />
         <attr name="horizontalSpacing" format="dimension" />
         <attr name="password" format="string" />
+        <attr name="lineColor" format="color" />
+        <attr name="layoutSquare" format="enum">
+            <enum name="width" value="1" />
+            <enum name="height" value="2" />
+            <enum name="shorter" value="3" />
+            <enum name="longer" value="4" />
+        </attr>
     </declare-styleable>
 </resources>

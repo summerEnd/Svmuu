@@ -1,18 +1,16 @@
 package com.sp.lib.support.util;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sp.lib.R;
-import com.sp.lib.Slib;
+import com.sp.lib.SApplication;
 
 import java.util.Random;
 
@@ -88,7 +86,7 @@ public class ContextUtil {
     }
 
     public static final void toast_debug(Object o) {
-        if (Slib.DEBUG) {
+        if (SApplication.DEBUG) {
             toast(o);
         }
     }

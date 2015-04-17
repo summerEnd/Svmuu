@@ -10,4 +10,5 @@
     <string name="title_activity_lock">LockActivity</string>
     <string name="title_activity_enter">EnterActivity</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="forget_hand_password">忘记手势密码</string>
 </resources>

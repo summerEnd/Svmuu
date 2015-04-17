@@ -13,21 +13,30 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.sp.lib.R;
+import com.sp.lib.widget.LayoutSquare;
 
 public class LockView extends View {
 
     private Drawable drawable;
-
+    //垂直间隔
     private int verticalSpacing;
+    //水平间隔
     private int horizontalSpacing;
-    private String password;
+
     private final int[] SELECTED = new int[]{android.R.attr.state_checked};
     private final int[] UNSELECTED = new int[]{-android.R.attr.state_checked};
+    //锁
     NineLock mLock;
+    //绘制路线的画笔
     Paint pathPaint;
+    //没有触点
+    private final float NO_TOUCH = -500;
+    //当前触摸的X坐标
+    float touchX = NO_TOUCH;
+    //挡墙触摸的Y坐标
+    float touchY = NO_TOUCH;
 
-    float touchX;
-    float touchY;
+    private int mLayoutSquare;
 
     public LockView(Context context) {
         this(context, null);
@@ -43,7 +52,11 @@ public class LockView extends View {
         verticalSpacing = a.getDimensionPixelOffset(R.styleable.LockView_verticalSpacing, 0);
         horizontalSpacing = a.getDimensionPixelOffset(R.styleable.LockView_horizontalSpacing, 0);
         drawable = a.getDrawable(R.styleable.LockView_src);
-        password = a.getString(R.styleable.LockView_password);
+        if (drawable == null) {
+            drawable = getResources().getDrawable(R.drawable.tab_selector);
+        }
+        mLayoutSquare = a.getInt(R.styleable.LockView_layoutSquare, LayoutSquare.NONE);
+        String password = a.getString(R.styleable.LockView_password);
         if (TextUtils.isEmpty(password)) {
             password = "";
         }
@@ -53,6 +66,7 @@ public class LockView extends View {
         pathPaint.setColor(Color.GREEN);
         pathPaint.setStyle(Paint.Style.STROKE);
         pathPaint.setStrokeWidth(8);
+        pathPaint.setColor(a.getColor(R.styleable.LockView_lineColor, Color.WHITE));
         a.recycle();
     }
 
@@ -68,6 +82,10 @@ public class LockView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+        if (mLayoutSquare != LayoutSquare.NONE) {
+            widthMeasureSpec = heightMeasureSpec = LayoutSquare.apply(mLayoutSquare, widthMeasureSpec, heightMeasureSpec);
+        }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int paddingLeft = getPaddingLeft();
         int paddingRight = getPaddingRight();
@@ -131,8 +149,8 @@ public class LockView extends View {
             }
             path.lineTo(X(position) + halfDrawableWidth, Y(position) + halfDrawableHeight);
         }
-
-        path.lineTo(touchX, touchY);
+        if (touchX != NO_TOUCH && touchY != NO_TOUCH)
+            path.lineTo(touchX, touchY);
 
         canvas.drawPath(path, pathPaint);
     }
@@ -180,11 +198,14 @@ public class LockView extends View {
             } else {
                 pathPaint.setColor(Color.RED);
             }
+            touchX = NO_TOUCH;
+            touchY = NO_TOUCH;
         } else {
             pathPaint.setColor(Color.WHITE);
         }
-
         invalidate();
         return true;
     }
+
+
 }

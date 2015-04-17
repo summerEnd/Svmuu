@@ -3,6 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light">
         <item name="android:windowAnimationStyle">@style/window_animation</item>
+        <item name="android:screenOrientation">portrait</item>
     </style>
 
     <style name="window_animation">

@@ -1,5 +1,8 @@
 package com.sp.lib;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.Application;
 import android.content.Context;
 
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -8,24 +11,22 @@ import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.sp.lib.demo.SlibDemo;
 import com.sp.lib.exception.ExceptionHandler;
 import com.sp.lib.exception.SlibInitialiseException;
-import com.sp.lib.support.util.ContextUtil;
 import com.sp.lib.support.cache.CacheManager;
+import com.sp.lib.support.util.ContextUtil;
 import com.sp.lib.support.util.FileUtil;
 
 import java.io.File;
+import java.util.List;
 
-public class Slib {
-    public static boolean DEBUG = false;
+public class SApplication extends Application {
 
-    /**
-     * @param context 一个全局性的Context
-     * @param debug   传BuildConfig.DEBUG
-     */
-    public static final void initialize(Context context, boolean debug) {
-
-        Slib.DEBUG = debug;
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Context context = getApplicationContext();
         try {
             initImageLoader(context);
             ExceptionHandler.init();
@@ -37,7 +38,17 @@ public class Slib {
         }
     }
 
-    private static void initImageLoader(Context context) {
+    public void setMainTest(Class<? extends Activity> activity) {
+        SlibDemo.setMainTest(activity);
+    }
+
+    public void setDebug(boolean debug) {
+        SApplication.DEBUG = debug;
+    }
+
+    public static boolean DEBUG = false;
+
+    private void initImageLoader(Context context) {
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
                 .denyCacheImageMultipleSizesInMemory()
@@ -55,8 +66,7 @@ public class Slib {
     /**
      * 清除Slib的所有缓存
      */
-    public static final void clearCache() {
-
+    public final void clearCache() {
         CacheManager.clearAll();
         ImageLoader.getInstance().clearDiskCache();
     }
@@ -67,9 +77,32 @@ public class Slib {
      *
      * @return Slib缓存的大小
      */
-    public static final long getCacheSize() {
+    public final long getCacheSize() {
 
         return FileUtil.getSize(ContextUtil.getContext().getCacheDir()) + CacheManager.getCacheSize();
+    }
+
+    /**
+     * app是否在前台运行
+     *
+     * @return
+     */
+    public boolean didAppRunForeground() {
+        int importance = getProcessImportance(this);
+        return importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+    }
+
+    public static int getProcessImportance(Context applicationContext) {
+        ActivityManager manager = (ActivityManager) applicationContext.getSystemService(Context.ACTIVITY_SERVICE);
+        String packageName = applicationContext.getPackageName();
+        List<ActivityManager.RunningAppProcessInfo> runningAppProcesses = manager.getRunningAppProcesses();
+        if (runningAppProcesses != null)
+            for (ActivityManager.RunningAppProcessInfo app : runningAppProcesses) {
+                if (app.processName.equals(packageName)) {
+                    return app.importance;
+                }
+            }
+        return ActivityManager.RunningAppProcessInfo.IMPORTANCE_EMPTY;
     }
 
 }

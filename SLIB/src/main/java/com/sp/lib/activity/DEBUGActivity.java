@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sp.lib.R;
-import com.sp.lib.Slib;
+import com.sp.lib.SApplication;
 import com.sp.lib.support.cache.CacheManager;
 
 import java.util.LinkedList;
@@ -91,7 +91,7 @@ public class DEBUGActivity extends FragmentActivity implements ViewPager.OnPageC
                     .append("<th>app_name :</th>").append("<tr>").append(getString(info.applicationInfo.labelRes)).append("</tr>")
                     .append("<th>ver_name :</th>").append("<tr>").append(info.versionName).append("</tr>")
                     .append("<th>ver_code :</th>").append("<tr>").append(info.versionCode).append("</tr>")
-                    .append("<th>log_open :</th>").append("<tr>").append(Slib.DEBUG).append("</tr>")
+                    .append("<th>log_open :</th>").append("<tr>").append(SApplication.DEBUG).append("</tr>")
                     .append("</table>")
             ;
 
