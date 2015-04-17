@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.sp.lib.R;
 import com.sp.lib.activity.SlibActivity;
-import com.sp.lib.support.util.ContextUtil;
+import com.sp.lib.common.util.ContextUtil;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

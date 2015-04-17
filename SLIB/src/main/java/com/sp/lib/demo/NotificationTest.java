@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.sp.lib.R;
-import com.sp.lib.support.NotificationUtil;
+import com.sp.lib.common.support.NotificationUtil;
 
 public class NotificationTest extends SlibDemoWrapper {
     public NotificationTest(SlibDemo demo) {

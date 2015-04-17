@@ -1,31 +1,23 @@
 package com.sp.lib.activity.album;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.sp.lib.R;
-import com.sp.lib.support.util.DisplayUtil;
-import com.sp.lib.support.util.ImageUtil;
+import com.sp.lib.common.util.DisplayUtil;
 
 import java.util.List;
 
-import static com.sp.lib.support.util.DisplayUtil.getScreenSize;
+import static com.sp.lib.common.util.DisplayUtil.getScreenSize;
 
 /**
  * 照片

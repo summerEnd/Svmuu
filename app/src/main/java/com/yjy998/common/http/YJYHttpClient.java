@@ -1,7 +1,7 @@
 package com.yjy998.common.http;
 
-import com.sp.lib.support.net.client.SHttpClient;
-import com.sp.lib.support.net.client.SRequest;
+import com.sp.lib.common.support.net.client.SHttpClient;
+import com.sp.lib.common.support.net.client.SRequest;
 
 /**
  * 所有网络请求统一入口

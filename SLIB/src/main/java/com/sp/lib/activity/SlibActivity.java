@@ -1,16 +1,8 @@
 package com.sp.lib.activity;
 
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-
-import com.sp.lib.support.IntentFactory;
-
-import java.util.List;
-
-import static android.app.ActivityManager.RunningAppProcessInfo;
 
 
 public class SlibActivity extends Activity {

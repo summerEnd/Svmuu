@@ -24,7 +24,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.sp.lib.R;
-import com.sp.lib.support.util.DisplayUtil;
+import com.sp.lib.common.util.DisplayUtil;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 @SuppressWarnings("unused")

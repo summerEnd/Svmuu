@@ -1,16 +1,13 @@
 package com.sp.lib.widget.slide;
 
 import android.content.Context;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.sp.lib.support.util.ContextUtil;
 import com.sp.lib.widget.slide.transform.Transformer;
 
 public class SlideLayout extends FrameLayout {

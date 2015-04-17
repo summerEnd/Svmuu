@@ -10,20 +10,17 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sp.lib.R;
-import com.sp.lib.support.adapter.ViewHolderAdapter;
-import com.sp.lib.support.net.Downloader;
-import com.sp.lib.support.util.ContextUtil;
+import com.sp.lib.common.support.adapter.ViewHolderAdapter;
+import com.sp.lib.common.support.net.Downloader;
+import com.sp.lib.common.util.ContextUtil;
 
 import java.io.File;
 import java.util.ArrayList;

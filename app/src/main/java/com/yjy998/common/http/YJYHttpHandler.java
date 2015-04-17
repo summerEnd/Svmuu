@@ -2,7 +2,7 @@ package com.yjy998.common.http;
 
 import android.app.Dialog;
 
-import com.sp.lib.support.net.client.SHttpProgressHandler;
+import com.sp.lib.common.support.net.client.SHttpProgressHandler;
 
 import org.apache.http.Header;
 import org.json.JSONArray;

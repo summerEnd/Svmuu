@@ -20,13 +20,13 @@ import android.widget.TextView;
 
 import com.sp.lib.R;
 import com.sp.lib.SApplication;
-import com.sp.lib.support.cache.CacheManager;
+import com.sp.lib.common.support.cache.CacheManager;
 
 import java.util.LinkedList;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-import static com.sp.lib.exception.ExceptionHandler.ErrorLog;
+import static com.sp.lib.common.exception.ExceptionHandler.ErrorLog;
 
 /**
  * 这个类可以做以下事情
