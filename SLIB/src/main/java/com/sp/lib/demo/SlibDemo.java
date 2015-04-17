@@ -21,7 +21,7 @@ public class SlibDemo extends Activity implements AdapterView.OnItemClickListene
     private final String EXTRA_TEST = "activity_test";
     Stack<SlibDemoWrapper> mStacks = new Stack<SlibDemoWrapper>();
     private Menu mMenu;
-
+    public static Class<? extends Activity> main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,9 @@ public class SlibDemo extends Activity implements AdapterView.OnItemClickListene
     private void testList() {
         if (mTests.size() == 0) {
             // Add Test here
+            if (main!=null){
+                mTests.add(new MainTest(this,main));
+            }
             mTests.add(new BackPressTest(this));
             mTests.add(new DownloadTest(this));
             mTests.add(new ContentProviderTest(this));
@@ -45,6 +48,7 @@ public class SlibDemo extends Activity implements AdapterView.OnItemClickListene
             mTests.add(new SlidingTest(this));
             mTests.add(new AlbumTest(this));
             mTests.add(new DebugTest(this));
+            mTests.add(new LockTest(this));
         }
         ListView listView = new ListView(this);
         setContentView(listView);

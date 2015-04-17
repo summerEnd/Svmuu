@@ -11,7 +11,7 @@ import org.json.JSONObject;
 /**
  * Http请求返回结果处理
  */
-public final class YJYHttpHandler extends SHttpProgressHandler {
+public  class YJYHttpHandler extends SHttpProgressHandler {
     @Override
     public Dialog onCreateDialog() {
         return null;

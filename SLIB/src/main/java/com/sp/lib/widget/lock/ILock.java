@@ -1,11 +1,8 @@
 package com.sp.lib.widget.lock;
 
-import android.graphics.drawable.Drawable;
-
 public interface ILock {
-    public void unLock();
+    public boolean tryUnLock();
 
-    public void lock();
+    public void reset();
 
-    public boolean compare();
 }

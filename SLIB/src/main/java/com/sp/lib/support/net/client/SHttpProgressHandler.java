@@ -67,7 +67,7 @@ public abstract class SHttpProgressHandler extends JsonHttpResponseHandler imple
         } else {
             log = String.valueOf(o);
         }
-
+        Log.i("",log);
     }
 
 }

@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yjy998">
+    package="com.yjy998" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:allowBackup="true"
         android:name=".AppDelegate"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.sp.lib.activity.album.PhotoAlbumActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.sp.lib.activity.DEBUGActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity android:name="com.sp.lib.demo.SlibDemo" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,17 +35,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.sp.lib.activity.album.PhotoAlbumActivity"
-            android:label="@string/app_name">
-
+            android:name=".activity.ChartActivity"
+            android:label="@string/title_activity_chart" >
         </activity>
         <activity
-            android:name="com.sp.lib.activity.DEBUGActivity"
-            android:label="@string/app_name">
-
+            android:name=".activity.LockActivity"
+            android:label="@string/title_activity_lock" >
         </activity>
-        <activity android:name="com.sp.lib.demo.SlibDemo">
-
+        <activity
+            android:name=".activity.EnterActivity"
+            android:label="@string/title_activity_enter" >
+        </activity>
+        <activity
+            android:name=".activity.TestActivity"
+            android:label="@string/title_activity_test" >
         </activity>
     </application>
 

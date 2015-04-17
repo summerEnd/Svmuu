@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LockView">
+        <attr name="src" format="reference" />
+        <attr name="verticalSpacing" format="dimension" />
+        <attr name="horizontalSpacing" format="dimension" />
+        <attr name="password" format="string" />
+    </declare-styleable>
+</resources>

@@ -34,6 +34,10 @@ public class SHttpClient {
         client.post(params.getUrl(), params, handler);
     }
 
+    public static void get(SRequest params, AsyncHttpResponseHandler handler){
+        client.get(params.getUrl(),params,handler);
+    }
+
     /**
      * indicates whether network connectivity exists and it is possible to establish
      * connections and pass data. Always call this before attempting to perform data transactions.

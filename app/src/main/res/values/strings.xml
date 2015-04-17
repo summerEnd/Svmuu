@@ -4,4 +4,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="contentDescription_image">Image</string>
+    <string name="title_activity_chart">ChartActivity</string>
+    <string name="average_price">均价</string>
+    <string name="newest_price">最新价</string>
+    <string name="title_activity_lock">LockActivity</string>
+    <string name="title_activity_enter">EnterActivity</string>
+    <string name="title_activity_test">TestActivity</string>
 </resources>

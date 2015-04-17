@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#ffffff</color>
+
+    <color name="newPriceLineColor">#BE8C4B</color>
+    <color name="averagePriceLineColor">#824037</color>
+    <color name="fillBelowColor">#B4AA9E</color>
 </resources>

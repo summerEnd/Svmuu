@@ -32,7 +32,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int a_in=0x7f01000f;
+        public static int a_in=0x7f010013;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -40,13 +40,13 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int a_out=0x7f010010;
+        public static int a_out=0x7f010014;
         /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
-        public static int curTabtextColor=0x7f010004;
+        public static int curTabtextColor=0x7f010008;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -56,13 +56,13 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int curTabtextSize=0x7f010006;
+        public static int curTabtextSize=0x7f01000a;
         /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
-        public static int dividerColor=0x7f010002;
+        public static int dividerColor=0x7f010006;
         /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
 <p>This may also be a reference to a resource (in the form
@@ -71,7 +71,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int indicatorColor=0x7f010000;
+        public static int exampleColor=0x7f01001b;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -81,7 +81,21 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int indicatorHeight=0x7f010007;
+        public static int exampleDimension=0x7f01001a;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static int exampleDrawable=0x7f01001c;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int exampleString=0x7f010019;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -91,7 +105,44 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int scrollOffset=0x7f01000b;
+        public static int horizontalSpacing=0x7f010002;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int indicatorColor=0x7f010004;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int indicatorHeight=0x7f01000b;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int password=0x7f010003;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int scrollOffset=0x7f01000f;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -99,11 +150,15 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int shouldExpand=0x7f01000d;
+        public static int shouldExpand=0x7f010011;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static int tabBackground=0x7f01000c;
+        public static int src=0x7f010000;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int tabBackground=0x7f010010;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -113,7 +168,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int tabPaddingLeftRight=0x7f01000a;
+        public static int tabPaddingLeftRight=0x7f01000e;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -123,7 +178,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int tabdividerPadding=0x7f010009;
+        public static int tabdividerPadding=0x7f01000d;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -131,13 +186,13 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int tabtextAllCaps=0x7f01000e;
+        public static int tabtextAllCaps=0x7f010012;
         /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
-        public static int tabtextColor=0x7f010003;
+        public static int tabtextColor=0x7f010007;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -147,7 +202,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int tabtextSize=0x7f010005;
+        public static int tabtextSize=0x7f010009;
         /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
 <p>This may also be a reference to a resource (in the form
@@ -156,7 +211,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int underlineColor=0x7f010001;
+        public static int underlineColor=0x7f010005;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -166,7 +221,17 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int underlineHeight=0x7f010008;
+        public static int underlineHeight=0x7f01000c;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int verticalSpacing=0x7f010001;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -174,7 +239,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int x_in=0x7f010011;
+        public static int x_in=0x7f010015;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -182,7 +247,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int x_out=0x7f010012;
+        public static int x_out=0x7f010016;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -190,7 +255,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int y_in=0x7f010013;
+        public static int y_in=0x7f010017;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -198,7 +263,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int y_out=0x7f010014;
+        public static int y_out=0x7f010018;
     }
     public static final class color {
         public static int album_btn_normal_color=0x7f050000;
@@ -263,20 +328,21 @@ containing a value of this type.
         public static int NotifyCationId_1=0x7f070000;
         public static int NotifyCationId_2=0x7f070001;
         public static int anim_info=0x7f070002;
-        public static int app_name=0x7f070030;
+        public static int app_name=0x7f070031;
         public static int bottom_ll=0x7f070015;
         public static int brand_add_id=0x7f070003;
         public static int button_contain=0x7f07001a;
-        public static int check=0x7f070033;
+        public static int check=0x7f070034;
         public static int clear=0x7f070004;
         public static int dir_name=0x7f07001e;
-        public static int download=0x7f070032;
+        public static int download=0x7f070033;
         public static int grid=0x7f070014;
         public static int gridview=0x7f070005;
         public static int icon=0x7f07001d;
         public static int image=0x7f070017;
         public static int listChildTag=0x7f070006;
         public static int listView=0x7f07001c;
+        public static int lock=0x7f070030;
         public static int num_pics=0x7f07001f;
         public static int parallax_pager=0x7f070007;
         public static int parallax_view_tag=0x7f070008;
@@ -294,7 +360,7 @@ containing a value of this type.
         public static int pull_to_refresh_last_update_time_text=0x7f07002b;
         public static int scrollview=0x7f070009;
         public static int selected=0x7f070020;
-        public static int slib_application=0x7f070031;
+        public static int slib_application=0x7f070032;
         public static int slib_clear=0x7f07000a;
         public static int slib_color=0x7f07000b;
         public static int slib_delete=0x7f07000c;
@@ -331,8 +397,9 @@ containing a value of this type.
         public static int pull_to_refresh_header2=0x7f03000b;
         public static int refresh_footer=0x7f03000c;
         public static int refresh_header=0x7f03000d;
-        public static int share_item=0x7f03000e;
-        public static int share_window=0x7f03000f;
+        public static int sample_slock_view=0x7f03000e;
+        public static int share_item=0x7f03000f;
+        public static int share_window=0x7f030010;
     }
     public static final class menu {
         public static int debug_menu=0x7f0b0000;
@@ -376,6 +443,81 @@ containing a value of this type.
         public static int popup_window_animation=0x7f0a0001;
     }
     public static final class styleable {
+        /** Attributes that can be used with a LockView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #LockView_horizontalSpacing com.sp.lib:horizontalSpacing}</code></td><td></td></tr>
+           <tr><td><code>{@link #LockView_password com.sp.lib:password}</code></td><td></td></tr>
+           <tr><td><code>{@link #LockView_src com.sp.lib:src}</code></td><td></td></tr>
+           <tr><td><code>{@link #LockView_verticalSpacing com.sp.lib:verticalSpacing}</code></td><td></td></tr>
+           </table>
+           @see #LockView_horizontalSpacing
+           @see #LockView_password
+           @see #LockView_src
+           @see #LockView_verticalSpacing
+         */
+        public static final int[] LockView = {
+            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.sp.lib.R.attr#horizontalSpacing}
+          attribute's value can be found in the {@link #LockView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sp.lib:horizontalSpacing
+        */
+        public static final int LockView_horizontalSpacing = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.sp.lib.R.attr#password}
+          attribute's value can be found in the {@link #LockView} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sp.lib:password
+        */
+        public static final int LockView_password = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.sp.lib.R.attr#src}
+          attribute's value can be found in the {@link #LockView} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.sp.lib:src
+        */
+        public static final int LockView_src = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.sp.lib.R.attr#verticalSpacing}
+          attribute's value can be found in the {@link #LockView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sp.lib:verticalSpacing
+        */
+        public static final int LockView_verticalSpacing = 1;
         /** Attributes that can be used with a PagerSlidingTabStrip.
            <p>Includes the following attributes:</p>
            <table>
@@ -415,10 +557,10 @@ containing a value of this type.
            @see #PagerSlidingTabStrip_underlineHeight
          */
         public static final int[] PagerSlidingTabStrip = {
-            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
             0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007,
             0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b,
-            0x7f01000c, 0x7f01000d, 0x7f01000e
+            0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f,
+            0x7f010010, 0x7f010011, 0x7f010012
         };
         /**
           <p>This symbol is the offset where the {@link com.sp.lib.R.attr#curTabtextColor}
@@ -657,8 +799,8 @@ containing a value of this type.
            @see #ParallaxContainer_y_out
          */
         public static final int[] ParallaxContainer = {
-            0x7f01000f, 0x7f010010, 0x7f010011, 0x7f010012,
-            0x7f010013, 0x7f010014
+            0x7f010013, 0x7f010014, 0x7f010015, 0x7f010016,
+            0x7f010017, 0x7f010018
         };
         /**
           <p>This symbol is the offset where the {@link com.sp.lib.R.attr#a_in}
@@ -744,5 +886,81 @@ containing a value of this type.
           @attr name com.sp.lib:y_out
         */
         public static final int ParallaxContainer_y_out = 5;
+        /** Attributes that can be used with a SLockView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #SLockView_exampleColor com.sp.lib:exampleColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #SLockView_exampleDimension com.sp.lib:exampleDimension}</code></td><td></td></tr>
+           <tr><td><code>{@link #SLockView_exampleDrawable com.sp.lib:exampleDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #SLockView_exampleString com.sp.lib:exampleString}</code></td><td></td></tr>
+           </table>
+           @see #SLockView_exampleColor
+           @see #SLockView_exampleDimension
+           @see #SLockView_exampleDrawable
+           @see #SLockView_exampleString
+         */
+        public static final int[] SLockView = {
+            0x7f010019, 0x7f01001a, 0x7f01001b, 0x7f01001c
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.sp.lib.R.attr#exampleColor}
+          attribute's value can be found in the {@link #SLockView} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sp.lib:exampleColor
+        */
+        public static final int SLockView_exampleColor = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.sp.lib.R.attr#exampleDimension}
+          attribute's value can be found in the {@link #SLockView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sp.lib:exampleDimension
+        */
+        public static final int SLockView_exampleDimension = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.sp.lib.R.attr#exampleDrawable}
+          attribute's value can be found in the {@link #SLockView} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          @attr name com.sp.lib:exampleDrawable
+        */
+        public static final int SLockView_exampleDrawable = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.sp.lib.R.attr#exampleString}
+          attribute's value can be found in the {@link #SLockView} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sp.lib:exampleString
+        */
+        public static final int SLockView_exampleString = 0;
     };
 }
