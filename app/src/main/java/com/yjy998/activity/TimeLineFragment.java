@@ -45,7 +45,7 @@ import java.util.List;
 /**
  * 分时线
  */
-public class TimeLineFragment extends BaseFragment implements View.OnClickListener {
+public class TimeLineFragment extends BaseFragment {
 
     /**
      * The chart view that displays the data.
@@ -61,26 +61,26 @@ public class TimeLineFragment extends BaseFragment implements View.OnClickListen
     private final int LEFT_MARGIN = 15;
     float coverX;
     private TextView mText;
+    ChartCover mCover;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_chart_container, null);
         mChartView = ChartFactory.getLineChartView(getActivity(), dataSet, mRenderer);
-        mChartView.setOnClickListener(this);
         mChartView.setBackgroundColor(Color.LTGRAY);
-        final ChartCover child = new ChartCover(getActivity());
+        mCover = new ChartCover(getActivity());
 
         mChartView.addPanListener(new PanListener() {
             @Override
             public void panApplied() {
-                child.onSelect(coverX);
+                mCover.onSelect(coverX);
             }
         });
 
         mText = new TextView(getActivity());
         layout.addView(mChartView);
-        layout.addView(child);
+        layout.addView(mCover);
         layout.addView(mText, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM));
         return layout;
     }
@@ -125,21 +125,21 @@ public class TimeLineFragment extends BaseFragment implements View.OnClickListen
         int length = array.length();
         int amLength = Math.min(length, 120);
         //9:30-11:30
-        for (int i = 0; i < amLength; i++) {
+        for (int i = 0; i < array.length(); i++) {
             Trend trend = JsonUtil.get(array.getString(i), Trend.class);
             list.add(trend);
             newPrice.add(i, format(trend.newPrice));
             average.add(i, format(trend.averagePrice));
         }
 
-        if (length >= 120) {
-            for (int i = 120; i < length; i++) {
-                Trend trend = JsonUtil.get(array.getString(i), Trend.class);
-                list.add(trend);
-                newPrice.add(i, format(trend.newPrice));
-                average.add(i, format(trend.averagePrice));
-            }
-        }
+//        if (length >= 120) {
+//            for (int i = 120; i < length; i++) {
+//                Trend trend = JsonUtil.get(array.getString(i), Trend.class);
+//                list.add(trend);
+//                newPrice.add(i, format(trend.newPrice));
+//                average.add(i, format(trend.averagePrice));
+//            }
+//        }
         dataSet.addSeries(newPrice);
         dataSet.addSeries(average);
         XYSeriesRenderer newPriceRender = createSeriesRender(getResources().getColor(R.color.newPriceLineColor));
@@ -204,26 +204,10 @@ public class TimeLineFragment extends BaseFragment implements View.OnClickListen
         XYSeriesRenderer render = new XYSeriesRenderer();
         render.setPointStyle(PointStyle.POINT);
         render.setFillPoints(true);
-        render.setDisplayChartValues(false);
-        render.setChartValuesFormat(new DecimalFormat(".00"));
-        render.setDisplayChartValuesDistance(10);
         render.setColor(color);
         return render;
     }
 
-    @Override
-    public void onClick(View v) {
-        SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-        if (seriesSelection != null) {
-            // display information of the clicked point
-            Toast.makeText(
-                    getActivity(),
-                    "Chart element in series index " + seriesSelection.getSeriesIndex()
-                            + " data point index " + seriesSelection.getPointIndex() + " was clicked"
-                            + " closest point value X=" + seriesSelection.getXValue() + ", Y="
-                            + seriesSelection.getValue(), Toast.LENGTH_SHORT).show();
-        }
-    }
 
     private class ChartCover extends TimeLineCover {
         public ChartCover(Context context) {
@@ -245,7 +229,6 @@ public class TimeLineFragment extends BaseFragment implements View.OnClickListen
 
             int position = startX + offset;
 
-            XYSeries seriesAt = dataSet.getSeriesAt(0);
             position = Math.max(0, position);
             position = Math.min(list.size() - 1, position);
 
