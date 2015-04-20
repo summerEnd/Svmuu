@@ -11,4 +11,14 @@
     <string name="title_activity_enter">EnterActivity</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="forget_hand_password">忘记手势密码</string>
+    <string name="chartInfo">最新价：%1$.2f 均价:%2$.2f p:%3$d</string>
+    <string name="__testPhone">18761844602</string>
+    <string name="login">登录</string>
+    <string name="hint_phone">手机号码</string>
+    <string name="hint_password">密码</string>
+    <string name="hint_yzm">验证码</string>
+    <string name="protocolText">注册代表您同意《网上申请用户协议》</string>
+    <string name="resend_d">重新发送（%d）</string>
+    <string name="resend">重新发送</string>
+    <string name="forget_password">忘记密码？</string>
 </resources>

@@ -4,6 +4,12 @@
     <style name="AppTheme" parent="android:Theme.Holo.Light">
         <item name="android:windowAnimationStyle">@style/window_animation</item>
         <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:actionBarSize">@dimen/actionBarHeight</item>
+        <item name="android:actionBarStyle">@style/mActionBarStyle</item>
+        <item name="android:textColorHint">#bebebe</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:dialogTheme">@style/loginDialog</item>
     </style>
 
     <style name="window_animation">
@@ -14,5 +20,22 @@
         <!--关闭activity时的动画-->
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <style name="mActionBarStyle" parent="android:Widget.Holo.Light.ActionBar">
+        <item name="android:background">@drawable/actionBarBackground</item>
+    </style>
+
+    <style name="loginDialog" parent="android:Theme.Holo.Light.Dialog.MinWidth">
+        <item name="android:background">#0000</item>
+        <item name="android:windowBackground">@drawable/login_dialog_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/dialogAnimation</item>
+    </style>
+
+    <style name="dialogAnimation">
+        <item name="android:windowShowAnimation">@anim/slide_up_in</item>
+        <item name="android:windowEnterAnimation">@anim/slide_up_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_down_out</item>
     </style>
 </resources>

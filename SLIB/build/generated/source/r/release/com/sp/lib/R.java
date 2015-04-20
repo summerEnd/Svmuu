@@ -330,14 +330,14 @@ containing a value of this type.
         public static int NotifyCationId_1=0x7f060004;
         public static int NotifyCationId_2=0x7f060005;
         public static int anim_info=0x7f060006;
-        public static int app_name=0x7f060035;
+        public static int app_name=0x7f060034;
         public static int bottom_ll=0x7f060019;
         public static int brand_add_id=0x7f060007;
         public static int button_contain=0x7f06001e;
-        public static int check=0x7f060038;
+        public static int check=0x7f060037;
         public static int clear=0x7f060008;
         public static int dir_name=0x7f060022;
-        public static int download=0x7f060037;
+        public static int download=0x7f060036;
         public static int grid=0x7f060018;
         public static int gridview=0x7f060009;
         public static int height=0x7f060001;
@@ -345,7 +345,6 @@ containing a value of this type.
         public static int image=0x7f06001b;
         public static int listChildTag=0x7f06000a;
         public static int listView=0x7f060020;
-        public static int lock=0x7f060034;
         public static int longer=0x7f060003;
         public static int num_pics=0x7f060023;
         public static int parallax_pager=0x7f06000b;
@@ -365,7 +364,7 @@ containing a value of this type.
         public static int scrollview=0x7f06000d;
         public static int selected=0x7f060024;
         public static int shorter=0x7f060002;
-        public static int slib_application=0x7f060036;
+        public static int slib_application=0x7f060035;
         public static int slib_clear=0x7f06000e;
         public static int slib_color=0x7f06000f;
         public static int slib_delete=0x7f060010;
@@ -403,9 +402,8 @@ containing a value of this type.
         public static int pull_to_refresh_header2=0x7f03000b;
         public static int refresh_footer=0x7f03000c;
         public static int refresh_header=0x7f03000d;
-        public static int sample_slock_view=0x7f03000e;
-        public static int share_item=0x7f03000f;
-        public static int share_window=0x7f030010;
+        public static int share_item=0x7f03000e;
+        public static int share_window=0x7f03000f;
     }
     public static final class menu {
         public static int debug_menu=0x7f0b0000;

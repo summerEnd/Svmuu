@@ -4,4 +4,17 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="lock_layout_width">280dp</dimen>
     <dimen name="lock_spacing">35dp</dimen>
+    <dimen name="actionBarHeight">45dp</dimen>
+    <dimen name="menuWidth">260dp</dimen>
+    <dimen name="menuIconSize">35dp</dimen>
+    <dimen name="avatarSize">60dp</dimen>
+    <dimen name="text_22px">14sp</dimen>
+    <dimen name="text_26px">16sp</dimen>
+    <dimen name="text_30px">20sp</dimen>
+    <dimen name="login_dialog_editText_height">43dp</dimen>
+    <dimen name="dimen_38px">16dp</dimen>
+    <dimen name="dimen_44px">20dp</dimen>
+    <dimen name="dialogPadding">8dp</dimen>
+    <dimen name="loginDialog_margin_logo">22dp</dimen>
+    <dimen name="loginDialog_edit_padding_horizontal">25dp</dimen>
 </resources>

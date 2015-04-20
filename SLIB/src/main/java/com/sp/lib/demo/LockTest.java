@@ -11,9 +11,9 @@ public class LockTest extends SlibDemoWrapper {
 
     @Override
     protected void onCreate() {
-        setContentView(R.layout.sample_slock_view);
-        LockView lockView = (LockView) findViewById(R.id.lock);
+        LockView lockView = new LockView(getActivity());
         lockView.setLock(new MyLock(""));
+        setContentView(lockView);
     }
 
     private class MyLock extends NineLock {

@@ -43,7 +43,6 @@ public class LockView extends View {
     private int lineFailColor;
     private int lineSuccessColor;
     private int lineNormalColor;
-
     public LockView(Context context) {
         this(context, null);
     }
@@ -125,9 +124,9 @@ public class LockView extends View {
             canvas.translate(paddingLeft, getY(row));
             for (int column = 0; column < 3; column++) {
                 if (isSelected(row, column)) {
-                    drawable.setState(touchX == NO_TOUCH && !mLock.tryUnLock()
-                            ? STATUS_ERROR
-                            : STATUS_SELECTED);
+                    drawable.setState(touchX == NO_TOUCH && mLock.tryUnLock()
+                            ? STATUS_SELECTED
+                            : STATUS_ERROR);
                 } else {
                     drawable.setState(STATUS_FIRST);
                 }
@@ -235,4 +234,43 @@ public class LockView extends View {
         }
     };
 
+    public int getVerticalSpacing() {
+        return verticalSpacing;
+    }
+
+    public void setVerticalSpacing(int verticalSpacing) {
+        this.verticalSpacing = verticalSpacing;
+    }
+
+    public int getHorizontalSpacing() {
+        return horizontalSpacing;
+    }
+
+    public void setHorizontalSpacing(int horizontalSpacing) {
+        this.horizontalSpacing = horizontalSpacing;
+    }
+
+    public int getLineFailColor() {
+        return lineFailColor;
+    }
+
+    public void setLineFailColor(int lineFailColor) {
+        this.lineFailColor = lineFailColor;
+    }
+
+    public int getLineSuccessColor() {
+        return lineSuccessColor;
+    }
+
+    public void setLineSuccessColor(int lineSuccessColor) {
+        this.lineSuccessColor = lineSuccessColor;
+    }
+
+    public int getLineNormalColor() {
+        return lineNormalColor;
+    }
+
+    public void setLineNormalColor(int lineNormalColor) {
+        this.lineNormalColor = lineNormalColor;
+    }
 }

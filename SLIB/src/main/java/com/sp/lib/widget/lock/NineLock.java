@@ -117,7 +117,7 @@ public class NineLock implements ILock {
 
     @Override
     public boolean tryUnLock() {
-        return false;
+        return true;
     }
 
     @Override

@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="themeColor">#3c3d41</color>
+    <color name="themeColorPressed">#2c2d31</color>
+
+    <color name="themeBlue">#358DE7</color>
+    <color name="themeBluePressed">#257DD7</color>
+
+    <color name="textColorBlack">#322222</color>
+    <color name="textColorGray">#9A9A9A</color>
     <color name="white">#ffffff</color>
+    <color name="transientBlack">#8000</color>
+    <color name="clickBlue">#5C9ACD</color>
 
     <color name="newPriceLineColor">#BE8C4B</color>
     <color name="averagePriceLineColor">#824037</color>
     <color name="fillBelowColor">#B4AA9E</color>
+    <color name="mainMenuColor">#2F2F39</color>
+
+    <drawable name="actionBarBackground">#5643dd</drawable>
 </resources>

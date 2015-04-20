@@ -7,7 +7,7 @@ public class MainTest extends SlibDemoWrapper {
     Class<? extends Activity> cls;
 
     protected MainTest(SlibDemo demo, Class<? extends Activity> cls) {
-        super(demo, "APP Test", "this is the activity set by SlibDemo.main");
+        super(demo, "Enter app", "this is the activity set by SlibDemo.main");
         this.cls = cls;
     }
 
@@ -17,7 +17,4 @@ public class MainTest extends SlibDemoWrapper {
         startActivity(new Intent(getActivity(), cls));
     }
 
-    public class javaScript {
-
-    }
 }

@@ -9,6 +9,7 @@ import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Base64;
 import android.view.View;
 
@@ -98,6 +99,7 @@ public class ImageUtil {
 
         return result;
     }
+
 
     public static Bitmap convertView2Bitmap(View v) {
         final Paint paint = new Paint();

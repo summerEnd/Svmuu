@@ -5,20 +5,34 @@
 
     <FrameLayout
         android:id="@+id/menuContainer"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/menuWidth"
         android:layout_height="match_parent" />
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:background="#cfea22"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:id="@+id/toggle"
-            android:layout_height="wrap_content"
-            android:text="open" />
-    </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/actionBarBackground"
+            android:layout_height="@dimen/actionBarHeight">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:id="@+id/toggle"
+                android:layout_height="wrap_content"
+                android:text="open" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:id="@+id/login"
+                android:onClick="onClick"
+                android:layout_height="wrap_content"
+                android:text="@string/login" />
+        </LinearLayout>
+
+    </LinearLayout>
 </android.support.v4.widget.SlidingPaneLayout>
 
