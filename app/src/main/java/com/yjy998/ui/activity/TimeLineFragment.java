@@ -13,7 +13,7 @@ import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.common.util.SLog;
 import com.yjy998.R;
 import com.yjy998.common.Constant;
-import com.yjy998.view.TimeLineCover;
+import com.yjy998.ui.view.TimeLineCover;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;

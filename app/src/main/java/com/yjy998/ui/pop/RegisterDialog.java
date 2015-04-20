@@ -1,4 +1,4 @@
-package com.yjy998.ui.dialog;
+package com.yjy998.ui.pop;
 
 import android.app.Dialog;
 import android.content.Context;

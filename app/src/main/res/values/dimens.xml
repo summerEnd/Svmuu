@@ -4,7 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="lock_layout_width">280dp</dimen>
     <dimen name="lock_spacing">35dp</dimen>
-    <dimen name="actionBarHeight">45dp</dimen>
+    <dimen name="actionBarHeight">48dp</dimen>
     <dimen name="menuWidth">260dp</dimen>
     <dimen name="menuIconSize">35dp</dimen>
     <dimen name="avatarSize">60dp</dimen>

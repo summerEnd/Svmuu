@@ -60,4 +60,10 @@
     <style name="blueButton.big">
         <item name="android:textSize">@dimen/text_30px</item>
     </style>
+    <style name="tabStyle">
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

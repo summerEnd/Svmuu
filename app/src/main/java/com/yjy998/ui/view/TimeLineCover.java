@@ -1,4 +1,4 @@
-package com.yjy998.view;
+package com.yjy998.ui.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

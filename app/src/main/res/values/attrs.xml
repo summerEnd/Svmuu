@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="text" format="string" />
+    <attr name="textSize" format="dimension" />
+
+    <declare-styleable name="TabItem">
+        <attr name="checked" format="boolean" />
+        <attr name="tabDrawable" format="reference" />
+        <attr name="tabTextColor" format="reference" />
+    </declare-styleable>
+</resources>

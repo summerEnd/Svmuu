@@ -21,4 +21,10 @@
     <string name="resend_d">重新发送（%d）</string>
     <string name="resend">重新发送</string>
     <string name="forget_password">忘记密码？</string>
+    <string name="register">注册</string>
+    <string name="home">首页</string>
+    <string name="real_game_apply">实盘申请</string>
+    <string name="real_game">实盘大赛</string>
+    <string name="center">个人中心</string>
+    <string name="more">更多</string>
 </resources>

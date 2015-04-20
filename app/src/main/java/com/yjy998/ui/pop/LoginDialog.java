@@ -1,4 +1,4 @@
-package com.yjy998.ui.dialog;
+package com.yjy998.ui.pop;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import com.yjy998.R;
 
 public class LoginDialog extends Dialog implements View.OnClickListener {
-    private ImageView closeButton;
     private EditText phoneEdit;
     private EditText passwordEdit;
     private Button confirmButton;
@@ -38,14 +37,19 @@ public class LoginDialog extends Dialog implements View.OnClickListener {
                 dismiss();
                 break;
             }
+            case R.id.forgetText: {
+
+                break;
+            }
         }
     }
 
     private void initialize() {
 
-        closeButton = (ImageView) findViewById(R.id.closeButton);
         phoneEdit = (EditText) findViewById(R.id.phoneEdit);
         passwordEdit = (EditText) findViewById(R.id.passwordEdit);
         confirmButton = (Button) findViewById(R.id.confirmButton);
+        findViewById(R.id.forgetText).setOnClickListener(this);
+        findViewById(R.id.closeButton).setOnClickListener(this);
     }
 }
