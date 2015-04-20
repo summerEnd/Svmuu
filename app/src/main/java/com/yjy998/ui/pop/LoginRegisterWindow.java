@@ -2,6 +2,8 @@ package com.yjy998.ui.pop;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +23,16 @@ public class LoginRegisterWindow extends PopupWindow implements OnClickListener 
     public LoginRegisterWindow(Context context) {
         super(context);
         layout = LayoutInflater.from(context).inflate(R.layout.window_register_login, null);
-
         setContentView(layout);
-        setWindowLayoutMode(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         initialize();
     }
 
     private void initialize() {
-
+        setWindowLayoutMode(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         findViewById(R.id.loginButton).setOnClickListener(this);
         findViewById(R.id.registerButton).setOnClickListener(this);
+
+        setBackgroundDrawable(new ColorDrawable(0));
 
     }
 

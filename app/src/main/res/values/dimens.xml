@@ -17,4 +17,6 @@
     <dimen name="dialogPadding">8dp</dimen>
     <dimen name="loginDialog_margin_logo">22dp</dimen>
     <dimen name="loginDialog_edit_padding_horizontal">25dp</dimen>
+    <dimen name="mid_button_height">40dp</dimen>
+    <dimen name="login_window_padding_horizontal">30dp</dimen>
 </resources>

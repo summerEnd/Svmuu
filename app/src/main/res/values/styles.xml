@@ -60,6 +60,24 @@
     <style name="blueButton.big">
         <item name="android:textSize">@dimen/text_30px</item>
     </style>
+
+    <style name="blueButton.mid">
+        <item name="android:textSize">@dimen/text_26px</item>
+    </style>
+
+    <style name="redButton">
+        <item name="android:background">@drawable/red_button</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="redButton.big">
+        <item name="android:textSize">@dimen/text_30px</item>
+    </style>
+
+    <style name="redButton.mid">
+        <item name="android:textSize">@dimen/text_26px</item>
+    </style>
+
     <style name="tabStyle">
         <item name="android:textSize">13sp</item>
         <item name="android:layout_weight">1</item>
