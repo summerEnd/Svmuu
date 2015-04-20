@@ -28,7 +28,7 @@ public abstract class TimeLineCover extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 drawLine = true;
-                onSelect(touchX);
+                touchX = onSelect(touchX);
                 break;
             case MotionEvent.ACTION_MOVE:
                 break;
@@ -45,8 +45,12 @@ public abstract class TimeLineCover extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (drawLine)
-            canvas.drawLine(touchX, 0, touchX, getHeight(), paint);
+            canvas.drawLine(touchX, 0, touchX, getChartHeight(), paint);
     }
 
-    protected abstract void onSelect(float touchPoint);
+    public int getChartHeight() {
+        return getHeight();
+    }
+
+    protected abstract float onSelect(float touchPoint);
 }
