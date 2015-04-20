@@ -1,22 +1,14 @@
-package com.yjy998.activity;
+package com.yjy998.ui.activity;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.common.util.SLog;
 import com.yjy998.R;
@@ -26,7 +18,6 @@ import com.yjy998.view.TimeLineCover;
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
-import org.achartengine.model.SeriesSelection;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
@@ -36,7 +27,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,18 +37,15 @@ import java.util.List;
  */
 public class TimeLineFragment extends BaseFragment {
 
-    /**
-     * The chart view that displays the data.
-     */
     private GraphicalView mChartView;
     XYMultipleSeriesDataset dataSet = new XYMultipleSeriesDataset();
     XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
+    /**
+     * x轴时间间隔，单位：分
+     */
     private int TIME_UNIT = 30;
     List<Trend> list = new ArrayList<Trend>();
-    /**
-     * 右侧边距
-     */
-    private final int LEFT_MARGIN = 15;
+
     float coverX;
     private TextView mText;
     ChartCover mCover;
@@ -66,7 +53,7 @@ public class TimeLineFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_chart_container, null);
+        View v = inflater.inflate(R.layout.fragment_chart, null);
         mChartView = ChartFactory.getLineChartView(getActivity(), dataSet, mRenderer);
         mChartView.setBackgroundColor(Color.LTGRAY);
         mCover = new ChartCover(getActivity());
@@ -77,12 +64,12 @@ public class TimeLineFragment extends BaseFragment {
                 mCover.onSelect(coverX);
             }
         });
+        mText = (TextView) v.findViewById(R.id.chartInfo);
 
-        mText = new TextView(getActivity());
+        ViewGroup layout = (ViewGroup) v.findViewById(R.id.chartContainer);
         layout.addView(mChartView);
         layout.addView(mCover);
-        layout.addView(mText, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM));
-        return layout;
+        return v;
     }
 
 
@@ -122,9 +109,6 @@ public class TimeLineFragment extends BaseFragment {
     private void addTrendListToChart(JSONArray array) throws JSONException {
         XYSeries newPrice = new XYSeries(getString(R.string.newest_price));
         XYSeries average = new XYSeries(getString(R.string.average_price));
-        int length = array.length();
-        int amLength = Math.min(length, 120);
-        //9:30-11:30
         for (int i = 0; i < array.length(); i++) {
             Trend trend = JsonUtil.get(array.getString(i), Trend.class);
             list.add(trend);
@@ -132,14 +116,7 @@ public class TimeLineFragment extends BaseFragment {
             average.add(i, format(trend.averagePrice));
         }
 
-//        if (length >= 120) {
-//            for (int i = 120; i < length; i++) {
-//                Trend trend = JsonUtil.get(array.getString(i), Trend.class);
-//                list.add(trend);
-//                newPrice.add(i, format(trend.newPrice));
-//                average.add(i, format(trend.averagePrice));
-//            }
-//        }
+
         dataSet.addSeries(newPrice);
         dataSet.addSeries(average);
         XYSeriesRenderer newPriceRender = createSeriesRender(getResources().getColor(R.color.newPriceLineColor));
@@ -152,9 +129,7 @@ public class TimeLineFragment extends BaseFragment {
     }
 
     float format(float value) {
-//        BigDecimal decimal = new BigDecimal(value);
-//        float v = decimal.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
-//        Log.i("value","v:"+value);
+//        float v = new BigDecimal(value).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
         return value;
     }
 
@@ -168,15 +143,17 @@ public class TimeLineFragment extends BaseFragment {
         mRenderer.setLabelsTextSize(15);
         mRenderer.setXLabelsColor(Color.RED);
         mRenderer.setXLabels(0);
-
-        mRenderer.setMargins(new int[]{LEFT_MARGIN, 15, 0, 0});
+        mRenderer.setXAxisMin(0);
+        mRenderer.setXAxisMax(255);
+        //顺序上左下右
+        mRenderer.setMargins(new int[]{0, 20, 0, 0});
         mRenderer.setZoomButtonsVisible(false);
         mRenderer.setPointSize(3);
         mRenderer.setClickEnabled(true);
         mRenderer.setSelectableBuffer(20);
         mRenderer.setShowGrid(true);
         //边界颜色
-        mRenderer.setMarginsColor(Color.GRAY);
+        mRenderer.setMarginsColor(Color.WHITE);
         //设置起始时间为9:30
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 9);
@@ -215,27 +192,42 @@ public class TimeLineFragment extends BaseFragment {
         }
 
         @Override
-        protected void onSelect(float touchX) {
-            coverX = touchX;
-            float xInChart = touchX - LEFT_MARGIN;
-            int startX = (int) mRenderer.getXAxisMin();
+        public int getChartHeight() {
+
+            return super.getChartHeight();
+        }
+
+        @Override
+        protected float onSelect(float touchX) {
+            //上左右下margin
+            int margins[] = mRenderer.getMargins();
+//            mRenderer.getChartHeight()
+            float xInChart = touchX - margins[1];
+            int startPosition = (int) mRenderer.getXAxisMin();
 
             //当前屏幕坐标点数
             int axisPointNumber = (int) (mRenderer.getXAxisMax() - mRenderer.getXAxisMin());
             //当前屏幕x轴宽度
-            float axisWidth = getWidth() - LEFT_MARGIN;
+            float axisWidth = getWidth() - margins[1];
 
             int offset = (int) ((xInChart / axisWidth) * axisPointNumber);
 
-            int position = startX + offset;
+            int position = startPosition + offset;
 
             position = Math.max(0, position);
             position = Math.min(list.size() - 1, position);
 
             Trend trend = list.get(position);
-            String o = "position:" + position + " newPrice:" + trend.newPrice + " avePrice:" + trend.averagePrice;
-            SLog.debug_format(o);
-            mText.setText(o);
+            String string = getContext().getString(R.string.chartInfo, trend.newPrice, trend.averagePrice, position);
+            mText.setText(string);
+            SLog.debug_format(string);
+
+            /**
+             * 点击的position转化为屏幕坐标,
+             */
+            coverX = ((position - startPosition) / (float) axisPointNumber) * axisWidth + margins[1];
+
+            return coverX;
         }
     }
 

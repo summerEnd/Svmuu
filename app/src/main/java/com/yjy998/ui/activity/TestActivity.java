@@ -1,17 +1,9 @@
-package com.yjy998.activity;
+package com.yjy998.ui.activity;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.sp.lib.activity.STestActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TestActivity extends STestActivity {

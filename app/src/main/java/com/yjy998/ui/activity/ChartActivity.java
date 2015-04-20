@@ -1,7 +1,6 @@
-package com.yjy998.activity;
+package com.yjy998.ui.activity;
 
 import android.os.Bundle;
-import android.view.MotionEvent;
 
 import com.yjy998.R;
 

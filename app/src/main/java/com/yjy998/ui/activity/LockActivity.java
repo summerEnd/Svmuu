@@ -1,4 +1,4 @@
-package com.yjy998.activity;
+package com.yjy998.ui.activity;
 
 import android.os.Bundle;
 
