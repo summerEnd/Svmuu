@@ -5,7 +5,7 @@
     <dimen name="lock_layout_width">280dp</dimen>
     <dimen name="lock_spacing">35dp</dimen>
     <dimen name="actionBarHeight">48dp</dimen>
-    <dimen name="menuWidth">260dp</dimen>
+    <dimen name="menuWidth">280dp</dimen>
     <dimen name="menuIconSize">35dp</dimen>
     <dimen name="avatarSize">60dp</dimen>
     <dimen name="text_22px">14sp</dimen>
@@ -20,4 +20,6 @@
     <dimen name="mid_button_height">40dp</dimen>
     <dimen name="login_window_padding_horizontal">30dp</dimen>
     <dimen name="home_fragment_item_margins">4dp</dimen>
+    <dimen name="center_tab_height">40dp</dimen>
+    <dimen name="capital_fragment_item_margin_1">4dp</dimen>
 </resources>

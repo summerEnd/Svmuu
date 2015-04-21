@@ -1,0 +1,167 @@
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context="com.yjy998.ui.activity.my.CapitalFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:orientation="vertical">
+            <!--选择合约-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chooseContract" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/capitalFragmentLayoutStyle_1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="@string/usable_money__"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:textColor="@color/textColorRed"
+                        android:layout_width="wrap_content"
+                        android:text="@string/__testNumber"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginStart="@dimen/capital_fragment_item_margin_1"
+                    android:layout_marginLeft="@dimen/capital_fragment_item_margin_1"
+                    style="@style/capitalFragmentLayoutStyle_1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="@string/win_money__"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:text="@string/__testNumber"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/capital_fragment_item_margin_1"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/capitalFragmentLayoutStyle_1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="@string/stockValue__"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="@string/__testNumber"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginStart="@dimen/capital_fragment_item_margin_1"
+                    android:layout_marginLeft="@dimen/capital_fragment_item_margin_1"
+                    style="@style/capitalFragmentLayoutStyle_1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="@string/totalCapital__"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="@string/__testNumber"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="股票买卖" />
+
+                <TextView
+                    android:textColor="@color/textColorRed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/switch_graphic" />
+            </RelativeLayout>
+            <!--分时图-->
+            <FrameLayout
+                android:id="@+id/timeLineContainer"
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
+
+            </FrameLayout>
+            <!--买入 重置 按钮-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    style="@style/redButton.mid"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/mid_button_height"
+                    android:text="@string/buyIn" />
+
+                <Button
+                    android:layout_marginLeft="30dp"
+                    style="@style/redButton.mid"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/mid_button_height"
+                    android:text="@string/reset" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <!--底部：持有股票  浮动盈亏 持仓数量  持仓市-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@color/lightGray"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

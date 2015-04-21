@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
+import com.yjy998.ui.activity.BaseFragment;
 
 /**
  * 委托/撤单
  */
-public class CancellationEntrustFragment extends Fragment {
+public class CancellationEntrustFragment extends BaseFragment {
 
 
     public CancellationEntrustFragment() {
@@ -27,5 +29,9 @@ public class CancellationEntrustFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_cancellation_etrust, container, false);
     }
 
+    @Override
+    public String getTitle() {
+        return  ContextUtil.getString(R.string.cancellationEntrust);
+    }
 
 }

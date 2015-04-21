@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
+import com.yjy998.ui.activity.BaseFragment;
 
 /**
  * 成交
  */
-public class DealFragment extends Fragment {
+public class DealFragment extends BaseFragment {
 
 
     public DealFragment() {
@@ -27,5 +29,8 @@ public class DealFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_deal, container, false);
     }
 
-
+    @Override
+    public String getTitle() {
+        return  ContextUtil.getString(R.string.deal);
+    }
 }

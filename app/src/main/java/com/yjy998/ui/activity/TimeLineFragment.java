@@ -2,6 +2,7 @@ package com.yjy998.ui.activity;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -39,7 +40,7 @@ public class TimeLineFragment extends BaseFragment {
 
     private GraphicalView mChartView;
     XYMultipleSeriesDataset dataSet = new XYMultipleSeriesDataset();
-    XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
+    XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(2);
     /**
      * x轴时间间隔，单位：分
      */
@@ -49,6 +50,8 @@ public class TimeLineFragment extends BaseFragment {
     float coverX;
     private TextView mText;
     ChartCover mCover;
+    private final int SCALE_AVERAGE = 1;
+    private final int SCALE_NEW = 0;
 
     @Nullable
     @Override
@@ -107,8 +110,8 @@ public class TimeLineFragment extends BaseFragment {
      */
     @SuppressWarnings("deprecation")
     private void addTrendListToChart(JSONArray array) throws JSONException {
-        XYSeries newPrice = new XYSeries(getString(R.string.newest_price));
-        XYSeries average = new XYSeries(getString(R.string.average_price));
+        XYSeries newPrice = new XYSeries(getString(R.string.newest_price), SCALE_NEW);
+        XYSeries average = new XYSeries(getString(R.string.average_price), SCALE_AVERAGE);
         for (int i = 0; i < array.length(); i++) {
             Trend trend = JsonUtil.get(array.getString(i), Trend.class);
             list.add(trend);
@@ -125,7 +128,24 @@ public class TimeLineFragment extends BaseFragment {
         newPriceRender.setFillBelowLineColor(getResources().getColor(R.color.fillBelowColor));
         mRenderer.addSeriesRenderer(newPriceRender);
         mRenderer.addSeriesRenderer(averageRender);
+
+        double maxY = Math.max(newPrice.getMaxY(), average.getMaxY());
+        double minY = Math.max(newPrice.getMinY(), average.getMinY());
+
+
+        setRange(SCALE_NEW, minY, maxY);
+        setRange(SCALE_AVERAGE, minY, maxY);
+
+        mRenderer.setYLabels(5);
         mChartView.repaint();
+    }
+
+    void setRange(int scale, double minY, double maxY) {
+        mRenderer.setXAxisMin(0, scale);
+        mRenderer.setXAxisMax(240, scale);
+
+        mRenderer.setYAxisMax(maxY + 0.05, scale);
+        mRenderer.setYAxisMin(minY - 0.05, scale);
     }
 
     float format(float value) {
@@ -137,20 +157,31 @@ public class TimeLineFragment extends BaseFragment {
      * 初始化render参数
      */
     private void initRender() {
+
+        //设置xy轴字体大小
         mRenderer.setAxisTitleTextSize(16);
         mRenderer.setChartTitleTextSize(20);
+
+        //设置Y轴
+        mRenderer.setYLabelsAlign(Paint.Align.RIGHT);
+        //左边的y轴
+        mRenderer.setYLabelsColor(SCALE_NEW, Color.BLACK);
+        mRenderer.setYLabelsAlign(Paint.Align.RIGHT, SCALE_NEW);
+        //右边的y轴
+        mRenderer.setYLabelsColor(SCALE_AVERAGE, Color.BLACK);
+        mRenderer.setYLabelsAlign(Paint.Align.LEFT, SCALE_AVERAGE);
+        mRenderer.setYAxisAlign(Paint.Align.RIGHT, SCALE_AVERAGE);
 
         mRenderer.setLabelsTextSize(15);
         mRenderer.setXLabelsColor(Color.RED);
         mRenderer.setXLabels(0);
+        mRenderer.setYLabels(5);
         mRenderer.setXAxisMin(0);
         mRenderer.setXAxisMax(255);
+
         //顺序上左下右
-        mRenderer.setMargins(new int[]{0, 20, 0, 0});
+        mRenderer.setMargins(new int[]{0, 30, 0, 30});
         mRenderer.setZoomButtonsVisible(false);
-        mRenderer.setPointSize(3);
-        mRenderer.setClickEnabled(true);
-        mRenderer.setSelectableBuffer(20);
         mRenderer.setShowGrid(true);
         //边界颜色
         mRenderer.setMarginsColor(Color.WHITE);
@@ -207,8 +238,8 @@ public class TimeLineFragment extends BaseFragment {
 
             //当前屏幕坐标点数
             int axisPointNumber = (int) (mRenderer.getXAxisMax() - mRenderer.getXAxisMin());
-            //当前屏幕x轴宽度
-            float axisWidth = getWidth() - margins[1];
+            //当前屏幕x轴宽度,减去左右空白
+            float axisWidth = getWidth() - margins[1]-margins[3];
 
             int offset = (int) ((xInChart / axisWidth) * axisPointNumber);
 
@@ -220,8 +251,6 @@ public class TimeLineFragment extends BaseFragment {
             Trend trend = list.get(position);
             String string = getContext().getString(R.string.chartInfo, trend.newPrice, trend.averagePrice, position);
             mText.setText(string);
-            SLog.debug_format(string);
-
             /**
              * 点击的position转化为屏幕坐标,
              */

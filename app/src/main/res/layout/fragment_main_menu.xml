@@ -21,12 +21,13 @@
             <ImageView
                 android:id="@+id/avatarImage"
                 android:contentDescription="@string/contentDescription_image"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/ic_yzm"
                 android:layout_width="@dimen/avatarSize"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="@dimen/avatarSize" />
 
             <LinearLayout
+                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -60,7 +61,9 @@
                 android:gravity="center"
                 android:text="金元宝：20个" />
 
-            <View style="@style/verticalLine" />
+            <View
+                style="@style/verticalLine"
+                android:background="#3B3B43" />
 
             <TextView
                 android:layout_width="0dp"
@@ -79,7 +82,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/ic_yzm" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"
@@ -92,7 +95,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/ic_yzm" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"
@@ -105,7 +108,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/ic_yzm" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"
@@ -118,7 +121,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/ic_yzm" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"
@@ -131,7 +134,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/ic_yzm" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"
@@ -144,7 +147,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/ic_yzm" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"
@@ -157,7 +160,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/ic_yzm" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"
@@ -170,7 +173,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/ic_yzm" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"

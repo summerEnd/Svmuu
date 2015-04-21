@@ -198,12 +198,12 @@ public class DownloadTest extends SlibDemoWrapper {
         }
 
         @Override
-        public View createView() {
+        public View newView() {
             return getLayoutInflater().inflate(R.layout.progress, null);
         }
 
         @Override
-        public ViewHolder createHolder(View convertView) {
+        public ViewHolder doFindIds(View convertView) {
             ViewHolder holder = new ViewHolder();
             holder.progress = (ProgressBar) convertView.findViewById(R.id.progressBar);
             holder.tv_state = (TextView) convertView.findViewById(R.id.textView);
@@ -213,7 +213,7 @@ public class DownloadTest extends SlibDemoWrapper {
         }
 
         @Override
-        public void setData(View v, ViewHolder holder, Progress data) {
+        public void displayView(View v, ViewHolder holder, Progress data) {
             holder.progress.setProgress(data.progress);
             holder.tv_state.setText(data.state);
             holder.tv_id.setText("id:" + data.id);

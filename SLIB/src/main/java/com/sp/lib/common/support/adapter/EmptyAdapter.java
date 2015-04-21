@@ -49,20 +49,20 @@ public class EmptyAdapter extends ViewHolderAdapter {
     }
 
     @Override
-    public View createView() {
+    public View newView() {
         LayoutInflater inflater = LayoutInflater.from(context);
         return inflater.inflate(android.R.layout.simple_list_item_1, null);
     }
 
     @Override
-    public Object createHolder(View convertView) {
+    public Object doFindIds(View convertView) {
         Holder holder = new Holder();
         holder.tv = (TextView) convertView;
         return holder;
     }
 
     @Override
-    public void setData(View v,Object holder, Object data) {
+    public void displayView(View v, Object holder, Object data) {
         Holder viewHolder = (Holder) holder;
         viewHolder.tv.setText(String.valueOf(data));
     }

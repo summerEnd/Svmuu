@@ -12,6 +12,7 @@
     <color name="white">#ffffff</color>
     <color name="transientBlack">#8000</color>
     <color name="clickBlue">#5C9ACD</color>
+    <color name="lightGray">#F2F2F2</color>
 
     <color name="newPriceLineColor">#BE8C4B</color>
     <color name="averagePriceLineColor">#824037</color>

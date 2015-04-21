@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.yjy998.R;
@@ -19,7 +20,7 @@ import com.yjy998.ui.view.TabItem;
 import static com.yjy998.ui.view.TabItem.CheckListener;
 
 
-public class MainActivity extends YJYActivity {
+public class MainActivity extends YJYActivity implements HomeFragment.HomeListener {
     MenuFragment mMenuFragment;
     LoginRegisterWindow mLoginWindow;
     private SlidingPaneLayout slidingPane;
@@ -57,6 +58,7 @@ public class MainActivity extends YJYActivity {
                 }
                 break;
             }
+
         }
     }
 
@@ -149,4 +151,26 @@ public class MainActivity extends YJYActivity {
             }
         }
     };
+
+    @Override
+    public void onHomeFragmentClick(View v) {
+        switch (v.getId()) {
+            case R.id.myGame: {
+                findViewById(R.id.tabCenter).performClick();
+                break;
+            }
+            case R.id.realGame: {
+                findViewById(R.id.tabReal).performClick();
+                break;
+            }
+        }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (mCenterFragment != null && mCenterFragment.dispatchTouch(ev)) {
+            return true;
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 }

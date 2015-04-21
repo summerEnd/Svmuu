@@ -84,7 +84,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private int indicatorHeight = 8;
     private int underlineHeight = 2;
     private int dividerPadding = 12;
-    private int tabPadding = 24;
+    private int tabPadding = 16;
     private int dividerWidth = 1;
 
     private int tabTextSize = 12;
@@ -93,8 +93,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private int curTabTextColor = 0xff0000ff;
     private Typeface tabTypeface = null;
     private Typeface curTabfaceStyle = null;
-    private int tabTypefaceStyle = Typeface.BOLD;
-    private int curTypefaceStyle = Typeface.BOLD;
+    private int tabTypefaceStyle = Typeface.NORMAL;
+    private int curTypefaceStyle = Typeface.NORMAL;
 
     private int lastScrollX = 0;
 
@@ -118,7 +118,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
         tabsContainer = new LinearLayout(context);
         tabsContainer.setOrientation(LinearLayout.HORIZONTAL);
-        tabsContainer.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        tabsContainer.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
         addView(tabsContainer);
 
         DisplayMetrics dm = getResources().getDisplayMetrics();
