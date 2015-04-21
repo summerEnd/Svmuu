@@ -32,4 +32,15 @@
     <string name="safe_protect">安全保障</string>
     <string name="speed_win">加速盈利</string>
     <string name="system_pro">专业系统</string>
+    <string name="myGame">我的实盘</string>
+    <string name="competition">比赛</string>
+    <string name="setting">设置</string>
+    <string name="help">帮助</string>
+    <string name="about">关于金操盘</string>
+    <string name="buyIn">买入</string>
+    <string name="sellOut">卖出</string>
+    <string name="recharge">充值</string>
+    <string name="apply_real_tn">实盘申请T+N</string>
+    <string name="apply_real_t9">实盘申请T+9</string>
+    <string name="fresher_help">新手帮助</string>
 </resources>

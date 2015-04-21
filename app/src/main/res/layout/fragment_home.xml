@@ -10,32 +10,35 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:padding="@dimen/activity_horizontal_margin"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
-            android:text="累计配资"
+            android:text="累计配资："
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/capitalText"
             android:text="￥909012"
+            android:textSize="@dimen/text_30px"
             android:textColor="@color/textColorRed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <TableLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="0"
+        android:layout_height="200dp"
+        android:orientation="vertical"
         android:weightSum="2">
 
-        <TableRow
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="@dimen/home_fragment_item_margins">
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/realGame"
@@ -52,9 +55,10 @@
                 android:layout_marginLeft="@dimen/home_fragment_item_margins"
                 android:background="@drawable/home_new_member"
                 style="@style/homeClickItem" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -69,13 +73,14 @@
                 android:text="我的实盘" />
 
             <LinearLayout
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
                 android:layout_weight="3"
                 android:layout_width="0dp">
 
                 <ImageView
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:id="@+id/TN"
                     android:layout_marginLeft="@dimen/home_fragment_item_margins"
                     style="@style/homeClickItem"
@@ -85,15 +90,16 @@
                     android:id="@+id/T9"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/home_fragment_item_margins"
                     style="@style/homeClickItem"
                     android:background="@drawable/home_t9" />
             </LinearLayout>
-        </TableRow>
-    </TableLayout>
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="20dp"
+
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
@@ -101,6 +107,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:id="@+id/safeLayout"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
@@ -111,16 +118,14 @@
                 android:src="@drawable/home_safe_protect" />
 
             <TextView
-                android:textColor="@color/textColorBlack"
-                android:textSize="@dimen/text_22px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/homeTextViewStyle1"
                 android:text="@string/safe_protect" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:id="@+id/speedLayout"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
@@ -131,14 +136,12 @@
                 android:src="@drawable/home_speed_win" />
 
             <TextView
-                android:textColor="@color/textColorBlack"
-                android:textSize="@dimen/text_22px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/safe_protect" />
+                style="@style/homeTextViewStyle1"
+                android:text="@string/speed_win" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/proLayout"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -151,11 +154,8 @@
                 android:src="@drawable/home_system_pro" />
 
             <TextView
-                android:textColor="@color/textColorBlack"
-                android:textSize="@dimen/text_22px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/safe_protect" />
+                style="@style/homeTextViewStyle1"
+                android:text="@string/system_pro" />
         </LinearLayout>
     </LinearLayout>
 
