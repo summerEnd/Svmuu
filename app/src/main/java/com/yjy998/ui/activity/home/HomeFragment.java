@@ -1,11 +1,10 @@
 package com.yjy998.ui.activity.home;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sp.lib.common.util.ContextUtil;
@@ -17,10 +16,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
     private TextView capitalText;
-    private TextView realGame;
-    private ImageView newMember;
-    private TextView myGame;
     private View layout;
+    private HomeListener mCallback;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,9 +46,26 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof HomeListener) {
+            mCallback = (HomeListener) activity;
+        } else {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallback = null;
+    }
+
+    @Override
     public void onClick(View v) {
 
-        ContextUtil.toast_debug(getResources().getResourceTypeName(v.getId()));
+        ContextUtil.toast_debug(getResources().getResourceName(v.getId()));
         switch (v.getId()) {
             case R.id.safeLayout: {
                 break;
@@ -69,6 +83,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             }
             case R.id.myGame: {
+                mCallback.onHomeFragmentClick(v);
                 break;
             }
             case R.id.TN: {
@@ -78,5 +93,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             }
         }
+    }
+
+    public interface HomeListener {
+        public void onHomeFragmentClick(View v);
     }
 }
