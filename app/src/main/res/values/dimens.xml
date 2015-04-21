@@ -19,4 +19,5 @@
     <dimen name="loginDialog_edit_padding_horizontal">25dp</dimen>
     <dimen name="mid_button_height">40dp</dimen>
     <dimen name="login_window_padding_horizontal">30dp</dimen>
+    <dimen name="home_fragment_item_margins">4dp</dimen>
 </resources>

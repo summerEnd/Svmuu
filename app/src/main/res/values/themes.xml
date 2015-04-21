@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="android:Theme.Holo.Light">
         <item name="android:windowAnimationStyle">@style/window_animation</item>
         <item name="android:screenOrientation">portrait</item>
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@drawable/windowBackground</item>
         <item name="android:actionBarSize">@dimen/actionBarHeight</item>
         <item name="android:actionBarStyle">@style/mActionBarStyle</item>
         <item name="android:textColorHint">#bebebe</item>

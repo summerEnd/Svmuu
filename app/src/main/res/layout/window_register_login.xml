@@ -11,6 +11,7 @@
         android:gravity="right">
 
         <ImageView
+            android:id="@+id/closeImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_close" />

@@ -10,7 +10,7 @@ public class ChartActivity extends YJYActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
-        getFragmentManager().beginTransaction().add(R.id.chartContainer, fragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.chartContainer, fragment).commit();
     }
 
 

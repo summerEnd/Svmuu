@@ -31,6 +31,7 @@ public class LoginRegisterWindow extends PopupWindow implements OnClickListener 
         setWindowLayoutMode(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         findViewById(R.id.loginButton).setOnClickListener(this);
         findViewById(R.id.registerButton).setOnClickListener(this);
+        findViewById(R.id.closeImage).setOnClickListener(this);
 
         setBackgroundDrawable(new ColorDrawable(0));
 
@@ -55,6 +56,10 @@ public class LoginRegisterWindow extends PopupWindow implements OnClickListener 
                     mRegisterDialog = new RegisterDialog(v.getContext());
                 }
                 mRegisterDialog.show();
+                break;
+            }
+            case R.id.closeImage: {
+                dismiss();
                 break;
             }
         }

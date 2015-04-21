@@ -8,6 +8,7 @@
 
     <color name="textColorBlack">#322222</color>
     <color name="textColorGray">#9A9A9A</color>
+    <color name="textColorRed">#CB0100</color>
     <color name="white">#ffffff</color>
     <color name="transientBlack">#8000</color>
     <color name="clickBlue">#5C9ACD</color>
@@ -18,4 +19,5 @@
     <color name="mainMenuColor">#2F2F39</color>
 
     <drawable name="actionBarBackground">#5643dd</drawable>
+    <drawable name="windowBackground">#F0F0F0</drawable>
 </resources>

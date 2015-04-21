@@ -27,4 +27,9 @@
     <string name="real_game">实盘大赛</string>
     <string name="center">个人中心</string>
     <string name="more">更多</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="safe_protect">安全保障</string>
+    <string name="speed_win">加速盈利</string>
+    <string name="system_pro">专业系统</string>
 </resources>
