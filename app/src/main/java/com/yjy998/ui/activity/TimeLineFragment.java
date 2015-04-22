@@ -161,7 +161,7 @@ public class TimeLineFragment extends BaseFragment {
         //设置xy轴字体大小
         mRenderer.setAxisTitleTextSize(16);
         mRenderer.setChartTitleTextSize(20);
-
+        mRenderer.setPanEnabled(false);
         //设置Y轴
         mRenderer.setYLabelsAlign(Paint.Align.RIGHT);
         //左边的y轴
@@ -239,7 +239,7 @@ public class TimeLineFragment extends BaseFragment {
             //当前屏幕坐标点数
             int axisPointNumber = (int) (mRenderer.getXAxisMax() - mRenderer.getXAxisMin());
             //当前屏幕x轴宽度,减去左右空白
-            float axisWidth = getWidth() - margins[1]-margins[3];
+            float axisWidth = getWidth() - margins[1] - margins[3];
 
             int offset = (int) ((xInChart / axisWidth) * axisPointNumber);
 

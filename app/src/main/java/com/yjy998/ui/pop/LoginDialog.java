@@ -8,7 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.yjy998.AppDelegate;
 import com.yjy998.R;
+import com.yjy998.account.User;
 
 public class LoginDialog extends Dialog implements View.OnClickListener {
     private EditText phoneEdit;
@@ -30,7 +32,9 @@ public class LoginDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirmButton: {
-
+                User user = AppDelegate.getInstance().getUser();
+                user.id = 0;
+                dismiss();
                 break;
             }
             case R.id.closeButton: {
@@ -51,5 +55,6 @@ public class LoginDialog extends Dialog implements View.OnClickListener {
         confirmButton = (Button) findViewById(R.id.confirmButton);
         findViewById(R.id.forgetText).setOnClickListener(this);
         findViewById(R.id.closeButton).setOnClickListener(this);
+        findViewById(R.id.confirmButton).setOnClickListener(this);
     }
 }

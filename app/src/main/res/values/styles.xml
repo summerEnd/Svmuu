@@ -23,7 +23,7 @@
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@drawable/s_left_click_text</item>
+        <item name="android:textColor">@drawable/s_text_white_gray</item>
         <item name="android:textSize">14sp</item>
     </style>
 
@@ -33,10 +33,16 @@
         <item name="android:layout_height">@dimen/menuIconSize</item>
     </style>
 
+    <style name="horizontalSpace">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
     <style name="horizontalLine">
         <item name="android:layout_height">1px</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:background">#e5e5e5</item>
+        <item name="android:background">@color/textColorDeepGray</item>
     </style>
 
     <style name="horizontalLine.homeMenu">
@@ -60,6 +66,8 @@
     <style name="blueButton">
         <item name="android:background">@drawable/blue_button</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="blueButton.big">
@@ -68,6 +76,8 @@
 
     <style name="blueButton.mid">
         <item name="android:textSize">@dimen/text_26px</item>
+        <item name="android:layout_height">@dimen/mid_button_height</item>
+        <item name="android:layout_width">@dimen/mid_button_width</item>
     </style>
 
     <style name="redButton">
@@ -131,5 +141,53 @@
     <style name="centerPopAnimation" parent="popup_window_animation">
         <item name="android:windowEnterAnimation">@anim/center_pop_enter</item>
         <item name="android:windowExitAnimation">@anim/center_pop_exit</item>
+    </style>
+
+    <style name="applyFragmentTextStyle">
+        <item name="android:textColor">@color/textColorDeepGray</item>
+        <item name="android:textSize">@dimen/text_26px</item>
+    </style>
+
+    <style name="applyFragmentTextStyle.big">
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textSize">@dimen/text_28px</item>
+    </style>
+
+    <style name="activityPadding">
+        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingTop">@dimen/activity_vertical_margin</item>
+        <item name="android:paddingBottom">@dimen/activity_vertical_margin</item>
+    </style>
+
+    <style name="applyActivityTextStyle1">
+        <item name="android:textColor">@color/textColorDeepGray</item>
+        <item name="android:textSize">@dimen/text_28px</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="applyActivityTextStyle2">
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textSize">@dimen/text_30px</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="applyActivityTextStyle2.yuan">
+        <item name="android:textSize">@dimen/text_26px</item>
+    </style>
+
+    <style name="circleStyle">
+        <item name="android:layout_width">@dimen/circleItemSize</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="horizontalMargin">
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
+    </style>
+    <style name="verticalMargin">
+        <item name="android:layout_marginTop">@dimen/activity_vertical_margin</item>
+        <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
     </style>
 </resources>

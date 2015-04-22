@@ -2,6 +2,7 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light">
+        <item name="android:windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@style/window_animation</item>
         <item name="android:screenOrientation">portrait</item>
         <item name="android:windowBackground">@drawable/windowBackground</item>

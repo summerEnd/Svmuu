@@ -64,4 +64,27 @@
     <string name="cancel">取消</string>
     <string name="cancelOrder">撤单</string>
     <string name="cancelAndRebuy">撤单并重新买入</string>
+    <string name="account_remain_">账户余额：</string>
+    <string name="hot">正在热销</string>
+    <string name="tn">T+N</string>
+    <string name="t9">T+9</string>
+    <string name="quota">名额</string>
+    <string name="new_member_first">新用户首次专享</string>
+    <string name="yjy">易交易</string>
+    <string name="totalCapital">配资总计</string>
+    <string name="totalMember">总人数</string>
+    <string name="__test_data">450 000 000元</string>
+    <string name="__test_data_3000_people">3000人</string>
+    <string name="__test_money_450_000_000_000">450 000 000 000元</string>
+    <string name="__stop_fail_12_5">-12.5止损</string>
+    <string name="newGift">迎新礼</string>
+    <string name="newEnjoy">新人专享</string>
+    <string name="title_activity_t9_tn">T9TNActivity</string>
+    <string name="ten_thousand">万元</string>
+    <string name="yuan">元</string>
+    <string name="manageFee">账户管理费</string>
+    <string name="pingCang">平仓线</string>
+    <string name="pingCangSummary">(平仓线=操盘保证金*0.4)</string>
+    <string name="tradersMargins">操盘保证金</string>
+    <string name="payNow">立即支付</string>
 </resources>

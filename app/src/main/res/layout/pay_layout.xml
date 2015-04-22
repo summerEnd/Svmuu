@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_gravity="bottom"
+    android:layout_height="wrap_content">
+
+    <View
+        style="@style/horizontalLine"
+        android:layout_height="1dp"
+        android:background="#C9C9C9" />
+
+    <LinearLayout
+        android:paddingLeft="@dimen/payLayoutPaddingHorizontal"
+        android:paddingRight="@dimen/payLayoutPaddingHorizontal"
+        android:paddingTop="@dimen/payLayoutPaddingVertical"
+        android:paddingBottom="@dimen/payLayoutPaddingVertical"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textSize="@dimen/text_26px"
+            android:textColor="@color/textColorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="合计支付" />
+
+        <TextView
+            android:textSize="@dimen/text_30px"
+            android:textColor="@color/deepBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥1213" />
+
+        <View style="@style/horizontalSpace" />
+
+        <Button
+            android:text="@string/payNow"
+            style="@style/blueButton.mid" />
+    </LinearLayout>
+</LinearLayout>

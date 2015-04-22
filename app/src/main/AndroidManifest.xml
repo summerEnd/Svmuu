@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".AppDelegate"
@@ -40,8 +41,8 @@
         </activity>
         <activity
             android:name=".ui.activity.LockActivity"
-            android:launchMode="singleTop"
-            android:label="@string/title_activity_lock" >
+            android:label="@string/title_activity_lock"
+            android:launchMode="singleTop" >
         </activity>
         <activity
             android:name=".ui.activity.EnterActivity"
@@ -50,6 +51,10 @@
         <activity
             android:name=".ui.activity.TestActivity"
             android:label="@string/title_activity_test" >
+        </activity>
+        <activity
+            android:name=".ui.activity.apply.ApplyActivity"
+            android:label="@string/title_activity_t9_tn" >
         </activity>
     </application>
 

@@ -2,6 +2,7 @@ package com.yjy998.ui.pop;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
 
+import com.yjy998.AppDelegate;
 import com.yjy998.R;
 
 import static android.view.View.*;
@@ -47,6 +49,14 @@ public class LoginRegisterWindow extends PopupWindow implements OnClickListener 
             case R.id.loginButton: {
                 if (mLoginDialog == null) {
                     mLoginDialog = new LoginDialog(v.getContext());
+                    mLoginDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            if (AppDelegate.getInstance().isUserLogin()){
+                                dismiss();
+                            }
+                        }
+                    });
                 }
                 mLoginDialog.show();
                 break;

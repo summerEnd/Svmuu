@@ -10,6 +10,7 @@ import com.yjy998.AppDelegate;
  * 所有Activity的基类
  */
 public class YJYActivity extends SlibActivity implements View.OnClickListener {
+
     @Override
     protected void onStop() {
         super.onStop();

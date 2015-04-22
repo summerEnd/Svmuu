@@ -1,0 +1,236 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    tools:context="com.yjy998.ui.activity.apply.ApplyFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hot"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="@dimen/text_30px"
+        android:textColor="@color/textColorDeepGray" />
+
+    <LinearLayout
+        android:id="@+id/tnLayout"
+        android:baselineAligned="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:background="@drawable/corner_white">
+
+        <TableLayout
+            android:layout_width="0dp"
+            android:stretchColumns="1"
+            android:padding="10dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TableRow>
+
+                <TextView
+                    android:text="@string/yjy"
+                    style="@style/applyFragmentTextStyle" />
+
+                <TextView
+                    android:text="@string/totalCapital"
+                    android:layout_marginLeft="@dimen/applyItemMarginLeft"
+                    android:layout_marginRight="@dimen/applyItemMarginLeft"
+                    style="@style/applyFragmentTextStyle" />
+
+                <TextView
+                    android:text="@string/totalMember"
+                    style="@style/applyFragmentTextStyle" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="9dp">
+
+                <TextView
+                    android:text="@string/tn"
+                    style="@style/applyFragmentTextStyle.big" />
+
+                <TextView
+                    android:id="@+id/tnCapitalText"
+                    android:text="@string/__test_money_450_000_000_000"
+                    android:layout_marginLeft="@dimen/applyItemMarginLeft"
+                    android:layout_marginRight="@dimen/applyItemMarginLeft"
+                    style="@style/applyFragmentTextStyle.big" />
+
+                <TextView
+                    android:id="@+id/tnMemberText"
+                    android:text="@string/__test_data_3000_people"
+                    style="@style/applyFragmentTextStyle.big" />
+            </TableRow>
+        </TableLayout>
+
+        <FrameLayout
+            android:layout_width="@dimen/triangleLayoutSize"
+            android:layout_height="@dimen/triangleLayoutSize">
+
+            <ImageView
+                android:id="@+id/triangleImage"
+                android:contentDescription="@string/contentDescription_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/triangle_red" />
+
+            <TextView
+                android:rotation="45"
+                android:textSize="@dimen/text_20px"
+                android:gravity="center"
+                android:paddingBottom="17dp"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/__stop_fail_12_5" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/t9Layout"
+        android:baselineAligned="false"
+        android:layout_marginTop="@dimen/applyItemMarginTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:background="@drawable/corner_white">
+
+        <TableLayout
+            android:layout_width="0dp"
+            android:stretchColumns="1"
+            android:padding="10dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TableRow>
+
+                <TextView
+                    android:text="@string/yjy"
+                    style="@style/applyFragmentTextStyle" />
+
+                <TextView
+                    android:layout_marginLeft="@dimen/applyItemMarginLeft"
+                    android:layout_marginRight="@dimen/applyItemMarginLeft"
+                    android:text="@string/totalCapital"
+                    style="@style/applyFragmentTextStyle" />
+
+                <TextView
+                    android:text="@string/totalMember"
+                    style="@style/applyFragmentTextStyle" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="9dp">
+
+                <TextView
+                    android:text="@string/t9"
+                    style="@style/applyFragmentTextStyle.big" />
+
+                <TextView
+                    android:layout_marginLeft="@dimen/applyItemMarginLeft"
+                    android:layout_marginRight="@dimen/applyItemMarginLeft"
+                    android:id="@+id/t9CapitalText"
+                    android:text="@string/__test_money_450_000_000_000"
+                    style="@style/applyFragmentTextStyle.big" />
+
+                <TextView
+                    android:id="@+id/t9MemberText"
+                    android:text="@string/__test_data_3000_people"
+                    style="@style/applyFragmentTextStyle.big" />
+            </TableRow>
+        </TableLayout>
+
+        <FrameLayout
+            android:layout_width="@dimen/triangleLayoutSize"
+            android:layout_height="@dimen/triangleLayoutSize">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/contentDescription_image"
+                android:src="@drawable/triangle_red" />
+
+            <TextView
+                android:rotation="45"
+                android:textSize="@dimen/text_20px"
+                android:gravity="center"
+                android:paddingBottom="17dp"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/__stop_fail_12_5" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:baselineAligned="true"
+        android:id="@+id/freshLayout"
+        android:layout_marginTop="@dimen/applyItemMarginTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:background="@drawable/corner_white">
+
+        <TableLayout
+            android:layout_width="0dp"
+            android:stretchColumns="0"
+            android:padding="10dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TableRow>
+
+                <TextView
+                    android:text="@string/newGift"
+                    style="@style/applyFragmentTextStyle" />
+
+
+                <TextView
+                    android:text="@string/quota"
+                    style="@style/applyFragmentTextStyle" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="9dp">
+
+                <TextView
+                    android:text="@string/new_member_first"
+                    style="@style/applyFragmentTextStyle.big" />
+
+
+                <TextView
+                    android:id="@+id/freshMemberText"
+                    android:text="@string/__test_data_3000_people"
+                    style="@style/applyFragmentTextStyle.big" />
+            </TableRow>
+        </TableLayout>
+
+        <FrameLayout
+            android:layout_width="@dimen/triangleLayoutSize"
+            android:layout_height="@dimen/triangleLayoutSize">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/contentDescription_image"
+                android:src="@drawable/triangle_blue" />
+
+            <TextView
+                android:rotation="45"
+                android:textSize="@dimen/text_20px"
+                android:gravity="center"
+                android:paddingBottom="17dp"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/newEnjoy" />
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

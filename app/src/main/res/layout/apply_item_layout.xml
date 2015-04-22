@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="4dp"
+    android:background="@drawable/corner_white"
+    tools:showIn="@layout/fragment_apply">
+
+    <TableLayout
+        android:id="@+id/table"
+        android:layout_width="0dp"
+        android:stretchColumns="0,1,2"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TableRow>
+
+            <TextView
+                android:text="易交易"
+                style="@style/applyFragmentTextStyle" />
+
+            <TextView
+                android:text="配资总计"
+                style="@style/applyFragmentTextStyle" />
+
+            <TextView
+                android:text="总人数"
+                style="@style/applyFragmentTextStyle" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="9dp">
+
+            <TextView
+                android:text="T+1"
+                android:id="@+id/nameText"
+                style="@style/applyFragmentTextStyle.big" />
+
+            <TextView
+                android:id="@+id/capitalText"
+                android:text="450 000 00元"
+                style="@style/applyFragmentTextStyle.big" />
+
+            <TextView
+                android:id="@+id/memberText"
+                android:text="3000人"
+                style="@style/applyFragmentTextStyle.big" />
+        </TableRow>
+    </TableLayout>
+
+    <FrameLayout
+        android:layout_width="@dimen/triangleLayoutSize"
+        android:layout_height="@dimen/triangleLayoutSize">
+
+        <ImageView
+            android:id="@+id/triangleImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/triangle_blue" />
+
+        <TextView
+            android:rotation="45"
+            android:textSize="@dimen/text_20px"
+            android:gravity="center"
+            android:paddingBottom="17dp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="-12.5止损" />
+    </FrameLayout>
+</LinearLayout>

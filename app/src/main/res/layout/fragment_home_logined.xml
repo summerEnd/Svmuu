@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yjy998.ui.activity.home.HomeLoginFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/avatarImage"
+            android:contentDescription="@string/contentDescription_image"
+            android:src="@drawable/ic_yzm"
+            android:layout_width="@dimen/avatarSize"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="@dimen/avatarSize" />
+
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@color/textColorBlack"
+                android:textSize="@dimen/text_28px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/__testPhone" />
+
+            <com.yjy998.ui.view.TwoTextItem
+                android:layout_marginTop="6dp"
+                android:layout_width="wrap_content"
+                android:text="￥123123.12"
+                android:textColor="@color/textColorRed"
+                android:textSize="@dimen/text_30px"
+                app:prefix="@string/account_remain_"
+                app:prefixTextSize="@dimen/text_28px"
+                app:prefixTextColor="@color/textColorBlack"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

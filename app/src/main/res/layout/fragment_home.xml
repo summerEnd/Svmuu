@@ -6,6 +6,7 @@
     android:background="@color/white"
     tools:context="com.yjy998.ui.activity.home.HomeFragment">
 
+
     <include layout="@layout/layout_msg" />
 
     <LinearLayout

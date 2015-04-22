@@ -7,11 +7,14 @@ import android.support.v4.widget.SlidingPaneLayout;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.PopupWindow;
 
+import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.ui.activity.apply.ApplyFragment;
 import com.yjy998.ui.activity.game.GameFragment;
 import com.yjy998.ui.activity.home.HomeFragment;
+import com.yjy998.ui.activity.home.HomeLoginFragment;
 import com.yjy998.ui.activity.more.MoreFragment;
 import com.yjy998.ui.activity.my.CenterFragment;
 import com.yjy998.ui.pop.LoginRegisterWindow;
@@ -20,42 +23,33 @@ import com.yjy998.ui.view.TabItem;
 import static com.yjy998.ui.view.TabItem.CheckListener;
 
 
-public class MainActivity extends YJYActivity implements HomeFragment.HomeListener {
-    MenuFragment mMenuFragment;
-    LoginRegisterWindow mLoginWindow;
-    private SlidingPaneLayout slidingPane;
+public class MainActivity extends MenuActivity implements HomeFragment.HomeListener {
     private TabItem curTab;
-    HomeFragment mHomeFragment;
+    HomeFragment mHome;
+    HomeLoginFragment mHomeLogin;
     GameFragment mGameFragment;
     ApplyFragment mApplyFragment;
     CenterFragment mCenterFragment;
     MoreFragment mMoreFragment;
     Fragment displayingFragment;
+    TabItem tabHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().hide();
         setContentView(R.layout.activity_main);
-        mMenuFragment = new MenuFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.menuContainer, mMenuFragment).commit();
-        mLoginWindow = new LoginRegisterWindow(this);
         initialize();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.centerImage: {
-                mLoginWindow.showAtLocation(v, Gravity.BOTTOM, 0, 0);
+            case R.id.titleImage: {
+
                 break;
             }
             case R.id.toggle: {
-                if (slidingPane.isOpen()) {
-                    slidingPane.closePane();
-                } else {
-                    slidingPane.openPane();
-                }
+                toggle();
                 break;
             }
 
@@ -67,15 +61,8 @@ public class MainActivity extends YJYActivity implements HomeFragment.HomeListen
         TabItem tabReal = (TabItem) findViewById(R.id.tabReal);
         TabItem tabMore = (TabItem) findViewById(R.id.tabMore);
         TabItem tabApply = (TabItem) findViewById(R.id.tabApply);
-        TabItem tabHome = (TabItem) findViewById(R.id.tabHome);
+        tabHome = (TabItem) findViewById(R.id.tabHome);
         TabItem tabCenter = (TabItem) findViewById(R.id.tabCenter);
-        findViewById(R.id.toggle).setOnClickListener(this);
-        findViewById(R.id.centerImage).setOnClickListener(this);
-
-        slidingPane = (SlidingPaneLayout) findViewById(R.id.slidingPane);
-        slidingPane.setParallaxDistance(50);
-        slidingPane.setCoveredFadeColor(getResources().getColor(R.color.transientBlack));
-        slidingPane.setSliderFadeColor(0);
 
         tabReal.setCheckListener(listener);
         tabMore.setCheckListener(listener);
@@ -86,21 +73,46 @@ public class MainActivity extends YJYActivity implements HomeFragment.HomeListen
         tabHome.performClick();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshHomeFragment();
+    }
+
+    @Override
+    protected void refreshLayout() {
+        super.refreshLayout();
+        refreshHomeFragment();
+    }
+
     private CheckListener listener = new CheckListener() {
         @Override
         public void onSelected(TabItem view) {
 
-            if (curTab != null) {
+            if (curTab != null && curTab != view) {
                 curTab.setChecked(false);
             }
             curTab = view;
             BaseFragment fragment = null;
             switch (view.getId()) {
                 case R.id.tabHome: {
-                    if (mHomeFragment == null) {
-                        mHomeFragment = new HomeFragment();
+                    boolean isLogin = AppDelegate.getInstance().isUserLogin();
+                    if (isLogin) {
+                        if (mHomeLogin == null) {
+                            mHomeLogin = new HomeLoginFragment();
+
+                        }
+                        fragment = mHomeLogin;
+
+                    } else {
+
+                        if (mHome == null) {
+                            mHome = new HomeFragment();
+
+                        }
+                        fragment = mHome;
                     }
-                    fragment = mHomeFragment;
+
                     break;
                 }
                 case R.id.tabApply: {
@@ -132,7 +144,8 @@ public class MainActivity extends YJYActivity implements HomeFragment.HomeListen
                     break;
                 }
             }
-            if (fragment != null) {
+
+            if (fragment != null && fragment != displayingFragment) {
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
                 if (fragment.isAdded()) {
@@ -145,9 +158,7 @@ public class MainActivity extends YJYActivity implements HomeFragment.HomeListen
                     ft.hide(displayingFragment);
                 }
                 displayingFragment = fragment;
-
                 ft.commit();
-
             }
         }
     };
@@ -163,6 +174,7 @@ public class MainActivity extends YJYActivity implements HomeFragment.HomeListen
                 findViewById(R.id.tabReal).performClick();
                 break;
             }
+
         }
     }
 
@@ -172,5 +184,14 @@ public class MainActivity extends YJYActivity implements HomeFragment.HomeListen
             return true;
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+    void refreshHomeFragment() {
+        boolean isLogin = AppDelegate.getInstance().isUserLogin();
+        if ((isLogin && displayingFragment == mHome) ||
+                (!isLogin && displayingFragment == mHomeLogin)) {
+            //刷新首页Fragment
+            listener.onSelected(tabHome);
+        }
     }
 }

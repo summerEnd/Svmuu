@@ -1,16 +1,20 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">8dp</dimen>
+    <dimen name="activity_vertical_margin">8dp</dimen>
     <dimen name="lock_layout_width">280dp</dimen>
     <dimen name="lock_spacing">35dp</dimen>
     <dimen name="actionBarHeight">48dp</dimen>
     <dimen name="menuWidth">280dp</dimen>
     <dimen name="menuIconSize">33dp</dimen>
     <dimen name="avatarSize">60dp</dimen>
+    <dimen name="text_20px">12sp</dimen>
     <dimen name="text_22px">14sp</dimen>
     <dimen name="text_26px">16sp</dimen>
+    <dimen name="text_28px">18sp</dimen>
     <dimen name="text_30px">20sp</dimen>
+    <dimen name="text_36px">25sp</dimen>
+    <dimen name="text_38px">27sp</dimen>
     <dimen name="login_dialog_editText_height">43dp</dimen>
     <dimen name="dimen_38px">16dp</dimen>
     <dimen name="dimen_44px">20dp</dimen>
@@ -18,6 +22,7 @@
     <dimen name="loginDialog_margin_logo">22dp</dimen>
     <dimen name="loginDialog_edit_padding_horizontal">25dp</dimen>
     <dimen name="mid_button_height">40dp</dimen>
+    <dimen name="mid_button_width">100dp</dimen>
     <dimen name="login_window_padding_horizontal">30dp</dimen>
     <dimen name="home_fragment_item_margins">4dp</dimen>
     <dimen name="center_tab_height">40dp</dimen>
@@ -29,4 +34,15 @@
     <!--list_item_hold_margin_dot1和list_item_hold_margin_dot2正好相差了一个dotSize-->
     <dimen name="list_item_hold_margin_dot1">14dp</dimen>
     <dimen name="list_item_hold_margin_dot2">28dp</dimen>
+    <dimen name="menuPaddingVertical">20dp</dimen>
+    <dimen name="triangleLayoutSize">51dp</dimen>
+    <dimen name="applyItemMarginTop">9dp</dimen>
+    <dimen name="applyItemMarginLeft">20dp</dimen>
+    <dimen name="circleItemSize">60dp</dimen>
+    <dimen name="apply_activity_circle_margin_top">12dp</dimen>
+    <dimen name="apply_activity_white_layout_padding">18dp</dimen>
+    <dimen name="apply_activity_white_layout_marginTop">14dp</dimen>
+    <dimen name="question_margin">7dp</dimen>
+    <dimen name="payLayoutPaddingVertical">10dp</dimen>
+    <dimen name="payLayoutPaddingHorizontal">12dp</dimen>
 </resources>

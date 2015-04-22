@@ -1,6 +1,7 @@
 package com.yjy998;
 
 import com.sp.lib.SApplication;
+import com.yjy998.account.User;
 import com.yjy998.ui.activity.TestActivity;
 
 /**
@@ -9,7 +10,7 @@ import com.yjy998.ui.activity.TestActivity;
 public class AppDelegate extends SApplication {
 
     private static AppDelegate instance;
-
+    private User mSharedUser;
 
     @Override
     public void onCreate() {
@@ -27,5 +28,14 @@ public class AppDelegate extends SApplication {
         return instance;
     }
 
+    public User getUser() {
+        if (mSharedUser == null) {
+            mSharedUser = new User();
+        }
+        return mSharedUser;
+    }
 
+    public boolean isUserLogin() {
+        return getUser().id != User.ID_NO_USER;
+    }
 }

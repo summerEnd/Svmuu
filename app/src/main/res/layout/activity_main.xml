@@ -1,103 +1,63 @@
-<android.support.v4.widget.SlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/slidingPane"
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
 
     <FrameLayout
-        android:id="@+id/menuContainer"
-        android:layout_width="@dimen/menuWidth"
-        android:layout_height="match_parent" />
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="#555"
+        android:orientation="horizontal">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:background="@drawable/actionBarBackground"
-            android:layout_height="@dimen/actionBarHeight">
+        <com.yjy998.ui.view.TabItem
+            android:id="@+id/tabHome"
+            style="@style/tabStyle"
+            android:text="@string/home"
+            app:checked="false"
+            app:tabTextColor="@drawable/tab_text_color"
+            app:tabDrawable="@drawable/tab_home" />
 
-            <ImageView
-                android:clickable="true"
-                android:onClick="onClick"
-                android:layout_gravity="left|center_vertical"
-                android:src="@drawable/nav_menu"
-                android:layout_width="wrap_content"
-                android:id="@+id/toggle"
-                android:layout_height="wrap_content" />
+        <com.yjy998.ui.view.TabItem
+            android:id="@+id/tabApply"
+            style="@style/tabStyle"
+            android:text="@string/real_game_apply"
+            app:checked="false"
+            app:tabTextColor="@drawable/tab_text_color"
+            app:tabDrawable="@drawable/tab_apply" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/logo_white" />
+        <com.yjy998.ui.view.TabItem
+            android:id="@+id/tabReal"
+            style="@style/tabStyle"
+            android:text="@string/real_game"
+            app:checked="false"
+            app:tabTextColor="@drawable/tab_text_color"
+            app:tabDrawable="@drawable/tab_real" />
 
-            <ImageView
-                android:clickable="true"
-                android:onClick="onClick"
-                android:layout_gravity="center_vertical|right"
-                android:src="@drawable/nav_center"
-                android:layout_width="wrap_content"
-                android:id="@+id/centerImage"
-                android:layout_height="wrap_content" />
-        </FrameLayout>
+        <com.yjy998.ui.view.TabItem
+            android:id="@+id/tabCenter"
+            style="@style/tabStyle"
+            android:text="@string/center"
+            app:checked="false"
+            app:tabTextColor="@drawable/tab_text_color"
+            app:tabDrawable="@drawable/tab_center" />
 
-        <FrameLayout
-            android:id="@+id/fragmentContainer"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="0dp">
-
-        </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#555"
-            android:orientation="horizontal">
-
-            <com.yjy998.ui.view.TabItem
-                android:id="@+id/tabHome"
-                style="@style/tabStyle"
-                android:text="@string/home"
-                app:checked="false"
-                app:tabTextColor="@drawable/tab_text_color"
-                app:tabDrawable="@drawable/tab_home" />
-
-            <com.yjy998.ui.view.TabItem
-                android:id="@+id/tabApply"
-                style="@style/tabStyle"
-                android:text="@string/real_game_apply"
-                app:checked="false"
-                app:tabTextColor="@drawable/tab_text_color"
-                app:tabDrawable="@drawable/tab_apply" />
-
-            <com.yjy998.ui.view.TabItem
-                android:id="@+id/tabReal"
-                style="@style/tabStyle"
-                android:text="@string/real_game"
-                app:checked="false"
-                app:tabTextColor="@drawable/tab_text_color"
-                app:tabDrawable="@drawable/tab_real" />
-
-            <com.yjy998.ui.view.TabItem
-                android:id="@+id/tabCenter"
-                style="@style/tabStyle"
-                android:text="@string/center"
-                app:checked="false"
-                app:tabTextColor="@drawable/tab_text_color"
-                app:tabDrawable="@drawable/tab_center" />
-
-            <com.yjy998.ui.view.TabItem
-                android:id="@+id/tabMore"
-                style="@style/tabStyle"
-                android:text="@string/more"
-                app:checked="false"
-                app:tabTextColor="@drawable/tab_text_color"
-                app:tabDrawable="@drawable/tab_more" />
-        </LinearLayout>
+        <com.yjy998.ui.view.TabItem
+            android:id="@+id/tabMore"
+            style="@style/tabStyle"
+            android:text="@string/more"
+            app:checked="false"
+            app:tabTextColor="@drawable/tab_text_color"
+            app:tabDrawable="@drawable/tab_more" />
     </LinearLayout>
-</android.support.v4.widget.SlidingPaneLayout>
+</LinearLayout>
 

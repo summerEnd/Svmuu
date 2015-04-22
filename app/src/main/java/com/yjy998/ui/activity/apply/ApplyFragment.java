@@ -1,52 +1,50 @@
 package com.yjy998.ui.activity.apply;
 
-import android.app.Fragment;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
+import com.sp.lib.common.support.adapter.SAdapter;
 import com.yjy998.R;
 import com.yjy998.ui.activity.BaseFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ApplyFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- */
-public class ApplyFragment extends BaseFragment {
+import java.util.ArrayList;
+import java.util.List;
 
-    private OnFragmentInteractionListener mListener;
-
-    public ApplyFragment() {
-        // Required empty public constructor
-    }
+public class ApplyFragment extends BaseFragment implements View.OnClickListener {
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View layout = inflater.inflate(R.layout.fragment_blank, container, false);
+        View layout = inflater.inflate(R.layout.fragment_apply, container, false);
+        initialize(layout);
         return layout;
     }
 
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+    private void initialize(View layout) {
+        layout.findViewById(R.id.t9Layout).setOnClickListener(this);
+        layout.findViewById(R.id.tnLayout).setOnClickListener(this);
+        layout.findViewById(R.id.freshLayout).setOnClickListener(this);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.t9Layout: {
+                startActivity(new Intent(getActivity(), ApplyActivity.class));
+                break;
+            }
+            case R.id.tnLayout: {
+                break;
+            }
+            case R.id.freshLayout: {
+                break;
+            }
+        }
+    }
 }

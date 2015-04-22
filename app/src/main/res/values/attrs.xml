@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <attr name="text" format="string" />
     <attr name="textSize" format="dimension" />
 
     <declare-styleable name="TabItem">
@@ -14,5 +13,14 @@
         <attr name="prefix" format="string" />
         <attr name="prefixTextColor" format="color" />
         <attr name="prefixTextSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleItem">
+        <attr name="boldText" format="string" />
+        <attr name="normalText" format="string" />
+        <attr name="circle" format="enum">
+            <enum name="red" value="1" />
+            <enum name="blue" value="0" />
+        </attr>
     </declare-styleable>
 </resources>

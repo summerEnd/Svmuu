@@ -2,17 +2,18 @@ package com.yjy998.ui.activity.my;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.sp.lib.common.support.IntentFactory;
+import com.sp.lib.common.util.ViewFinder;
 import com.sp.lib.widget.PagerSlidingTabStrip;
 import com.yjy998.R;
+import com.yjy998.adapter.FragmentPagerAdapter;
 import com.yjy998.ui.activity.BaseFragment;
 
 /**
@@ -38,16 +39,16 @@ public class CenterFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.fragment_center, container, false);
-        initialize();
+        initialize(layout);
         return layout;
     }
 
 
-    private void initialize() {
-
-        tabStrip = (PagerSlidingTabStrip) layout.findViewById(R.id.tabStrip);
-        pager = (ViewPager) layout.findViewById(R.id.pager);
-        pager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));
+    private void initialize(View v) {
+        ViewFinder layout = new ViewFinder(v);
+        tabStrip = layout.findView(R.id.tabStrip);
+        pager = layout.findView(R.id.pager);
+        pager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager(), fragments));
         tabStrip.setViewPager(pager);
     }
 
@@ -55,26 +56,6 @@ public class CenterFragment extends BaseFragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    private class MyPagerAdapter extends FragmentPagerAdapter {
-        public MyPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return fragments[position].getTitle();
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return fragments[position];
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.length;
-        }
-    }
 
     //如果要实现ViewPager的滑动，就把注释去掉
     public boolean dispatchTouch(MotionEvent event) {

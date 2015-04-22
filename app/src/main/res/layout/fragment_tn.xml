@@ -1,0 +1,299 @@
+<ScrollView
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/verticalMargin"
+        android:orientation="vertical"
+        tools:context="com.yjy998.ui.activity.apply.TNFragment">
+        <!--圆形-->
+        <LinearLayout
+            style="@style/horizontalMargin"
+            android:layout_width="match_parent"
+            android:background="@drawable/corner_white"
+            android:padding="@dimen/apply_activity_white_layout_padding"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.yjy998.ui.view.CircleItem
+                    style="@style/circleStyle"
+                    android:id="@+id/circle0"
+                    app:boldText=""
+                    app:circle="blue"
+                    app:layoutSquare="height"
+                    app:normalText="5000元" />
+
+                <View style="@style/horizontalSpace" />
+
+                <com.yjy998.ui.view.CircleItem
+                    style="@style/circleStyle"
+                    android:id="@+id/circle1"
+                    app:boldText="1"
+                    app:circle="red"
+                    app:normalText="@string/ten_thousand" />
+
+                <View style="@style/horizontalSpace" />
+
+                <com.yjy998.ui.view.CircleItem
+                    style="@style/circleStyle"
+                    android:id="@+id/circle2"
+                    app:boldText="3"
+                    app:circle="blue"
+                    app:normalText="@string/ten_thousand" />
+
+                <View style="@style/horizontalSpace" />
+
+                <com.yjy998.ui.view.CircleItem
+                    style="@style/circleStyle"
+                    android:id="@+id/introduce"
+                    app:boldText="1"
+                    app:circle="red"
+                    app:normalText="@string/ten_thousand" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/apply_activity_circle_margin_top">
+
+                <com.yjy998.ui.view.CircleItem
+                    style="@style/circleStyle"
+                    android:id="@+id/circle3"
+                    app:boldText="5"
+                    app:circle="blue"
+                    app:normalText="@string/ten_thousand" />
+
+                <View style="@style/horizontalSpace" />
+
+                <com.yjy998.ui.view.CircleItem
+                    style="@style/circleStyle"
+                    android:id="@+id/circle4"
+                    app:boldText="10"
+                    app:circle="blue"
+                    app:normalText="@string/ten_thousand" />
+
+                <View style="@style/horizontalSpace" />
+
+                <com.yjy998.ui.view.CircleItem
+                    style="@style/circleStyle"
+                    android:id="@+id/circle5"
+                    app:boldText="20"
+                    app:circle="blue"
+                    app:normalText="@string/ten_thousand" />
+
+                <View style="@style/horizontalSpace" />
+
+                <com.yjy998.ui.view.CircleItem
+                    style="@style/circleStyle"
+                    android:id="@+id/changeGroup"
+                    app:boldText=""
+                    app:circle="red"
+                    app:normalText="5000元" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/horizontalMargin"
+            android:padding="@dimen/apply_activity_white_layout_padding"
+            android:layout_marginTop="@dimen/apply_activity_white_layout_marginTop"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/corner_white"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/applyActivityTextStyle1"
+                android:text="总操盘资金" />
+            <!--占位控件-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/totalCapitalText"
+                style="@style/applyActivityTextStyle2"
+                android:text="2566" />
+
+            <TextView
+                style="@style/applyActivityTextStyle2.yuan"
+                android:text="@string/yuan" />
+
+            <ImageView
+                android:visibility="invisible"
+                android:layout_marginLeft="@dimen/question_margin"
+                android:layout_marginStart="@dimen/question_margin"
+                android:layout_width="wrap_content"
+                android:src="@drawable/question"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/horizontalMargin"
+            android:padding="@dimen/apply_activity_white_layout_padding"
+            android:layout_marginTop="@dimen/apply_activity_white_layout_marginTop"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/corner_white"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/applyActivityTextStyle1"
+                android:text="@string/manageFee" />
+            <!--占位控件-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/manageFeeText"
+                style="@style/applyActivityTextStyle2"
+                android:text="2566" />
+
+            <TextView
+                style="@style/applyActivityTextStyle2.yuan"
+                android:text="@string/yuan" />
+
+            <ImageView
+                android:id="@+id/questionImage"
+                android:layout_marginLeft="@dimen/question_margin"
+                android:layout_marginStart="@dimen/question_margin"
+                android:layout_width="wrap_content"
+                android:src="@drawable/question"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/horizontalMargin"
+            android:padding="@dimen/apply_activity_white_layout_padding"
+            android:layout_marginTop="@dimen/apply_activity_white_layout_marginTop"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/corner_white"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/applyActivityTextStyle1"
+                android:text="@string/pingCang" />
+
+            <TextView
+                android:textSize="@dimen/text_20px"
+                style="@style/applyActivityTextStyle1"
+                android:text="@string/pingCangSummary" />
+            <!--占位控件-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/pingCangText"
+                style="@style/applyActivityTextStyle2"
+                android:text="400" />
+
+            <TextView
+                style="@style/applyActivityTextStyle2.yuan"
+                android:text="@string/yuan" />
+
+            <ImageView
+                android:visibility="invisible"
+                android:layout_marginLeft="@dimen/question_margin"
+                android:layout_marginStart="@dimen/question_margin"
+                android:layout_width="wrap_content"
+                android:src="@drawable/question"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/horizontalMargin"
+            android:padding="@dimen/apply_activity_white_layout_padding"
+            android:layout_marginTop="@dimen/apply_activity_white_layout_marginTop"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/corner_white"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/applyActivityTextStyle1"
+                android:text="@string/tradersMargins" />
+
+
+            <!--占位控件-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/traderText"
+                style="@style/applyActivityTextStyle2"
+                android:text="1003.0" />
+
+            <TextView
+                style="@style/applyActivityTextStyle2.yuan"
+                android:text="@string/yuan" />
+
+            <ImageView
+                android:visibility="invisible"
+                android:layout_marginLeft="@dimen/question_margin"
+                android:layout_marginStart="@dimen/question_margin"
+                android:layout_width="wrap_content"
+                android:src="@drawable/question"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <View
+            style="@style/horizontalLine"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="#C9C9C9" />
+
+        <LinearLayout
+            android:paddingLeft="@dimen/payLayoutPaddingHorizontal"
+            android:paddingRight="@dimen/payLayoutPaddingHorizontal"
+            android:paddingTop="@dimen/payLayoutPaddingVertical"
+            android:paddingBottom="@dimen/payLayoutPaddingVertical"
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textSize="@dimen/text_26px"
+                android:textColor="@color/textColorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="合计支付" />
+
+            <TextView
+                android:textSize="@dimen/text_30px"
+                android:textColor="@color/deepBlue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥1213" />
+
+            <View style="@style/horizontalSpace" />
+
+            <Button
+                android:text="@string/payNow"
+                style="@style/blueButton.mid" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+    </LinearLayout>
+</ScrollView>

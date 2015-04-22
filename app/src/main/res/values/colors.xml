@@ -12,6 +12,7 @@
     <color name="textColorRed">#CB0100</color>
     <color name="textColorGreen">#01A920</color>
     <color name="white">#ffffff</color>
+    <color name="red">#D72A26</color>
     <color name="transientBlack">#8000</color>
     <color name="clickBlue">#5C9ACD</color>
     <color name="lightGray">#F2F2F2</color>
@@ -21,6 +22,7 @@
     <color name="fillBelowColor">#B4AA9E</color>
     <color name="mainMenuColor">#2F2F39</color>
 
-    <drawable name="actionBarBackground">#5643dd</drawable>
+    <color name="deepBlue">#0F4279</color>
+    <drawable name="actionBarBackground">@color/deepBlue</drawable>
     <drawable name="windowBackground">#F0F0F0</drawable>
 </resources>

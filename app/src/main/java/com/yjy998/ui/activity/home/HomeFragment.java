@@ -2,6 +2,7 @@ package com.yjy998.ui.activity.home;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +24,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.fragment_home, container, false);
-        initialize();
         return layout;
     }
 
-    View findViewById(int id) {
-        return layout.findViewById(id);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initialize();
     }
 
     private void initialize() {
@@ -82,16 +84,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.newMember: {
                 break;
             }
-            case R.id.myGame: {
-                mCallback.onHomeFragmentClick(v);
-                break;
-            }
+
             case R.id.TN: {
                 break;
             }
             case R.id.T9: {
                 break;
             }
+            default:
+                //未处理的点击事件交给activity
+                mCallback.onHomeFragmentClick(v);
         }
     }
 
