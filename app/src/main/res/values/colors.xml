@@ -8,7 +8,9 @@
 
     <color name="textColorBlack">#322222</color>
     <color name="textColorGray">#9A9A9A</color>
+    <color name="textColorDeepGray">#666666</color>
     <color name="textColorRed">#CB0100</color>
+    <color name="textColorGreen">#01A920</color>
     <color name="white">#ffffff</color>
     <color name="transientBlack">#8000</color>
     <color name="clickBlue">#5C9ACD</color>

@@ -23,7 +23,7 @@
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/textColorGray</item>
+        <item name="android:textColor">@drawable/s_left_click_text</item>
         <item name="android:textSize">14sp</item>
     </style>
 
@@ -111,5 +111,25 @@
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="TwoTextItem" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/text_26px</item>
+        <item name="android:text">test</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="TwoTextItem.Red">
+        <item name="android:textColor">@color/textColorRed</item>
+    </style>
+
+    <style name="TwoTextItem.Green">
+        <item name="android:textColor">@color/textColorGreen</item>
+    </style>
+
+    <style name="centerPopAnimation" parent="popup_window_animation">
+        <item name="android:windowEnterAnimation">@anim/center_pop_enter</item>
+        <item name="android:windowExitAnimation">@anim/center_pop_exit</item>
     </style>
 </resources>

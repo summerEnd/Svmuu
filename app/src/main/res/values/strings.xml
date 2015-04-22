@@ -60,4 +60,8 @@
     <string name="totalCapital__">总资产：</string>
     <string name="reset">重置</string>
     <string name="switch_graphic">切换分时图</string>
+    <string name="tradeType">交易类型：</string>
+    <string name="cancel">取消</string>
+    <string name="cancelOrder">撤单</string>
+    <string name="cancelAndRebuy">撤单并重新买入</string>
 </resources>

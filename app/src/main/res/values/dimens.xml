@@ -6,7 +6,7 @@
     <dimen name="lock_spacing">35dp</dimen>
     <dimen name="actionBarHeight">48dp</dimen>
     <dimen name="menuWidth">280dp</dimen>
-    <dimen name="menuIconSize">35dp</dimen>
+    <dimen name="menuIconSize">33dp</dimen>
     <dimen name="avatarSize">60dp</dimen>
     <dimen name="text_22px">14sp</dimen>
     <dimen name="text_26px">16sp</dimen>
@@ -22,4 +22,11 @@
     <dimen name="home_fragment_item_margins">4dp</dimen>
     <dimen name="center_tab_height">40dp</dimen>
     <dimen name="capital_fragment_item_margin_1">4dp</dimen>
+    <dimen name="list_item_hold_title_space">20dp</dimen>
+    <dimen name="list_item_hold_vertical_margin">6dp</dimen>
+    <dimen name="list_item_hold_layout_margin_horizontal">12dp</dimen>
+    <dimen name="dotSize">14dp</dimen>
+    <!--list_item_hold_margin_dot1和list_item_hold_margin_dot2正好相差了一个dotSize-->
+    <dimen name="list_item_hold_margin_dot1">14dp</dimen>
+    <dimen name="list_item_hold_margin_dot2">28dp</dimen>
 </resources>
