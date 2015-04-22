@@ -194,12 +194,7 @@ public class DownloadTest extends SlibDemoWrapper {
 
 
         public MyAdapter(List<Progress> data) {
-            super(data);
-        }
-
-        @Override
-        public View newView() {
-            return getLayoutInflater().inflate(R.layout.progress, null);
+            super(getActivity(),data,R.layout.progress);
         }
 
         @Override
@@ -213,7 +208,8 @@ public class DownloadTest extends SlibDemoWrapper {
         }
 
         @Override
-        public void displayView(View v, ViewHolder holder, Progress data) {
+        public void displayView(View v, ViewHolder holder,int position ) {
+            Progress data=getItem(position);
             holder.progress.setProgress(data.progress);
             holder.tv_state.setText(data.state);
             holder.tv_id.setText("id:" + data.id);

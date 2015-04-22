@@ -22,7 +22,11 @@ public class RoundDrawable extends Drawable {
 
 
     public RoundDrawable(int color, int radius) {
+        this.radius = radius;
+        setColor(color);
+    }
 
+    public void setColor(int color) {
         int output_size = radius * 2;
         ColorDrawable drawable = new ColorDrawable(color);
         Bitmap bitmap = Bitmap.createBitmap(
@@ -37,10 +41,8 @@ public class RoundDrawable extends Drawable {
         init(bitmap, radius);
     }
 
-
     private void init(Bitmap bitmap, int radius) {
         mBitmap = bitmap;
-        this.radius = radius;
         BitmapShader bitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP,
                 Shader.TileMode.CLAMP);
         mPaint = new Paint();

@@ -76,25 +76,26 @@ public class CenterFragment extends BaseFragment {
         }
     }
 
+    //如果要实现ViewPager的滑动，就把注释去掉
     public boolean dispatchTouch(MotionEvent event) {
 
-        if (!isVisible()) {
-            return false;
-        }
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN: {
-                pager.dispatchTouchEvent(event);
-                break;
-            }
-            case MotionEvent.ACTION_MOVE: {
-                if (pager.canScrollHorizontally(-1)) {
-                    return pager.dispatchTouchEvent(event);
-                } else if (pager.canScrollHorizontally(1)) {
-                    return pager.dispatchTouchEvent(event);
-                }
-                break;
-            }
-        }
+//        if (!isVisible()) {
+//            return false;
+//        }
+//        switch (event.getAction()) {
+//            case MotionEvent.ACTION_DOWN: {
+//                pager.dispatchTouchEvent(event);
+//                break;
+//            }
+//            case MotionEvent.ACTION_MOVE: {
+//                if (pager.canScrollHorizontally(-1)) {
+//                    return pager.dispatchTouchEvent(event);
+//                } else if (pager.canScrollHorizontally(1)) {
+//                    return pager.dispatchTouchEvent(event);
+//                }
+//                break;
+//            }
+//        }
 
         return false;
     }

@@ -13,10 +13,11 @@ import java.util.List;
  */
 public class EmptyAdapter extends ViewHolderAdapter {
     public Context context;
-    private int     size;
-    ArrayList list = new ArrayList();
+    private int size;
+    static ArrayList list = new ArrayList();
 
     public EmptyAdapter(Context context, int size) {
+        super(context, list, android.R.layout.simple_list_item_1);
         this.context = context;
         setSize(size);
     }
@@ -34,25 +35,6 @@ public class EmptyAdapter extends ViewHolderAdapter {
         return size;
     }
 
-    private EmptyAdapter(List data) {
-        super(data);
-    }
-
-    @Override
-    public int getCount() {
-        return size;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return list.get(position);
-    }
-
-    @Override
-    public View newView() {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(android.R.layout.simple_list_item_1, null);
-    }
 
     @Override
     public Object doFindIds(View convertView) {
@@ -62,10 +44,11 @@ public class EmptyAdapter extends ViewHolderAdapter {
     }
 
     @Override
-    public void displayView(View v, Object holder, Object data) {
+    public void displayView(View convertView, Object holder, int position) {
         Holder viewHolder = (Holder) holder;
-        viewHolder.tv.setText(String.valueOf(data));
+        viewHolder.tv.setText(String.valueOf(getItem(position)));
     }
+
 
     private class Holder {
         TextView tv;
