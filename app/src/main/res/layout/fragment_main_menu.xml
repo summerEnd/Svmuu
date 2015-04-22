@@ -82,7 +82,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_yzm" />
+                android:src="@drawable/s_left_buy_in" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"
@@ -95,7 +95,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_yzm" />
+                android:src="@drawable/s_left_sell_out" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"
@@ -108,7 +108,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_yzm" />
+                android:src="@drawable/s_left_recharge" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"
@@ -121,7 +121,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_yzm" />
+                android:src="@drawable/s_left_tn" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"
@@ -134,7 +134,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_yzm" />
+                android:src="@drawable/s_left_t9" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"
@@ -147,7 +147,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_yzm" />
+                android:src="@drawable/s_left_real_game" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"
@@ -160,7 +160,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_yzm" />
+                android:src="@drawable/s_left_center" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"
@@ -173,7 +173,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/ic_yzm" />
+                android:src="@drawable/s_left_help" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"
