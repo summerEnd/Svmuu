@@ -26,7 +26,6 @@ import static com.yjy998.ui.view.TabItem.CheckListener;
 public class MainActivity extends MenuActivity implements HomeFragment.HomeListener {
     private TabItem curTab;
     HomeFragment mHome;
-    HomeLoginFragment mHomeLogin;
     GameFragment mGameFragment;
     ApplyFragment mApplyFragment;
     CenterFragment mCenterFragment;
@@ -73,17 +72,6 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
         tabHome.performClick();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        refreshHomeFragment();
-    }
-
-    @Override
-    protected void refreshLayout() {
-        super.refreshLayout();
-        refreshHomeFragment();
-    }
 
     private CheckListener listener = new CheckListener() {
         @Override
@@ -96,22 +84,13 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
             BaseFragment fragment = null;
             switch (view.getId()) {
                 case R.id.tabHome: {
-                    boolean isLogin = AppDelegate.getInstance().isUserLogin();
-                    if (isLogin) {
-                        if (mHomeLogin == null) {
-                            mHomeLogin = new HomeLoginFragment();
 
-                        }
-                        fragment = mHomeLogin;
 
-                    } else {
+                    if (mHome == null) {
+                        mHome = new HomeFragment();
 
-                        if (mHome == null) {
-                            mHome = new HomeFragment();
-
-                        }
-                        fragment = mHome;
                     }
+                    fragment = mHome;
 
                     break;
                 }
@@ -180,18 +159,10 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (mCenterFragment != null && mCenterFragment.dispatchTouch(ev)) {
+        if (mGameFragment != null && mGameFragment.dispatchTouch(ev)) {
             return true;
         }
         return super.dispatchTouchEvent(ev);
     }
 
-    void refreshHomeFragment() {
-        boolean isLogin = AppDelegate.getInstance().isUserLogin();
-        if ((isLogin && displayingFragment == mHome) ||
-                (!isLogin && displayingFragment == mHomeLogin)) {
-            //刷新首页Fragment
-            listener.onSelected(tabHome);
-        }
-    }
 }

@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
+    tools:ignore="NestedWeights"
     tools:context="com.yjy998.ui.activity.home.HomeFragment">
 
 
@@ -16,7 +17,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="累计配资："
+            android:text="@string/countCapital__"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -31,7 +32,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="230dp"
         android:orientation="vertical"
         android:weightSum="2">
 
@@ -39,30 +40,37 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="0.9">
 
             <TextView
                 android:id="@+id/realGame"
                 android:layout_weight="2"
                 android:layout_width="0dp"
                 style="@style/homeClickItem"
-                android:text="实盘大赛"
-                android:background="@drawable/home_real_game" />
+                android:text="@string/real_game"
+                android:background="@drawable/s_click_yellow" />
 
-            <ImageView
+            <LinearLayout
+                style="@style/homeClickItem"
                 android:layout_weight="3"
-                android:layout_width="0dp"
                 android:id="@+id/newMember"
+                android:background="@drawable/s_click_blue"
                 android:layout_marginLeft="@dimen/home_fragment_item_margins"
-                android:background="@drawable/home_new_member"
-                style="@style/homeClickItem" />
+                android:layout_marginStart="@dimen/home_fragment_item_margins"
+                android:layout_width="0dp">
+
+                <TextView
+                    style="@style/homeClickItem.text"
+                    android:drawableTop="@drawable/home_new"
+                    android:text="@string/newPeopleEnjoy" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="1.1"
             android:layout_marginTop="@dimen/home_fragment_item_margins">
 
             <TextView
@@ -70,8 +78,9 @@
                 android:layout_width="0dp"
                 android:id="@+id/myGame"
                 style="@style/homeClickItem"
-                android:background="@drawable/home_my_game"
-                android:text="我的实盘" />
+                android:background="@drawable/s_click_red"
+                android:text="@string/myGame"
+                tools:ignore="NestedWeights" />
 
             <LinearLayout
                 android:layout_height="match_parent"
@@ -79,28 +88,43 @@
                 android:layout_weight="3"
                 android:layout_width="0dp">
 
-                <ImageView
+                <LinearLayout
+                    style="@style/homeClickItem"
                     android:layout_weight="1"
-                    android:layout_width="0dp"
                     android:id="@+id/TN"
+                    android:background="@drawable/s_click_brown"
                     android:layout_marginLeft="@dimen/home_fragment_item_margins"
-                    style="@style/homeClickItem"
-                    android:background="@drawable/home_tn" />
+                    android:layout_marginStart="@dimen/home_fragment_item_margins"
+                    android:layout_width="0dp">
 
-                <ImageView
-                    android:id="@+id/T9"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_marginLeft="@dimen/home_fragment_item_margins"
+                    <TextView
+                        style="@style/homeClickItem.text"
+                        android:drawableTop="@drawable/home_tn"
+                        android:text="@string/tn" />
+                </LinearLayout>
+
+                <LinearLayout
                     style="@style/homeClickItem"
-                    android:background="@drawable/home_t9" />
+                    android:layout_weight="1"
+                    android:id="@+id/T9"
+                    android:background="@drawable/s_click_blue_light"
+                    android:layout_marginLeft="@dimen/home_fragment_item_margins"
+                    android:layout_marginStart="@dimen/home_fragment_item_margins"
+                    android:layout_width="0dp">
+
+                    <TextView
+                        style="@style/homeClickItem.text"
+                        android:drawableTop="@drawable/home_t9"
+                        android:text="@string/t9" />
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:baselineAligned="false"
         android:layout_marginTop="20dp"
-
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
@@ -114,8 +138,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/home_icon_size"
+                android:layout_height="@dimen/home_icon_size"
                 android:src="@drawable/home_safe_protect" />
 
             <TextView
@@ -132,8 +156,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/home_icon_size"
+                android:layout_height="@dimen/home_icon_size"
                 android:src="@drawable/home_speed_win" />
 
             <TextView
@@ -150,8 +174,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/home_icon_size"
+                android:layout_height="@dimen/home_icon_size"
                 android:src="@drawable/home_system_pro" />
 
             <TextView

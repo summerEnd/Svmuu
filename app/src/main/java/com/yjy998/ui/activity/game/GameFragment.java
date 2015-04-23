@@ -4,12 +4,21 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sp.lib.common.util.ViewFinder;
+import com.sp.lib.widget.PagerSlidingTabStrip;
 import com.yjy998.R;
+import com.yjy998.adapter.FragmentPagerAdapter;
 import com.yjy998.ui.activity.BaseFragment;
+import com.yjy998.ui.activity.my.CancellationEntrustFragment;
+import com.yjy998.ui.activity.my.CapitalFragment;
+import com.yjy998.ui.activity.my.DealFragment;
+import com.yjy998.ui.activity.my.HoldingsFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,42 +28,62 @@ import com.yjy998.ui.activity.BaseFragment;
  */
 public class GameFragment extends BaseFragment {
 
+
     private OnFragmentInteractionListener mListener;
-
-    public GameFragment() {
-        // Required empty public constructor
-    }
-
+    View layout;
+    private PagerSlidingTabStrip tabStrip;
+    private ViewPager pager;
+    BaseFragment[] fragments = new BaseFragment[]{
+            new CapitalFragment(),
+            new HoldingsFragment(),
+            new CancellationEntrustFragment(),
+            new DealFragment()
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_game, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        layout = inflater.inflate(R.layout.fragment_center, container, false);
+        initialize(layout);
+        return layout;
     }
 
 
+    private void initialize(View v) {
+        ViewFinder layout = new ViewFinder(v);
+        tabStrip = layout.findView(R.id.tabStrip);
+        pager = layout.findView(R.id.pager);
+        pager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager(), fragments));
+        tabStrip.setViewPager(pager);
+    }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+
+    //如果要实现ViewPager的滑动，就把注释去掉
+    public boolean dispatchTouch(MotionEvent event) {
+
+//        if (!isVisible()) {
+//            return false;
+//        }
+//        switch (event.getAction()) {
+//            case MotionEvent.ACTION_DOWN: {
+//                pager.dispatchTouchEvent(event);
+//                break;
+//            }
+//            case MotionEvent.ACTION_MOVE: {
+//                if (pager.canScrollHorizontally(-1)) {
+//                    return pager.dispatchTouchEvent(event);
+//                } else if (pager.canScrollHorizontally(1)) {
+//                    return pager.dispatchTouchEvent(event);
+//                }
+//                break;
+//            }
+//        }
+
+        return false;
     }
 
 }

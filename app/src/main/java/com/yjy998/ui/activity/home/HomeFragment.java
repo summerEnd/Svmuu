@@ -78,9 +78,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.proLayout: {
                 break;
             }
-            case R.id.realGame: {
-                break;
-            }
+
             case R.id.newMember: {
                 break;
             }

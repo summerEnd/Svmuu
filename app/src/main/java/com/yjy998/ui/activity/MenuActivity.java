@@ -40,33 +40,61 @@ public class MenuActivity extends YJYActivity {
                 if (AppDelegate.getInstance().isUserLogin()) {
                     startActivity(IntentFactory.callPhone("138465688"));
                 } else {
-                    if (mLoginWindow == null) {
-                        mLoginWindow = new LoginRegisterWindow(MenuActivity.this);
-                        mLoginWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                            @Override
-                            public void onDismiss() {
-                                refreshLayout();
-                            }
-                        });
-                    }
-                    mLoginWindow.showAtLocation(v, Gravity.BOTTOM, 0, 0);
+                    showLoginWindow();
                 }
 
                 onTitleImageClick();
             }
         });
-        refreshLayout();
+        refreshTitle();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        showLoginWindow();
+    }
+
+    private void showLoginWindow() {
+
+        if (AppDelegate.getInstance().isUserLogin()) {
+            return;
+        }
+
+        if (mLoginWindow == null) {
+            mLoginWindow = new LoginRegisterWindow(MenuActivity.this);
+            mLoginWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    refreshTitle();
+                    refreshLayout();
+                }
+            });
+        }
+        mLoginWindow.showAtLocation(titleImage, Gravity.BOTTOM, 0, 0);
     }
 
     /**
-     * 刷新右上角图标状态,登陆状态发生改变时要刷新一下布局
+     * 刷新右上角图标状态
      */
-    protected void refreshLayout() {
+    private void refreshTitle() {
         if (AppDelegate.getInstance().isUserLogin()) {
             setTitleImage(R.drawable.ic_call);
         } else {
             setTitleImage(R.drawable.nav_center);
         }
+    }
+
+    /**
+     * 登陆状态发生改变时要刷新一下布局
+     */
+    protected void refreshLayout() {
+
     }
 
     /**

@@ -7,8 +7,14 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:drawableLeft="@drawable/ic_msg"
         android:id="@+id/noticeText"
-        android:text="网站最新消息：暗示法是服务器"
-        android:layout_width="wrap_content"
+        android:text="网站最新消息：暗示法是服务器暗示法是服务器暗示法是服务器暗示法是服务器"
+        android:layout_width="match_parent"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
         android:layout_height="wrap_content" />
 </LinearLayout>

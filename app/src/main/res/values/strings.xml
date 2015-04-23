@@ -79,6 +79,7 @@
     <string name="__stop_fail_12_5">-12.5止损</string>
     <string name="newGift">迎新礼</string>
     <string name="newEnjoy">新人专享</string>
+    <string name="newPeopleEnjoy">新手专享</string>
     <string name="title_activity_t9_tn">T9TNActivity</string>
     <string name="ten_thousand">万元</string>
     <string name="yuan">元</string>
@@ -87,4 +88,9 @@
     <string name="pingCangSummary">(平仓线=操盘保证金*0.4)</string>
     <string name="tradersMargins">操盘保证金</string>
     <string name="payNow">立即支付</string>
+    <string name="introduce">玩法介绍</string>
+    <string name="change_group">换组金额</string>
+    <string name="countCapital__">累计配资：</string>
+    <string name="myGame_d">我的大赛(%d)</string>
+    <string name="myContract_d">当前合约(%d)</string>
 </resources>

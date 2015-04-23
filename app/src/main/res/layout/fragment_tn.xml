@@ -53,12 +53,26 @@
 
                 <View style="@style/horizontalSpace" />
 
-                <com.yjy998.ui.view.CircleItem
-                    style="@style/circleStyle"
+                <LinearLayout
                     android:id="@+id/introduce"
-                    app:boldText="1"
-                    app:circle="red"
-                    app:normalText="@string/ten_thousand" />
+                    style="@style/circleStyle"
+                    android:gravity="center"
+                    android:background="@drawable/blue_circle"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/tn_fragment_ic_size"
+                        android:scaleType="centerInside"
+                        android:layout_height="@dimen/tn_fragment_ic_size"
+                        android:src="@drawable/ic_intro" />
+
+                    <TextView
+                        android:textColor="@color/deepBlue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_20px"
+                        android:text="@string/introduce" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -94,12 +108,26 @@
 
                 <View style="@style/horizontalSpace" />
 
-                <com.yjy998.ui.view.CircleItem
-                    style="@style/circleStyle"
+                <LinearLayout
                     android:id="@+id/changeGroup"
-                    app:boldText=""
-                    app:circle="red"
-                    app:normalText="5000元" />
+                    style="@style/circleStyle"
+                    android:gravity="center"
+                    android:background="@drawable/blue_circle"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/tn_fragment_ic_size"
+                        android:scaleType="centerInside"
+                        android:layout_height="@dimen/tn_fragment_ic_size"
+                        android:src="@drawable/ic_change_group" />
+
+                    <TextView
+                        android:textColor="@color/deepBlue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_20px"
+                        android:text="@string/change_group" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
