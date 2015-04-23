@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="20dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:textColor="@color/textColorBlack"
+        android:textSize="@dimen/text_26px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="美国赛区" />
+
+    <TextView
+        android:textColor="@color/textColorBlack"
+        android:textSize="@dimen/text_26px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="收益率100%" />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:textColor="@color/textColorBlack"
+            android:textSize="@dimen/text_26px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="第" />
+
+        <TextView
+            android:layout_margin="3dp"
+            android:textColor="@color/textColorRed"
+            android:textSize="@dimen/text_26px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1" />
+
+        <TextView
+            android:textColor="@color/textColorBlack"
+            android:textSize="@dimen/text_26px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="名" />
+    </LinearLayout>
+</LinearLayout>

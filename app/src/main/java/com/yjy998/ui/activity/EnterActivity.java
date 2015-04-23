@@ -16,6 +16,7 @@ public class EnterActivity extends YJYActivity implements ViewPager.OnPageChange
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         pager = new ViewPager(this);
         setContentView(pager);
         pager.setAdapter(new GuidePagerAdapter(this, new int[]{

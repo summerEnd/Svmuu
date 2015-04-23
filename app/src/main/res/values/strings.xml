@@ -108,4 +108,6 @@
     <string name="avatar">头像</string>
     <string name="logout">注销登录</string>
     <string name="title_activity_fresh">新手专享</string>
+    <string name="GoldIngot_d">金元宝：%d个</string>
+    <string name="caopan_d">操盘券：%d个</string>
 </resources>

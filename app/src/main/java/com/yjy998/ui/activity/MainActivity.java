@@ -40,17 +40,7 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
         initialize();
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.titleImage: {
 
-                break;
-            }
-
-
-        }
-    }
 
     private void initialize() {
 

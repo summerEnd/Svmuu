@@ -127,6 +127,7 @@
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
+        <item name="android:padding">5dp</item>
     </style>
 
     <style name="TwoTextItem" parent="android:TextAppearance">
@@ -151,12 +152,19 @@
 
     <style name="applyFragmentTextStyle">
         <item name="android:textColor">@color/textColorDeepGray</item>
-        <item name="android:textSize">@dimen/text_26px</item>
+        <item name="android:textSize">@dimen/text_24px</item>
     </style>
 
     <style name="applyFragmentTextStyle.big">
         <item name="android:textColor">@color/textColorBlack</item>
-        <item name="android:textSize">@dimen/text_28px</item>
+        <item name="android:textSize">@dimen/text_26px</item>
+    </style>
+
+    <style name="applyFragmentItemPadding">
+        <item name="android:paddingLeft">9dp</item>
+        <item name="android:paddingRight">9dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
     </style>
 
     <style name="activityPadding">

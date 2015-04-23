@@ -10,6 +10,7 @@
     <dimen name="avatarSize">60dp</dimen>
     <dimen name="text_20px">12sp</dimen>
     <dimen name="text_22px">14sp</dimen>
+    <dimen name="text_24px">15sp</dimen>
     <dimen name="text_26px">16sp</dimen>
     <dimen name="text_28px">18sp</dimen>
     <dimen name="text_30px">20sp</dimen>
@@ -35,7 +36,7 @@
     <dimen name="list_item_hold_margin_dot1">14dp</dimen>
     <dimen name="list_item_hold_margin_dot2">28dp</dimen>
     <dimen name="menuPaddingVertical">20dp</dimen>
-    <dimen name="triangleLayoutSize">51dp</dimen>
+    <dimen name="triangleLayoutSize">61dp</dimen>
     <dimen name="applyItemMarginTop">9dp</dimen>
     <dimen name="applyItemMarginLeft">20dp</dimen>
     <dimen name="circleItemSize">65dp</dimen>

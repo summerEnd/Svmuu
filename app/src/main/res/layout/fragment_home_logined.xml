@@ -1,136 +1,185 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    tools:context="com.yjy998.ui.activity.home.HomeLoginFragment">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/homeLogined_pd_horizontal"
-        android:paddingRight="@dimen/homeLogined_pd_horizontal"
-        android:paddingTop="@dimen/homeLogined_pd_vertical"
-        android:paddingBottom="@dimen/homeLogined_pd_vertical"
-        android:gravity="center_vertical"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/avatarImage"
-            android:contentDescription="@string/contentDescription_image"
-            android:src="@drawable/ic_yzm"
-            android:layout_width="@dimen/avatarSize"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="@dimen/avatarSize" />
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        tools:context="com.yjy998.ui.activity.home.HomeLoginFragment">
 
         <LinearLayout
-            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/homeLogined_pd_horizontal"
+            android:paddingRight="@dimen/homeLogined_pd_horizontal"
+            android:paddingTop="@dimen/homeLogined_pd_vertical"
+            android:paddingBottom="@dimen/homeLogined_pd_vertical"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/avatarImage"
+                android:contentDescription="@string/contentDescription_image"
+                android:src="@drawable/ic_yzm"
+                android:layout_width="@dimen/avatarSize"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="@dimen/avatarSize" />
+
+            <LinearLayout
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/telText"
+                    android:textColor="@color/textColorBlack"
+                    android:textSize="@dimen/text_28px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/__testPhone" />
+
+                <com.yjy998.ui.view.TwoTextItem
+                    android:id="@+id/moneyText"
+                    android:layout_marginTop="6dp"
+                    android:layout_width="wrap_content"
+                    android:text="￥123123.12"
+                    android:textColor="@color/textColorRed"
+                    android:textSize="@dimen/text_30px"
+                    app:prefix="@string/account_remain_"
+                    app:prefixTextSize="@dimen/text_28px"
+                    app:prefixTextColor="@color/textColorBlack"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View style="@style/horizontalLine" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
-                android:textColor="@color/textColorBlack"
-                android:textSize="@dimen/text_28px"
+                android:id="@+id/goldIngotText"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:textColor="@color/textColorDeepGray"
+                android:textSize="@dimen/text_26px"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/GoldIngot_d" />
+
+            <View style="@style/verticalLine" />
+
+            <TextView
+                android:id="@+id/caopanTicketsText"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:textColor="@color/textColorDeepGray"
+                android:textSize="@dimen/text_26px"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/caopan_d" />
+        </LinearLayout>
+
+        <View style="@style/horizontalLine" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/homeLogined_pd_horizontal"
+            android:paddingRight="@dimen/homeLogined_pd_horizontal"
+            android:paddingTop="@dimen/homeLogined_pd_vertical"
+            android:paddingBottom="@dimen/homeLogined_pd_vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/buyIn"
+                android:text="@string/buyIn"
+                android:layout_gravity="center_vertical"
+                android:drawableLeft="@drawable/home_buy"
+                android:drawableStart="@drawable/home_buy"
+                style="@style/homeLoginedText" />
+
+            <TextView
+                android:id="@+id/sellOut"
+                android:layout_gravity="center"
+                android:text="@string/sellOut"
+                android:drawableLeft="@drawable/home_sell"
+                android:drawableStart="@drawable/home_sell"
+                style="@style/homeLoginedText" />
+
+            <TextView
+                android:id="@+id/recharge"
+                android:layout_gravity="end|center_vertical"
+                android:text="@string/recharge"
+                android:drawableStart="@drawable/home_recharge"
+                android:drawableLeft="@drawable/home_recharge"
+                style="@style/homeLoginedText" />
+        </FrameLayout>
+
+        <TextView
+            android:paddingLeft="@dimen/homeLogined_pd_horizontal"
+            android:paddingRight="@dimen/homeLogined_pd_horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="@string/myContract_d"
+            android:background="#EEEEEE"
+            android:textColor="@color/textColorBlack"
+            android:textSize="@dimen/text_28px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.sp.lib.widget.list.LinearListView
+                android:id="@+id/contractLayout"
+                android:background="#dddddd"
+                android:padding="1px"
+                android:layout_margin="1dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/__testPhone" />
+                android:orientation="horizontal">
 
-            <com.yjy998.ui.view.TwoTextItem
-                android:layout_marginTop="6dp"
+            </com.sp.lib.widget.list.LinearListView>
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/homeLogined_pd_horizontal"
+            android:paddingRight="@dimen/homeLogined_pd_horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="@string/myGame_d"
+            android:background="#EEEEEE"
+            android:textColor="@color/textColorBlack"
+            android:textSize="@dimen/text_28px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.sp.lib.widget.list.LinearListView
+                android:padding="1px"
+                android:layout_margin="1dp"
+                android:background="#dddddd"
+                android:id="@+id/gameLayout"
                 android:layout_width="wrap_content"
-                android:text="￥123123.12"
-                android:textColor="@color/textColorRed"
-                android:textSize="@dimen/text_30px"
-                app:prefix="@string/account_remain_"
-                app:prefixTextSize="@dimen/text_28px"
-                app:prefixTextColor="@color/textColorBlack"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            </com.sp.lib.widget.list.LinearListView>
+        </HorizontalScrollView>
     </LinearLayout>
-
-    <View style="@style/horizontalLine" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:textColor="@color/textColorDeepGray"
-            android:textSize="@dimen/text_26px"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="金元宝：20个" />
-
-        <View style="@style/verticalLine" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:textColor="@color/textColorDeepGray"
-            android:textSize="@dimen/text_26px"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="金元宝：20个" />
-    </LinearLayout>
-
-    <View style="@style/horizontalLine" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:paddingLeft="@dimen/homeLogined_pd_horizontal"
-        android:paddingRight="@dimen/homeLogined_pd_horizontal"
-        android:paddingTop="@dimen/homeLogined_pd_vertical"
-        android:paddingBottom="@dimen/homeLogined_pd_vertical"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="@string/buyIn"
-            android:layout_gravity="center_vertical"
-            android:drawableLeft="@drawable/home_buy"
-            style="@style/homeLoginedText" />
-
-        <TextView
-            android:layout_gravity="center"
-            android:text="@string/sellOut"
-            android:drawableLeft="@drawable/home_sell"
-            style="@style/homeLoginedText" />
-
-        <TextView
-            android:layout_gravity="right|center_vertical"
-            android:text="@string/recharge"
-            android:drawableLeft="@drawable/home_recharge"
-            style="@style/homeLoginedText" />
-    </FrameLayout>
-
-    <TextView
-        android:paddingLeft="@dimen/homeLogined_pd_horizontal"
-        android:paddingRight="@dimen/homeLogined_pd_horizontal"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="@string/myContract_d"
-        android:background="#EEEEEE"
-        android:textColor="@color/textColorBlack"
-        android:textSize="@dimen/text_28px"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:paddingLeft="@dimen/homeLogined_pd_horizontal"
-        android:paddingRight="@dimen/homeLogined_pd_horizontal"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="@string/myGame_d"
-        android:background="#EEEEEE"
-        android:textColor="@color/textColorBlack"
-        android:textSize="@dimen/text_28px"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+</ScrollView>

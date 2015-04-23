@@ -35,8 +35,8 @@ public class MenuActivity extends YJYActivity {
         slidingPane.setSliderFadeColor(0);
         getSupportFragmentManager().beginTransaction().add(R.id.menuContainer, mMenuFragment).commit();
         titleImage = (ImageView) findViewById(R.id.titleImage);
-        titleImage.setOnClickListener(this);
-        refreshTitle();
+        titleImage.setOnClickListener(titleClickListener);
+        findViewById(R.id.toggle).setOnClickListener(titleClickListener);
     }
 
     private View.OnClickListener titleClickListener = new View.OnClickListener() {
@@ -64,6 +64,7 @@ public class MenuActivity extends YJYActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        refreshTitle();
     }
 
     @Override
@@ -142,9 +143,9 @@ public class MenuActivity extends YJYActivity {
 
     @Override
     public void onBackPressed() {
-        if (slidingPane.isOpen()){
+        if (slidingPane.isOpen()) {
             slidingPane.closePane();
-        }else{
+        } else {
             super.onBackPressed();
         }
     }

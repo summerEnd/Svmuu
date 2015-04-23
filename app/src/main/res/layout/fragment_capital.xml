@@ -21,6 +21,7 @@
             android:orientation="vertical">
             <!--选择合约-->
             <LinearLayout
+                android:background="@drawable/gray_frame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -28,12 +29,18 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:layout_margin="5dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/chooseContract" />
+                    android:hint="@string/chooseContract" />
 
+                <ImageView
+                    android:src="@drawable/arrow_down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -41,6 +48,7 @@
                 <LinearLayout style="@style/capitalFragmentLayoutStyle_1">
 
                     <TextView
+
                         android:layout_width="wrap_content"
                         android:text="@string/usable_money__"
                         android:layout_height="wrap_content" />
@@ -117,6 +125,8 @@
                     android:text="股票买卖" />
 
                 <TextView
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/change_graphic"
                     android:textColor="@color/textColorRed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

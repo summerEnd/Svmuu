@@ -47,7 +47,6 @@ public class LinearListView extends LinearLayout implements View.OnClickListener
     }
 
     void init() {
-        setOrientation(VERTICAL);
     }
 
     public void setAdapter(ListAdapter adapter) {
