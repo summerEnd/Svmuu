@@ -16,6 +16,14 @@ import android.view.View;
 import com.sp.lib.R;
 import com.sp.lib.widget.LayoutSquare;
 
+/**
+ * 成功
+ * <item android:state_first="false" android:state_checked="true" android:drawable="@drawable/lock_on" />
+ * 失败
+ * <item android:state_first="false" android:state_checked="false" android:drawable="@drawable/lock_error" />
+ * 正常
+ * <item android:state_first="true" android:drawable="@drawable/lock_first" />
+ */
 public class LockView extends View {
 
     private Drawable drawable;
@@ -24,7 +32,7 @@ public class LockView extends View {
     //水平间隔
     private int horizontalSpacing;
 
-    private final int[] STATUS_SELECTED = new int[]{-android.R.attr.state_first, android.R.attr.state_checked};
+    private final int[] STATUS_SUCCESS = new int[]{-android.R.attr.state_first, android.R.attr.state_checked};
     private final int[] STATUS_ERROR = new int[]{-android.R.attr.state_first, -android.R.attr.state_checked};
     private final int[] STATUS_FIRST = new int[]{android.R.attr.state_first};
     //锁
@@ -40,9 +48,9 @@ public class LockView extends View {
 
     private int mLayoutSquare;
 
-    private int lineFailColor;
-    private int lineSuccessColor;
-    private int lineNormalColor;
+    private ColorStateList lineColor;
+    Path path = new Path();
+
     public LockView(Context context) {
         this(context, null);
     }
@@ -66,23 +74,16 @@ public class LockView extends View {
             password = "";
         }
         mLock = new NineLock(password);
-        ColorStateList lineColor = a.getColorStateList(R.styleable.LockView_lineColor);
-        lineFailColor = lineColor.getColorForState(new int[]{-android.R.attr.state_first, -android.R.attr.state_checked}, Color.RED);
-        lineSuccessColor = lineColor.getColorForState(new int[]{-android.R.attr.state_first, android.R.attr.state_checked}, Color.GREEN);
-        lineNormalColor = lineColor.getColorForState(new int[]{android.R.attr.state_first}, Color.WHITE);
+        lineColor = a.getColorStateList(R.styleable.LockView_lineColor);
 
         pathPaint = new Paint();
         pathPaint.setStyle(Paint.Style.STROKE);
         pathPaint.setStrokeWidth(8);
-        pathPaint.setColor(lineNormalColor);
+
         a.recycle();
+        invalidatePaintAndDraw();
     }
 
-    /**
-     * set a reset
-     *
-     * @param lock
-     */
     public void setLock(NineLock lock) {
         lock.setSecret(mLock.getSecret());
         mLock = lock;
@@ -95,28 +96,21 @@ public class LockView extends View {
             widthMeasureSpec = heightMeasureSpec = LayoutSquare.apply(mLayoutSquare, widthMeasureSpec, heightMeasureSpec);
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int paddingLeft = getPaddingLeft();
-        int paddingRight = getPaddingRight();
-        int paddingTop = getPaddingTop();
-        int paddingBottom = getPaddingBottom();
-        int drawableWidth = (getMeasuredWidth() - paddingLeft - paddingRight - horizontalSpacing * 2) / 3;
-        int drawableHeight = (getMeasuredHeight() - paddingTop - paddingBottom - verticalSpacing * 2) / 3;
+
+        int drawableWidth = (getMeasuredWidth() - getPaddingLeft() - getPaddingRight() - horizontalSpacing * 2) / 3;
+        int drawableHeight = (getMeasuredHeight() - getPaddingTop() - getPaddingBottom() - verticalSpacing * 2) / 3;
         drawable.setBounds(0, 0, drawableWidth, drawableHeight);
-    }
-
-    public Drawable getDrawable() {
-        return drawable;
-    }
-
-    public void setDrawable(Drawable drawable) {
-        this.drawable = drawable;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        drawLocks(canvas);
+        drawPath(canvas);
+    }
+
+    void drawLocks(Canvas canvas) {
         int paddingLeft = getPaddingLeft();
         int drawableWidth = drawable.getBounds().width();
-        int drawableHeight = drawable.getBounds().height();
 
         for (int row = 0; row < 3; row++) {
             //绘制9个锁
@@ -124,9 +118,18 @@ public class LockView extends View {
             canvas.translate(paddingLeft, getY(row));
             for (int column = 0; column < 3; column++) {
                 if (isSelected(row, column)) {
-                    drawable.setState(touchX == NO_TOUCH && mLock.tryUnLock()
-                            ? STATUS_SELECTED
-                            : STATUS_ERROR);
+
+                    switch (mLock.getStatus()) {
+                        case NineLock.STATUS_OPEN_SUCCESS:
+                            drawable.setState(STATUS_SUCCESS);
+                            break;
+                        case NineLock.STATUS_OPEN_FAILED:
+                            drawable.setState(STATUS_ERROR);
+                            break;
+                        default:
+                            drawable.setState(STATUS_SUCCESS);
+                    }
+
                 } else {
                     drawable.setState(STATUS_FIRST);
                 }
@@ -135,8 +138,11 @@ public class LockView extends View {
             }
             canvas.restore();
         }
-        Path path = new Path();
+    }
 
+    void drawPath(Canvas canvas) {
+        int drawableHeight = drawable.getBounds().height();
+        int drawableWidth = drawable.getBounds().width();
         String secret = mLock.getSecret();
 
         if (secret.length() == 0) {
@@ -165,6 +171,22 @@ public class LockView extends View {
         canvas.drawPath(path, pathPaint);
     }
 
+    void invalidatePaintAndDraw() {
+        pathPaint.setColor(lineColor.getColorForState(getLineColoState(mLock.getStatus()), Color.WHITE));
+        path.reset();
+        invalidate();
+    }
+
+    int[] getLineColoState(int status) {
+        switch (status) {
+            case NineLock.STATUS_OPEN_SUCCESS:
+                return STATUS_SUCCESS;
+            case NineLock.STATUS_OPEN_FAILED:
+                return STATUS_ERROR;
+            default:
+                return STATUS_FIRST;
+        }
+    }
 
     float X(int position) {
         return getX(position % 3);
@@ -209,18 +231,12 @@ public class LockView extends View {
         }
 
         if (action == MotionEvent.ACTION_UP) {
-            if (mLock.tryUnLock()) {
-                pathPaint.setColor(lineSuccessColor);
-            } else {
-                pathPaint.setColor(lineFailColor);
-            }
+            mLock.unLock();
             touchX = NO_TOUCH;
             touchY = NO_TOUCH;
             postDelayed(showUnlockResult, 1000);
-        } else {
-            pathPaint.setColor(lineNormalColor);
         }
-        invalidate();
+        invalidatePaintAndDraw();
 
         return true;
     }
@@ -230,7 +246,7 @@ public class LockView extends View {
         @Override
         public void run() {
             mLock.reset();
-            invalidate();
+            invalidatePaintAndDraw();
         }
     };
 
@@ -250,27 +266,4 @@ public class LockView extends View {
         this.horizontalSpacing = horizontalSpacing;
     }
 
-    public int getLineFailColor() {
-        return lineFailColor;
-    }
-
-    public void setLineFailColor(int lineFailColor) {
-        this.lineFailColor = lineFailColor;
-    }
-
-    public int getLineSuccessColor() {
-        return lineSuccessColor;
-    }
-
-    public void setLineSuccessColor(int lineSuccessColor) {
-        this.lineSuccessColor = lineSuccessColor;
-    }
-
-    public int getLineNormalColor() {
-        return lineNormalColor;
-    }
-
-    public void setLineNormalColor(int lineNormalColor) {
-        this.lineNormalColor = lineNormalColor;
-    }
 }

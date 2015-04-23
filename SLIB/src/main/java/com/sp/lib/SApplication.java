@@ -26,7 +26,7 @@ import java.util.List;
 
 public class SApplication extends Application {
     //锁屏的时间间隔
-    private final int BACK_DURATION = 1 * 60 * 1000;
+    private final int BACK_DURATION = 10 * 1000;
 
     @Override
     public void onCreate() {

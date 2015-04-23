@@ -4,6 +4,10 @@ import android.util.Log;
 
 public class NineLock implements ILock {
 
+    public static final int STATUS_NORMAL = 0;
+    public static final int STATUS_OPEN_SUCCESS = 1;
+    public static final int STATUS_OPEN_FAILED = 2;
+
     private char[] RAW_PASSWORD = new char[]{
             '1', '2', '3',
             '4', '5', '6',
@@ -11,8 +15,9 @@ public class NineLock implements ILock {
     };
 
     private String mSecret = "";
+    private int status = STATUS_NORMAL;
 
-    public NineLock(){
+    public NineLock() {
         this("");
     }
 
@@ -115,14 +120,29 @@ public class NineLock implements ILock {
         return false;
     }
 
+    protected boolean tryUnLock() {
+        return false;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
     @Override
-    public boolean tryUnLock() {
-        return true;
+    public final boolean unLock() {
+        if (tryUnLock()) {
+            status = STATUS_OPEN_SUCCESS;
+            return true;
+        } else {
+            status = STATUS_OPEN_FAILED;
+            return false;
+        }
     }
 
     @Override
     public void reset() {
         mSecret = "";
+        status = STATUS_NORMAL;
     }
 
 
