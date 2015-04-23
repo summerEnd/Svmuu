@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yjy998" >
+    package="com.yjy998">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,55 +15,65 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name=".ui.activity.MainActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.sp.lib.activity.album.PhotoAlbumActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.sp.lib.activity.DEBUGActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity android:name="com.sp.lib.demo.SlibDemo" >
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".ui.activity.EnterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.sp.lib.activity.album.PhotoAlbumActivity"
+            android:label="@string/app_name">
+
+        </activity>
+        <activity
+            android:name="com.sp.lib.activity.DEBUGActivity"
+            android:label="@string/app_name">
+
+        </activity>
+        <activity android:name="com.sp.lib.demo.SlibDemo">
+
+        </activity>
         <activity
             android:name=".ui.activity.ChartActivity"
-            android:label="@string/title_activity_chart" >
+            android:label="@string/title_activity_chart">
+
         </activity>
         <activity
             android:name=".ui.activity.LockActivity"
             android:label="@string/title_activity_lock"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop">
+
         </activity>
-        <activity
-            android:name=".ui.activity.EnterActivity"
-            android:label="@string/title_activity_enter" >
-        </activity>
+
         <activity
             android:name=".ui.activity.TestActivity"
-            android:label="@string/title_activity_test" >
+            android:label="@string/title_activity_test">
+
         </activity>
         <activity
             android:name=".ui.activity.apply.ApplyActivity"
-            android:label="@string/title_activity_t9_tn" >
+            android:label="@string/title_activity_t9_tn">
+
         </activity>
         <activity
             android:name=".ui.activity.ChangeData"
-            android:label="@string/title_activity_change_data" >
+            android:label="@string/title_activity_change_data">
+
         </activity>
         <activity
             android:name=".ui.activity.FreshActivity"
-            android:label="@string/title_activity_fresh" >
+            android:label="@string/title_activity_fresh">
+
         </activity>
+
     </application>
 
 </manifest>

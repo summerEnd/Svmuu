@@ -18,7 +18,7 @@ public class AppDelegate extends SApplication {
         instance = this;
         setMainTest(TestActivity.class);
         setDebug(BuildConfig.DEBUG);
-        setEnterBackground(false);
+        //setEnterBackground(false);
     }
 
     /**

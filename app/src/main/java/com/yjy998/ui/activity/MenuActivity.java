@@ -139,4 +139,13 @@ public class MenuActivity extends YJYActivity {
             slidingPane.openPane();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        if (slidingPane.isOpen()){
+            slidingPane.closePane();
+        }else{
+            super.onBackPressed();
+        }
+    }
 }
