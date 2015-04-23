@@ -1,6 +1,5 @@
 package com.yjy998.ui.activity.game;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -15,10 +14,6 @@ import com.sp.lib.widget.PagerSlidingTabStrip;
 import com.yjy998.R;
 import com.yjy998.adapter.FragmentPagerAdapter;
 import com.yjy998.ui.activity.BaseFragment;
-import com.yjy998.ui.activity.my.CancellationEntrustFragment;
-import com.yjy998.ui.activity.my.CapitalFragment;
-import com.yjy998.ui.activity.my.DealFragment;
-import com.yjy998.ui.activity.my.HoldingsFragment;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -56,6 +56,14 @@
             android:name=".ui.activity.apply.ApplyActivity"
             android:label="@string/title_activity_t9_tn" >
         </activity>
+        <activity
+            android:name=".ui.activity.ChangeData"
+            android:label="@string/title_activity_change_data" >
+        </activity>
+        <activity
+            android:name=".ui.activity.FreshActivity"
+            android:label="@string/title_activity_fresh" >
+        </activity>
     </application>
 
 </manifest>

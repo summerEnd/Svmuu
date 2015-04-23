@@ -36,10 +36,13 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.t9Layout: {
-                startActivity(new Intent(getActivity(), ApplyActivity.class));
+                startActivity(new Intent(getActivity(), ApplyActivity.class)
+                        .putExtra(ApplyActivity.EXTRA_APPLY, ApplyActivity._T9));
                 break;
             }
             case R.id.tnLayout: {
+                startActivity(new Intent(getActivity(), ApplyActivity.class)
+                        .putExtra(ApplyActivity.EXTRA_APPLY, ApplyActivity._TN));
                 break;
             }
             case R.id.freshLayout: {

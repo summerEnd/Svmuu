@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity.my;
+package com.yjy998.ui.activity.game;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -21,7 +21,7 @@ import java.util.List;
 
 import static com.yjy998.ui.pop.CenterPopup.*;
 
-public class CenterListFragment extends BaseFragment implements AdapterView.OnItemClickListener, Listener {
+public class GameListFragment extends BaseFragment implements AdapterView.OnItemClickListener, Listener {
 
     View layout;
     PullToRefreshListView mRefreshList;

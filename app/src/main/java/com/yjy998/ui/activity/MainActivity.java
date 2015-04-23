@@ -47,10 +47,7 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
 
                 break;
             }
-            case R.id.toggle: {
-                toggle();
-                break;
-            }
+
 
         }
     }

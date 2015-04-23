@@ -1,6 +1,7 @@
 package com.yjy998.ui.activity.home;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
 import com.yjy998.ui.activity.BaseFragment;
+import com.yjy998.ui.activity.FreshActivity;
 
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
@@ -67,7 +69,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        ContextUtil.toast_debug(getResources().getResourceName(v.getId()));
+
         switch (v.getId()) {
             case R.id.safeLayout: {
                 break;
@@ -80,6 +82,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
 
             case R.id.newMember: {
+                startActivity(new Intent(getActivity(), FreshActivity.class));
                 break;
             }
 

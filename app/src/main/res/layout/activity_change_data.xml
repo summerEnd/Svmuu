@@ -1,0 +1,163 @@
+<!--内容-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/windowBackground"
+    tools:context="com.yjy998.ui.activity.ChangeData"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        style="@style/activityPadding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            style="@style/changeDataTabRow">
+
+            <TextView
+                style="@style/changeDataTabName"
+                android:text="@string/avatar" />
+
+            <ImageView
+                android:id="@+id/avatarImage"
+                android:layout_width="@dimen/avatarSize"
+                android:layout_height="@dimen/avatarSize"
+                android:src="@drawable/ic_launcher"
+                style="@style/changeDataTabValue" />
+
+            <ImageView
+                style="@style/changeDataTabImage"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+        <View style="@style/horizontalLine" />
+
+        <RelativeLayout style="@style/changeDataTabRow">
+
+            <TextView
+                style="@style/changeDataTabName"
+                android:text="@string/nickName" />
+
+            <TextView
+                android:id="@+id/nickText"
+                style="@style/changeDataTabValue"
+                android:text="范迪塞尔" />
+
+            <ImageView
+                style="@style/changeDataTabImage"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <View style="@style/horizontalLine" />
+
+        <RelativeLayout style="@style/changeDataTabRow">
+
+            <TextView
+                style="@style/changeDataTabName"
+                android:text="@string/gender" />
+
+            <TextView
+                android:id="@+id/genderText"
+                style="@style/changeDataTabValue"
+                android:text="@string/male" />
+
+            <ImageView style="@style/changeDataTabImage" />
+        </RelativeLayout>
+
+        <View style="@style/horizontalLine" />
+
+        <RelativeLayout style="@style/changeDataTabRow">
+
+            <TextView
+                style="@style/changeDataTabName"
+                android:text="@string/birthday" />
+
+            <TextView
+                android:id="@+id/birthDayText"
+                style="@style/changeDataTabValue"
+                android:text="1985.02.23" />
+
+            <ImageView style="@style/changeDataTabImage" />
+        </RelativeLayout>
+
+        <View style="@style/horizontalLine" />
+
+        <RelativeLayout style="@style/changeDataTabRow">
+
+            <TextView
+                style="@style/changeDataTabName"
+                android:text="@string/liveHood" />
+
+            <TextView
+                android:id="@+id/liveText"
+                style="@style/changeDataTabValue"
+                android:text="南京" />
+
+            <ImageView style="@style/changeDataTabImage" />
+        </RelativeLayout>
+
+        <View style="@style/horizontalLine" />
+
+        <RelativeLayout
+            style="@style/changeDataTabRow"
+            android:layout_marginTop="@dimen/changeData_margin_top">
+
+            <TextView
+                style="@style/changeDataTabName"
+                android:text="@string/education_lvl" />
+
+            <TextView
+                android:id="@+id/educationText"
+                style="@style/changeDataTabValue"
+                android:text="博士后" />
+
+            <ImageView style="@style/changeDataTabImage" />
+        </RelativeLayout>
+
+        <View style="@style/horizontalLine" />
+
+        <RelativeLayout style="@style/changeDataTabRow">
+
+            <TextView
+                style="@style/changeDataTabName"
+                android:text="@string/handPassword" />
+
+            <TextView
+                android:id="@+id/handPasswordText"
+                style="@style/changeDataTabValue"
+                android:text="@string/setAlready" />
+
+            <ImageView style="@style/changeDataTabImage" />
+        </RelativeLayout>
+
+        <View style="@style/horizontalLine" />
+
+        <RelativeLayout style="@style/changeDataTabRow">
+
+            <TextView
+                style="@style/changeDataTabName"
+                android:text="@string/investment_exp" />
+
+            <EditText
+                android:id="@+id/expEdit"
+                android:background="#0000"
+                style="@style/changeDataTabValue"
+                android:hint="@string/hint_investment_lvl" />
+
+            <ImageView
+                style="@style/changeDataTabImage"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_marginTop="@dimen/changeData_margin_top"
+            android:layout_width="match_parent"
+            android:padding="9dp"
+            style="@style/blueButton.big"
+            android:text="@string/logout" />
+    </LinearLayout>
+</ScrollView>

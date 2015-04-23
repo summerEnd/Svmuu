@@ -50,4 +50,5 @@
     <dimen name="homeLogined_pd_horizontal">25dp</dimen>
     <dimen name="homeLogined_pd_vertical">8dp</dimen>
     <dimen name="home_item_text_size">18sp</dimen>
+    <dimen name="changeData_margin_top">18dp</dimen>
 </resources>

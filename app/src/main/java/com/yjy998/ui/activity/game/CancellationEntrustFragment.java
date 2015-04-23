@@ -1,22 +1,8 @@
-package com.yjy998.ui.activity.my;
+package com.yjy998.ui.activity.game;
 
-
-import android.os.Bundle;
-import android.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.sp.lib.common.util.ContextUtil;
-import com.sp.lib.widget.list.refresh.PullToRefreshListView;
 import com.yjy998.R;
-import com.yjy998.adapter.HoldingsAdapter;
-import com.yjy998.entity.Hold;
-import com.yjy998.ui.activity.BaseFragment;
-import com.yjy998.ui.pop.CenterPopup;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.yjy998.ui.pop.CenterPopup.PopItem;
 import static com.yjy998.ui.pop.CenterPopup.PopWidget;
@@ -24,7 +10,7 @@ import static com.yjy998.ui.pop.CenterPopup.PopWidget;
 /**
  * 委托/撤单
  */
-public class CancellationEntrustFragment extends CenterListFragment {
+public class CancellationEntrustFragment extends GameListFragment {
 
 
     @Override

@@ -13,6 +13,9 @@ public class ApplyActivity extends MenuActivity {
 
     private PagerSlidingTabStrip tabStrip;
     private ViewPager pager;
+    public static final String _TN = "tn";
+    public static final String _T9 = "t9";
+    public static final String EXTRA_APPLY = "t9";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,5 +35,8 @@ public class ApplyActivity extends MenuActivity {
         pager.setAdapter(adapter);
         tabStrip.setViewPager(pager);
 
+        if (_T9.equals(getIntent().getStringExtra(EXTRA_APPLY))) {
+            pager.setCurrentItem(1);
+        }
     }
 }

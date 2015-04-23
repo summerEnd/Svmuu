@@ -24,6 +24,8 @@ public class MenuActivity extends YJYActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_menu);
+        //隐藏标题栏
+        getActionBar().hide();
         layoutContainer = (ViewGroup) findViewById(R.id.layoutContainer);
         mMenuFragment = new MenuFragment();
 
@@ -33,21 +35,31 @@ public class MenuActivity extends YJYActivity {
         slidingPane.setSliderFadeColor(0);
         getSupportFragmentManager().beginTransaction().add(R.id.menuContainer, mMenuFragment).commit();
         titleImage = (ImageView) findViewById(R.id.titleImage);
-        titleImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //登陆就打电话，没登录就跳到登陆。这是MenuActivity通用的。
-                if (AppDelegate.getInstance().isUserLogin()) {
-                    startActivity(IntentFactory.callPhone("138465688"));
-                } else {
-                    showLoginWindow();
-                }
-
-                onTitleImageClick();
-            }
-        });
+        titleImage.setOnClickListener(this);
         refreshTitle();
     }
+
+    private View.OnClickListener titleClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.toggle: {
+                    toggle();
+                    break;
+                }
+                case R.id.titleImage: {
+                    //登陆就打电话，没登录就跳到登陆。这是MenuActivity通用的。
+                    if (AppDelegate.getInstance().isUserLogin()) {
+                        startActivity(IntentFactory.callPhone("138465688"));
+                    } else {
+                        showLoginWindow();
+                    }
+
+                    break;
+                }
+            }
+        }
+    };
 
     @Override
     protected void onResume() {
@@ -94,13 +106,6 @@ public class MenuActivity extends YJYActivity {
      * 登陆状态发生改变时要刷新一下布局
      */
     protected void refreshLayout() {
-
-    }
-
-    /**
-     * 标题栏右上角图标被点击时
-     */
-    protected final void onTitleImageClick() {
 
     }
 

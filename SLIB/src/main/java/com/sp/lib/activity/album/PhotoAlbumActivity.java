@@ -209,6 +209,7 @@ public class PhotoAlbumActivity extends SlibActivity implements AdapterView.OnIt
         if (resultCode != RESULT_OK) {
             Toast.makeText(this, R.string.fail, Toast.LENGTH_SHORT).show();
         } else if (requestCode == CAPTURE_IMAGE) {
+            cropImage(data.getData());
             //拍照返回
         } else if (requestCode == CROP_IMAGE) {
             //裁剪返回
@@ -221,7 +222,6 @@ public class PhotoAlbumActivity extends SlibActivity implements AdapterView.OnIt
      * 剪裁图片
      */
     private void cropImage(Uri uri) {
-
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");

@@ -60,7 +60,7 @@
                 app:prefix="交易类型:"
                 android:text="买入"
                 app:prefixTextColor="@color/textColorDeepGray"
-                app:prefixTextSize="@dimen/text_26px" />
+                app:prefixTextSize="@dimen/text_22px" />
 
             <View
                 android:layout_width="0dp"
@@ -72,7 +72,7 @@
                 app:prefix="委托价格:"
                 app:prefixTextColor="@color/textColorDeepGray"
                 android:text="8.26"
-                app:prefixTextSize="@dimen/text_26px" />
+                app:prefixTextSize="@dimen/text_22px" />
 
             <View
                 android:layout_width="0dp"
@@ -85,7 +85,7 @@
                 app:prefixTextColor="@color/textColorDeepGray"
                 android:textColor="#358DE7"
                 android:text="1000"
-                app:prefixTextSize="@dimen/text_26px" />
+                app:prefixTextSize="@dimen/text_22px" />
         </LinearLayout>
 
         <TextView
@@ -93,11 +93,11 @@
             android:textColor="@color/textColorDeepGray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_26px"
+            android:textSize="@dimen/text_22px"
             android:text="委托时间：2015-03-31 15:26:25" />
 
         <TextView
-            android:textSize="@dimen/text_26px"
+            android:textSize="@dimen/text_22px"
             android:layout_marginTop="@dimen/list_item_hold_vertical_margin"
             android:textColor="@color/textColorDeepGray"
             android:layout_width="wrap_content"

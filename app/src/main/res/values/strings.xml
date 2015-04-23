@@ -93,4 +93,19 @@
     <string name="countCapital__">累计配资：</string>
     <string name="myGame_d">我的大赛(%d)</string>
     <string name="myContract_d">当前合约(%d)</string>
+    <string name="help_info">常见问题</string>
+    <string name="title_activity_change_data">ChangeData</string>
+    <string name="gender">性别</string>
+    <string name="male">男</string>
+    <string name="birthday">生日</string>
+    <string name="liveHood">居住地</string>
+    <string name="nickName">昵称</string>
+    <string name="education_lvl">教育程度</string>
+    <string name="handPassword">手势密码</string>
+    <string name="setAlready">已设置</string>
+    <string name="investment_exp">投资经验</string>
+    <string name="hint_investment_lvl">请输入投资经验</string>
+    <string name="avatar">头像</string>
+    <string name="logout">注销登录</string>
+    <string name="title_activity_fresh">新手专享</string>
 </resources>
