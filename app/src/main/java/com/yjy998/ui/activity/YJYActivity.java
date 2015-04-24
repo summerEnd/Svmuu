@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.sp.lib.activity.SlibActivity;
 import com.yjy998.AppDelegate;
+import com.yjy998.ui.activity.other.LockActivity;
 
 /**
  * 所有Activity的基类

@@ -8,12 +8,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.widget.list.refresh.PullToRefreshListView;
 import com.yjy998.R;
 import com.yjy998.adapter.HoldingsAdapter;
 import com.yjy998.entity.Hold;
-import com.yjy998.ui.activity.BaseFragment;
+import com.yjy998.ui.activity.other.BaseFragment;
 import com.yjy998.ui.pop.CenterPopup;
 
 import java.util.ArrayList;

@@ -9,10 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
-import com.yjy998.ui.activity.BaseFragment;
-import com.yjy998.ui.activity.FreshActivity;
+import com.yjy998.ui.activity.other.BaseFragment;
+import com.yjy998.ui.activity.other.FreshActivity;
 
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {

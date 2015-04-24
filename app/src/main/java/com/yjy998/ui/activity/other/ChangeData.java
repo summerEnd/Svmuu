@@ -1,10 +1,8 @@
-package com.yjy998.ui.activity;
+package com.yjy998.ui.activity.other;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,12 +11,9 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sp.lib.activity.album.PhotoAlbumActivity;
-import com.sp.lib.common.support.IntentFactory;
 import com.sp.lib.common.util.ImageUtil;
 import com.yjy998.R;
 import com.yjy998.common.ImageOptions;
-
-import java.io.IOException;
 
 public class ChangeData extends SecondActivity {
 

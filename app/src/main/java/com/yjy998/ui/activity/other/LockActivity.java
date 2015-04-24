@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity;
+package com.yjy998.ui.activity.other;
 
 import android.os.Bundle;
 
@@ -6,6 +6,7 @@ import com.sp.lib.widget.lock.LockView;
 import com.sp.lib.widget.lock.NineLock;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
+import com.yjy998.ui.activity.YJYActivity;
 
 public class LockActivity extends YJYActivity {
 

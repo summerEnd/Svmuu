@@ -5,15 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 
-import com.sp.lib.common.support.adapter.SAdapter;
 import com.yjy998.R;
-import com.yjy998.ui.activity.BaseFragment;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.yjy998.ui.activity.other.BaseFragment;
 
 public class ApplyFragment extends BaseFragment implements View.OnClickListener {
 

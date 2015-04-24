@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
-import com.yjy998.ui.activity.BaseFragment;
+import com.yjy998.ui.activity.other.BaseFragment;
 import com.yjy998.ui.view.CircleItem;
 
 public class TNFragment extends BaseFragment implements View.OnClickListener {

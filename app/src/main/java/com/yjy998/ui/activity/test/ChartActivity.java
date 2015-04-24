@@ -1,8 +1,10 @@
-package com.yjy998.ui.activity;
+package com.yjy998.ui.activity.test;
 
 import android.os.Bundle;
 
 import com.yjy998.R;
+import com.yjy998.ui.activity.other.TimeLineFragment;
+import com.yjy998.ui.activity.YJYActivity;
 
 public class ChartActivity extends YJYActivity {
     TimeLineFragment fragment = new TimeLineFragment();

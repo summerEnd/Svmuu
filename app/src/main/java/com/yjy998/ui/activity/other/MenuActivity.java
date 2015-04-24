@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity;
+package com.yjy998.ui.activity.other;
 
 import android.os.Bundle;
 import android.support.v4.widget.SlidingPaneLayout;
@@ -11,6 +11,7 @@ import android.widget.PopupWindow;
 import com.sp.lib.common.support.IntentFactory;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
+import com.yjy998.ui.activity.YJYActivity;
 import com.yjy998.ui.pop.LoginRegisterWindow;
 
 public class MenuActivity extends YJYActivity {

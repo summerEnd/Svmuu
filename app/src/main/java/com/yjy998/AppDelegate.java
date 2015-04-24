@@ -2,7 +2,7 @@ package com.yjy998;
 
 import com.sp.lib.SApplication;
 import com.yjy998.account.User;
-import com.yjy998.ui.activity.TestActivity;
+import com.yjy998.ui.activity.test.TestActivity;
 
 /**
  * 程序入口,存放全局数据，进行初始化等操作

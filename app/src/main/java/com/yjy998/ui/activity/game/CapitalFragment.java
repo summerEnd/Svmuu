@@ -2,7 +2,6 @@ package com.yjy998.ui.activity.game;
 
 
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +9,8 @@ import android.view.ViewGroup;
 
 import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
-import com.yjy998.ui.activity.BaseFragment;
-import com.yjy998.ui.activity.TimeLineFragment;
+import com.yjy998.ui.activity.other.BaseFragment;
+import com.yjy998.ui.activity.other.TimeLineFragment;
 
 /**
  * 资产

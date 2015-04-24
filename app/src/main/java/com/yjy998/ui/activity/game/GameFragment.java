@@ -13,7 +13,7 @@ import com.sp.lib.common.util.ViewFinder;
 import com.sp.lib.widget.PagerSlidingTabStrip;
 import com.yjy998.R;
 import com.yjy998.adapter.FragmentPagerAdapter;
-import com.yjy998.ui.activity.BaseFragment;
+import com.yjy998.ui.activity.other.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.

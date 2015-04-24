@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity;
+package com.yjy998.ui.activity.other;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yjy998.R;
 import com.yjy998.common.ImageOptions;
+import com.yjy998.ui.activity.other.BaseFragment;
 
 public class MenuFragment extends BaseFragment {
 

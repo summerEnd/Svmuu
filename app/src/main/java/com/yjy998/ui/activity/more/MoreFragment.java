@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.yjy998.R;
-import com.yjy998.ui.activity.BaseFragment;
+import com.yjy998.ui.activity.other.BaseFragment;
 
 public class MoreFragment extends BaseFragment {
 

@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity;
+package com.yjy998.ui.activity.other;
 
 import android.support.v4.app.Fragment;
 import android.view.View;

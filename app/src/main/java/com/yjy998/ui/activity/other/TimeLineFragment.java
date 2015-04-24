@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity;
+package com.yjy998.ui.activity.other;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sp.lib.common.util.JsonUtil;
-import com.sp.lib.common.util.SLog;
 import com.yjy998.R;
 import com.yjy998.common.Constant;
 import com.yjy998.ui.view.TimeLineCover;

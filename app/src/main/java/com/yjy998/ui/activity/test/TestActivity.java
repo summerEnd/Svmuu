@@ -1,8 +1,10 @@
-package com.yjy998.ui.activity;
+package com.yjy998.ui.activity.test;
 
 import android.app.Activity;
 
 import com.sp.lib.activity.STestActivity;
+import com.yjy998.ui.activity.other.LockActivity;
+import com.yjy998.ui.activity.MainActivity;
 
 import java.util.List;
 

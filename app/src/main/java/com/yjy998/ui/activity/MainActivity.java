@@ -3,21 +3,17 @@ package com.yjy998.ui.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SlidingPaneLayout;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.PopupWindow;
 
-import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.ui.activity.apply.ApplyFragment;
 import com.yjy998.ui.activity.game.GameFragment;
 import com.yjy998.ui.activity.home.HomeFragment;
-import com.yjy998.ui.activity.home.HomeLoginFragment;
 import com.yjy998.ui.activity.more.MoreFragment;
 import com.yjy998.ui.activity.my.CenterFragment;
-import com.yjy998.ui.pop.LoginRegisterWindow;
+import com.yjy998.ui.activity.other.BaseFragment;
+import com.yjy998.ui.activity.other.MenuActivity;
 import com.yjy998.ui.view.TabItem;
 
 import static com.yjy998.ui.view.TabItem.CheckListener;

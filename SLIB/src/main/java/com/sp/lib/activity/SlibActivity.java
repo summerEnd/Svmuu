@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.MenuItem;
 
 
 public class SlibActivity extends FragmentActivity {
@@ -72,4 +73,14 @@ public class SlibActivity extends FragmentActivity {
         if (showLifeCircle) Log.i(getClass().getSimpleName(), msg);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

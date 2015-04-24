@@ -3,7 +3,7 @@ package com.yjy998.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import com.yjy998.ui.activity.BaseFragment;
+import com.yjy998.ui.activity.other.BaseFragment;
 
 import java.util.ArrayList;
 

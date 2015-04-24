@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -18,8 +17,8 @@ import com.yjy998.adapter.GameAdapter;
 import com.yjy998.common.ImageOptions;
 import com.yjy998.entity.Contract;
 import com.yjy998.entity.Game;
-import com.yjy998.ui.activity.BaseFragment;
-import com.yjy998.ui.activity.ChangeData;
+import com.yjy998.ui.activity.other.BaseFragment;
+import com.yjy998.ui.activity.other.ChangeData;
 import com.yjy998.ui.view.TwoTextItem;
 
 import java.util.ArrayList;

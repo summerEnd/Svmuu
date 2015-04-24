@@ -6,8 +6,7 @@ import android.support.v4.view.ViewPager;
 import com.sp.lib.widget.PagerSlidingTabStrip;
 import com.yjy998.R;
 import com.yjy998.adapter.FragmentPagerAdapter;
-import com.yjy998.ui.activity.MenuActivity;
-import com.yjy998.ui.activity.YJYActivity;
+import com.yjy998.ui.activity.other.MenuActivity;
 
 public class ApplyActivity extends MenuActivity {
 

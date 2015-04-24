@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity;
+package com.yjy998.ui.activity.other;
 
 import android.app.ActionBar;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.yjy998.R;
+import com.yjy998.ui.activity.YJYActivity;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
@@ -29,12 +30,4 @@ public class SecondActivity extends YJYActivity {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

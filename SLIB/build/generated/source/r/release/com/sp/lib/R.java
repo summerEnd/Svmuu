@@ -298,8 +298,8 @@ containing a value of this type.
     }
     public static final class drawable {
         public static int album=0x7f020000;
-        public static int album_btn_normal=0x7f020019;
-        public static int album_btn_pressed=0x7f02001a;
+        public static int album_btn_normal=0x7f02001a;
+        public static int album_btn_pressed=0x7f02001b;
         public static int album_ic=0x7f020001;
         public static int album_ic_normal=0x7f020002;
         public static int album_ic_pre=0x7f020003;
@@ -311,20 +311,21 @@ containing a value of this type.
         public static int default_ptr_rotate=0x7f020009;
         public static int ic_camera=0x7f02000a;
         public static int ic_launcher=0x7f02000b;
-        public static int ic_menu_back=0x7f02000c;
-        public static int ic_menu_close_cancel=0x7f02000d;
-        public static int ic_menu_forward=0x7f02000e;
-        public static int ic_menu_orientation=0x7f02000f;
-        public static int image_failed=0x7f020010;
-        public static int intro_item_manrun_1=0x7f020011;
-        public static int intro_item_manrun_2=0x7f020012;
-        public static int man_run=0x7f020013;
-        public static int s_progress=0x7f020014;
-        public static int slib_tab_bg=0x7f020015;
-        public static int tab_selector=0x7f020016;
-        public static int tran=0x7f02001b;
-        public static int xsearch_loading=0x7f020017;
-        public static int xsearch_msg_pull_arrow_down=0x7f020018;
+        public static int ic_lincoln=0x7f02000c;
+        public static int ic_menu_back=0x7f02000d;
+        public static int ic_menu_close_cancel=0x7f02000e;
+        public static int ic_menu_forward=0x7f02000f;
+        public static int ic_menu_orientation=0x7f020010;
+        public static int image_failed=0x7f020011;
+        public static int intro_item_manrun_1=0x7f020012;
+        public static int intro_item_manrun_2=0x7f020013;
+        public static int man_run=0x7f020014;
+        public static int s_progress=0x7f020015;
+        public static int slib_tab_bg=0x7f020016;
+        public static int tab_selector=0x7f020017;
+        public static int tran=0x7f02001c;
+        public static int xsearch_loading=0x7f020018;
+        public static int xsearch_msg_pull_arrow_down=0x7f020019;
     }
     public static final class id {
         public static int NotifyCationId_1=0x7f060004;

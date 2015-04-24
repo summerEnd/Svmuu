@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity;
+package com.yjy998.ui.activity.other;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.support.v4.view.ViewPager;
 import com.sp.lib.common.support.adapter.GuidePagerAdapter;
 import com.sp.lib.common.util.SLog;
 import com.yjy998.R;
+import com.yjy998.ui.activity.MainActivity;
+import com.yjy998.ui.activity.YJYActivity;
 
 public class EnterActivity extends YJYActivity implements ViewPager.OnPageChangeListener {
     ViewPager pager;
