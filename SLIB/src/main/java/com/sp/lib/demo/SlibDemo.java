@@ -53,6 +53,7 @@ public class SlibDemo extends Activity implements AdapterView.OnItemClickListene
             mTests.add(new AlbumTest(this));
             mTests.add(new DebugTest(this));
             mTests.add(new LockTest(this));
+            mTests.add(new GIFTest(this));
         }
         ListView listView = new ListView(this);
         setContentView(listView);

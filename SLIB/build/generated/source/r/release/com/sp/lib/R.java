@@ -333,33 +333,33 @@ containing a value of this type.
         public static int y_out=0x7f01001c;
     }
     public static final class color {
-        public static int album_btn_normal_color=0x7f050000;
-        public static int album_btn_pressed_color=0x7f050001;
-        public static int background_tab_pressed=0x7f050002;
+        public static int album_btn_normal_color=0x7f060000;
+        public static int album_btn_pressed_color=0x7f060001;
+        public static int background_tab_pressed=0x7f060002;
     }
     public static final class dimen {
-        public static int button_margin=0x7f070000;
-        public static int pciture_view_pager_margin=0x7f070001;
-        public static int photo_album_item_size=0x7f070002;
-        public static int picture_action_bar_button_margin=0x7f070003;
-        public static int picture_action_bar_height=0x7f070004;
-        public static int picture_action_bar_page_index_text_size=0x7f070005;
-        public static int picture_album_column_margin=0x7f070006;
-        public static int picture_album_item_title_height=0x7f070007;
-        public static int picture_album_text_margin=0x7f070008;
-        public static int picture_album_title_text_size=0x7f070009;
-        public static int picture_album_top_margin=0x7f07000a;
-        public static int picture_album_view_margin=0x7f07000b;
-        public static int picture_album_view_margin_bottom=0x7f07000c;
-        public static int picture_count_text_size=0x7f07000d;
-        public static int picture_loading_text_top_margin=0x7f07000e;
-        public static int picture_pull_to_refresh_footer_height=0x7f07000f;
-        public static int picture_pull_to_refresh_last_update_time_text_size=0x7f070010;
-        public static int picture_pull_to_refresh_last_update_time_top_margin=0x7f070011;
-        public static int picture_pull_to_refresh_loading_text_size=0x7f070012;
-        public static int picture_reload_text_size=0x7f070013;
-        public static int picture_user_guide_margin=0x7f070014;
-        public static int tab_corners=0x7f070015;
+        public static int button_margin=0x7f080000;
+        public static int pciture_view_pager_margin=0x7f080001;
+        public static int photo_album_item_size=0x7f080002;
+        public static int picture_action_bar_button_margin=0x7f080003;
+        public static int picture_action_bar_height=0x7f080004;
+        public static int picture_action_bar_page_index_text_size=0x7f080005;
+        public static int picture_album_column_margin=0x7f080006;
+        public static int picture_album_item_title_height=0x7f080007;
+        public static int picture_album_text_margin=0x7f080008;
+        public static int picture_album_title_text_size=0x7f080009;
+        public static int picture_album_top_margin=0x7f08000a;
+        public static int picture_album_view_margin=0x7f08000b;
+        public static int picture_album_view_margin_bottom=0x7f08000c;
+        public static int picture_count_text_size=0x7f08000d;
+        public static int picture_loading_text_top_margin=0x7f08000e;
+        public static int picture_pull_to_refresh_footer_height=0x7f08000f;
+        public static int picture_pull_to_refresh_last_update_time_text_size=0x7f080010;
+        public static int picture_pull_to_refresh_last_update_time_top_margin=0x7f080011;
+        public static int picture_pull_to_refresh_loading_text_size=0x7f080012;
+        public static int picture_reload_text_size=0x7f080013;
+        public static int picture_user_guide_margin=0x7f080014;
+        public static int tab_corners=0x7f080015;
     }
     public static final class drawable {
         public static int album=0x7f020000;
@@ -393,65 +393,65 @@ containing a value of this type.
         public static int xsearch_msg_pull_arrow_down=0x7f020019;
     }
     public static final class id {
-        public static int NotifyCationId_1=0x7f060004;
-        public static int NotifyCationId_2=0x7f060005;
-        public static int anim_info=0x7f060006;
-        public static int app_name=0x7f060034;
-        public static int bottom_ll=0x7f060019;
-        public static int brand_add_id=0x7f060007;
-        public static int button_contain=0x7f06001e;
-        public static int check=0x7f060037;
-        public static int clear=0x7f060008;
-        public static int dir_name=0x7f060022;
-        public static int download=0x7f060036;
-        public static int grid=0x7f060018;
-        public static int gridview=0x7f060009;
-        public static int height=0x7f060001;
-        public static int icon=0x7f060021;
-        public static int image=0x7f06001b;
-        public static int listChildTag=0x7f06000a;
-        public static int listView=0x7f060020;
-        public static int longer=0x7f060003;
-        public static int num_pics=0x7f060023;
-        public static int parallax_pager=0x7f06000b;
-        public static int parallax_view_tag=0x7f06000c;
-        public static int progressBar=0x7f060025;
-        public static int progressBar2=0x7f060028;
-        public static int pull_to_load_footer_content=0x7f060029;
-        public static int pull_to_load_footer_hint_textview=0x7f06002b;
-        public static int pull_to_load_footer_progressbar=0x7f06002a;
-        public static int pull_to_refresh_header_arrow=0x7f060031;
-        public static int pull_to_refresh_header_content=0x7f06002c;
-        public static int pull_to_refresh_header_hint_textview=0x7f06002e;
-        public static int pull_to_refresh_header_progressbar=0x7f060032;
-        public static int pull_to_refresh_header_text=0x7f06002d;
-        public static int pull_to_refresh_header_time=0x7f060030;
-        public static int pull_to_refresh_last_update_time_text=0x7f06002f;
-        public static int scrollview=0x7f06000d;
-        public static int selected=0x7f060024;
-        public static int shorter=0x7f060002;
-        public static int slib_application=0x7f060035;
-        public static int slib_clear=0x7f06000e;
-        public static int slib_color=0x7f06000f;
-        public static int slib_delete=0x7f060010;
-        public static int slib_next=0x7f060011;
-        public static int slib_orientation=0x7f060012;
-        public static int slib_previous=0x7f060013;
-        public static int slib_share=0x7f060014;
-        public static int slib_toast_text_1=0x7f060015;
-        public static int spinner=0x7f06001a;
-        public static int text=0x7f06001c;
-        public static int textView=0x7f060026;
-        public static int title=0x7f060016;
-        public static int tv_id=0x7f060027;
-        public static int tv_logs=0x7f06001f;
-        public static int tv_progress=0x7f060033;
-        public static int tv_time=0x7f06001d;
-        public static int webview=0x7f060017;
-        public static int width=0x7f060000;
+        public static int NotifyCationId_1=0x7f070004;
+        public static int NotifyCationId_2=0x7f070005;
+        public static int anim_info=0x7f070006;
+        public static int app_name=0x7f070034;
+        public static int bottom_ll=0x7f070019;
+        public static int brand_add_id=0x7f070007;
+        public static int button_contain=0x7f07001e;
+        public static int check=0x7f070037;
+        public static int clear=0x7f070008;
+        public static int dir_name=0x7f070022;
+        public static int download=0x7f070036;
+        public static int grid=0x7f070018;
+        public static int gridview=0x7f070009;
+        public static int height=0x7f070001;
+        public static int icon=0x7f070021;
+        public static int image=0x7f07001b;
+        public static int listChildTag=0x7f07000a;
+        public static int listView=0x7f070020;
+        public static int longer=0x7f070003;
+        public static int num_pics=0x7f070023;
+        public static int parallax_pager=0x7f07000b;
+        public static int parallax_view_tag=0x7f07000c;
+        public static int progressBar=0x7f070025;
+        public static int progressBar2=0x7f070028;
+        public static int pull_to_load_footer_content=0x7f070029;
+        public static int pull_to_load_footer_hint_textview=0x7f07002b;
+        public static int pull_to_load_footer_progressbar=0x7f07002a;
+        public static int pull_to_refresh_header_arrow=0x7f070031;
+        public static int pull_to_refresh_header_content=0x7f07002c;
+        public static int pull_to_refresh_header_hint_textview=0x7f07002e;
+        public static int pull_to_refresh_header_progressbar=0x7f070032;
+        public static int pull_to_refresh_header_text=0x7f07002d;
+        public static int pull_to_refresh_header_time=0x7f070030;
+        public static int pull_to_refresh_last_update_time_text=0x7f07002f;
+        public static int scrollview=0x7f07000d;
+        public static int selected=0x7f070024;
+        public static int shorter=0x7f070002;
+        public static int slib_application=0x7f070035;
+        public static int slib_clear=0x7f07000e;
+        public static int slib_color=0x7f07000f;
+        public static int slib_delete=0x7f070010;
+        public static int slib_next=0x7f070011;
+        public static int slib_orientation=0x7f070012;
+        public static int slib_previous=0x7f070013;
+        public static int slib_share=0x7f070014;
+        public static int slib_toast_text_1=0x7f070015;
+        public static int spinner=0x7f07001a;
+        public static int text=0x7f07001c;
+        public static int textView=0x7f070026;
+        public static int title=0x7f070016;
+        public static int tv_id=0x7f070027;
+        public static int tv_logs=0x7f07001f;
+        public static int tv_progress=0x7f070033;
+        public static int tv_time=0x7f07001d;
+        public static int webview=0x7f070017;
+        public static int width=0x7f070000;
     }
     public static final class integer {
-        public static int slib_anim_duration=0x7f080000;
+        public static int slib_anim_duration=0x7f090000;
     }
     public static final class layout {
         public static int activity_photo_albumn=0x7f030000;
@@ -472,45 +472,48 @@ containing a value of this type.
         public static int share_window=0x7f03000f;
     }
     public static final class menu {
-        public static int debug_menu=0x7f0b0000;
-        public static int download=0x7f0b0001;
+        public static int debug_menu=0x7f0c0000;
+        public static int download=0x7f0c0001;
+    }
+    public static final class raw {
+        public static int image=0x7f050000;
     }
     public static final class string {
-        public static int all=0x7f090000;
-        public static int fail=0x7f090001;
-        public static int hello_world=0x7f090002;
-        public static int landscape=0x7f090003;
-        public static int loadFaile=0x7f090004;
-        public static int network_is_not_open=0x7f090005;
-        public static int other=0x7f090006;
-        public static int picture_image_loading=0x7f090007;
-        public static int picture_load_image_failed=0x7f090008;
-        public static int picture_next_album=0x7f090009;
-        public static int picture_previous_album=0x7f09000a;
-        public static int picture_save_fail=0x7f09000b;
-        public static int picture_save_succeed=0x7f09000c;
-        public static int portrait=0x7f09000d;
-        public static int pull_to_refresh_footer_hint_ready=0x7f09000e;
-        public static int pull_to_refresh_header_hint_loading=0x7f09000f;
-        public static int pull_to_refresh_header_hint_normal=0x7f090010;
-        public static int pull_to_refresh_header_hint_normal2=0x7f090011;
-        public static int pull_to_refresh_header_hint_ready=0x7f090012;
-        public static int pull_to_refresh_header_last_time=0x7f090013;
-        public static int pull_to_refresh_network_error=0x7f090014;
-        public static int pull_to_refresh_no_more_data=0x7f090015;
-        public static int pull_to_refresh_refreshing_label=0x7f090016;
-        public static int pushmsg_center_load_more_ongoing_text=0x7f090017;
-        public static int pushmsg_center_no_more_msg=0x7f090018;
-        public static int pushmsg_center_pull_down_text=0x7f090019;
-        public static int pushmsg_center_pull_down_update_time=0x7f09001a;
-        public static int pushmsg_center_pull_release_text=0x7f09001b;
-        public static int pushmsg_center_pull_up_text=0x7f09001c;
-        public static int xsearch_loading=0x7f09001d;
-        public static int yes=0x7f09001e;
+        public static int all=0x7f0a0000;
+        public static int fail=0x7f0a0001;
+        public static int hello_world=0x7f0a0002;
+        public static int landscape=0x7f0a0003;
+        public static int loadFaile=0x7f0a0004;
+        public static int network_is_not_open=0x7f0a0005;
+        public static int other=0x7f0a0006;
+        public static int picture_image_loading=0x7f0a0007;
+        public static int picture_load_image_failed=0x7f0a0008;
+        public static int picture_next_album=0x7f0a0009;
+        public static int picture_previous_album=0x7f0a000a;
+        public static int picture_save_fail=0x7f0a000b;
+        public static int picture_save_succeed=0x7f0a000c;
+        public static int portrait=0x7f0a000d;
+        public static int pull_to_refresh_footer_hint_ready=0x7f0a000e;
+        public static int pull_to_refresh_header_hint_loading=0x7f0a000f;
+        public static int pull_to_refresh_header_hint_normal=0x7f0a0010;
+        public static int pull_to_refresh_header_hint_normal2=0x7f0a0011;
+        public static int pull_to_refresh_header_hint_ready=0x7f0a0012;
+        public static int pull_to_refresh_header_last_time=0x7f0a0013;
+        public static int pull_to_refresh_network_error=0x7f0a0014;
+        public static int pull_to_refresh_no_more_data=0x7f0a0015;
+        public static int pull_to_refresh_refreshing_label=0x7f0a0016;
+        public static int pushmsg_center_load_more_ongoing_text=0x7f0a0017;
+        public static int pushmsg_center_no_more_msg=0x7f0a0018;
+        public static int pushmsg_center_pull_down_text=0x7f0a0019;
+        public static int pushmsg_center_pull_down_update_time=0x7f0a001a;
+        public static int pushmsg_center_pull_release_text=0x7f0a001b;
+        public static int pushmsg_center_pull_up_text=0x7f0a001c;
+        public static int xsearch_loading=0x7f0a001d;
+        public static int yes=0x7f0a001e;
     }
     public static final class style {
-        public static int debug_button=0x7f0a0000;
-        public static int popup_window_animation=0x7f0a0001;
+        public static int debug_button=0x7f0b0000;
+        public static int popup_window_animation=0x7f0b0001;
     }
     public static final class styleable {
         /** Attributes that can be used with a LockView.

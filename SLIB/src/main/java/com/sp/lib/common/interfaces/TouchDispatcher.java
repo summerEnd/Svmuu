@@ -9,7 +9,7 @@ public interface TouchDispatcher {
 
     public void register(TouchObserver dispatcher);
 
-    public TouchObserver unRegister(TouchObserver dispatcher);
+    public void unRegister(TouchObserver dispatcher);
 
 
 }

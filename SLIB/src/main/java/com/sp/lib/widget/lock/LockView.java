@@ -61,6 +61,7 @@ public class LockView extends View {
 
     public LockView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LockView);
         verticalSpacing = a.getDimensionPixelOffset(R.styleable.LockView_verticalSpacing, 0);
         horizontalSpacing = a.getDimensionPixelOffset(R.styleable.LockView_horizontalSpacing, 0);
@@ -75,7 +76,11 @@ public class LockView extends View {
         }
         mLock = new NineLock(password);
         lineColor = a.getColorStateList(R.styleable.LockView_lineColor);
-
+        if (lineColor == null) {
+            lineColor = new ColorStateList(new int[][]{
+                    STATUS_SUCCESS, STATUS_ERROR, STATUS_FIRST
+            }, new int[]{Color.WHITE, Color.RED, Color.WHITE});
+        }
         pathPaint = new Paint();
         pathPaint.setStyle(Paint.Style.STROKE);
         pathPaint.setStrokeWidth(8);

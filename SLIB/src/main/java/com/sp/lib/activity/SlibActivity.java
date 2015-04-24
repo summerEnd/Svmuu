@@ -14,13 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SlibActivity extends FragmentActivity implements TouchDispatcher{
+public class SlibActivity extends FragmentActivity implements TouchDispatcher {
 
     private boolean showLifeCircle = false;
 
     public <T> T findView(int id) {
         return (T) findViewById(id);
     }
+
     private List<TouchObserver> mToucheDispatchers = new ArrayList<TouchObserver>();
 
     @Override
@@ -91,9 +92,9 @@ public class SlibActivity extends FragmentActivity implements TouchDispatcher{
                 return super.onOptionsItemSelected(item);
         }
     }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-
 
 
         for (TouchObserver observer : mToucheDispatchers) {
