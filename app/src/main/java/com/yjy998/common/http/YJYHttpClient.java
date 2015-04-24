@@ -8,7 +8,7 @@ import com.sp.lib.common.support.net.client.SRequest;
  */
 public final class YJYHttpClient {
 
-    private static final String HOST = "https://yjy998.com/yjy/quote/stock/601899/trend_data";
+    private static final String HOST = "https://www.yjy998.com/yjy/quote/stock/601899/trend_data";
 
     public static void post(SRequest request) {
         SHttpClient.post(request, new YJYHttpHandler());

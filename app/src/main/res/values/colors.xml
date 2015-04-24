@@ -11,6 +11,7 @@
     <color name="textColorDeepGray">#666666</color>
     <color name="textColorRed">#CB0100</color>
     <color name="textColorGreen">#01A920</color>
+    <color name="textColorBlue">#0D64C5</color>
     <color name="white">#ffffff</color>
     <color name="red">#D72A26</color>
     <color name="transientBlack">#8000</color>

@@ -41,6 +41,44 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static int a_out=0x7f010018;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int borderColor=0x7f01001d;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int borderRadius=0x7f01001f;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int cellWidth=0x7f010023;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int contentColor=0x7f01001e;
         /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
@@ -126,6 +164,33 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static int password=0x7f010003;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int passwordColor=0x7f010021;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int passwordLength=0x7f010020;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int passwordRadius=0x7f010022;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -298,8 +363,8 @@ containing a value of this type.
     }
     public static final class drawable {
         public static int album=0x7f020000;
-        public static int album_btn_normal=0x7f020019;
-        public static int album_btn_pressed=0x7f02001a;
+        public static int album_btn_normal=0x7f02001a;
+        public static int album_btn_pressed=0x7f02001b;
         public static int album_ic=0x7f020001;
         public static int album_ic_normal=0x7f020002;
         public static int album_ic_pre=0x7f020003;
@@ -311,20 +376,21 @@ containing a value of this type.
         public static int default_ptr_rotate=0x7f020009;
         public static int ic_camera=0x7f02000a;
         public static int ic_launcher=0x7f02000b;
-        public static int ic_menu_back=0x7f02000c;
-        public static int ic_menu_close_cancel=0x7f02000d;
-        public static int ic_menu_forward=0x7f02000e;
-        public static int ic_menu_orientation=0x7f02000f;
-        public static int image_failed=0x7f020010;
-        public static int intro_item_manrun_1=0x7f020011;
-        public static int intro_item_manrun_2=0x7f020012;
-        public static int man_run=0x7f020013;
-        public static int s_progress=0x7f020014;
-        public static int slib_tab_bg=0x7f020015;
-        public static int tab_selector=0x7f020016;
-        public static int tran=0x7f02001b;
-        public static int xsearch_loading=0x7f020017;
-        public static int xsearch_msg_pull_arrow_down=0x7f020018;
+        public static int ic_lincoln=0x7f02000c;
+        public static int ic_menu_back=0x7f02000d;
+        public static int ic_menu_close_cancel=0x7f02000e;
+        public static int ic_menu_forward=0x7f02000f;
+        public static int ic_menu_orientation=0x7f020010;
+        public static int image_failed=0x7f020011;
+        public static int intro_item_manrun_1=0x7f020012;
+        public static int intro_item_manrun_2=0x7f020013;
+        public static int man_run=0x7f020014;
+        public static int s_progress=0x7f020015;
+        public static int slib_tab_bg=0x7f020016;
+        public static int tab_selector=0x7f020017;
+        public static int tran=0x7f02001c;
+        public static int xsearch_loading=0x7f020018;
+        public static int xsearch_msg_pull_arrow_down=0x7f020019;
     }
     public static final class id {
         public static int NotifyCationId_1=0x7f060004;
@@ -958,5 +1024,138 @@ containing a value of this type.
           @attr name com.sp.lib:y_out
         */
         public static final int ParallaxContainer_y_out = 5;
+        /** Attributes that can be used with a PasswordInputView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #PasswordInputView_borderColor com.sp.lib:borderColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #PasswordInputView_borderRadius com.sp.lib:borderRadius}</code></td><td></td></tr>
+           <tr><td><code>{@link #PasswordInputView_cellWidth com.sp.lib:cellWidth}</code></td><td></td></tr>
+           <tr><td><code>{@link #PasswordInputView_contentColor com.sp.lib:contentColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #PasswordInputView_passwordColor com.sp.lib:passwordColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #PasswordInputView_passwordLength com.sp.lib:passwordLength}</code></td><td></td></tr>
+           <tr><td><code>{@link #PasswordInputView_passwordRadius com.sp.lib:passwordRadius}</code></td><td></td></tr>
+           </table>
+           @see #PasswordInputView_borderColor
+           @see #PasswordInputView_borderRadius
+           @see #PasswordInputView_cellWidth
+           @see #PasswordInputView_contentColor
+           @see #PasswordInputView_passwordColor
+           @see #PasswordInputView_passwordLength
+           @see #PasswordInputView_passwordRadius
+         */
+        public static final int[] PasswordInputView = {
+            0x7f01001d, 0x7f01001e, 0x7f01001f, 0x7f010020,
+            0x7f010021, 0x7f010022, 0x7f010023
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.sp.lib.R.attr#borderColor}
+          attribute's value can be found in the {@link #PasswordInputView} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sp.lib:borderColor
+        */
+        public static final int PasswordInputView_borderColor = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.sp.lib.R.attr#borderRadius}
+          attribute's value can be found in the {@link #PasswordInputView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sp.lib:borderRadius
+        */
+        public static final int PasswordInputView_borderRadius = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.sp.lib.R.attr#cellWidth}
+          attribute's value can be found in the {@link #PasswordInputView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sp.lib:cellWidth
+        */
+        public static final int PasswordInputView_cellWidth = 6;
+        /**
+          <p>This symbol is the offset where the {@link com.sp.lib.R.attr#contentColor}
+          attribute's value can be found in the {@link #PasswordInputView} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sp.lib:contentColor
+        */
+        public static final int PasswordInputView_contentColor = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.sp.lib.R.attr#passwordColor}
+          attribute's value can be found in the {@link #PasswordInputView} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sp.lib:passwordColor
+        */
+        public static final int PasswordInputView_passwordColor = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.sp.lib.R.attr#passwordLength}
+          attribute's value can be found in the {@link #PasswordInputView} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sp.lib:passwordLength
+        */
+        public static final int PasswordInputView_passwordLength = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.sp.lib.R.attr#passwordRadius}
+          attribute's value can be found in the {@link #PasswordInputView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.sp.lib:passwordRadius
+        */
+        public static final int PasswordInputView_passwordRadius = 5;
     };
 }

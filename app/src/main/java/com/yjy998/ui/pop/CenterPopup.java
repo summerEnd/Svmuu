@@ -72,6 +72,10 @@ public class CenterPopup extends PopupWindow implements View.OnClickListener {
         public void add(PopItem item) {
             widgets.add(item);
         }
+
+        public int getChildrenCount() {
+            return widgets.size();
+        }
     }
 
     public interface Listener {

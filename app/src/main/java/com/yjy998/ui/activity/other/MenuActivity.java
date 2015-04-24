@@ -3,6 +3,7 @@ package com.yjy998.ui.activity.other;
 import android.os.Bundle;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,10 +12,15 @@ import android.widget.PopupWindow;
 import com.sp.lib.common.support.IntentFactory;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
+import com.sp.lib.common.interfaces.TouchObserver;
+import com.sp.lib.common.interfaces.TouchDispatcher;
 import com.yjy998.ui.activity.YJYActivity;
 import com.yjy998.ui.pop.LoginRegisterWindow;
 
-public class MenuActivity extends YJYActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClick {
     private ViewGroup layoutContainer;
     private MenuFragment mMenuFragment;
     private SlidingPaneLayout slidingPane;
@@ -142,6 +148,10 @@ public class MenuActivity extends YJYActivity {
         }
     }
 
+    public void close() {
+        slidingPane.closePane();
+    }
+
     @Override
     public void onBackPressed() {
         if (slidingPane.isOpen()) {
@@ -149,5 +159,29 @@ public class MenuActivity extends YJYActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    /**
+     * 如果要拦截侧边栏的点击事件，就重写此方法
+     *
+     * @return true 拦截，false 不拦截
+     */
+    @Override
+    public boolean onMenuClick(View v) {
+        slidingPane.closePane();
+        return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mLoginWindow != null) {
+            mLoginWindow.dismiss();
+        }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
     }
 }

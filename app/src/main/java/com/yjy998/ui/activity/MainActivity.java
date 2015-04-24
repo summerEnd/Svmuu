@@ -1,5 +1,6 @@
 package com.yjy998.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -20,6 +21,14 @@ import static com.yjy998.ui.view.TabItem.CheckListener;
 
 
 public class MainActivity extends MenuActivity implements HomeFragment.HomeListener {
+
+    public static final String EXTRA_CHECK_TAB_ID = "EXTRA_CHECK_TAB_ID";
+    public static final int ID_HOME = R.id.tabHome;
+    public static final int ID_GAME = R.id.tabGame;
+    public static final int ID_APPLY = R.id.tabApply;
+    public static final int ID_CENTER = R.id.tabCenter;
+    public static final int ID_MORE = R.id.tabMore;
+
     private TabItem curTab;
     HomeFragment mHome;
     GameFragment mGameFragment;
@@ -27,7 +36,14 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
     CenterFragment mCenterFragment;
     MoreFragment mMoreFragment;
     Fragment displayingFragment;
+
+
+    TabItem tabGame;
+    TabItem tabMore;
+    TabItem tabApply;
     TabItem tabHome;
+    TabItem tabCenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +52,31 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
         initialize();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int id = intent.getIntExtra(EXTRA_CHECK_TAB_ID, 0);
+
+        TabItem tabItem = (TabItem) findViewById(id);
+        if (tabItem != null) {
+            tabItem.performClick();
+        }
+    }
 
     private void initialize() {
 
-        TabItem tabReal = (TabItem) findViewById(R.id.tabReal);
-        TabItem tabMore = (TabItem) findViewById(R.id.tabMore);
-        TabItem tabApply = (TabItem) findViewById(R.id.tabApply);
+        tabGame = (TabItem) findViewById(R.id.tabGame);
+        tabMore = (TabItem) findViewById(R.id.tabMore);
+        tabApply = (TabItem) findViewById(R.id.tabApply);
         tabHome = (TabItem) findViewById(R.id.tabHome);
-        TabItem tabCenter = (TabItem) findViewById(R.id.tabCenter);
+        tabCenter = (TabItem) findViewById(R.id.tabCenter);
 
-        tabReal.setCheckListener(listener);
+        tabGame.setCheckListener(listener);
         tabMore.setCheckListener(listener);
         tabHome.setCheckListener(listener);
         tabApply.setCheckListener(listener);
@@ -84,7 +114,7 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
                     fragment = mApplyFragment;
                     break;
                 }
-                case R.id.tabReal: {
+                case R.id.tabGame: {
                     if (mGameFragment == null) {
                         mGameFragment = new GameFragment();
                     }
@@ -129,11 +159,11 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
     public void onHomeFragmentClick(View v) {
         switch (v.getId()) {
             case R.id.myGame: {
-                findViewById(R.id.tabCenter).performClick();
+                tabCenter.performClick();
                 break;
             }
             case R.id.realGame: {
-                findViewById(R.id.tabReal).performClick();
+                tabGame.performClick();
                 break;
             }
 
@@ -141,11 +171,26 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (mGameFragment != null && mGameFragment.dispatchTouch(ev)) {
-            return true;
-        }
-        return super.dispatchTouchEvent(ev);
-    }
+    public boolean onMenuClick(View v) {
 
+        switch (v.getId()) {
+
+            case R.id.center: {
+                tabCenter.performClick();
+                break;
+            }
+            case R.id.realGame: {
+                tabGame.performClick();
+                break;
+            }
+            case R.id.help: {
+                tabMore.performClick();
+                break;
+            }
+            default:
+                return super.onMenuClick(v);
+        }
+        close();
+        return true;
+    }
 }

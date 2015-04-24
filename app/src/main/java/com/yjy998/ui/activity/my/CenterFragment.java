@@ -1,22 +1,26 @@
 package com.yjy998.ui.activity.my;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.sp.lib.widget.list.LinearListView;
+import com.sp.lib.common.support.adapter.GuidePagerAdapter;
 import com.yjy998.R;
-import com.yjy998.adapter.ContractAdapter;
-import com.yjy998.adapter.GameAdapter;
 import com.yjy998.common.ImageOptions;
 import com.yjy998.entity.Contract;
 import com.yjy998.entity.Game;
+import com.sp.lib.common.interfaces.TouchObserver;
+import com.sp.lib.common.interfaces.TouchDispatcher;
 import com.yjy998.ui.activity.other.BaseFragment;
 import com.yjy998.ui.activity.other.ChangeData;
 import com.yjy998.ui.view.TwoTextItem;
@@ -24,7 +28,7 @@ import com.yjy998.ui.view.TwoTextItem;
 import java.util.ArrayList;
 
 
-public class CenterFragment extends BaseFragment implements View.OnClickListener {
+public class CenterFragment extends BaseFragment implements View.OnClickListener, TouchObserver {
 
     View layout;
     private ImageView avatarImage;
@@ -35,14 +39,28 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
     private TextView buyIn;
     private TextView sellOut;
     private TextView recharge;
-    private LinearListView contractLayout;
-    private LinearListView gameLayout;
+    private ViewPager contractPager;
+    private ViewPager gamePager;
+    private Rect contractRectF;
+    private Rect gameRectF;
+    final int PAGE_CONTRACT = 1;
+    final int PAGE_GAME = 2;
+    private int handlePage = 0;
+    private int[] offset = new int[]{-1, -1};
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof TouchDispatcher) {
+            ((TouchDispatcher) activity).register(this);
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        layout = inflater.inflate(R.layout.fragment_home_logined, container, false);
+        layout = inflater.inflate(R.layout.fragment_center, container, false);
         return layout;
     }
 
@@ -74,8 +92,8 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
         buyIn = (TextView) findViewById(R.id.buyIn);
         sellOut = (TextView) findViewById(R.id.sellOut);
         recharge = (TextView) findViewById(R.id.recharge);
-        contractLayout = (LinearListView) findViewById(R.id.contractLayout);
-        gameLayout = (LinearListView) findViewById(R.id.gameLayout);
+        contractPager = (ViewPager) findViewById(R.id.contractPager);
+        gamePager = (ViewPager) findViewById(R.id.gamePager);
 
         ArrayList<Contract> arrayList = new ArrayList<Contract>();
         ArrayList<Game> gameList = new ArrayList<Game>();
@@ -83,7 +101,72 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             arrayList.add(new Contract());
             gameList.add(new Game());
         }
-        contractLayout.setAdapter(new ContractAdapter(getActivity(), arrayList));
-        gameLayout.setAdapter(new GameAdapter(getActivity(), gameList));
+        contractPager.setAdapter(new GuidePagerAdapter(getActivity(), new int[]{R.layout.item_contract, R.layout.item_contract, R.layout.item_contract}));
+        gamePager.setAdapter(new GuidePagerAdapter(getActivity(), new int[]{R.layout.item_game, R.layout.item_game, R.layout.item_game}));
+    }
+
+    @Override
+    public boolean dispatch(MotionEvent event) {
+
+        if (contractRectF == null) {
+            contractRectF = new Rect();
+        }
+        if (gameRectF == null) {
+            gameRectF = new Rect();
+        }
+        contractPager.getGlobalVisibleRect(contractRectF);
+        gamePager.getGlobalVisibleRect(gameRectF);
+
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN: {
+                int y = (int) event.getY();
+                int x = (int) event.getX();
+                if (contractRectF.contains(x, y)) {
+                    contractPager.dispatchTouchEvent(event);
+                    handlePage = PAGE_CONTRACT;
+                    return true;
+                }
+                if (gameRectF.contains(x, y)) {
+                    gamePager.dispatchTouchEvent(event);
+                    handlePage = PAGE_GAME;
+                    return true;
+                }
+                handlePage = 0;
+            }
+            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_UP: {
+                dispatchTouchToPager(event);
+                break;
+            }
+        }
+
+        return false;
+    }
+
+    void dispatchTouchToPager(MotionEvent event) {
+        switch (handlePage) {
+            case 0:
+                break;
+            case PAGE_GAME:
+                gamePager.dispatchTouchEvent(event);
+                break;
+            case PAGE_CONTRACT:
+                contractPager.dispatchTouchEvent(event);
+                break;
+        }
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isVisible();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (getActivity() instanceof TouchDispatcher) {
+            ((TouchDispatcher) getActivity()).unRegister(this);
+        }
     }
 }

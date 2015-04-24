@@ -36,6 +36,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/phoneText"
                     android:textColor="@color/white"
                     android:textSize="17sp"
                     android:layout_width="wrap_content"
@@ -43,6 +44,7 @@
                     android:text="@string/__testPhone" />
 
                 <TextView
+                    android:id="@+id/remainMoneyText"
                     android:textColor="@color/white"
                     android:textSize="17sp"
                     android:layout_width="wrap_content"
@@ -57,6 +59,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/goldIngotText"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -70,6 +73,7 @@
                 android:background="#3B3B43" />
 
             <TextView
+                android:id="@+id/discountTickets"
                 android:layout_width="0dp"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -82,7 +86,9 @@
             style="@style/horizontalLine.homeMenu"
             android:layout_marginTop="20dp" />
 
-        <LinearLayout style="@style/mainMenu.clickItem">
+        <LinearLayout
+            android:id="@+id/buyIn"
+            style="@style/mainMenu.clickItem">
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
@@ -95,7 +101,9 @@
 
         <View style="@style/horizontalLine.homeMenu" />
 
-        <LinearLayout style="@style/mainMenu.clickItem">
+        <LinearLayout
+            android:id="@+id/sellOut"
+            style="@style/mainMenu.clickItem">
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
@@ -108,7 +116,9 @@
 
         <View style="@style/horizontalLine.homeMenu" />
 
-        <LinearLayout style="@style/mainMenu.clickItem">
+        <LinearLayout
+            android:id="@+id/recharge"
+            style="@style/mainMenu.clickItem">
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
@@ -121,7 +131,9 @@
 
         <View style="@style/horizontalLine.homeMenu" />
 
-        <LinearLayout style="@style/mainMenu.clickItem">
+        <LinearLayout
+            style="@style/mainMenu.clickItem"
+            android:id="@+id/applyTn">
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
@@ -134,7 +146,9 @@
 
         <View style="@style/horizontalLine.homeMenu" />
 
-        <LinearLayout style="@style/mainMenu.clickItem">
+        <LinearLayout
+            style="@style/mainMenu.clickItem"
+            android:id="@+id/applyT9">
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
@@ -147,7 +161,9 @@
 
         <View style="@style/horizontalLine.homeMenu" />
 
-        <LinearLayout style="@style/mainMenu.clickItem">
+        <LinearLayout
+            android:id="@+id/realGame"
+            style="@style/mainMenu.clickItem">
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
@@ -160,7 +176,9 @@
 
         <View style="@style/horizontalLine.homeMenu" />
 
-        <LinearLayout style="@style/mainMenu.clickItem">
+        <LinearLayout
+            android:id="@+id/center"
+            style="@style/mainMenu.clickItem">
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
@@ -173,7 +191,9 @@
 
         <View style="@style/horizontalLine.homeMenu" />
 
-        <LinearLayout style="@style/mainMenu.clickItem">
+        <LinearLayout
+            android:id="@+id/help"
+            style="@style/mainMenu.clickItem">
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"

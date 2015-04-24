@@ -54,6 +54,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:id="@+id/usableText"
                         android:textColor="@color/textColorRed"
                         android:layout_width="wrap_content"
                         android:text="@string/__testNumber"
@@ -71,7 +72,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-
+                        android:id="@+id/balanceText"
                         android:layout_width="wrap_content"
                         android:text="@string/__testNumber"
                         android:layout_height="wrap_content" />
@@ -92,6 +93,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:id="@+id/stockValueText"
                         android:layout_width="wrap_content"
                         android:text="@string/__testNumber"
                         android:layout_height="wrap_content" />
@@ -108,6 +110,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:id="@+id/totalText"
                         android:layout_width="wrap_content"
                         android:text="@string/__testNumber"
                         android:layout_height="wrap_content" />
@@ -115,16 +118,22 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_height="wrap_content">
 
                 <TextView
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/text_22px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="股票买卖" />
 
                 <TextView
+                    android:id="@+id/switchButton"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/text_22px"
                     android:gravity="center_vertical"
                     android:drawableLeft="@drawable/change_graphic"
                     android:textColor="@color/textColorRed"
@@ -133,11 +142,13 @@
                     android:layout_alignParentRight="true"
                     android:text="@string/switch_graphic" />
             </RelativeLayout>
+
+            <View style="@style/horizontalLine" />
             <!--分时图-->
             <FrameLayout
-                android:id="@+id/timeLineContainer"
+                android:id="@+id/fragmentContainer"
                 android:layout_width="match_parent"
-                android:layout_height="180dp">
+                android:layout_height="wrap_content">
 
             </FrameLayout>
             <!--买入 重置 按钮-->
@@ -148,6 +159,8 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/buySellButton"
+                    android:background="@drawable/bitmap_red_button"
                     style="@style/redButton.mid"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -155,6 +168,8 @@
                     android:text="@string/buyIn" />
 
                 <Button
+                    android:id="@+id/resetButton"
+                    android:background="@drawable/bitmap_gray_button"
                     android:layout_marginLeft="30dp"
                     style="@style/redButton.mid"
                     android:layout_width="0dp"
@@ -169,8 +184,73 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             android:background="@color/lightGray"
             android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/capitalFragmentBottomText"
+                android:text="@string/hold_stock" />
+
+            <View
+                style="@style/verticalLine"
+                android:background="@color/textColorDeepGray" />
+
+            <TextView
+                style="@style/capitalFragmentBottomText"
+                android:text="@string/float_balance" />
+
+            <View
+                style="@style/verticalLine"
+                android:background="@color/textColorDeepGray" />
+
+            <TextView
+                style="@style/capitalFragmentBottomText"
+                android:text="@string/hold_count" />
+
+            <View
+                style="@style/verticalLine"
+                android:background="@color/textColorDeepGray" />
+
+            <TextView
+                style="@style/capitalFragmentBottomText"
+                android:text="@string/chicangshi" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/stockName"
+                style="@style/capitalFragmentBottomText.value"
+                android:text="华能国际" />
+
+
+            <TextView
+                android:id="@+id/floatBalance"
+                style="@style/capitalFragmentBottomText.value"
+                android:textColor="@color/textColorGreen"
+                android:text="-42.41" />
+
+
+            <TextView
+                android:id="@+id/holdNumber"
+                style="@style/capitalFragmentBottomText.value"
+                android:textColor="@color/textColorBlue"
+                android:text="3000" />
+
+
+            <TextView
+                android:id="@+id/holdValue"
+                style="@style/capitalFragmentBottomText.value"
+                android:textColor="@color/textColorBlue"
+                android:text="2778.415" />
 
         </LinearLayout>
     </LinearLayout>

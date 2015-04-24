@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="#ddd"
-    android:padding="3dp"
+    android:background="#EEEEEE"
+    android:padding="@dimen/activity_horizontal_margin"
     android:layout_height="wrap_content">
 
     <TextView

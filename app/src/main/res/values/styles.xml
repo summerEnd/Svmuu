@@ -4,6 +4,11 @@
 
     </style>
 
+    <style name="wrapLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="mainMenu.clickItem">
         <item name="android:background">@drawable/main_menu_click_item</item>
         <item name="android:orientation">horizontal</item>
@@ -63,11 +68,9 @@
         <item name="android:layout_width">match_parent</item>
     </style>
 
-    <style name="blueButton">
+    <style name="blueButton" parent="wrapLayout">
         <item name="android:background">@drawable/blue_button</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="blueButton.big">
@@ -80,6 +83,7 @@
         <item name="android:layout_width">@dimen/mid_button_width</item>
     </style>
 
+
     <style name="redButton">
         <item name="android:background">@drawable/red_button</item>
         <item name="android:textColor">@color/white</item>
@@ -90,6 +94,12 @@
     </style>
 
     <style name="redButton.mid">
+        <item name="android:textSize">@dimen/text_24px</item>
+    </style>
+
+    <style name="whiteButton">
+        <item name="android:background">@drawable/white_button</item>
+        <item name="android:textColor">@color/textColorBlack</item>
         <item name="android:textSize">@dimen/text_26px</item>
     </style>
 
@@ -108,17 +118,15 @@
     </style>
 
     <style name="homeClickItem.text">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
         <item name="android:clickable">false</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="homeTextViewStyle1">
+    <style name="homeTextViewStyle1" parent="wrapLayout">
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:textSize">@dimen/text_22px</item>
         <item name="android:textColor">@color/textColorBlack</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="capitalFragmentLayoutStyle_1">
@@ -181,11 +189,9 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="applyActivityTextStyle2">
+    <style name="applyActivityTextStyle2" parent="wrapLayout">
         <item name="android:textColor">@color/textColorBlack</item>
         <item name="android:textSize">@dimen/text_30px</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="applyActivityTextStyle2.yuan">
@@ -207,13 +213,11 @@
         <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
     </style>
 
-    <style name="homeLoginedText">
+    <style name="homeLoginedText" parent="wrapLayout">
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">@dimen/text_28px</item>
         <item name="android:drawablePadding">5dp</item>
         <item name="android:textColor">@color/textColorBlack</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="changeDataTabRow">
@@ -227,29 +231,94 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="changeDataTabName">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="changeDataTabName" parent="wrapLayout">
         <item name="android:textSize">@dimen/text_28px</item>
         <item name="android:textColor">@color/textColorBlack</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
 
-    <style name="changeDataTabValue">
+    <style name="changeDataTabValue" parent="wrapLayout">
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_toLeftOf">@id/arrow</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_26px</item>
         <item name="android:textColor">@color/textColorDeepGray</item>
     </style>
 
-    <style name="changeDataTabImage">
+    <style name="changeDataTabImage" parent="wrapLayout">
         <item name="android:id">@id/arrow</item>
-        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:src">@drawable/ic_right_arrow</item>
         <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="capitalFragmentBottomText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/textColorDeepGray</item>
+        <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="capitalFragmentBottomText.value">
+        <item name="android:textSize">@dimen/text_20px</item>
+    </style>
+
+    <style name="capitalFragmentAddReduce">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_20px</item>
+        <item name="android:background">#508FD4</item>
+        <item name="android:layout_width">@dimen/fragmentCapitalEditHeight</item>
+        <item name="android:layout_height">@dimen/fragmentCapitalEditHeight</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">3dp</item>
+    </style>
+
+    <style name="capitalFragmentEdit">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:background">@drawable/blue_frame</item>
+    </style>
+
+    <style name="center_pager_item">
+        <item name="android:clickable">true</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:background">@drawable/clicked_white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="centerItemText1" parent="wrapLayout">
+        <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:textColor">@color/textColorBlack</item>
+    </style>
+
+    <style name="centerItemText2" parent="wrapLayout">
+        <item name="android:textColor">#FF6A09</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:text">@string/know_detail</item>
+    </style>
+
+    <style name="centerItemText3" parent="wrapLayout">
+        <item name="android:textSize">@dimen/text_28px</item>
+        <item name="android:textColor">@color/textColorBlack</item>
+    </style>
+
+    <style name="centerItemText4" parent="wrapLayout">
+        <item name="android:textSize">@dimen/text_28px</item>
+        <item name="android:textColor">@color/textColorRed</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="centerItemLayout" parent="wrapLayout">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center</item>
     </style>
 </resources>

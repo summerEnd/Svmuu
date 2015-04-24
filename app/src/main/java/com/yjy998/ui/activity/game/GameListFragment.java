@@ -20,7 +20,7 @@ import java.util.List;
 
 import static com.yjy998.ui.pop.CenterPopup.*;
 
-public class GameListFragment extends BaseFragment implements AdapterView.OnItemClickListener, Listener {
+public class GameListFragment extends BaseFragment implements AdapterView.OnItemLongClickListener, Listener {
 
     View layout;
     PullToRefreshListView mRefreshList;
@@ -29,14 +29,18 @@ public class GameListFragment extends BaseFragment implements AdapterView.OnItem
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        layout = inflater.inflate(R.layout.fragment_cancellation_etrust, container, false);
-        mRefreshList = (PullToRefreshListView) layout.findViewById(R.id.list);
-        ListView refreshableView = mRefreshList.getRefreshableView();
-        refreshableView.setAdapter(new HoldingsAdapter(getActivity(), getData()));
-        refreshableView.setOnItemClickListener(this);
-        mRefreshList.setHasMoreData(true);
-        mRefreshList.setPullLoadEnabled(true);
-
+        //防止多次初始化，因为ViewPager会销毁没有展示的View，导致重新创建视图。
+        if (layout != null) {
+            ((ViewGroup) layout.getParent()).removeView(layout);
+        } else {
+            layout = inflater.inflate(R.layout.fragment_cancellation_etrust, container, false);
+            mRefreshList = (PullToRefreshListView) layout.findViewById(R.id.list);
+            ListView refreshableView = mRefreshList.getRefreshableView();
+            refreshableView.setAdapter(new HoldingsAdapter(getActivity(), getData()));
+            refreshableView.setOnItemLongClickListener(this);
+            mRefreshList.setHasMoreData(true);
+            mRefreshList.setPullLoadEnabled(true);
+        }
         return layout;
     }
 
@@ -49,20 +53,6 @@ public class GameListFragment extends BaseFragment implements AdapterView.OnItem
         return data;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (mCenterPopup == null) {
-            mCenterPopup = new CenterPopup(getActivity());
-            PopWidget widget = new PopWidget();
-            onCreatePop(widget);
-            //添加取消按钮
-            widget.add(new PopItem(R.string.cancel, getString(R.string.cancel), R.drawable.bitmap_gray_button));
-            mCenterPopup.setPopWidget(widget);
-            mCenterPopup.setAnimationStyle(R.style.centerPopAnimation);
-            mCenterPopup.setListener(this);
-        }
-        mCenterPopup.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
-    }
 
     protected void onCreatePop(PopWidget popWidget) {
 
@@ -75,8 +65,29 @@ public class GameListFragment extends BaseFragment implements AdapterView.OnItem
     public final void onClick(PopItem item) {
         if (item.id == R.string.cancel) {
             mCenterPopup.dismiss();
-        }else{
+        } else {
             onPopItemClick(item);
         }
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        if (mCenterPopup == null) {
+            PopWidget widget = new PopWidget();
+            onCreatePop(widget);
+            //添加取消按钮
+            if (widget.getChildrenCount() != 0) {
+                widget.add(new PopItem(R.string.cancel, getString(R.string.cancel), R.drawable.bitmap_gray_button));
+            } else {
+                return false;
+            }
+
+            mCenterPopup = new CenterPopup(getActivity());
+            mCenterPopup.setPopWidget(widget);
+            mCenterPopup.setAnimationStyle(R.style.centerPopAnimation);
+            mCenterPopup.setListener(this);
+        }
+        mCenterPopup.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
+        return true;
     }
 }

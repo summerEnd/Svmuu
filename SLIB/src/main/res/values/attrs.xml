@@ -2,12 +2,22 @@
 <resources>
 
     <declare-styleable name="ParallaxContainer">
-        <attr name="a_in" format="float"/>
-        <attr name="a_out" format="float"/>
-        <attr name="x_in" format="float"/>
-        <attr name="x_out" format="float"/>
-        <attr name="y_in" format="float"/>
-        <attr name="y_out" format="float"/>
+        <attr name="a_in" format="float" />
+        <attr name="a_out" format="float" />
+        <attr name="x_in" format="float" />
+        <attr name="x_out" format="float" />
+        <attr name="y_in" format="float" />
+        <attr name="y_out" format="float" />
     </declare-styleable>
-    <item name="listChildTag" type="id"/>
+    <item name="listChildTag" type="id" />
+
+    <declare-styleable name="PasswordInputView">
+        <attr name="borderColor" format="color" />
+        <attr name="contentColor" format="color" />
+        <attr name="borderRadius" format="dimension" />
+        <attr name="passwordLength" format="integer" />
+        <attr name="passwordColor" format="color" />
+        <attr name="passwordRadius" format="dimension" />
+        <attr name="cellWidth" format="dimension" />
+    </declare-styleable>
 </resources>

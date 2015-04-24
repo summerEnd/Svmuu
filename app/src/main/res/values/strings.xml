@@ -110,4 +110,12 @@
     <string name="title_activity_fresh">新手专享</string>
     <string name="GoldIngot_d">金元宝：%d个</string>
     <string name="caopan_d">操盘券：%d个</string>
+    <string name="confirm">确定</string>
+    <string name="hold_stock">持有股票</string>
+    <string name="float_balance">浮动盈亏</string>
+    <string name="hold_count">持仓数量</string>
+    <string name="chicangshi">持仓市</string>
+    <string name="know_detail"><![CDATA[>>了解详情]]></string>
+    <string name="di">第</string>
+    <string name="mi">名</string>
 </resources>

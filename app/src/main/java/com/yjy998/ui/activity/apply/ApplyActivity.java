@@ -2,6 +2,7 @@ package com.yjy998.ui.activity.apply;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.sp.lib.widget.PagerSlidingTabStrip;
 import com.yjy998.R;
@@ -37,5 +38,23 @@ public class ApplyActivity extends MenuActivity {
         if (_T9.equals(getIntent().getStringExtra(EXTRA_APPLY))) {
             pager.setCurrentItem(1);
         }
+    }
+
+    @Override
+    public boolean onMenuClick(View v) {
+        switch (v.getId()) {
+            case R.id.applyT9: {
+                pager.setCurrentItem(1);
+                break;
+            }
+            case R.id.applyTn: {
+                pager.setCurrentItem(0);
+                break;
+            }
+            default:
+                return false;
+        }
+        close();
+        return true;
     }
 }

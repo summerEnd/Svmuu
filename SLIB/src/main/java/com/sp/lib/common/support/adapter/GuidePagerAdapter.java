@@ -53,7 +53,7 @@ public class GuidePagerAdapter extends PagerAdapter {
             throw new RuntimeException(" unSupport type " + type);
         }
 
-        container.addView(v, new ViewPager.LayoutParams());
+        container.addView(v);
         return v;
     }
 

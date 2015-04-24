@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/dialog_padding_vertical"
+    android:paddingBottom="@dimen/dialog_padding_vertical"
+    tools:context="com.yjy998.ui.pop.PayDialog">
+
+    <TextView
+        android:textColor="@color/textColorGray"
+        android:textSize="@dimen/text_26px"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="易交易支付密码" />
+
+    <TextView
+        android:id="@+id/accountText"
+        android:textColor="@color/textColorGray"
+        android:textSize="@dimen/text_22px"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12***332" />
+
+    <View
+        style="@style/horizontalLine"
+        android:layout_marginTop="@dimen/dialog_padding_vertical" />
+
+    <TextView
+        android:id="@+id/moneyText"
+        android:textColor="@color/textColorBlack"
+        android:textSize="@dimen/text_26px"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="500.0元" />
+
+    <View style="@style/horizontalLine" />
+
+    <TextView
+        android:id="@+id/remainMoneyText"
+        android:textColor="@color/textColorBlack"
+        android:textSize="@dimen/text_26px"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:drawableRight="@drawable/ic_right_arrow"
+        android:layout_height="wrap_content"
+        android:text="账户可用余额：8888.0易宝" />
+
+    <View style="@style/horizontalLine" />
+
+    <com.sp.lib.widget.input.PasswordEdit
+        android:id="@+id/passwordEdit"
+        android:layout_marginTop="@dimen/dialog_padding_vertical"
+        android:layout_gravity="center_horizontal"
+        app:borderColor="@color/white"
+        app:passwordLength="6"
+        app:contentColor="@color/lightGray"
+        android:padding="1px"
+        android:text=""
+        style="@style/horizontalMargin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dialog_padding_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/cancelBtn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="7dp"
+            android:text="@string/cancel"
+            android:layout_height="wrap_content"
+            style="@style/whiteButton" />
+
+        <Button
+            android:id="@+id/confirmBtn"
+            android:layout_margin="7dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/confirm"
+            android:layout_height="wrap_content"
+            style="@style/blueButton.mid" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,30 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@color/white"
-    android:padding="20dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/center_item_height"
+    android:background="#dddddd"
+    android:padding="1px"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:textColor="@color/textColorBlack"
-        android:textSize="@dimen/text_26px"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NO.22312" />
+    <LinearLayout style="@style/center_pager_item">
 
-    <TextView
-        android:textColor="@color/textColorBlack"
-        android:textSize="@dimen/text_26px"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="T+9盈亏" />
+        <TextView
+            style="@style/centerItemText1"
+            android:text="NO.22312" />
 
-    <TextView
-        android:layout_marginTop="15dp"
-        android:textColor="#FF6A09"
-        android:textSize="@dimen/text_24px"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=">>了解详情" />
+        <TextView
+            style="@style/centerItemText1"
+            android:text="T+9盈亏" />
+
+        <TextView style="@style/centerItemText2" />
+    </LinearLayout>
+
+    <View style="@style/verticalLine" />
+
+    <LinearLayout style="@style/center_pager_item">
+
+        <TextView
+            style="@style/centerItemText1"
+            android:text="NO.22312" />
+
+        <TextView
+            style="@style/centerItemText1"
+            android:text="T+9盈亏" />
+
+        <TextView style="@style/centerItemText2" />
+    </LinearLayout>
+
+    <View style="@style/verticalLine" />
+
+    <LinearLayout style="@style/center_pager_item">
+
+        <TextView
+            style="@style/centerItemText1"
+            android:text="NO.22312" />
+
+        <TextView
+            style="@style/centerItemText1"
+            android:text="T+9盈亏" />
+
+        <TextView style="@style/centerItemText2" />
+    </LinearLayout>
 </LinearLayout>

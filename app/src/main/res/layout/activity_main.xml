@@ -36,7 +36,7 @@
             app:tabDrawable="@drawable/tab_apply" />
 
         <com.yjy998.ui.view.TabItem
-            android:id="@+id/tabReal"
+            android:id="@+id/tabGame"
             style="@style/tabStyle"
             android:text="@string/real_game"
             app:checked="false"
