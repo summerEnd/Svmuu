@@ -118,4 +118,10 @@
     <string name="know_detail"><![CDATA[>>了解详情]]></string>
     <string name="di">第</string>
     <string name="mi">名</string>
+    <string name="title_activity_game_info">GameInfo</string>
+
+    <string-array name="genders">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
 </resources>

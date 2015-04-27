@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -85,21 +86,16 @@ public class DEBUGActivity extends FragmentActivity implements ViewPager.OnPageC
             StringBuilder message = new StringBuilder();
 
             message
-                    .append("<table>")
-                    .append("")
-                    .append("<th>pkg_name :</th>").append("<tr>").append(info.packageName).append("</tr>")
-                    .append("<th>app_name :</th>").append("<tr>").append(getString(info.applicationInfo.labelRes)).append("</tr>")
-                    .append("<th>ver_name :</th>").append("<tr>").append(info.versionName).append("</tr>")
-                    .append("<th>ver_code :</th>").append("<tr>").append(info.versionCode).append("</tr>")
-                    .append("<th>log_open :</th>").append("<tr>").append(SApplication.DEBUG).append("</tr>")
-                    .append("</table>")
+                    .append("<strong>pkg_name :</strong>").append(info.packageName).append("<br/>")
+                    .append("<strong>app_name :</strong>").append(getString(info.applicationInfo.labelRes)).append("<br/>")
+                    .append("<strong>ver_name :</strong>").append(info.versionName).append("<br/>")
+                    .append("<strong>ver_code :</strong>").append(info.versionCode).append("<br/>")
+                    .append("<strong>log_open :</strong>").append(SApplication.DEBUG).append("<br/>")
             ;
-
-            Spannable spannable=new SpannableString(message.toString());
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(item.getTitle())
-                    .setMessage(Html.toHtml(spannable))
+                    .setMessage(Html.fromHtml(message.toString()))
                     .setPositiveButton(getString(R.string.yes), null)
                     .show();
             return true;
@@ -148,7 +144,6 @@ public class DEBUGActivity extends FragmentActivity implements ViewPager.OnPageC
 
         return true;
     }
-
 
 
     boolean isLastPage() {

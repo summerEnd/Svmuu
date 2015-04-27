@@ -112,7 +112,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 break;
             }
         }
-        getActivity().overridePendingTransition(R.anim.slide_up_in, R.anim.stand_still);
+        getActivity().overridePendingTransition(R.anim.dialog_anim_in, R.anim.stand_still);
     }
 
     public interface OnMenuClick {

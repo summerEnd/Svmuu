@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yjy998">
+    package="com.yjy998" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,35 +15,31 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-
-        <activity android:name=".ui.activity.other.EnterActivity">
+        android:theme="@style/AppTheme" >
+        <activity android:name=".ui.activity.other.EnterActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activity.MainActivity"
-            android:launchMode="singleTask"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:launchMode="singleTask" />
         <activity
             android:name="com.sp.lib.activity.album.PhotoAlbumActivity"
-            android:label="@string/app_name">
-
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.sp.lib.activity.DEBUGActivity"
-            android:label="@string/app_name">
-
+            android:label="@string/app_name" >
         </activity>
-        <!--todo 发布时要注释掉 -->
+        <!-- todo 发布时要注释掉 -->
         <activity
             android:name="com.sp.lib.demo.SlibDemo"
             android:icon="@drawable/ic_lincoln"
-            android:label="SLIB">
+            android:label="SLIB" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,39 +48,35 @@
         </activity>
         <activity
             android:name=".ui.activity.test.ChartActivity"
-            android:label="@string/title_activity_chart">
-
+            android:label="@string/title_activity_chart" >
         </activity>
         <activity
             android:name=".ui.activity.other.LockActivity"
             android:label="@string/title_activity_lock"
-            android:launchMode="singleTop">
-
+            android:launchMode="singleTop" >
         </activity>
-
         <activity
             android:name=".ui.activity.test.TestActivity"
-            android:label="@string/title_activity_test">
-
+            android:label="@string/title_activity_test" >
         </activity>
         <activity
             android:name=".ui.activity.apply.ApplyActivity"
-            android:label="@string/title_activity_t9_tn">
-
+            android:label="@string/title_activity_t9_tn" >
         </activity>
         <activity
-            android:name=".ui.activity.other.ChangeData"
-            android:label="@string/title_activity_change_data">
-
+            android:name=".ui.activity.my.ChangeData"
+            android:label="@string/title_activity_change_data" >
         </activity>
         <activity
             android:name=".ui.activity.other.FreshActivity"
-            android:label="@string/title_activity_fresh">
-
+            android:label="@string/title_activity_fresh" >
         </activity>
-
         <activity android:name=".ui.activity.game.CapitalActivity" />
         <activity android:name=".ui.activity.test.MenuDrawerActivity" />
+        <activity
+            android:name=".ui.activity.game.GameInfoActivity"
+            android:label="@string/title_activity_game_info" >
+        </activity>
     </application>
 
 </manifest>

@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.sp.lib.common.support.adapter.GuidePagerAdapter;
 import com.yjy998.R;
 import com.yjy998.adapter.ContractPagerAdapter;
 import com.yjy998.adapter.GamePagerAdapter;
@@ -20,7 +19,6 @@ import com.yjy998.entity.Contract;
 import com.yjy998.entity.Game;
 import com.yjy998.ui.activity.game.CapitalActivity;
 import com.yjy998.ui.activity.other.BaseFragment;
-import com.yjy998.ui.activity.other.ChangeData;
 import com.yjy998.ui.view.TwoTextItem;
 
 import java.util.ArrayList;
@@ -61,13 +59,13 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             case R.id.sellOut: {
                 startActivity(new Intent(getActivity(), CapitalActivity.class)
                         .putExtra(CapitalActivity.EXTRA_IS_BUY, false));
-                getActivity().overridePendingTransition(R.anim.slide_up_in, R.anim.stand_still);
+                getActivity().overridePendingTransition(R.anim.dialog_anim_in, R.anim.stand_still);
                 break;
             }
             case R.id.buyIn: {
                 startActivity(new Intent(getActivity(), CapitalActivity.class)
                         .putExtra(CapitalActivity.EXTRA_IS_BUY, true));
-                getActivity().overridePendingTransition(R.anim.slide_up_in, R.anim.stand_still);
+                getActivity().overridePendingTransition(R.anim.dialog_anim_in, R.anim.stand_still);
                 break;
             }
             case R.id.recharge: {
@@ -101,10 +99,4 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
         gamePager.setAdapter(new GamePagerAdapter(gameList));
     }
 
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-    }
 }

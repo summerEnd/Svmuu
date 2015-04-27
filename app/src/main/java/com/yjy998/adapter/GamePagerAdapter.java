@@ -1,5 +1,6 @@
 package com.yjy998.adapter;
 
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,11 +8,12 @@ import android.view.ViewGroup;
 import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
 import com.yjy998.entity.Game;
+import com.yjy998.ui.activity.game.GameInfoActivity;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class GamePagerAdapter extends PagerAdapter {
+public class GamePagerAdapter extends PagerAdapter implements View.OnClickListener{
 
     private List<Game> games;
     int pageCount;
@@ -55,6 +57,9 @@ public class GamePagerAdapter extends PagerAdapter {
             holder.item1 = convertView.findViewById(R.id.item1);
             holder.item2 = convertView.findViewById(R.id.item2);
             holder.item3 = convertView.findViewById(R.id.item3);
+            holder.item1.setOnClickListener(this);
+            holder.item2.setOnClickListener(this);
+            holder.item3.setOnClickListener(this);
             convertView.setTag(holder);
             views.add(convertView);
         }
@@ -74,6 +79,11 @@ public class GamePagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
+    }
+
+    @Override
+    public void onClick(View v) {
+        v.getContext().startActivity(new Intent(v.getContext(), GameInfoActivity.class));
     }
 
     private class ViewHolder {

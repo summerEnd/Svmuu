@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 
-public class SlidingDrawer extends DraggableDrawer {
+public class  SlidingDrawer extends DraggableDrawer {
 
     private static final String TAG = "OverlayDrawer";
 

@@ -1,4 +1,4 @@
-package com.sp.lib.widget.slide;
+package com.sp.lib.widget.slide.transform;
 
 import android.content.Context;
 import android.support.v4.view.ViewCompat;

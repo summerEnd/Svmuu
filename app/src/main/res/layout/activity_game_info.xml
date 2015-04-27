@@ -1,0 +1,141 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yjy998.ui.activity.game.GameInfoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:paddingLeft="@dimen/gameInfoHorizontalMargin"
+        android:paddingRight="@dimen/gameInfoHorizontalMargin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textSize="@dimen/text_28px"
+            android:textColor="@color/textColorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="证券娱乐圈--四月新赢家" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_hot" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/gameInfoItem">
+
+        <TextView
+            style="@style/gameInfoText"
+            android:text="当前排名：" />
+
+        <TextView
+            android:text="3"
+            style="@style/gameInfoText.red" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/gameInfoItem">
+
+        <TextView
+            style="@style/gameInfoText"
+            android:text="收益率：" />
+
+        <TextView
+            android:text="10%"
+            style="@style/gameInfoText.red" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/gameInfoItem">
+
+        <TextView
+            style="@style/gameInfoText"
+            android:text="股票：600011" />
+
+        <TextView
+            android:layout_marginLeft="18dp"
+            android:text="华能国际"
+            style="@style/gameInfoText" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/gameInfoItem">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/gameInfoText"
+                android:text="股票市值：" />
+
+            <TextView
+                android:text="3768.00"
+                style="@style/gameInfoText.red" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/gameInfoText"
+                android:text="持股数量：" />
+
+            <TextView
+                android:text="1000"
+                android:textColor="@color/textColorBlue"
+                style="@style/gameInfoText" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginLeft="@dimen/gameInfoHorizontalMargin"
+        android:layout_marginTop="@dimen/gameInfoMarginTop"
+        android:layout_marginRight="@dimen/gameInfoHorizontalMargin"
+        style="@style/gameInfoText"
+        android:text="申请日期：2015.03.01" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View style="@style/horizontalLine" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Button
+            style="@style/blueButton.big"
+            android:layout_width="match_parent"
+            android:text="@string/buyIn"
+            android:background="@drawable/bitmap_blue_button"
+            android:layout_height="@dimen/round_button_height" />
+
+        <Button
+            android:layout_marginTop="10dp"
+            style="@style/redButton.big"
+            android:layout_width="match_parent"
+            android:text="@string/buyIn"
+            android:background="@drawable/bitmap_red_button"
+            android:layout_height="@dimen/round_button_height" />
+    </LinearLayout>
+</LinearLayout>

@@ -56,4 +56,7 @@
     <dimen name="fragmentCapitalEditHeight">37dp</dimen>
     <dimen name="capital_info_marginTop">10dp</dimen>
     <dimen name="center_item_height">100dp</dimen>
+    <dimen name="gameInfoHorizontalMargin">15dp</dimen>
+    <dimen name="gameInfoMarginTop">5dp</dimen>
+    <dimen name="round_button_height">45dp</dimen>
 </resources>

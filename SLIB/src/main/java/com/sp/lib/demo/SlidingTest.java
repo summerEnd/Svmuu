@@ -1,7 +1,6 @@
 package com.sp.lib.demo;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -9,7 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.sp.lib.R;
-import com.sp.lib.widget.slide.SlideLayout;
+import com.sp.lib.widget.slide.transform.SlideLayout;
 import com.sp.lib.widget.slide.transform.FollowTransform;
 import com.sp.lib.widget.slide.transform.QQTransform;
 import com.sp.lib.widget.slide.transform.Transformer;

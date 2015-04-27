@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.yjy998.R;
@@ -29,6 +30,10 @@ public class CenterPopup extends PopupWindow implements View.OnClickListener {
     public void setPopWidget(PopWidget popWidget) {
         this.popWidget = popWidget;
         layout.removeAllViews();
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.topMargin = 12;
+        lp.leftMargin = 40;
+        lp.rightMargin = 40;
         for (PopItem item : popWidget.widgets) {
             Button button = new Button(context);
             button.setText(item.text);
@@ -36,7 +41,7 @@ public class CenterPopup extends PopupWindow implements View.OnClickListener {
             button.setBackgroundResource(item.drawableId);
             button.setTag(item);
             button.setOnClickListener(this);
-            layout.addView(button);
+            layout.addView(button, lp);
         }
     }
 

@@ -2,8 +2,8 @@ package com.yjy998.ui.activity.test;
 
 import android.os.Bundle;
 
-import com.sp.lib.widget.slide.menudrawer.MenuDrawer;
-import com.sp.lib.widget.slide.menudrawer.Position;
+import com.sp.lib.widget.slide.menu.MenuDrawer;
+import com.sp.lib.widget.slide.menu.Position;
 import com.yjy998.R;
 import com.yjy998.ui.activity.YJYActivity;
 

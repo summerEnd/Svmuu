@@ -1,9 +1,12 @@
-package com.yjy998.ui.activity.other;
+package com.yjy998.ui.activity.my;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -11,9 +14,16 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sp.lib.activity.album.PhotoAlbumActivity;
+import com.sp.lib.activity.dialog.ListDialog;
 import com.sp.lib.common.util.ImageUtil;
 import com.yjy998.R;
 import com.yjy998.common.ImageOptions;
+import com.yjy998.ui.activity.other.SecondActivity;
+import com.yjy998.ui.pop.DatePickDialog;
+import com.yjy998.ui.pop.PickCity;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class ChangeData extends SecondActivity {
 
@@ -47,6 +57,9 @@ public class ChangeData extends SecondActivity {
         handPasswordText = (TextView) findViewById(R.id.handPasswordText);
         expEdit = (EditText) findViewById(R.id.expEdit);
         logout = (Button) findViewById(R.id.logout);
+        findViewById(R.id.birthDayLayout).setOnClickListener(this);
+        findViewById(R.id.genderLayout).setOnClickListener(this);
+        findViewById(R.id.pickAddress).setOnClickListener(this);
         avatarImage.setOnClickListener(this);
         ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance());
     }
@@ -60,6 +73,32 @@ public class ChangeData extends SecondActivity {
                         .putExtra(PhotoAlbumActivity.EXTRA_CAMERA_OUTPUT_HEIGHT, 200)
                         .putExtra(PhotoAlbumActivity.EXTRA_CAMERA_OUTPUT_WIDTH, 200)
                         , 100);
+                break;
+            }
+            case R.id.birthDayLayout: {
+                new DatePickDialog(this, new DatePickDialog.OnDatePicked() {
+                    @Override
+                    public void onPick(Calendar cal) {
+                        birthDayText.setText(new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime()));
+                    }
+                }).show();
+                break;
+            }
+            case R.id.genderLayout: {
+                final String genders[] = getResources().getStringArray(R.array.genders);
+                final ListDialog dialog = new ListDialog(this, genders);
+                dialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        genderText.setText(genders[position]);
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+                break;
+            }
+            case R.id.pickAddress:{
+                new PickCity(this).show();
                 break;
             }
         }

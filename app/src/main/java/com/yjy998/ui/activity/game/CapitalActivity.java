@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import com.yjy998.R;
-import com.yjy998.ui.activity.YJYActivity;
 import com.yjy998.ui.activity.other.SecondActivity;
 
 public class CapitalActivity extends SecondActivity {
@@ -23,6 +22,6 @@ public class CapitalActivity extends SecondActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.stand_still, R.anim.slide_down_out);
+        overridePendingTransition(R.anim.stand_still, R.anim.dialog_anim_out);
     }
 }

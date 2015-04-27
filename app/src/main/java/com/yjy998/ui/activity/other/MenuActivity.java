@@ -1,7 +1,6 @@
 package com.yjy998.ui.activity.other;
 
 import android.os.Bundle;
-import android.support.v4.widget.SlidingPaneLayout;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,17 +10,12 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 
 import com.sp.lib.common.support.IntentFactory;
-import com.sp.lib.widget.slide.menudrawer.MenuDrawer;
-import com.sp.lib.widget.slide.menudrawer.Position;
+import com.sp.lib.widget.slide.menu.MenuDrawer;
+import com.sp.lib.widget.slide.menu.Position;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
-import com.sp.lib.common.interfaces.TouchObserver;
-import com.sp.lib.common.interfaces.TouchDispatcher;
 import com.yjy998.ui.activity.YJYActivity;
 import com.yjy998.ui.pop.LoginRegisterWindow;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClick {
     private ViewGroup layoutContainer;
@@ -33,7 +27,6 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_menu);
         //隐藏标题栏
         getActionBar().hide();
         mMenuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.BEHIND, Position.START, MenuDrawer.MENU_DRAG_CONTENT);

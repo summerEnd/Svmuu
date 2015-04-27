@@ -16,6 +16,11 @@ public class ContentProviderTest extends SlibDemoWrapper {
         setContentView(tv);
         String projection[] = new String[]{SContentProvider.COLUMN_BYTES_SO_FAR, SContentProvider.COLUMN_STATUS, SContentProvider.COLUMN_LOCALE_URI};
         Cursor c = getActivity().getContentResolver().query(SContentProvider.CONTENT_URI, projection, null, null, null);
+        if (c == null) {
+            tv.setText("null");
+            return;
+        }
+
         while (c.moveToNext()) {
             StringBuilder sb = new StringBuilder();
             sb.append(c.getColumnName(0) + ":" + c.getInt(0));

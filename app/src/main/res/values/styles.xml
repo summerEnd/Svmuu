@@ -74,7 +74,7 @@
     </style>
 
     <style name="blueButton.big">
-        <item name="android:textSize">@dimen/text_30px</item>
+        <item name="android:textSize">@dimen/text_28px</item>
     </style>
 
     <style name="blueButton.mid">
@@ -320,5 +320,24 @@
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="gameInfoItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/gameInfoHorizontalMargin</item>
+        <item name="android:layout_marginRight">@dimen/gameInfoHorizontalMargin</item>
+        <item name="android:layout_marginTop">@dimen/gameInfoMarginTop</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="gameInfoText" parent="wrapLayout">
+        <item name="android:textSize">@dimen/text_28px</item>
+        <item name="android:textColor">@color/textColorBlack</item>
+    </style>
+    <style name="gameInfoText.red">
+        <item name="android:textColor">@color/textColorRed</item>
     </style>
 </resources>

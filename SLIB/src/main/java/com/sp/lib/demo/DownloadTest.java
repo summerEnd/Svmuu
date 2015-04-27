@@ -157,10 +157,12 @@ public class DownloadTest extends SlibDemoWrapper {
             long id = Downloader.start(getActivity(), "http://cdn.longtugame.com/channel_bin/520006/apk/3.0.7/520006_397.apk", f);
             ids.add(id);
             invalidate();
+            return true;
         } else if (i == R.id.check) {
             startActivity(new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS));
+            return true;
         }
-        return true;
+        return false;
     }
 
 
@@ -194,7 +196,7 @@ public class DownloadTest extends SlibDemoWrapper {
 
 
         public MyAdapter(List<Progress> data) {
-            super(getActivity(),data,R.layout.progress);
+            super(getActivity(), data, R.layout.progress);
         }
 
         @Override
@@ -208,8 +210,8 @@ public class DownloadTest extends SlibDemoWrapper {
         }
 
         @Override
-        public void displayView(View v, ViewHolder holder,int position ) {
-            Progress data=getItem(position);
+        public void displayView(View v, ViewHolder holder, int position) {
+            Progress data = getItem(position);
             holder.progress.setProgress(data.progress);
             holder.tv_state.setText(data.state);
             holder.tv_id.setText("id:" + data.id);

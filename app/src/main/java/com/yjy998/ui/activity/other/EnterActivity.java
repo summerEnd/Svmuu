@@ -26,6 +26,7 @@ public class EnterActivity extends YJYActivity implements ViewPager.OnPageChange
                 R.drawable.guide_02,
                 R.drawable.guide_03
         }));
+        startActivity(new Intent(this,MainActivity.class));
     }
 
     @Override

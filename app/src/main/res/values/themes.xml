@@ -12,6 +12,7 @@
         <item name="android:drawablePadding">5dp</item>
         <item name="android:dialogTheme">@style/loginDialog</item>
         <item name="android:homeAsUpIndicator">@drawable/nav_return</item>
+        <item name="android:alertDialogTheme">@style/loginDialog</item>
     </style>
 
     <style name="window_animation">
@@ -36,11 +37,16 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@style/dialogAnimation</item>
     </style>
-
+    <style name="alertDialog" parent="android:Theme.Holo.Light.Dialog.MinWidth">
+        <item name="android:background">#0000</item>
+        <item name="android:windowBackground">@drawable/login_dialog_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/dialogAnimation</item>
+    </style>
     <style name="dialogAnimation">
-        <item name="android:windowShowAnimation">@anim/slide_up_in</item>
-        <item name="android:windowEnterAnimation">@anim/slide_up_in</item>
-        <item name="android:windowExitAnimation">@anim/slide_down_out</item>
+        <item name="android:windowShowAnimation">@anim/dialog_anim_in</item>
+        <item name="android:windowEnterAnimation">@anim/dialog_anim_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_anim_out</item>
     </style>
     <!--标题栏文字-->
     <style name="mTitleStyle" parent="android:TextAppearance">

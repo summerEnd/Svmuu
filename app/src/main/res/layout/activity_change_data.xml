@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@drawable/windowBackground"
-    tools:context="com.yjy998.ui.activity.other.ChangeData"
+    tools:context="com.yjy998.ui.activity.my.ChangeData"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -41,7 +41,8 @@
                 style="@style/changeDataTabName"
                 android:text="@string/nickName" />
 
-            <TextView
+            <EditText
+                android:background="#0000"
                 android:id="@+id/nickText"
                 style="@style/changeDataTabValue"
                 android:text="范迪塞尔" />
@@ -53,7 +54,9 @@
 
         <View style="@style/horizontalLine" />
 
-        <RelativeLayout style="@style/changeDataTabRow">
+        <RelativeLayout
+            style="@style/changeDataTabRow"
+            android:id="@+id/genderLayout">
 
             <TextView
                 style="@style/changeDataTabName"
@@ -69,7 +72,9 @@
 
         <View style="@style/horizontalLine" />
 
-        <RelativeLayout style="@style/changeDataTabRow">
+        <RelativeLayout
+            style="@style/changeDataTabRow"
+            android:id="@+id/birthDayLayout">
 
             <TextView
                 style="@style/changeDataTabName"
@@ -85,7 +90,7 @@
 
         <View style="@style/horizontalLine" />
 
-        <RelativeLayout style="@style/changeDataTabRow">
+        <RelativeLayout android:id="@+id/pickAddress" style="@style/changeDataTabRow">
 
             <TextView
                 style="@style/changeDataTabName"
@@ -109,12 +114,15 @@
                 style="@style/changeDataTabName"
                 android:text="@string/education_lvl" />
 
-            <TextView
+            <EditText
+                android:background="#0000"
                 android:id="@+id/educationText"
                 style="@style/changeDataTabValue"
                 android:text="博士后" />
 
-            <ImageView style="@style/changeDataTabImage" />
+            <ImageView
+                android:visibility="invisible"
+                style="@style/changeDataTabImage" />
         </RelativeLayout>
 
         <View style="@style/horizontalLine" />
@@ -135,22 +143,19 @@
 
         <View style="@style/horizontalLine" />
 
-        <RelativeLayout style="@style/changeDataTabRow">
+        <LinearLayout
+            android:orientation="vertical"
+            style="@style/changeDataTabRow">
 
-            <TextView
-                style="@style/changeDataTabName"
-                android:text="@string/investment_exp" />
 
             <EditText
                 android:id="@+id/expEdit"
                 android:background="#0000"
+                android:layout_below="@+id/test"
                 style="@style/changeDataTabValue"
                 android:hint="@string/hint_investment_lvl" />
 
-            <ImageView
-                style="@style/changeDataTabImage"
-                android:visibility="invisible" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/logout"

@@ -100,7 +100,7 @@ public abstract class SlibDemoWrapper {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        return demo.onOptionsItemSelected(item);
+        return false;
     }
 
 

@@ -58,7 +58,6 @@ final class ActionBarHelperCompat {
         }
     }
 
-    @SuppressWarnings("NullArgumentToVariableArgMethod")
     private static class SetIndicatorInfo {
 
         public ImageView mUpIndicatorView;
@@ -94,7 +93,7 @@ final class ActionBarHelperCompat {
                 Class supportActivity = activity.getClass();
                 Method getActionBar = supportActivity.getMethod("getSupportActionBar");
 
-                mActionBar = getActionBar.invoke(activity,null);
+                mActionBar = getActionBar.invoke(activity,(Object[])null);
                 Class supportActionBar = mActionBar.getClass();
                 mHomeAsUpEnabled = supportActionBar.getMethod("setDisplayHomeAsUpEnabled", Boolean.TYPE);
 

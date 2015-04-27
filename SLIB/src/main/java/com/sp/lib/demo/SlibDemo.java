@@ -184,6 +184,11 @@ public class SlibDemo extends Activity implements AdapterView.OnItemClickListene
         if (mStacks.size() != 0 && mStacks.peek().onOptionsItemSelected(item)) {
             return true;
         }
+
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
