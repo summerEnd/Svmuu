@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sp.lib.widget.slide.menudrawer;
+package com.sp.lib.widget.slide.menu;
 
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;

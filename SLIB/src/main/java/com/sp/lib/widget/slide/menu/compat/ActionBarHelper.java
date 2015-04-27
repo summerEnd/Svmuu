@@ -1,4 +1,4 @@
-package com.sp.lib.widget.slide.menudrawer.compat;
+package com.sp.lib.widget.slide.menu.compat;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;

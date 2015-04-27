@@ -1,94 +1,37 @@
-package com.sp.lib.widget.slide.menudrawer;
+package com.sp.lib.widget.slide.menu;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
-import android.view.View;
 
-public class OverlayDrawer extends DraggableDrawer {
+public class SlidingDrawer extends DraggableDrawer {
 
     private static final String TAG = "OverlayDrawer";
 
-    private int mPeekSize;
-
-    private Runnable mRevealRunnable = new Runnable() {
-        @Override
-        public void run() {
-            cancelContentTouch();
-            int animateTo = 0;
-            switch (getPosition()) {
-                case RIGHT:
-                case BOTTOM:
-                    animateTo = -mPeekSize;
-                    break;
-
-                default:
-                    animateTo = mPeekSize;
-                    break;
-            }
-            animateOffsetTo(animateTo, 250);
-        }
-    };
-
-    OverlayDrawer(Activity activity, int dragMode) {
+    SlidingDrawer(Activity activity, int dragMode) {
         super(activity, dragMode);
     }
 
-    public OverlayDrawer(Context context) {
+    public SlidingDrawer(Context context) {
         super(context);
     }
 
-    public OverlayDrawer(Context context, AttributeSet attrs) {
+    public SlidingDrawer(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public OverlayDrawer(Context context, AttributeSet attrs, int defStyle) {
+    public SlidingDrawer(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
     @Override
     protected void initDrawer(Context context, AttributeSet attrs, int defStyle) {
         super.initDrawer(context, attrs, defStyle);
-        super.addView(mContentContainer, -1, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        if (USE_TRANSLATIONS) {
-            mContentContainer.setLayerType(View.LAYER_TYPE_NONE, null);
-        }
-        mContentContainer.setHardwareLayersEnabled(false);
         super.addView(mMenuContainer, -1, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        mPeekSize = dpToPx(20);
-    }
-
-    @Override
-    protected void drawOverlay(Canvas canvas) {
-        final int width = getWidth();
-        final int height = getHeight();
-        final int offsetPixels = (int) mOffsetPixels;
-        final float openRatio = Math.abs(mOffsetPixels) / mMenuSize;
-
-        switch (getPosition()) {
-            case LEFT:
-                mMenuOverlay.setBounds(offsetPixels, 0, width, height);
-                break;
-
-            case RIGHT:
-                mMenuOverlay.setBounds(0, 0, width + offsetPixels, height);
-                break;
-
-            case TOP:
-                mMenuOverlay.setBounds(0, offsetPixels, width, height);
-                break;
-
-            case BOTTOM:
-                mMenuOverlay.setBounds(0, 0, width, height + offsetPixels);
-                break;
-        }
-
-        mMenuOverlay.setAlpha((int) (MAX_MENU_OVERLAY_ALPHA * openRatio));
-        mMenuOverlay.draw(canvas);
+        super.addView(mContentContainer, -1, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     }
 
     @Override
@@ -118,42 +61,29 @@ public class OverlayDrawer extends DraggableDrawer {
     protected void onOffsetPixelsChanged(int offsetPixels) {
         if (USE_TRANSLATIONS) {
             switch (getPosition()) {
-                case LEFT:
-                    mMenuContainer.setTranslationX(offsetPixels - mMenuSize);
-                    break;
-
                 case TOP:
-                    mMenuContainer.setTranslationY(offsetPixels - mMenuSize);
-                    break;
-
-                case RIGHT:
-                    mMenuContainer.setTranslationX(offsetPixels + mMenuSize);
-                    break;
-
                 case BOTTOM:
-                    mMenuContainer.setTranslationY(offsetPixels + mMenuSize);
+                    mContentContainer.setTranslationY(offsetPixels);
+                    break;
+
+                default:
+                    mContentContainer.setTranslationX(offsetPixels);
                     break;
             }
         } else {
             switch (getPosition()) {
                 case TOP:
-                    mMenuContainer.offsetTopAndBottom(offsetPixels - mMenuContainer.getBottom());
-                    break;
-
                 case BOTTOM:
-                    mMenuContainer.offsetTopAndBottom(offsetPixels - (mMenuContainer.getTop() - getHeight()));
+                    mContentContainer.offsetTopAndBottom(offsetPixels - mContentContainer.getTop());
                     break;
 
-                case LEFT:
-                    mMenuContainer.offsetLeftAndRight(offsetPixels - mMenuContainer.getRight());
-                    break;
-
-                case RIGHT:
-                    mMenuContainer.offsetLeftAndRight(offsetPixels - (mMenuContainer.getLeft() - getWidth()));
+                default:
+                    mContentContainer.offsetLeftAndRight(offsetPixels - mContentContainer.getLeft());
                     break;
             }
         }
 
+        offsetMenu(offsetPixels);
         invalidate();
     }
 
@@ -162,13 +92,13 @@ public class OverlayDrawer extends DraggableDrawer {
         switch (getPosition()) {
             case RIGHT:
             case BOTTOM: {
-                final int dx = -mPeekSize;
+                final int dx = -mMenuSize / 3;
                 mPeekScroller.startScroll(0, 0, dx, 0, PEEK_DURATION);
                 break;
             }
 
             default: {
-                final int dx = mPeekSize;
+                final int dx = mMenuSize / 3;
                 mPeekScroller.startScroll(0, 0, dx, 0, PEEK_DURATION);
                 break;
             }
@@ -182,72 +112,32 @@ public class OverlayDrawer extends DraggableDrawer {
     }
 
     @Override
-    protected GradientDrawable.Orientation getDropShadowOrientation() {
-        switch (getPosition()) {
-            case TOP:
-                return GradientDrawable.Orientation.TOP_BOTTOM;
-
-            case RIGHT:
-                return GradientDrawable.Orientation.RIGHT_LEFT;
-
-            case BOTTOM:
-                return GradientDrawable.Orientation.BOTTOM_TOP;
-
-            default:
-                return GradientDrawable.Orientation.LEFT_RIGHT;
-        }
-    }
-
-    @Override
-    protected void updateDropShadowRect() {
+    protected void drawOverlay(Canvas canvas) {
+        final int width = getWidth();
+        final int height = getHeight();
+        final int offsetPixels = (int) mOffsetPixels;
         final float openRatio = Math.abs(mOffsetPixels) / mMenuSize;
-        final int dropShadowSize = (int) (mDropShadowSize * openRatio);
 
         switch (getPosition()) {
             case LEFT:
-                mDropShadowRect.top = 0;
-                mDropShadowRect.bottom = getHeight();
-                mDropShadowRect.left = ViewHelper.getRight(mMenuContainer);
-                mDropShadowRect.right = mDropShadowRect.left + dropShadowSize;
-                break;
-
-            case TOP:
-                mDropShadowRect.left = 0;
-                mDropShadowRect.right = getWidth();
-                mDropShadowRect.top = ViewHelper.getBottom(mMenuContainer);
-                mDropShadowRect.bottom = mDropShadowRect.top + dropShadowSize;
+                mMenuOverlay.setBounds(0, 0, offsetPixels, height);
                 break;
 
             case RIGHT:
-                mDropShadowRect.top = 0;
-                mDropShadowRect.bottom = getHeight();
-                mDropShadowRect.right = ViewHelper.getLeft(mMenuContainer);
-                mDropShadowRect.left = mDropShadowRect.right - dropShadowSize;
+                mMenuOverlay.setBounds(width + offsetPixels, 0, width, height);
+                break;
+
+            case TOP:
+                mMenuOverlay.setBounds(0, 0, width, offsetPixels);
                 break;
 
             case BOTTOM:
-                mDropShadowRect.left = 0;
-                mDropShadowRect.right = getWidth();
-                mDropShadowRect.bottom = ViewHelper.getTop(mMenuContainer);
-                mDropShadowRect.top = mDropShadowRect.bottom - dropShadowSize;
+                mMenuOverlay.setBounds(0, height + offsetPixels, width, height);
                 break;
         }
-    }
 
-    @Override
-    protected void startLayerTranslation() {
-        if (USE_TRANSLATIONS && mHardwareLayersEnabled && !mLayerTypeHardware) {
-            mLayerTypeHardware = true;
-            mMenuContainer.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-        }
-    }
-
-    @Override
-    protected void stopLayerTranslation() {
-        if (mLayerTypeHardware) {
-            mLayerTypeHardware = false;
-            mMenuContainer.setLayerType(View.LAYER_TYPE_NONE, null);
-        }
+        mMenuOverlay.setAlpha((int) (MAX_MENU_OVERLAY_ALPHA * (1.f - openRatio)));
+        mMenuOverlay.draw(canvas);
     }
 
     @Override
@@ -255,49 +145,120 @@ public class OverlayDrawer extends DraggableDrawer {
         final int width = r - l;
         final int height = b - t;
 
-        mContentContainer.layout(0, 0, width, height);
-
         if (USE_TRANSLATIONS) {
-            switch (getPosition()) {
-                case LEFT:
-                    mMenuContainer.layout(0, 0, mMenuSize, height);
-                    break;
-
-                case RIGHT:
-                    mMenuContainer.layout(width - mMenuSize, 0, width, height);
-                    break;
-
-                case TOP:
-                    mMenuContainer.layout(0, 0, width, mMenuSize);
-                    break;
-
-                case BOTTOM:
-                    mMenuContainer.layout(0, height - mMenuSize, width, height);
-                    break;
-            }
-
+            mContentContainer.layout(0, 0, width, height);
         } else {
             final int offsetPixels = (int) mOffsetPixels;
-            final int menuSize = mMenuSize;
-
-            switch (getPosition()) {
-                case LEFT:
-                    mMenuContainer.layout(-menuSize + offsetPixels, 0, offsetPixels, height);
-                    break;
-
-                case RIGHT:
-                    mMenuContainer.layout(width + offsetPixels, 0, width + menuSize + offsetPixels, height);
-                    break;
-
-                case TOP:
-                    mMenuContainer.layout(0, -menuSize + offsetPixels, width, offsetPixels);
-                    break;
-
-                case BOTTOM:
-                    mMenuContainer.layout(0, height + offsetPixels, width, height + menuSize + offsetPixels);
-                    break;
+            if (getPosition() == Position.LEFT || getPosition() == Position.RIGHT) {
+                mContentContainer.layout(offsetPixels, 0, width + offsetPixels, height);
+            } else {
+                mContentContainer.layout(0, offsetPixels, width, height + offsetPixels);
             }
         }
+
+        switch (getPosition()) {
+            case LEFT:
+                mMenuContainer.layout(0, 0, mMenuSize, height);
+                break;
+
+            case RIGHT:
+                mMenuContainer.layout(width - mMenuSize, 0, width, height);
+                break;
+
+            case TOP:
+                mMenuContainer.layout(0, 0, width, mMenuSize);
+                break;
+
+            case BOTTOM:
+                mMenuContainer.layout(0, height - mMenuSize, width, height);
+                break;
+        }
+    }
+
+    /**
+     * Offsets the menu relative to its original position based on the position of the content.
+     *
+     * @param offsetPixels The number of pixels the content if offset.
+     */
+    private void offsetMenu(int offsetPixels) {
+        if (!mOffsetMenu || mMenuSize == 0) {
+            return;
+        }
+
+        final int width = getWidth();
+        final int height = getHeight();
+
+        final int menuSize = mMenuSize;
+        final int sign = (int) (mOffsetPixels / Math.abs(mOffsetPixels));
+        final float openRatio = Math.abs(mOffsetPixels) / menuSize;
+        final int offset = (int) (-0.25f * ((1.0f - openRatio) * menuSize) * sign);
+
+        switch (getPosition()) {
+            case LEFT: {
+                if (USE_TRANSLATIONS) {
+                    if (offsetPixels > 0) {
+                        mMenuContainer.setTranslationX(offset);
+                    } else {
+                        mMenuContainer.setTranslationX(-menuSize);
+                    }
+
+                } else {
+                    mMenuContainer.offsetLeftAndRight(offset - mMenuContainer.getLeft());
+                    mMenuContainer.setVisibility(offsetPixels == 0 ? INVISIBLE : VISIBLE);
+                }
+                break;
+            }
+
+            case RIGHT: {
+                if (USE_TRANSLATIONS) {
+                    if (offsetPixels != 0) {
+                        mMenuContainer.setTranslationX(offset);
+                    } else {
+                        mMenuContainer.setTranslationX(menuSize);
+                    }
+
+                } else {
+                    final int oldOffset = mMenuContainer.getRight() - width;
+                    final int offsetBy = offset - oldOffset;
+                    mMenuContainer.offsetLeftAndRight(offsetBy);
+                    mMenuContainer.setVisibility(offsetPixels == 0 ? INVISIBLE : VISIBLE);
+                }
+                break;
+            }
+
+            case TOP: {
+                if (USE_TRANSLATIONS) {
+                    if (offsetPixels > 0) {
+                        mMenuContainer.setTranslationY(offset);
+                    } else {
+                        mMenuContainer.setTranslationY(-menuSize);
+                    }
+
+                } else {
+                    mMenuContainer.offsetTopAndBottom(offset - mMenuContainer.getTop());
+                    mMenuContainer.setVisibility(offsetPixels == 0 ? INVISIBLE : VISIBLE);
+                }
+                break;
+            }
+
+            case BOTTOM: {
+                if (USE_TRANSLATIONS) {
+                    if (offsetPixels != 0) {
+                        mMenuContainer.setTranslationY(offset);
+                    } else {
+                        mMenuContainer.setTranslationY(menuSize);
+                    }
+
+                } else {
+                    final int oldOffset = mMenuContainer.getBottom() - height;
+                    final int offsetBy = offset - oldOffset;
+                    mMenuContainer.offsetTopAndBottom(offsetBy);
+                    mMenuContainer.setVisibility(offsetPixels == 0 ? INVISIBLE : VISIBLE);
+                }
+                break;
+            }
+        }
+
     }
 
     @Override
@@ -344,19 +305,19 @@ public class OverlayDrawer extends DraggableDrawer {
 
         switch (getPosition()) {
             case LEFT:
-                contentTouch = ViewHelper.getRight(mMenuContainer) < x;
+                contentTouch = ViewHelper.getLeft(mContentContainer) < x;
                 break;
 
             case RIGHT:
-                contentTouch = ViewHelper.getLeft(mMenuContainer) > x;
+                contentTouch = ViewHelper.getRight(mContentContainer) > x;
                 break;
 
             case TOP:
-                contentTouch = ViewHelper.getBottom(mMenuContainer) < y;
+                contentTouch = ViewHelper.getTop(mContentContainer) < y;
                 break;
 
             case BOTTOM:
-                contentTouch = ViewHelper.getTop(mMenuContainer) > y;
+                contentTouch = ViewHelper.getBottom(mContentContainer) > y;
                 break;
         }
 
@@ -367,55 +328,47 @@ public class OverlayDrawer extends DraggableDrawer {
         switch (getPosition()) {
             case LEFT:
                 return (!mMenuVisible && mInitialMotionX <= mTouchSize)
-                        || (mMenuVisible && mInitialMotionX <= mOffsetPixels);
+                        || (mMenuVisible && mInitialMotionX >= mOffsetPixels);
 
             case RIGHT:
                 final int width = getWidth();
                 final int initialMotionX = (int) mInitialMotionX;
 
                 return (!mMenuVisible && initialMotionX >= width - mTouchSize)
-                        || (mMenuVisible && initialMotionX >= width + mOffsetPixels);
+                        || (mMenuVisible && initialMotionX <= width + mOffsetPixels);
 
             case TOP:
                 return (!mMenuVisible && mInitialMotionY <= mTouchSize)
-                        || (mMenuVisible && mInitialMotionY <= mOffsetPixels);
+                        || (mMenuVisible && mInitialMotionY >= mOffsetPixels);
 
             case BOTTOM:
                 final int height = getHeight();
                 return (!mMenuVisible && mInitialMotionY >= height - mTouchSize)
-                        || (mMenuVisible && mInitialMotionY >= height + mOffsetPixels);
+                        || (mMenuVisible && mInitialMotionY <= height + mOffsetPixels);
         }
 
         return false;
     }
 
     protected boolean onMoveAllowDrag(int x, int y, float dx, float dy) {
-        if (mMenuVisible && mTouchMode == TOUCH_MODE_FULLSCREEN) {
-            return true;
-        }
-
         switch (getPosition()) {
             case LEFT:
-                return (!mMenuVisible && mInitialMotionX <= mTouchSize && (dx > 0)) // Drawer closed
-                        || (mMenuVisible && x <= mOffsetPixels) // Drawer open
-                        || (Math.abs(mOffsetPixels) <= mPeekSize && mMenuVisible); // Drawer revealed
+                return (!mMenuVisible && mInitialMotionX <= mTouchSize && (dx > 0))
+                        || (mMenuVisible && x >= mOffsetPixels);
 
             case RIGHT:
                 final int width = getWidth();
                 return (!mMenuVisible && mInitialMotionX >= width - mTouchSize && (dx < 0))
-                        || (mMenuVisible && x >= width - mOffsetPixels)
-                        || (Math.abs(mOffsetPixels) <= mPeekSize && mMenuVisible);
+                        || (mMenuVisible && x <= width + mOffsetPixels);
 
             case TOP:
                 return (!mMenuVisible && mInitialMotionY <= mTouchSize && (dy > 0))
-                        || (mMenuVisible && x <= mOffsetPixels)
-                        || (Math.abs(mOffsetPixels) <= mPeekSize && mMenuVisible);
+                        || (mMenuVisible && y >= mOffsetPixels);
 
             case BOTTOM:
                 final int height = getHeight();
                 return (!mMenuVisible && mInitialMotionY >= height - mTouchSize && (dy < 0))
-                        || (mMenuVisible && x >= height - mOffsetPixels)
-                        || (Math.abs(mOffsetPixels) <= mPeekSize && mMenuVisible);
+                        || (mMenuVisible && y <= height + mOffsetPixels);
         }
 
         return false;
@@ -453,7 +406,7 @@ public class OverlayDrawer extends DraggableDrawer {
                     animateOffsetTo(initialVelocity > 0 ? mMenuSize : 0, initialVelocity, true);
 
                     // Close the menu when content is clicked while the menu is visible.
-                } else if (mMenuVisible) {
+                } else if (mMenuVisible && x > offsetPixels) {
                     closeMenu();
                 }
                 break;
@@ -467,7 +420,7 @@ public class OverlayDrawer extends DraggableDrawer {
                     animateOffsetTo(initialVelocity > 0 ? mMenuSize : 0, initialVelocity, true);
 
                     // Close the menu when content is clicked while the menu is visible.
-                } else if (mMenuVisible) {
+                } else if (mMenuVisible && y > offsetPixels) {
                     closeMenu();
                 }
                 break;
@@ -483,7 +436,7 @@ public class OverlayDrawer extends DraggableDrawer {
                     animateOffsetTo(initialVelocity > 0 ? 0 : -mMenuSize, initialVelocity, true);
 
                     // Close the menu when content is clicked while the menu is visible.
-                } else if (mMenuVisible) {
+                } else if (mMenuVisible && x < width + offsetPixels) {
                     closeMenu();
                 }
                 break;
@@ -497,7 +450,7 @@ public class OverlayDrawer extends DraggableDrawer {
                     animateOffsetTo(initialVelocity < 0 ? -mMenuSize : 0, initialVelocity, true);
 
                     // Close the menu when content is clicked while the menu is visible.
-                } else if (mMenuVisible) {
+                } else if (mMenuVisible && y < getHeight() + offsetPixels) {
                     closeMenu();
                 }
                 break;
@@ -516,27 +469,10 @@ public class OverlayDrawer extends DraggableDrawer {
         }
     }
 
-    @Override
-    protected void stopAnimation() {
-        super.stopAnimation();
-        removeCallbacks(mRevealRunnable);
-    }
-
-    @Override
-    public void requestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-        super.requestDisallowInterceptTouchEvent(disallowIntercept);
-        removeCallbacks(mRevealRunnable);
-        if (mIsPeeking) {
-            endPeek();
-            animateOffsetTo(0, PEEK_DURATION);
-        }
-    }
-
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         final int action = ev.getAction() & MotionEvent.ACTION_MASK;
 
         if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
-            removeCallbacks(mRevealRunnable);
             mActivePointerId = INVALID_POINTER;
             mIsDragging = false;
             if (mVelocityTracker != null) {
@@ -595,11 +531,6 @@ public class OverlayDrawer extends DraggableDrawer {
                     setDrawerState(mMenuVisible ? STATE_OPEN : STATE_CLOSED);
                     stopAnimation();
                     endPeek();
-
-                    if (!mMenuVisible && mInitialMotionX <= mPeekSize) {
-                        postDelayed(mRevealRunnable, 160);
-                    }
-
                     mIsDragging = false;
                 }
                 break;
@@ -626,11 +557,6 @@ public class OverlayDrawer extends DraggableDrawer {
                 final float y = ev.getY(pointerIndex);
                 final float dy = y - mLastMotionY;
 
-                if (Math.abs(dx) >= mTouchSlop || Math.abs(dy) >= mTouchSlop) {
-                    removeCallbacks(mRevealRunnable);
-                    endPeek();
-                }
-
                 if (checkTouchSlop(dx, dy)) {
                     if (mOnInterceptMoveEventListener != null && (mTouchMode == TOUCH_MODE_FULLSCREEN || mMenuVisible)
                             && canChildrenScroll((int) dx, (int) dy, (int) x, (int) y)) {
@@ -642,8 +568,6 @@ public class OverlayDrawer extends DraggableDrawer {
                     final boolean allowDrag = onMoveAllowDrag((int) x, (int) y, dx, dy);
 
                     if (allowDrag) {
-                        endPeek();
-                        stopAnimation();
                         setDrawerState(STATE_DRAGGING);
                         mIsDragging = true;
                         mLastMotionX = x;
@@ -687,11 +611,6 @@ public class OverlayDrawer extends DraggableDrawer {
                 if (allowDrag) {
                     stopAnimation();
                     endPeek();
-
-                    if (!mMenuVisible && mLastMotionX <= mPeekSize) {
-                        postDelayed(mRevealRunnable, 160);
-                    }
-
                     startLayerTranslation();
                 }
                 break;
@@ -717,8 +636,6 @@ public class OverlayDrawer extends DraggableDrawer {
                         final boolean allowDrag = onMoveAllowDrag((int) x, (int) y, dx, dy);
 
                         if (allowDrag) {
-                            endPeek();
-                            stopAnimation();
                             setDrawerState(STATE_DRAGGING);
                             mIsDragging = true;
                             mLastMotionX = x;
@@ -747,7 +664,6 @@ public class OverlayDrawer extends DraggableDrawer {
 
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP: {
-                removeCallbacks(mRevealRunnable);
                 int index = ev.findPointerIndex(mActivePointerId);
                 index = index == -1 ? 0 : index;
                 final int x = (int) ev.getX(index);

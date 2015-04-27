@@ -1,4 +1,4 @@
-package com.sp.lib.widget.slide.menudrawer;
+package com.sp.lib.widget.slide.menu;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,7 +24,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 
 import com.sp.lib.R;
-import com.sp.lib.widget.slide.menudrawer.compat.ActionBarHelper;
+import com.sp.lib.widget.slide.menu.compat.ActionBarHelper;
 
 public abstract class MenuDrawer extends ViewGroup {
 
@@ -413,7 +413,7 @@ public abstract class MenuDrawer extends ViewGroup {
      * Attaches the MenuDrawer to the Activity.
      *
      * @param activity The activity the menu drawer will be attached to.
-     * @param type     The {@link com.sp.lib.widget.slide.menudrawer.MenuDrawer.Type} of the drawer.
+     * @param type     The {@link com.sp.lib.widget.slide.menu.MenuDrawer.Type} of the drawer.
      * @return The created MenuDrawer instance.
      */
     public static MenuDrawer attach(Activity activity, Type type) {
@@ -435,7 +435,7 @@ public abstract class MenuDrawer extends ViewGroup {
      * Attaches the MenuDrawer to the Activity.
      *
      * @param activity The activity the menu drawer will be attached to.
-     * @param type     The {@link com.sp.lib.widget.slide.menudrawer.MenuDrawer.Type} of the drawer.
+     * @param type     The {@link com.sp.lib.widget.slide.menu.MenuDrawer.Type} of the drawer.
      * @param position Where to position the menu.
      * @return The created MenuDrawer instance.
      */
@@ -447,10 +447,10 @@ public abstract class MenuDrawer extends ViewGroup {
      * Attaches the MenuDrawer to the Activity.
      *
      * @param activity The activity the menu drawer will be attached to.
-     * @param type     The {@link com.sp.lib.widget.slide.menudrawer.MenuDrawer.Type} of the drawer.
+     * @param type     The {@link com.sp.lib.widget.slide.menu.MenuDrawer.Type} of the drawer.
      * @param position Where to position the menu.
-     * @param dragMode The drag mode of the drawer. Can be either {@link com.sp.lib.widget.slide.menudrawer.MenuDrawer#MENU_DRAG_CONTENT}
-     *                 or {@link com.sp.lib.widget.slide.menudrawer.MenuDrawer#MENU_DRAG_WINDOW}.
+     * @param dragMode The drag mode of the drawer. Can be either {@link com.sp.lib.widget.slide.menu.MenuDrawer#MENU_DRAG_CONTENT}
+     *                 or {@link com.sp.lib.widget.slide.menu.MenuDrawer#MENU_DRAG_WINDOW}.
      * @return The created MenuDrawer instance.
      */
     public static MenuDrawer attach(Activity activity, Type type, Position position, int dragMode) {

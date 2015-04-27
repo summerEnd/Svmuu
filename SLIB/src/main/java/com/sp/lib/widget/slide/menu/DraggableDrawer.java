@@ -1,4 +1,4 @@
-package com.sp.lib.widget.slide.menudrawer;
+package com.sp.lib.widget.slide.menu;
 
 import android.app.Activity;
 import android.content.Context;

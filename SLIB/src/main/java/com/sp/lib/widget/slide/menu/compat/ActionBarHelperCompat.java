@@ -1,4 +1,4 @@
-package com.sp.lib.widget.slide.menudrawer.compat;
+package com.sp.lib.widget.slide.menu.compat;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
@@ -58,6 +58,7 @@ final class ActionBarHelperCompat {
         }
     }
 
+    @SuppressWarnings("NullArgumentToVariableArgMethod")
     private static class SetIndicatorInfo {
 
         public ImageView mUpIndicatorView;
@@ -93,7 +94,7 @@ final class ActionBarHelperCompat {
                 Class supportActivity = activity.getClass();
                 Method getActionBar = supportActivity.getMethod("getSupportActionBar");
 
-                mActionBar = getActionBar.invoke(activity, null);
+                mActionBar = getActionBar.invoke(activity,null);
                 Class supportActionBar = mActionBar.getClass();
                 mHomeAsUpEnabled = supportActionBar.getMethod("setDisplayHomeAsUpEnabled", Boolean.TYPE);
 
