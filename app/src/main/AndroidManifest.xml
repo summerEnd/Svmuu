@@ -84,6 +84,7 @@
         </activity>
 
         <activity android:name=".ui.activity.game.CapitalActivity" />
+        <activity android:name=".ui.activity.test.MenuDrawerActivity" />
     </application>
 
 </manifest>

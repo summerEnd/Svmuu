@@ -7,7 +7,9 @@
     android:orientation="horizontal"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout style="@style/center_pager_item">
+    <LinearLayout
+        android:id="@+id/item1"
+        style="@style/center_pager_item">
 
         <TextView
             style="@style/centerItemText1"
@@ -25,7 +27,7 @@
 
             <TextView
                 style="@style/centerItemText4"
-                android:text="12" />
+                android:text="1" />
 
             <TextView
                 style="@style/centerItemText3"
@@ -33,9 +35,11 @@
         </LinearLayout>
     </LinearLayout>
 
-    <View style="@style/verticalLine" />
 
-    <LinearLayout style="@style/center_pager_item">
+    <LinearLayout
+        android:layout_marginLeft="1px"
+        style="@style/center_pager_item"
+        android:id="@+id/item2">
 
         <TextView
             style="@style/centerItemText1"
@@ -53,7 +57,7 @@
 
             <TextView
                 style="@style/centerItemText4"
-                android:text="12" />
+                android:text="2" />
 
             <TextView
                 style="@style/centerItemText3"
@@ -61,9 +65,11 @@
         </LinearLayout>
     </LinearLayout>
 
-    <View style="@style/verticalLine" />
 
-    <LinearLayout style="@style/center_pager_item">
+    <LinearLayout
+        android:layout_marginLeft="1px"
+        style="@style/center_pager_item"
+        android:id="@+id/item3">
 
         <TextView
             style="@style/centerItemText1"
@@ -81,7 +87,7 @@
 
             <TextView
                 style="@style/centerItemText4"
-                android:text="12" />
+                android:text="3" />
 
             <TextView
                 style="@style/centerItemText3"

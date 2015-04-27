@@ -3,6 +3,7 @@ package com.yjy998.ui.activity.test;
 import android.app.Activity;
 
 import com.sp.lib.activity.STestActivity;
+import com.sp.lib.widget.slide.menudrawer.MenuDrawer;
 import com.yjy998.ui.activity.other.LockActivity;
 import com.yjy998.ui.activity.MainActivity;
 
@@ -15,6 +16,7 @@ public class TestActivity extends STestActivity {
         activities.add(MainActivity.class);
         activities.add(LockActivity.class);
         activities.add(ChartActivity.class);
+        activities.add(MenuDrawerActivity.class);
     }
 
 

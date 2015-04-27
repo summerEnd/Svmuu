@@ -6,10 +6,13 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 
 import com.sp.lib.common.support.IntentFactory;
+import com.sp.lib.widget.slide.menudrawer.MenuDrawer;
+import com.sp.lib.widget.slide.menudrawer.Position;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.sp.lib.common.interfaces.TouchObserver;
@@ -23,7 +26,7 @@ import java.util.List;
 public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClick {
     private ViewGroup layoutContainer;
     private MenuFragment mMenuFragment;
-    private SlidingPaneLayout slidingPane;
+    private MenuDrawer mMenuDrawer;
     private ImageView titleImage;
     private LoginRegisterWindow mLoginWindow;
 
@@ -33,13 +36,16 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
         super.setContentView(R.layout.activity_menu);
         //隐藏标题栏
         getActionBar().hide();
-        layoutContainer = (ViewGroup) findViewById(R.id.layoutContainer);
-        mMenuFragment = new MenuFragment();
+        mMenuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.BEHIND, Position.START, MenuDrawer.MENU_DRAG_CONTENT);
 
-        slidingPane = (SlidingPaneLayout) findViewById(R.id.slidingPane);
-        slidingPane.setParallaxDistance(50);
-        slidingPane.setCoveredFadeColor(getResources().getColor(R.color.transientBlack));
-        slidingPane.setSliderFadeColor(0);
+        View contentView=getLayoutInflater().inflate(R.layout.menu_content,null);
+        layoutContainer = (ViewGroup)contentView. findViewById(R.id.layoutContainer);
+        mMenuFragment = new MenuFragment();
+        FrameLayout frameLayout=new FrameLayout(this);
+        frameLayout.setId(R.id.menuContainer);
+        mMenuDrawer.setMenuView(frameLayout);
+        mMenuDrawer.setContentView(contentView);
+
         getSupportFragmentManager().beginTransaction().add(R.id.menuContainer, mMenuFragment).commit();
         titleImage = (ImageView) findViewById(R.id.titleImage);
         titleImage.setOnClickListener(titleClickListener);
@@ -141,21 +147,21 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
     }
 
     public void toggle() {
-        if (slidingPane.isOpen()) {
-            slidingPane.closePane();
+        if (mMenuDrawer.isMenuVisible()) {
+            mMenuDrawer.closeMenu();
         } else {
-            slidingPane.openPane();
+            mMenuDrawer.openMenu();
         }
     }
 
     public void close() {
-        slidingPane.closePane();
+        mMenuDrawer.closeMenu();
     }
 
     @Override
     public void onBackPressed() {
-        if (slidingPane.isOpen()) {
-            slidingPane.closePane();
+        if (mMenuDrawer.isMenuVisible()) {
+            close();
         } else {
             super.onBackPressed();
         }
@@ -168,7 +174,7 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
      */
     @Override
     public boolean onMenuClick(View v) {
-        slidingPane.closePane();
+        close();
         return false;
     }
 
