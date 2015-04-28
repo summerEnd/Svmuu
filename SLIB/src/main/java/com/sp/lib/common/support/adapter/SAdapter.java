@@ -10,6 +10,7 @@ import java.util.List;
 public abstract class SAdapter<T> extends BaseAdapter {
 
     protected List<T> mData;
+    private int count = -1;
 
     public SAdapter(List<T> data) {
         mData = data;
@@ -17,6 +18,9 @@ public abstract class SAdapter<T> extends BaseAdapter {
 
     @Override
     public final int getCount() {
+        if (count >= 0) {
+            return count;
+        }
         return mData.size();
     }
 
@@ -33,5 +37,10 @@ public abstract class SAdapter<T> extends BaseAdapter {
     @Override
     public abstract View getView(int position, View convertView, ViewGroup parent);
 
-
+    /**
+     * 设置一个测试的数量,如果小于0就代表不适用测试数量。
+     */
+    public final void setTestCount(int count) {
+        this.count = count;
+    }
 }

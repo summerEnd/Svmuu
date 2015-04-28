@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity.game;
+package com.yjy998.ui.activity.my.business;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -13,7 +13,7 @@ import com.yjy998.adapter.FragmentPagerAdapter;
 import com.yjy998.ui.activity.other.BaseFragment;
 
 
-public class GameFragment extends BaseFragment {
+public class BusinessFragment extends BaseFragment {
 
 
     View layout;

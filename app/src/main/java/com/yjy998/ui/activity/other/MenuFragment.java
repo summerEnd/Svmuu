@@ -15,7 +15,7 @@ import com.yjy998.R;
 import com.yjy998.common.ImageOptions;
 import com.yjy998.ui.activity.MainActivity;
 import com.yjy998.ui.activity.apply.ApplyActivity;
-import com.yjy998.ui.activity.game.CapitalActivity;
+import com.yjy998.ui.activity.my.business.BusinessActivity;
 
 public class MenuFragment extends BaseFragment implements View.OnClickListener {
 
@@ -73,14 +73,14 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
 
         } else switch (v.getId()) {
             case R.id.buyIn: {
-                startActivity(new Intent(getActivity(), CapitalActivity.class)
-                        .putExtra(CapitalActivity.EXTRA_IS_BUY, true));
+                startActivity(new Intent(getActivity(), BusinessActivity.class)
+                        .putExtra(BusinessActivity.EXTRA_IS_BUY, true));
                 break;
             }
             case R.id.sellOut: {
 
-                startActivity(new Intent(getActivity(), CapitalActivity.class)
-                        .putExtra(CapitalActivity.EXTRA_IS_BUY, false));
+                startActivity(new Intent(getActivity(), BusinessActivity.class)
+                        .putExtra(BusinessActivity.EXTRA_IS_BUY, false));
                 break;
             }
             case R.id.recharge: {

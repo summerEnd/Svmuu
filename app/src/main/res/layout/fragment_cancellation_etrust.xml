@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yjy998.ui.activity.game.CancellationEntrustFragment">
+    tools:context="com.yjy998.ui.activity.my.business.CancellationEntrustFragment">
 
     <com.sp.lib.widget.list.refresh.PullToRefreshListView
         android:layout_width="match_parent"

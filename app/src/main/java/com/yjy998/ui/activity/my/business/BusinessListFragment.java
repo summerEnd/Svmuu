@@ -1,7 +1,6 @@
 package com.yjy998.ui.activity.my.business;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,10 +83,10 @@ public class BusinessListFragment extends BaseFragment implements AdapterView.On
 
             mCenterPopup = new CenterPopup(getActivity());
             mCenterPopup.setPopWidget(widget);
-            mCenterPopup.setAnimationStyle(R.style.centerPopAnimation);
+            mCenterPopup.setAnimationStyle(R.style.businessPopAnimation);
             mCenterPopup.setListener(this);
         }
-        mCenterPopup.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
+        mCenterPopup.show(view);
         return true;
     }
 }

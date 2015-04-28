@@ -68,14 +68,18 @@
             android:label="@string/title_activity_change_data" >
         </activity>
         <activity
-            android:name=".ui.activity.other.FreshActivity"
+            android:name=".ui.activity.other.NewMemberActivity"
             android:label="@string/title_activity_fresh" >
         </activity>
-        <activity android:name=".ui.activity.game.CapitalActivity" />
+        <activity android:name=".ui.activity.my.business.BusinessActivity" />
         <activity android:name=".ui.activity.test.MenuDrawerActivity" />
         <activity
             android:name=".ui.activity.game.GameInfoActivity"
             android:label="@string/title_activity_game_info" >
+        </activity>
+        <activity
+            android:name=".ui.activity.game.RankActivity"
+            android:label="@string/title_activity_rank" >
         </activity>
     </application>
 

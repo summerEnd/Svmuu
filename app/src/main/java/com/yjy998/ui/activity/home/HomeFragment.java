@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.yjy998.R;
 import com.yjy998.ui.activity.other.BaseFragment;
-import com.yjy998.ui.activity.other.FreshActivity;
+import com.yjy998.ui.activity.other.NewMemberActivity;
 
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
@@ -81,7 +81,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
 
             case R.id.newMember: {
-                startActivity(new Intent(getActivity(), FreshActivity.class));
+                startActivity(new Intent(getActivity(), NewMemberActivity.class));
                 break;
             }
 

@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:paddingLeft="@dimen/list_item_hold_layout_margin_horizontal"
-    android:paddingRight="@dimen/list_item_hold_layout_margin_horizontal"
-    android:paddingTop="@dimen/list_item_hold_vertical_margin"
-    android:paddingBottom="@dimen/list_item_hold_vertical_margin"
-    android:layout_height="match_parent">
+    android:background="@drawable/clicked_white"
+    android:paddingLeft="@dimen/dimen_50px"
+    android:paddingRight="@dimen/dimen_50px"
+    android:paddingTop="@dimen/dimen_50px"
+    android:paddingBottom="@dimen/dimen_15px"
+    android:layout_height="wrap_content">
 
 
     <LinearLayout
@@ -26,16 +27,19 @@
 
         <TextView
             android:layout_marginLeft="@dimen/list_item_hold_margin_dot1"
-            android:textSize="@dimen/text_30px"
+            android:layout_marginStart="@dimen/list_item_hold_margin_dot1"
+            android:textSize="@dimen/text_28px"
             android:id="@+id/stockName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:textColor="@color/textColorBlack"
             android:text="华能国际" />
 
         <TextView
             android:layout_marginLeft="@dimen/list_item_hold_title_space"
-            android:textSize="@dimen/text_30px"
+            android:layout_marginStart="@dimen/list_item_hold_title_space"
+            android:textSize="@dimen/text_28px"
+            android:textColor="@color/textColorBlack"
             android:id="@+id/stockCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +48,7 @@
 
     <LinearLayout
         android:layout_marginLeft="@dimen/list_item_hold_margin_dot2"
-        android:layout_marginTop="@dimen/list_item_hold_vertical_margin"
+        android:layout_marginTop="@dimen/dimen_11px"
         android:layout_below="@id/titleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,6 +63,7 @@
                 style="@style/TwoTextItem.Red"
                 app:prefix="交易类型:"
                 android:text="买入"
+                android:textSize="@dimen/text_22px"
                 app:prefixTextColor="@color/textColorDeepGray"
                 app:prefixTextSize="@dimen/text_22px" />
 
@@ -70,6 +75,7 @@
             <com.yjy998.ui.view.TwoTextItem
                 style="@style/TwoTextItem.Red"
                 app:prefix="委托价格:"
+                android:textSize="@dimen/text_22px"
                 app:prefixTextColor="@color/textColorDeepGray"
                 android:text="8.26"
                 app:prefixTextSize="@dimen/text_22px" />
@@ -82,6 +88,7 @@
             <com.yjy998.ui.view.TwoTextItem
                 style="@style/TwoTextItem.Red"
                 app:prefix="数量:"
+                android:textSize="@dimen/text_22px"
                 app:prefixTextColor="@color/textColorDeepGray"
                 android:textColor="#358DE7"
                 android:text="1000"
@@ -89,7 +96,7 @@
         </LinearLayout>
 
         <TextView
-            android:layout_marginTop="@dimen/list_item_hold_vertical_margin"
+            android:layout_marginTop="@dimen/dimen_11px"
             android:textColor="@color/textColorDeepGray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -98,7 +105,7 @@
 
         <TextView
             android:textSize="@dimen/text_22px"
-            android:layout_marginTop="@dimen/list_item_hold_vertical_margin"
+            android:layout_marginTop="@dimen/dimen_11px"
             android:textColor="@color/textColorDeepGray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

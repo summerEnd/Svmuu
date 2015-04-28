@@ -1,16 +1,72 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.yjy998.ui.activity.other.FreshActivity">
+    android:background="@color/white"
+    tools:context="com.yjy998.ui.activity.other.NewMemberActivity">
 
     <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:background="#f2f2f2"
+        android:gravity="center"
+        android:padding="@dimen/dimen_11px"
+        android:textColor="@color/textColorDeepGray"
+        android:textSize="@dimen/text_26px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="新手专享T+1" />
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dimen_50px"
+        android:paddingRight="@dimen/dimen_50px"
+        android:paddingTop="@dimen/dimen_60px"
+        android:paddingBottom="@dimen/dimen_30px"
+        android:orientation="vertical">
+
+        <ImageView
+            android:src="@drawable/image_intro"
+            android:scaleType="fitStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorBlack"
+            android:textSize="@dimen/text_24px"
+            android:text="盈利全归您，亏损我们来承担！" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dimen_11px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorDeepGray"
+            android:textSize="@dimen/text_19px"
+            android:text="提醒：申请当日必须买入股票，T+N日14:40分之前必须卖出股票，14:40分之后系统自动平仓" />
+    </LinearLayout>
+
+    <View style="@style/horizontalLine" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:paddingLeft="@dimen/dimen_70px"
+        android:paddingRight="@dimen/dimen_70px"
+        android:layout_height="wrap_content"
+        android:background="@drawable/yellow_button"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_28px"
+        android:layout_marginTop="@dimen/dimen_60px"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/experienceNow" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/text_19px"
+        android:textColor="@color/textColorBlack"
+        android:layout_marginTop="@dimen/dimen_11px"
+        android:text="如有疑问请联系客服：400-828-1911"
+        android:layout_height="wrap_content" />
+</LinearLayout>

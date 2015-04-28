@@ -8,14 +8,14 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        style="@style/activityPadding"
+        android:paddingLeft="@dimen/dimen_15px"
+        android:paddingRight="@dimen/dimen_15px"
+        android:paddingTop="@dimen/dimen_20px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            style="@style/changeDataTabRow">
+        <RelativeLayout style="@style/changeDataTabRow">
 
             <TextView
                 style="@style/changeDataTabName"
@@ -90,7 +90,9 @@
 
         <View style="@style/horizontalLine" />
 
-        <RelativeLayout android:id="@+id/pickAddress" style="@style/changeDataTabRow">
+        <RelativeLayout
+            android:id="@+id/pickAddress"
+            style="@style/changeDataTabRow">
 
             <TextView
                 style="@style/changeDataTabName"
@@ -161,7 +163,7 @@
             android:id="@+id/logout"
             android:layout_marginTop="@dimen/changeData_margin_top"
             android:layout_width="match_parent"
-            android:padding="9dp"
+            android:padding="@dimen/dimen_24px"
             style="@style/blueButton.big"
             android:text="@string/logout" />
     </LinearLayout>

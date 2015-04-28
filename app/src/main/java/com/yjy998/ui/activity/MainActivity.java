@@ -4,12 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.yjy998.R;
 import com.yjy998.ui.activity.apply.ApplyFragment;
-import com.yjy998.ui.activity.game.GameFragment;
+import com.yjy998.ui.activity.game.RealGameFragment;
+import com.yjy998.ui.activity.my.business.BusinessFragment;
 import com.yjy998.ui.activity.home.HomeFragment;
 import com.yjy998.ui.activity.more.MoreFragment;
 import com.yjy998.ui.activity.my.CenterFragment;
@@ -31,7 +32,7 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
 
     private TabItem curTab;
     HomeFragment mHome;
-    GameFragment mGameFragment;
+    RealGameFragment mGameFragment;
     ApplyFragment mApplyFragment;
     CenterFragment mCenterFragment;
     MoreFragment mMoreFragment;
@@ -116,7 +117,7 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
                 }
                 case R.id.tabGame: {
                     if (mGameFragment == null) {
-                        mGameFragment = new GameFragment();
+                        mGameFragment = new RealGameFragment();
                     }
                     fragment = mGameFragment;
                     break;

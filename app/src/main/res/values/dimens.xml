@@ -4,50 +4,79 @@
     <dimen name="activity_vertical_margin">8dp</dimen>
     <dimen name="lock_layout_width">280dp</dimen>
     <dimen name="lock_spacing">35dp</dimen>
-    <dimen name="actionBarHeight">48dp</dimen>
-    <dimen name="menuWidth">280dp</dimen>
+    <dimen name="actionBarHeight">55dp</dimen>
+    <dimen name="menuWidth">300dp</dimen>
     <dimen name="menuIconSize">33dp</dimen>
-    <dimen name="avatarSize">60dp</dimen>
-    <dimen name="text_20px">12sp</dimen>
+    <dimen name="avatarSize">53.3dp</dimen>
+
+    <dimen name="text_28px">18sp</dimen>
+
+    <dimen name="text_32px">21sp</dimen>
+
+    <!--已确定-->
+    <dimen name="text_18px">11sp</dimen>
+    <dimen name="text_19px">12sp</dimen>
+    <dimen name="text_20px">13sp</dimen>
     <dimen name="text_22px">14sp</dimen>
     <dimen name="text_24px">15sp</dimen>
+    <dimen name="text_25px">15.5sp</dimen>
     <dimen name="text_26px">16sp</dimen>
-    <dimen name="text_28px">18sp</dimen>
+    <dimen name="text_27px">16.5sp</dimen>
     <dimen name="text_30px">20sp</dimen>
-    <dimen name="text_36px">25sp</dimen>
-    <dimen name="text_38px">27sp</dimen>
+
     <dimen name="login_dialog_editText_height">43dp</dimen>
-    <dimen name="dimen_38px">16dp</dimen>
+
+    <dimen name="dimen_38px">20dp</dimen>
     <dimen name="dimen_44px">20dp</dimen>
+    <dimen name="dimen_pop_btnHeight">40dp</dimen>
+
+
+    <!--确定的-->
+    <dimen name="dimen_180px">100dp</dimen>
+    <dimen name="dimen_94px">52.2dp</dimen>
+    <dimen name="dimen_90px">50dp</dimen>
+    <dimen name="dimen_84px">46.7dp</dimen>
+    <dimen name="dimen_70px">38.8dp</dimen>
+    <dimen name="dimen_60px">33.3dp</dimen>
+    <dimen name="dimen_55px">30.5dp</dimen>
+    <dimen name="dimen_50px">27.7dp</dimen>
+    <dimen name="dimen_45px">25dp</dimen>
+    <dimen name="dimen_40px">22dp</dimen>
+    <dimen name="dimen_36px">20dp</dimen>
+    <dimen name="dimen_32px">17.7dp</dimen>
+    <dimen name="dimen_30px">16.6dp</dimen>
+    <dimen name="dimen_25px">13.8dp</dimen>
+    <dimen name="dimen_24px">13dp</dimen>
+    <dimen name="dimen_20px">11dp</dimen>
+    <dimen name="dimen_15px">8.3dp</dimen>
+    <dimen name="dimen_11px">6.1dp</dimen>
+    <dimen name="dimen_8px">4dp</dimen>
+
     <dimen name="dialogPadding">8dp</dimen>
     <dimen name="loginDialog_margin_logo">22dp</dimen>
     <dimen name="loginDialog_edit_padding_horizontal">25dp</dimen>
     <dimen name="mid_button_height">40dp</dimen>
     <dimen name="mid_button_width">100dp</dimen>
     <dimen name="login_window_padding_horizontal">30dp</dimen>
-    <dimen name="home_fragment_item_margins">4dp</dimen>
     <dimen name="center_tab_height">40dp</dimen>
     <dimen name="capital_fragment_item_margin_1">4dp</dimen>
     <dimen name="list_item_hold_title_space">20dp</dimen>
-    <dimen name="list_item_hold_vertical_margin">6dp</dimen>
-    <dimen name="list_item_hold_layout_margin_horizontal">12dp</dimen>
-    <dimen name="dotSize">14dp</dimen>
+    <dimen name="dotSize">11dp</dimen>
     <!--list_item_hold_margin_dot1和list_item_hold_margin_dot2正好相差了一个dotSize-->
     <dimen name="list_item_hold_margin_dot1">14dp</dimen>
-    <dimen name="list_item_hold_margin_dot2">28dp</dimen>
-    <dimen name="menuPaddingVertical">20dp</dimen>
-    <dimen name="triangleLayoutSize">61dp</dimen>
-    <dimen name="applyItemMarginTop">9dp</dimen>
+    <dimen name="list_item_hold_margin_dot2">25dp</dimen>
+    <dimen name="triangleLayoutSize">@dimen/dimen_94px</dimen>
+
     <dimen name="applyItemMarginLeft">20dp</dimen>
     <dimen name="circleItemSize">65dp</dimen>
     <dimen name="apply_activity_circle_margin_top">12dp</dimen>
     <dimen name="apply_activity_white_layout_padding">18dp</dimen>
-    <dimen name="apply_activity_white_layout_marginTop">14dp</dimen>
+
     <dimen name="question_margin">7dp</dimen>
     <dimen name="payLayoutPaddingVertical">10dp</dimen>
     <dimen name="payLayoutPaddingHorizontal">12dp</dimen>
     <dimen name="tn_fragment_ic_size">30dp</dimen>
-    <dimen name="home_icon_size">85dp</dimen>
+    <dimen name="home_icon_size">70dp</dimen>
     <dimen name="homeLogined_pd_horizontal">25dp</dimen>
     <dimen name="homeLogined_pd_vertical">12dp</dimen>
     <dimen name="home_item_text_size">18sp</dimen>
@@ -55,7 +84,7 @@
     <dimen name="dialog_padding_vertical">6dp</dimen>
     <dimen name="fragmentCapitalEditHeight">37dp</dimen>
     <dimen name="capital_info_marginTop">10dp</dimen>
-    <dimen name="center_item_height">100dp</dimen>
+    <dimen name="center_item_height">@dimen/dimen_180px</dimen>
     <dimen name="gameInfoHorizontalMargin">15dp</dimen>
     <dimen name="gameInfoMarginTop">5dp</dimen>
     <dimen name="round_button_height">45dp</dimen>

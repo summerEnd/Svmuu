@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity.game;
+package com.yjy998.ui.activity.my.business;
 
 
 import com.sp.lib.common.util.ContextUtil;
@@ -9,7 +9,7 @@ import com.yjy998.ui.pop.PayDialog;
 /**
  * 持仓
  */
-public class HoldingsFragment extends GameListFragment {
+public class HoldingsFragment extends BusinessListFragment {
 
 
     @Override

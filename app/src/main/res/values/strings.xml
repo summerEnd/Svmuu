@@ -119,9 +119,15 @@
     <string name="di">第</string>
     <string name="mi">名</string>
     <string name="title_activity_game_info">GameInfo</string>
+    <string name="rankList">排行榜</string>
+    <string name="gameList">大赛列表</string>
+    <string name="my_game">我参加的比赛</string>
 
     <string-array name="genders">
         <item>男</item>
         <item>女</item>
     </string-array>
+    <string name="title_activity_rank">RankActivity</string>
+    <string name="personal_rank">个人排名</string>
+    <string name="experienceNow">立即体验</string>
 </resources>

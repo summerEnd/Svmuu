@@ -4,16 +4,23 @@
     android:layout_height="match_parent"
     style="@style/activityPadding"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.yjy998.ui.activity.more.MoreFragment">
 
     <TextView
         android:textSize="@dimen/text_30px"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:textColor="@color/textColorBlack"
+        android:layout_height="wrap_content"
         android:text="@string/help_info" />
 
     <ListView
+        android:layout_marginTop="@dimen/dimen_15px"
         android:id="@+id/list"
+        android:padding="1px"
+        android:background="#dddddd"
+        android:divider="#dddddd"
+        android:dividerHeight="1px"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 </LinearLayout>

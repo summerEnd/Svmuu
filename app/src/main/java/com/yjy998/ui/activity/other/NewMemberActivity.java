@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.yjy998.R;
 
-public class FreshActivity extends SecondActivity {
+public class NewMemberActivity extends SecondActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

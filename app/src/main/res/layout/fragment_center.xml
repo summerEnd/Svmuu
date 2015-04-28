@@ -8,7 +8,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
         tools:context="com.yjy998.ui.activity.home.HomeLoginFragment">
@@ -42,7 +42,7 @@
                 <TextView
                     android:id="@+id/telText"
                     android:textColor="@color/textColorBlack"
-                    android:textSize="@dimen/text_26px"
+                    android:textSize="@dimen/text_24px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/__testPhone" />
@@ -52,10 +52,11 @@
                     android:layout_marginTop="6dp"
                     android:layout_width="wrap_content"
                     android:text="￥123123.12"
+                    android:textStyle="bold"
                     android:textColor="@color/textColorRed"
                     android:textSize="@dimen/text_28px"
                     app:prefix="@string/account_remain_"
-                    app:prefixTextSize="@dimen/text_26px"
+                    app:prefixTextSize="@dimen/text_28px"
                     app:prefixTextColor="@color/textColorBlack"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -74,7 +75,7 @@
                 android:layout_weight="1"
                 android:padding="8dp"
                 android:textColor="@color/textColorDeepGray"
-                android:textSize="@dimen/text_26px"
+                android:textSize="@dimen/text_22px"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/GoldIngot_d" />
@@ -87,7 +88,7 @@
                 android:layout_weight="1"
                 android:padding="8dp"
                 android:textColor="@color/textColorDeepGray"
-                android:textSize="@dimen/text_26px"
+                android:textSize="@dimen/text_22px"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/caopan_d" />
@@ -109,7 +110,7 @@
                 android:layout_gravity="center_vertical"
                 android:drawableLeft="@drawable/home_buy"
                 android:drawableStart="@drawable/home_buy"
-                style="@style/homeLoginedText" />
+                style="@style/centerText" />
 
             <TextView
                 android:id="@+id/sellOut"
@@ -117,7 +118,7 @@
                 android:text="@string/sellOut"
                 android:drawableLeft="@drawable/home_sell"
                 android:drawableStart="@drawable/home_sell"
-                style="@style/homeLoginedText" />
+                style="@style/centerText" />
 
             <TextView
                 android:id="@+id/recharge"
@@ -125,18 +126,18 @@
                 android:text="@string/recharge"
                 android:drawableStart="@drawable/home_recharge"
                 android:drawableLeft="@drawable/home_recharge"
-                style="@style/homeLoginedText" />
+                style="@style/centerText" />
         </FrameLayout>
 
         <TextView
             android:paddingLeft="@dimen/homeLogined_pd_horizontal"
             android:paddingRight="@dimen/homeLogined_pd_horizontal"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
             android:text="@string/myContract_d"
             android:background="#EEEEEE"
             android:textColor="@color/textColorBlack"
-            android:textSize="@dimen/text_26px"
+            android:textSize="@dimen/text_24px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -150,12 +151,12 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/homeLogined_pd_horizontal"
             android:paddingRight="@dimen/homeLogined_pd_horizontal"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
             android:text="@string/myGame_d"
             android:background="#EEEEEE"
             android:textColor="@color/textColorBlack"
-            android:textSize="@dimen/text_26px"
+            android:textSize="@dimen/text_24px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

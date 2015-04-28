@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity.game;
+package com.yjy998.ui.activity.my.business;
 
 
 import android.os.Bundle;
@@ -8,11 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.sp.lib.common.util.ContextUtil;
-import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.ui.activity.other.BaseFragment;
 import com.yjy998.ui.activity.other.TimeLineFragment;
@@ -104,4 +102,12 @@ public class CapitalFragment extends BaseFragment implements View.OnClickListene
             }
         }
     }
+
+    public static class CapitalInfo extends BaseFragment {
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.layout_capital_switch_info, null);
+        }
+    }
+
 }

@@ -5,6 +5,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -16,6 +17,8 @@ import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.ui.activity.YJYActivity;
 import com.yjy998.ui.pop.LoginRegisterWindow;
+
+import static android.view.ViewGroup.LayoutParams;
 
 public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClick {
     private ViewGroup layoutContainer;
@@ -29,14 +32,17 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
         super.onCreate(savedInstanceState);
         //隐藏标题栏
         getActionBar().hide();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
         mMenuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.BEHIND, Position.START, MenuDrawer.MENU_DRAG_CONTENT);
 
-        View contentView=getLayoutInflater().inflate(R.layout.menu_content,null);
-        layoutContainer = (ViewGroup)contentView. findViewById(R.id.layoutContainer);
+        View contentView = getLayoutInflater().inflate(R.layout.menu_content, null);
+        layoutContainer = (ViewGroup) contentView.findViewById(R.id.layoutContainer);
         mMenuFragment = new MenuFragment();
-        FrameLayout frameLayout=new FrameLayout(this);
+        FrameLayout frameLayout = new FrameLayout(this);
         frameLayout.setId(R.id.menuContainer);
         mMenuDrawer.setMenuView(frameLayout);
+        mMenuDrawer.setMenuSize(getResources().getDimensionPixelSize(R.dimen.menuWidth));
         mMenuDrawer.setContentView(contentView);
 
         getSupportFragmentManager().beginTransaction().add(R.id.menuContainer, mMenuFragment).commit();
@@ -129,7 +135,7 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
     }
 
     @Override
-    public void setContentView(View view, ViewGroup.LayoutParams params) {
+    public void setContentView(View view, LayoutParams params) {
 
     }
 

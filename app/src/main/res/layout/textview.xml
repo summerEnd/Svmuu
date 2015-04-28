@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textSize="@dimen/text_22px"
+    android:layout_width="match_parent"
+    android:background="@drawable/clicked_white"
+    android:text="1、参加易交易需要付费吗？"
+    android:paddingTop="@dimen/dimen_20px"
+    android:paddingBottom="@dimen/dimen_20px"
+    android:paddingLeft="@dimen/dimen_8px"
+    android:paddingRight="@dimen/dimen_8px"
+    android:layout_height="wrap_content" />
+

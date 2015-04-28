@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity.game;
+package com.yjy998.ui.activity.my.business;
 
 import android.os.Bundle;
 import android.widget.FrameLayout;
@@ -6,8 +6,8 @@ import android.widget.FrameLayout;
 import com.yjy998.R;
 import com.yjy998.ui.activity.other.SecondActivity;
 
-public class CapitalActivity extends SecondActivity {
-    CapitalFragment mFragment = new CapitalFragment();
+public class BusinessActivity extends SecondActivity {
+    BusinessFragment mFragment = new BusinessFragment();
     public static final String EXTRA_IS_BUY = "extra_buy";
 
     @Override

@@ -4,27 +4,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/dimen_15px"
+    android:paddingRight="@dimen/dimen_15px"
     tools:context="com.yjy998.ui.activity.apply.ApplyFragment">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hot"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:textSize="@dimen/text_30px"
+        android:layout_marginLeft="@dimen/dimen_24px"
+        android:layout_marginRight="@dimen/dimen_24px"
+        android:textSize="@dimen/text_26px"
         android:textColor="@color/textColorDeepGray" />
 
     <LinearLayout
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/dimen_15px"
         android:id="@+id/tnLayout"
         android:baselineAligned="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="4dp"
+        android:padding="@dimen/dimen_8px"
         android:background="@drawable/corner_white">
 
         <TableLayout
@@ -83,13 +83,7 @@
                 android:src="@drawable/triangle_red" />
 
             <TextView
-                android:rotation="45"
-                android:textSize="@dimen/text_20px"
-                android:gravity="center"
-                android:paddingBottom="17dp"
-                android:textColor="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                style="@style/rotateText"
                 android:text="@string/__stop_fail_12_5" />
         </FrameLayout>
     </LinearLayout>
@@ -97,11 +91,11 @@
     <LinearLayout
         android:id="@+id/t9Layout"
         android:baselineAligned="false"
-        android:layout_marginTop="@dimen/applyItemMarginTop"
+        android:layout_marginTop="@dimen/dimen_15px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="4dp"
+        android:padding="@dimen/dimen_8px"
         android:background="@drawable/corner_white">
 
         <TableLayout
@@ -159,13 +153,7 @@
                 android:src="@drawable/triangle_red" />
 
             <TextView
-                android:rotation="45"
-                android:textSize="@dimen/text_20px"
-                android:gravity="center"
-                android:paddingBottom="17dp"
-                android:textColor="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                style="@style/rotateText"
                 android:text="@string/__stop_fail_12_5" />
         </FrameLayout>
     </LinearLayout>
@@ -173,11 +161,11 @@
     <LinearLayout
         android:baselineAligned="true"
         android:id="@+id/freshLayout"
-        android:layout_marginTop="@dimen/applyItemMarginTop"
+        android:layout_marginTop="@dimen/dimen_15px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="4dp"
+        android:padding="@dimen/dimen_8px"
         android:background="@drawable/corner_white">
 
         <TableLayout
@@ -205,7 +193,6 @@
                     android:text="@string/new_member_first"
                     style="@style/applyFragmentTextStyle.big" />
 
-
                 <TextView
                     android:id="@+id/freshMemberText"
                     android:text="@string/__test_data_3000_people"
@@ -224,13 +211,7 @@
                 android:src="@drawable/triangle_blue" />
 
             <TextView
-                android:rotation="45"
-                android:textSize="@dimen/text_20px"
-                android:gravity="center"
-                android:paddingBottom="17dp"
-                android:textColor="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                style="@style/rotateText"
                 android:text="@string/newEnjoy" />
         </FrameLayout>
     </LinearLayout>

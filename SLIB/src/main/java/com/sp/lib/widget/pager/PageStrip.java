@@ -3,20 +3,18 @@ package com.sp.lib.widget.pager;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class PageStrip extends HorizontalScrollView {
+public class PageStrip extends HorizontalScrollView implements ViewPager.OnPageChangeListener {
     private int indicatorHeight;
     private Drawable indicatorDrawable;
     private int showIndicator;
@@ -25,6 +23,7 @@ public abstract class PageStrip extends HorizontalScrollView {
     private List<PagerTab> tabs = new LinkedList<PagerTab>();
     private PagerTab curTab;
     private OnTabClick onTabClick = new OnTabClick();
+    private float leftOffset;
 
     public PageStrip(Context context) {
         this(context, null);
@@ -36,6 +35,9 @@ public abstract class PageStrip extends HorizontalScrollView {
 
     public PageStrip(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        indicatorDrawable = new ColorDrawable(Color.BLUE);
+        indicatorDrawable.setBounds(1, 1, 1, 1);
+
     }
 
     @Override
@@ -45,8 +47,7 @@ public abstract class PageStrip extends HorizontalScrollView {
             View child = getChildAt(i);
             if (child instanceof PagerTab) {
                 PagerTab tab = (PagerTab) child;
-                tabs.add(tab);
-                tab.setOnClickListener(onTabClick);
+                addTabInner(tab);
             }
         }
     }
@@ -56,14 +57,16 @@ public abstract class PageStrip extends HorizontalScrollView {
         super.onLayout(changed, l, t, r, b);
     }
 
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+        indicatorDrawable.draw(canvas);
+    }
+
+
     public void setViewPager(ViewPager pager) {
-
-        ViewParent parent = pager.getParent();
-
-        if (parent != null) {
-            ((ViewGroup) parent).removeView(pager);
-        }
-
+        mPager = pager;
+        mPager.setOnPageChangeListener(this);
     }
 
     @Override
@@ -73,12 +76,35 @@ public abstract class PageStrip extends HorizontalScrollView {
 
     public void addTab(int index, PagerTab tabView) {
         addView(tabView, index);
-        tabs.add(tabView);
+        addTabInner(tabView);
     }
 
     public void addTab(PagerTab tabView) {
         addView(tabView);
-        tabs.add(tabView);
+        addTabInner(tabView);
+    }
+
+    private void addTabInner(PagerTab tab) {
+        tabs.add(tab);
+        tab.setOnClickListener(onTabClick);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        View childAt = getChildAt(position);
+        int leftOffset = childAt.getLeft();
+        indicatorDrawable.setBounds(leftOffset, 10, childAt.getWidth() + leftOffset, 20);
+        invalidate();
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     private class OnTabClick implements OnClickListener {
@@ -100,22 +126,4 @@ public abstract class PageStrip extends HorizontalScrollView {
         }
     }
 
-    public abstract class PagerTab extends FrameLayout {
-
-        public PagerTab(Context context) {
-            super(context);
-        }
-
-        public PagerTab(Context context, AttributeSet attrs) {
-            super(context, attrs);
-        }
-
-        public PagerTab(Context context, AttributeSet attrs, int defStyle) {
-            super(context, attrs, defStyle);
-        }
-
-        public abstract void onSelected();
-
-        public abstract void onUnSelected();
-    }
 }

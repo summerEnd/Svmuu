@@ -6,12 +6,13 @@
     <color name="themeBlue">#358DE7</color>
     <color name="themeBluePressed">#257DD7</color>
 
-    <color name="textColorBlack">#322222</color>
+    <color name="textColorBlack">#1b1b1b</color>
     <color name="textColorGray">#9A9A9A</color>
     <color name="textColorDeepGray">#666666</color>
-    <color name="textColorRed">#CB0100</color>
+    <color name="textColorRed">#E40505</color>
     <color name="textColorGreen">#01A920</color>
     <color name="textColorBlue">#0D64C5</color>
+    <color name="textColorDarkBlue">#0E4378</color>
     <color name="white">#ffffff</color>
     <color name="red">#D72A26</color>
     <color name="transientBlack">#8000</color>

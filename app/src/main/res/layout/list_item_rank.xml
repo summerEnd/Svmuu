@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingLeft="@dimen/dimen_8px"
+    android:paddingRight="@dimen/dimen_8px"
+    android:paddingTop="@dimen/dimen_11px"
+    android:paddingBottom="@dimen/dimen_11px"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/rankText"
+            android:gravity="center"
+            android:layout_width="@dimen/dimen_36px"
+            android:layout_weight="1"
+            android:textSize="@dimen/text_24px"
+            android:layout_height="wrap_content"
+            android:text="4" />
+
+        <ImageView
+            android:id="@+id/rankImage"
+            android:layout_width="@dimen/dimen_36px"
+            android:layout_height="@dimen/dimen_40px"
+            android:src="@drawable/ic_no1" />
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/nameText"
+        android:textColor="@color/textColorBlack"
+        android:textSize="@dimen/text_24px"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="巴菲特" />
+
+    <TextView
+        android:id="@+id/profitText"
+        android:textColor="@color/textColorRed"
+        android:textSize="@dimen/text_24px"
+        android:gravity="right"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="34.2%" />
+</LinearLayout>

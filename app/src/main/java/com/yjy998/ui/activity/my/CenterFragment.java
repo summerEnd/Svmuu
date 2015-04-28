@@ -17,7 +17,7 @@ import com.yjy998.adapter.GamePagerAdapter;
 import com.yjy998.common.ImageOptions;
 import com.yjy998.entity.Contract;
 import com.yjy998.entity.Game;
-import com.yjy998.ui.activity.game.CapitalActivity;
+import com.yjy998.ui.activity.my.business.BusinessActivity;
 import com.yjy998.ui.activity.other.BaseFragment;
 import com.yjy998.ui.view.TwoTextItem;
 
@@ -57,14 +57,14 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
                 break;
             }
             case R.id.sellOut: {
-                startActivity(new Intent(getActivity(), CapitalActivity.class)
-                        .putExtra(CapitalActivity.EXTRA_IS_BUY, false));
+                startActivity(new Intent(getActivity(), BusinessActivity.class)
+                        .putExtra(BusinessActivity.EXTRA_IS_BUY, false));
                 getActivity().overridePendingTransition(R.anim.dialog_anim_in, R.anim.stand_still);
                 break;
             }
             case R.id.buyIn: {
-                startActivity(new Intent(getActivity(), CapitalActivity.class)
-                        .putExtra(CapitalActivity.EXTRA_IS_BUY, true));
+                startActivity(new Intent(getActivity(), BusinessActivity.class)
+                        .putExtra(BusinessActivity.EXTRA_IS_BUY, true));
                 getActivity().overridePendingTransition(R.anim.dialog_anim_in, R.anim.stand_still);
                 break;
             }

@@ -18,6 +18,8 @@
 
         <TextView
             android:text="@string/countCapital__"
+            android:textColor="@color/textColorDarkBlue"
+            android:textSize="@dimen/text_24px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -25,6 +27,7 @@
             android:id="@+id/capitalText"
             android:text="￥909012"
             android:textSize="@dimen/text_30px"
+            android:textStyle="bold"
             android:textColor="@color/textColorRed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -44,7 +47,7 @@
 
             <TextView
                 android:id="@+id/realGame"
-                android:layout_weight="2"
+                android:layout_weight="1.9"
                 android:layout_width="0dp"
                 style="@style/homeClickItem"
                 android:text="@string/real_game"
@@ -55,8 +58,8 @@
                 android:layout_weight="3"
                 android:id="@+id/newMember"
                 android:background="@drawable/s_click_blue"
-                android:layout_marginLeft="@dimen/home_fragment_item_margins"
-                android:layout_marginStart="@dimen/home_fragment_item_margins"
+                android:layout_marginLeft="@dimen/dimen_8px"
+                android:layout_marginStart="@dimen/dimen_8px"
                 android:layout_width="0dp">
 
                 <TextView
@@ -71,10 +74,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.1"
-            android:layout_marginTop="@dimen/home_fragment_item_margins">
+            android:layout_marginTop="@dimen/dimen_8px">
 
             <TextView
-                android:layout_weight="2"
+                android:layout_weight="1.9"
                 android:layout_width="0dp"
                 android:id="@+id/myGame"
                 style="@style/homeClickItem"
@@ -93,8 +96,8 @@
                     android:layout_weight="1"
                     android:id="@+id/TN"
                     android:background="@drawable/s_click_brown"
-                    android:layout_marginLeft="@dimen/home_fragment_item_margins"
-                    android:layout_marginStart="@dimen/home_fragment_item_margins"
+                    android:layout_marginLeft="@dimen/dimen_8px"
+                    android:layout_marginStart="@dimen/dimen_8px"
                     android:layout_width="0dp">
 
                     <TextView
@@ -108,8 +111,8 @@
                     android:layout_weight="1"
                     android:id="@+id/T9"
                     android:background="@drawable/s_click_blue_light"
-                    android:layout_marginLeft="@dimen/home_fragment_item_margins"
-                    android:layout_marginStart="@dimen/home_fragment_item_margins"
+                    android:layout_marginLeft="@dimen/dimen_8px"
+                    android:layout_marginStart="@dimen/dimen_8px"
                     android:layout_width="0dp">
 
                     <TextView
@@ -124,7 +127,7 @@
 
     <LinearLayout
         android:baselineAligned="false"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/dimen_40px"
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content">

@@ -14,8 +14,8 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingLeft">@dimen/dimen_36px</item>
+        <item name="android:paddingRight">@dimen/dimen_36px</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
         <item name="android:layout_marginBottom">1px</item>
@@ -25,11 +25,12 @@
 
     <style name="mainMenuClickItemTextStyle">
         <item name="android:gravity">center_vertical</item>
-        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_32px</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@drawable/s_text_white_gray</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:drawableRight">@drawable/left_menu_arrow</item>
     </style>
 
     <style name="mainMenuClickItemIconStyle">
@@ -102,7 +103,11 @@
         <item name="android:textColor">@color/textColorBlack</item>
         <item name="android:textSize">@dimen/text_26px</item>
     </style>
-
+    <style name="yellowButton">
+        <item name="android:background">@drawable/yellow_button</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_26px</item>
+    </style>
     <style name="tabStyle">
         <item name="android:textSize">13sp</item>
         <item name="android:layout_weight">1</item>
@@ -125,7 +130,7 @@
 
     <style name="homeTextViewStyle1" parent="wrapLayout">
         <item name="android:layout_marginTop">5dp</item>
-        <item name="android:textSize">@dimen/text_22px</item>
+        <item name="android:textSize">@dimen/text_20px</item>
         <item name="android:textColor">@color/textColorBlack</item>
     </style>
 
@@ -153,19 +158,19 @@
         <item name="android:textColor">@color/textColorGreen</item>
     </style>
 
-    <style name="centerPopAnimation" parent="popup_window_animation">
+    <style name="businessPopAnimation" parent="popup_window_animation">
         <item name="android:windowEnterAnimation">@anim/center_pop_enter</item>
         <item name="android:windowExitAnimation">@anim/center_pop_exit</item>
     </style>
 
     <style name="applyFragmentTextStyle">
         <item name="android:textColor">@color/textColorDeepGray</item>
-        <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:textSize">@dimen/text_20px</item>
     </style>
 
     <style name="applyFragmentTextStyle.big">
         <item name="android:textColor">@color/textColorBlack</item>
-        <item name="android:textSize">@dimen/text_26px</item>
+        <item name="android:textSize">@dimen/text_24px</item>
     </style>
 
     <style name="applyFragmentItemPadding">
@@ -175,16 +180,26 @@
         <item name="android:paddingBottom">14dp</item>
     </style>
 
+    <style name="rotateText">
+        <item name="android:rotation">45</item>
+        <item name="android:textSize">@dimen/text_18px</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">@dimen/dimen_30px</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
     <style name="activityPadding">
-        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
-        <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingLeft">@dimen/dimen_50px</item>
+        <item name="android:paddingRight">@dimen/dimen_50px</item>
         <item name="android:paddingTop">@dimen/activity_vertical_margin</item>
         <item name="android:paddingBottom">@dimen/activity_vertical_margin</item>
     </style>
 
     <style name="applyActivityTextStyle1">
         <item name="android:textColor">@color/textColorDeepGray</item>
-        <item name="android:textSize">@dimen/text_28px</item>
+        <item name="android:textSize">@dimen/text_24px</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -213,7 +228,7 @@
         <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
     </style>
 
-    <style name="homeLoginedText" parent="wrapLayout">
+    <style name="centerText" parent="wrapLayout">
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">@dimen/text_28px</item>
         <item name="android:drawablePadding">5dp</item>
@@ -306,14 +321,17 @@
     </style>
 
     <style name="centerItemText3" parent="wrapLayout">
-        <item name="android:textSize">@dimen/text_28px</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_24px</item>
         <item name="android:textColor">@color/textColorBlack</item>
     </style>
 
     <style name="centerItemText4" parent="wrapLayout">
         <item name="android:textSize">@dimen/text_28px</item>
         <item name="android:textColor">@color/textColorRed</item>
-        <item name="android:layout_margin">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_11px</item>
+        <item name="android:layout_marginRight">@dimen/dimen_11px</item>
     </style>
 
     <style name="centerItemLayout" parent="wrapLayout">
@@ -337,6 +355,7 @@
         <item name="android:textSize">@dimen/text_28px</item>
         <item name="android:textColor">@color/textColorBlack</item>
     </style>
+
     <style name="gameInfoText.red">
         <item name="android:textColor">@color/textColorRed</item>
     </style>

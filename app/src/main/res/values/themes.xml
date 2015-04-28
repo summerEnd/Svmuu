@@ -52,4 +52,8 @@
     <style name="mTitleStyle" parent="android:TextAppearance">
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="businessWindowAnim">
+
+    </style>
 </resources>

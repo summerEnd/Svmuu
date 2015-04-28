@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity.game;
+package com.yjy998.ui.activity.my.business;
 
 
 import com.sp.lib.common.util.ContextUtil;
@@ -10,7 +10,7 @@ import static com.yjy998.ui.pop.CenterPopup.PopWidget;
 /**
  * 成交
  */
-public class DealFragment extends GameListFragment {
+public class DealFragment extends BusinessListFragment {
 
     @Override
     public String getTitle() {

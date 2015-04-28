@@ -19,7 +19,7 @@
             style="@style/centerItemText1"
             android:text="收益率100%" />
 
-        <LinearLayout style="@style/centerItemLayout">
+        <LinearLayout android:baselineAligned="true" style="@style/centerItemLayout">
 
             <TextView
                 style="@style/centerItemText3"

@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    style="@style/activityPadding"
+    android:background="@color/white"
+    tools:context="com.yjy998.ui.activity.game.RankActivity">
+
+    <TextView
+        android:textSize="@dimen/text_30px"
+        android:layout_width="match_parent"
+        android:textColor="@color/textColorBlack"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_rank" />
+
+    <View style="@style/horizontalLine" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_45px"
+        android:background="#f2f2f2"
+        android:paddingLeft="@dimen/dimen_8px"
+        android:paddingRight="@dimen/dimen_8px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/textColorBlack"
+            android:textSize="@dimen/text_24px"
+            android:layout_height="wrap_content"
+            android:text="名次" />
+
+        <TextView
+            android:textColor="@color/textColorBlack"
+            android:textSize="@dimen/text_24px"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="用户名" />
+
+        <TextView
+            android:textColor="@color/textColorBlack"
+            android:textSize="@dimen/text_24px"
+            android:gravity="right"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="收益率" />
+    </LinearLayout>
+
+    <ListView
+        android:layout_marginTop="@dimen/dimen_15px"
+        android:id="@+id/list"
+        android:divider="#dddddd"
+        android:dividerHeight="1px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

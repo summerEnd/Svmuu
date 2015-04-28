@@ -16,7 +16,10 @@
             style="@style/horizontalMargin"
             android:layout_width="match_parent"
             android:background="@drawable/corner_white"
-            android:padding="@dimen/apply_activity_white_layout_padding"
+            android:paddingTop="@dimen/dimen_30px"
+            android:paddingBottom="@dimen/dimen_30px"
+            android:paddingLeft="@dimen/dimen_25px"
+            android:paddingRight="@dimen/dimen_25px"
             android:orientation="vertical"
             android:layout_height="wrap_content">
 
@@ -70,7 +73,7 @@
                         android:textColor="@color/deepBlue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_20px"
+                        android:textSize="@dimen/text_18px"
                         android:text="@string/introduce" />
                 </LinearLayout>
             </LinearLayout>
@@ -125,7 +128,7 @@
                         android:textColor="@color/deepBlue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_20px"
+                        android:textSize="@dimen/text_18px"
                         android:text="@string/change_group" />
                 </LinearLayout>
             </LinearLayout>
@@ -134,7 +137,7 @@
         <LinearLayout
             style="@style/horizontalMargin"
             android:padding="@dimen/apply_activity_white_layout_padding"
-            android:layout_marginTop="@dimen/apply_activity_white_layout_marginTop"
+            android:layout_marginTop="@dimen/dimen_15px"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:background="@drawable/corner_white"
@@ -170,7 +173,7 @@
         <LinearLayout
             style="@style/horizontalMargin"
             android:padding="@dimen/apply_activity_white_layout_padding"
-            android:layout_marginTop="@dimen/apply_activity_white_layout_marginTop"
+            android:layout_marginTop="@dimen/dimen_15px"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:background="@drawable/corner_white"
@@ -206,7 +209,7 @@
         <LinearLayout
             style="@style/horizontalMargin"
             android:padding="@dimen/apply_activity_white_layout_padding"
-            android:layout_marginTop="@dimen/apply_activity_white_layout_marginTop"
+            android:layout_marginTop="@dimen/dimen_15px"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:background="@drawable/corner_white"
@@ -217,7 +220,7 @@
                 android:text="@string/pingCang" />
 
             <TextView
-                android:textSize="@dimen/text_20px"
+                android:textSize="@dimen/text_19px"
                 style="@style/applyActivityTextStyle1"
                 android:text="@string/pingCangSummary" />
             <!--占位控件-->
@@ -247,7 +250,7 @@
         <LinearLayout
             style="@style/horizontalMargin"
             android:padding="@dimen/apply_activity_white_layout_padding"
-            android:layout_marginTop="@dimen/apply_activity_white_layout_marginTop"
+            android:layout_marginTop="@dimen/dimen_15px"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:background="@drawable/corner_white"
@@ -300,7 +303,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:textSize="@dimen/text_26px"
+                android:textSize="@dimen/text_24px"
                 android:textColor="@color/textColorBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
