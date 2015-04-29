@@ -26,13 +26,16 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
     private MenuDrawer mMenuDrawer;
     private ImageView titleImage;
     private LoginRegisterWindow mLoginWindow;
+    /**
+     * 标志登录注册窗口是否为第一次弹出
+     */
+    private static boolean isFirstShow = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //隐藏标题栏
         getActionBar().hide();
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
         mMenuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.BEHIND, Position.START, MenuDrawer.MENU_DRAG_CONTENT);
 
@@ -51,6 +54,9 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
         findViewById(R.id.toggle).setOnClickListener(titleClickListener);
     }
 
+    /**
+     * 标题栏点击事件
+     */
     private View.OnClickListener titleClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -82,9 +88,14 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
-        showLoginWindow();
+        if (isFirstShow) {
+            showLoginWindow();
+        }
     }
 
+    /**
+     * 弹出登录注册window
+     */
     private void showLoginWindow() {
 
         if (AppDelegate.getInstance().isUserLogin()) {
@@ -101,6 +112,7 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
                 }
             });
         }
+        isFirstShow = false;
         mLoginWindow.showAtLocation(titleImage, Gravity.BOTTOM, 0, 0);
     }
 
@@ -135,11 +147,6 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
     }
 
     @Override
-    public void setContentView(View view, LayoutParams params) {
-
-    }
-
-    @Override
     public void setContentView(View view) {
         layoutContainer.removeAllViews();
         layoutContainer.addView(view);
@@ -153,6 +160,9 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
         }
     }
 
+    /**
+     * 关闭当前menu
+     */
     public void close() {
         mMenuDrawer.closeMenu();
     }
@@ -174,18 +184,5 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
     @Override
     public boolean onMenuClick(View v) {
         return false;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mLoginWindow != null) {
-            mLoginWindow.dismiss();
-        }
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return super.dispatchTouchEvent(ev);
     }
 }

@@ -8,15 +8,16 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by acer on 2014/9/5.
- */
 public class JsonUtil {
     public static <T> T get(String json, Class<T> cls) {
         return new Gson().fromJson(json, cls);
     }
 
-
+    /**
+     * 返回一个新的列表
+     *
+     * @throws JSONException
+     */
     public static <T> ArrayList<T> getArray(JSONArray array, Class<T> cls) throws JSONException {
         ArrayList<T> list = new ArrayList<T>();
         Gson gson = new Gson();
@@ -28,6 +29,12 @@ public class JsonUtil {
         return list;
     }
 
+    /**
+     * @param array 用来解析的数据源
+     * @param cls   解析后的实体类型
+     * @param list  用来存放数据的集合
+     * @throws JSONException
+     */
     public static <T> void getArray(JSONArray array, Class<T> cls, List<T> list) throws JSONException {
         Gson gson = new Gson();
 

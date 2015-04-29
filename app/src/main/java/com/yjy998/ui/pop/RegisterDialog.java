@@ -44,8 +44,7 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirmButton: {
-                SRequest request = new SRequest();
-                request.setUrl("http://www.yjy998.com/account/register");
+                SRequest request = new SRequest("http://www.yjy998.com/account/register");
                 request.put("login_name", phoneEdit.getText().toString());
                 request.put("register_passwd", passwordEdit.getText().toString());
                 request.put("login_rsapwd", passwordEdit.getText().toString());

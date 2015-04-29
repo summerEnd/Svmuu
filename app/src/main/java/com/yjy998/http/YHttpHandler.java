@@ -62,7 +62,16 @@ public abstract class YHttpHandler extends SHttpProgressHandler {
     /**
      * 解析一个{@link org.json.JSONObject JSONObject}
      */
-    public Response parseResponse(JSONObject response) {
-        return JsonUtil.get(response.toString(), Response.class);
+    public Response parseResponse(JSONObject jsonResponse) {
+        Response response = new Response();
+        try {
+            response.data = jsonResponse.getString("data");
+            response.status = jsonResponse.getBoolean("status");
+            response.message = jsonResponse.getString("message");
+            response.code = jsonResponse.getString("code");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return response;
     }
 }
