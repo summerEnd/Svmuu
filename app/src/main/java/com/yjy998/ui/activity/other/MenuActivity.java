@@ -173,7 +173,6 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
      */
     @Override
     public boolean onMenuClick(View v) {
-        close();
         return false;
     }
 

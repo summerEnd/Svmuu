@@ -23,7 +23,7 @@ public abstract class SHttpProgressHandler extends JsonHttpResponseHandler imple
     }
 
     @Override
-    public final void onFinish() {
+    public  void onFinish() {
         super.onFinish();
         if (mDialog != null) {
             mDialog.dismiss();
@@ -67,7 +67,7 @@ public abstract class SHttpProgressHandler extends JsonHttpResponseHandler imple
         } else {
             log = String.valueOf(o);
         }
-        Log.i("",log);
+        Log.i("--->",log);
     }
 
 }

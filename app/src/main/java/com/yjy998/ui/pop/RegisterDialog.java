@@ -10,9 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.SLog;
 import com.sp.lib.common.util.time.TimeTicker;
+import com.yjy998.AppDelegate;
 import com.yjy998.R;
+import com.yjy998.account.User;
+import com.yjy998.http.Response;
+import com.yjy998.http.YHttpClient;
+import com.yjy998.http.YHttpHandler;
 
 public class RegisterDialog extends Dialog implements View.OnClickListener {
 
@@ -38,7 +44,27 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirmButton: {
+                SRequest request = new SRequest();
+                request.setUrl("http://www.yjy998.com/account/register");
+                request.put("login_name", phoneEdit.getText().toString());
+                request.put("register_passwd", passwordEdit.getText().toString());
+                request.put("login_rsapwd", passwordEdit.getText().toString());
+                confirmButton.setText(R.string.register_ing);
+                YHttpClient.getInstance().post(getContext(), request, new YHttpHandler() {
 
+                    @Override
+                    protected void onStatusCorrect(Response response) {
+                        User user = AppDelegate.getInstance().getUser();
+                        user.id = 0;
+                        dismiss();
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        confirmButton.setText(R.string.re_register);
+                    }
+                });
                 break;
             }
             case R.id.closeButton: {

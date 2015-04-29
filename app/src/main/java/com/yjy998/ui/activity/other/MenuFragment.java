@@ -16,6 +16,8 @@ import com.yjy998.common.ImageOptions;
 import com.yjy998.ui.activity.MainActivity;
 import com.yjy998.ui.activity.apply.ApplyActivity;
 import com.yjy998.ui.activity.my.business.BusinessActivity;
+import com.yjy998.ui.activity.other.pay.RechargeActivity;
+import com.yjy998.ui.activity.other.pay.YbPayFragment;
 
 public class MenuFragment extends BaseFragment implements View.OnClickListener {
 
@@ -84,6 +86,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 break;
             }
             case R.id.recharge: {
+                startActivity(new Intent(getActivity(), RechargeActivity.class));
                 break;
             }
             case R.id.applyTn: {
@@ -112,7 +115,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 break;
             }
         }
-        getActivity().overridePendingTransition(R.anim.dialog_anim_in, R.anim.stand_still);
+//        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     public interface OnMenuClick {

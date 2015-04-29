@@ -14,10 +14,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/dimen_40px"
+            android:paddingBottom="@dimen/dimen_11px"
+            android:paddingLeft="@dimen/dimen_50px"
+            android:paddingRight="@dimen/dimen_50px"
             android:orientation="vertical">
             <!--选择合约-->
             <LinearLayout
@@ -40,7 +40,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/dimen_25px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -48,13 +48,15 @@
                 <LinearLayout style="@style/capitalFragmentLayoutStyle_1">
 
                     <TextView
-
+                        android:textSize="@dimen/capitalTextSize"
+                        android:textColor="@color/textColorBlack"
                         android:layout_width="wrap_content"
                         android:text="@string/usable_money__"
                         android:layout_height="wrap_content" />
 
                     <TextView
                         android:id="@+id/usableText"
+                        android:textSize="@dimen/capitalTextSize"
                         android:textColor="@color/textColorRed"
                         android:layout_width="wrap_content"
                         android:text="@string/__testNumber"
@@ -62,16 +64,20 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginStart="@dimen/capital_fragment_item_margin_1"
-                    android:layout_marginLeft="@dimen/capital_fragment_item_margin_1"
+                    android:layout_marginStart="@dimen/dimen_10px"
+                    android:layout_marginLeft="@dimen/dimen_10px"
                     style="@style/capitalFragmentLayoutStyle_1">
 
                     <TextView
+                        android:textSize="@dimen/capitalTextSize"
+                        android:textColor="@color/textColorBlack"
                         android:layout_width="wrap_content"
                         android:text="@string/win_money__"
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:textSize="@dimen/capitalTextSize"
+                        android:textColor="@color/textColorBlack"
                         android:id="@+id/balanceText"
                         android:layout_width="wrap_content"
                         android:text="@string/__testNumber"
@@ -82,17 +88,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/capital_fragment_item_margin_1"
+                android:layout_marginTop="@dimen/dimen_10px"
                 android:orientation="horizontal">
 
                 <LinearLayout style="@style/capitalFragmentLayoutStyle_1">
 
                     <TextView
+                        android:textSize="@dimen/capitalTextSize"
+                        android:textColor="@color/textColorBlack"
                         android:layout_width="wrap_content"
                         android:text="@string/stockValue__"
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:textSize="@dimen/capitalTextSize"
+                        android:textColor="@color/textColorBlack"
                         android:id="@+id/stockValueText"
                         android:layout_width="wrap_content"
                         android:text="@string/__testNumber"
@@ -100,16 +110,20 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginStart="@dimen/capital_fragment_item_margin_1"
-                    android:layout_marginLeft="@dimen/capital_fragment_item_margin_1"
+                    android:layout_marginStart="@dimen/dimen_10px"
+                    android:layout_marginLeft="@dimen/dimen_10px"
                     style="@style/capitalFragmentLayoutStyle_1">
 
                     <TextView
+                        android:textSize="@dimen/capitalTextSize"
+                        android:textColor="@color/textColorBlack"
                         android:layout_width="wrap_content"
                         android:text="@string/totalCapital__"
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:textSize="@dimen/capitalTextSize"
+                        android:textColor="@color/textColorBlack"
                         android:id="@+id/totalText"
                         android:layout_width="wrap_content"
                         android:text="@string/__testNumber"
@@ -126,6 +140,7 @@
                 <TextView
                     android:layout_centerVertical="true"
                     android:textSize="@dimen/text_22px"
+                    android:textColor="@color/textColorBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="股票买卖" />
@@ -140,6 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:text="@string/switch_graphic" />
             </RelativeLayout>
 
@@ -153,6 +169,7 @@
             </FrameLayout>
             <!--买入 重置 按钮-->
             <LinearLayout
+                android:layout_marginTop="@dimen/dimen_11px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -174,7 +191,6 @@
                     style="@style/redButton.mid"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="@dimen/mid_button_height"
                     android:text="@string/reset" />
             </LinearLayout>
 

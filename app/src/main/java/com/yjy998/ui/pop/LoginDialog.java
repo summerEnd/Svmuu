@@ -8,9 +8,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.sp.lib.common.support.net.client.SRequest;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.account.User;
+import com.yjy998.http.Response;
+import com.yjy998.http.YHttpClient;
+import com.yjy998.http.YHttpHandler;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 public class LoginDialog extends Dialog implements View.OnClickListener {
     private EditText phoneEdit;
@@ -32,9 +39,29 @@ public class LoginDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirmButton: {
-                User user = AppDelegate.getInstance().getUser();
-                user.id = 0;
-                dismiss();
+                confirmButton.setText(R.string.login_ing);
+                SRequest request = new SRequest();
+                request.setUrl("http://www.yjy998.com/account/login");
+                request.put("login_name", phoneEdit.getText().toString());
+                request.put("login_passwd", passwordEdit.getText().toString());
+                request.put("login_rsapwd", passwordEdit.getText().toString());
+
+                YHttpClient.getInstance().post(getContext(), request, new YHttpHandler() {
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        confirmButton.setText(R.string.re_login);
+                    }
+
+                    @Override
+                    protected void onStatusCorrect(Response response) {
+                        User user = AppDelegate.getInstance().getUser();
+                        user.id = 0;
+                        dismiss();
+                    }
+                });
+
+
                 break;
             }
             case R.id.closeButton: {
@@ -55,6 +82,6 @@ public class LoginDialog extends Dialog implements View.OnClickListener {
         confirmButton = (Button) findViewById(R.id.confirmButton);
         findViewById(R.id.forgetText).setOnClickListener(this);
         findViewById(R.id.closeButton).setOnClickListener(this);
-        findViewById(R.id.confirmButton).setOnClickListener(this);
+        confirmButton.setOnClickListener(this);
     }
 }

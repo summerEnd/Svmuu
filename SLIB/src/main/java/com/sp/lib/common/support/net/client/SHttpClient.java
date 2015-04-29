@@ -19,6 +19,10 @@ public class SHttpClient {
         client.setTimeout(10000);
     }
 
+    public static AsyncHttpClient getClient() {
+        return client;
+    }
+
     /**
      * post http request
      */
@@ -34,8 +38,13 @@ public class SHttpClient {
         client.post(params.getUrl(), params, handler);
     }
 
-    public static void get(SRequest params, AsyncHttpResponseHandler handler){
-        client.get(params.getUrl(),params,handler);
+    public static void get(SRequest params, AsyncHttpResponseHandler handler) {
+        client.get(params.getUrl(), params, handler);
+    }
+
+    public static void cancelAllRequests() {
+        client.cancelAllRequests(true);
+
     }
 
     /**

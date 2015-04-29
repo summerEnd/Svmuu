@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/textColorBlack"
             android:textSize="@dimen/text_24px"
-            android:text="盈利全归您，亏损我们来承担！" />
+            android:text="@string/notice2" />
 
         <TextView
             android:layout_marginTop="@dimen/dimen_11px"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/textColorDeepGray"
             android:textSize="@dimen/text_19px"
-            android:text="提醒：申请当日必须买入股票，T+N日14:40分之前必须卖出股票，14:40分之后系统自动平仓" />
+            android:text="@string/tn_notice" />
     </LinearLayout>
 
     <View style="@style/horizontalLine" />
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/yellow_button"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_28px"
+        android:textSize="@dimen/text_30px"
         android:layout_marginTop="@dimen/dimen_60px"
         android:layout_gravity="center_horizontal"
         android:text="@string/experienceNow" />

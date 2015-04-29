@@ -11,7 +11,7 @@
 
     <TextView
         android:textColor="@color/textColorGray"
-        android:textSize="@dimen/text_26px"
+        android:textSize="@dimen/text_30px"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
     <TextView
         android:id="@+id/accountText"
         android:textColor="@color/textColorGray"
-        android:textSize="@dimen/text_22px"
+        android:textSize="@dimen/text_20px"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:id="@+id/moneyText"
         android:textColor="@color/textColorBlack"
         android:textSize="@dimen/text_26px"
-        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_margin="@dimen/dimen_25px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="500.0元" />
@@ -45,7 +45,7 @@
         android:id="@+id/remainMoneyText"
         android:textColor="@color/textColorBlack"
         android:textSize="@dimen/text_26px"
-        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_margin="@dimen/dimen_25px"
         android:layout_width="match_parent"
         android:drawableRight="@drawable/ic_right_arrow"
         android:layout_height="wrap_content"
@@ -55,36 +55,35 @@
 
     <com.sp.lib.widget.input.PasswordEdit
         android:id="@+id/passwordEdit"
-        android:layout_marginTop="@dimen/dialog_padding_vertical"
+        android:layout_margin="@dimen/dimen_25px"
         android:layout_gravity="center_horizontal"
         app:borderColor="@color/white"
         app:passwordLength="6"
         app:contentColor="@color/lightGray"
         android:padding="1px"
         android:text=""
-        style="@style/horizontalMargin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:layout_marginTop="@dimen/dialog_padding_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_25px"
+        android:paddingRight="@dimen/dimen_25px"
         android:gravity="center_vertical">
 
         <Button
             android:id="@+id/cancelBtn"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_margin="7dp"
             android:text="@string/cancel"
             android:layout_height="wrap_content"
             style="@style/whiteButton" />
 
         <Button
             android:id="@+id/confirmBtn"
-            android:layout_margin="7dp"
+            android:layout_marginLeft="@dimen/dimen_20px"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/confirm"

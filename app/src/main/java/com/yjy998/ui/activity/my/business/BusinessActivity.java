@@ -22,6 +22,6 @@ public class BusinessActivity extends SecondActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.stand_still, R.anim.dialog_anim_out);
+//        overridePendingTransition(R.anim.stand_still, R.anim.dialog_anim_out);
     }
 }

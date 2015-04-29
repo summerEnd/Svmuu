@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="@dimen/dialogPadding"
+    style="@style/dialogPadding"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,20 +13,26 @@
 
         <ImageView
             android:id="@+id/closeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/dimen_40px"
+            android:layout_height="@dimen/dimen_40px"
             android:layout_gravity="right"
             android:src="@drawable/ic_close" />
     </LinearLayout>
 
 
     <ImageView
+        android:paddingLeft="@dimen/dimen_72px"
+        android:paddingRight="@dimen/dimen_72px"
+        android:paddingTop="@dimen/dimen_11px"
+        android:paddingBottom="@dimen/dimen_11px"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/login_logo" />
 
     <EditText
-        android:layout_marginTop="@dimen/loginDialog_margin_logo"
+        android:layout_marginTop="@dimen/dimen_50px"
         android:id="@+id/phoneEdit"
         android:inputType="phone"
         style="@style/loginDialogEditTextStyle"
@@ -34,6 +40,7 @@
         android:hint="@string/hint_phone" />
 
     <EditText
+        android:layout_marginTop="@dimen/dimen_15px"
         android:inputType="textPassword"
         android:id="@+id/passwordEdit"
         android:drawableLeft="@drawable/ic_password"
@@ -42,18 +49,18 @@
 
 
     <Button
-        android:layout_marginTop="@dimen/dimen_44px"
+        android:layout_marginTop="@dimen/dimen_38px"
         android:id="@+id/confirmButton"
         style="@style/blueButton.big"
-        android:layout_marginBottom="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="确定" />
+        android:text="@string/confirm" />
 
     <TextView
         android:id="@+id/forgetText"
         android:layout_gravity="right"
-        android:textSize="@dimen/text_22px"
+        android:textSize="@dimen/text_24px"
+        android:layout_marginTop="@dimen/dimen_38px"
         android:textColor="@color/textColorGray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,6 +1,8 @@
 package com.yjy998.ui.activity.my.business;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -10,8 +12,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
+import com.yjy998.http.Response;
+import com.yjy998.http.YHttpClient;
+import com.yjy998.http.YHttpHandler;
 import com.yjy998.ui.activity.other.BaseFragment;
 import com.yjy998.ui.activity.other.TimeLineFragment;
 
@@ -21,7 +27,7 @@ import com.yjy998.ui.activity.other.TimeLineFragment;
 public class CapitalFragment extends BaseFragment implements View.OnClickListener {
     View layout;
     TimeLineFragment mTimeLineFragment = new TimeLineFragment();
-    CapitalInfo mCapitalInfo = new CapitalInfo();
+    CapitalInfo mCapitalInfo;
     private TextView usableText;
     private TextView balanceText;
     private TextView stockValueText;
@@ -32,7 +38,16 @@ public class CapitalFragment extends BaseFragment implements View.OnClickListene
     private TextView floatBalance;
     private TextView holdNumber;
     private TextView holdValue;
+    private boolean isBuy;
 
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        Intent intent = activity.getIntent();
+        isBuy = intent == null || intent.getBooleanExtra(BusinessActivity.EXTRA_IS_BUY, true);
+        mCapitalInfo = CapitalInfo.newInstance(isBuy);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +56,26 @@ public class CapitalFragment extends BaseFragment implements View.OnClickListene
         } else {
             layout = inflater.inflate(R.layout.fragment_capital, null);
         }
+
+
         return layout;
+    }
+
+
+
+    /**
+     * 获取分时图数据
+     */
+    void getTrendList(String code) {
+        SRequest request = new SRequest();
+        request.setUrl("http://interface.yjy998.com/yjy/quote/stock/" + code + "/trend_data");
+        request.put("code", code);
+        YHttpClient.getInstance().get(request, new YHttpHandler() {
+            @Override
+            protected void onStatusCorrect(Response response) {
+
+            }
+        });
     }
 
     @Override
@@ -83,6 +117,13 @@ public class CapitalFragment extends BaseFragment implements View.OnClickListene
         holdNumber = (TextView) findViewById(R.id.holdNumber);
         holdValue = (TextView) findViewById(R.id.holdValue);
         findViewById(R.id.switchButton).setOnClickListener(this);
+
+        if (isBuy) {
+            buySellButton.setText(R.string.buyIn);
+        } else {
+            buySellButton.setText(R.string.sellOut);
+        }
+
     }
 
     @Override
@@ -100,13 +141,6 @@ public class CapitalFragment extends BaseFragment implements View.OnClickListene
 
                 break;
             }
-        }
-    }
-
-    public static class CapitalInfo extends BaseFragment {
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.layout_capital_switch_info, null);
         }
     }
 

@@ -10,6 +10,10 @@ import com.loopj.android.http.RequestParams;
 public class SRequest extends RequestParams {
     String url;
 
+    public SRequest(String url){
+        setUrl(url);
+    }
+
     public SRequest() {
     }
 
@@ -33,7 +37,6 @@ public class SRequest extends RequestParams {
             builder.append(strings[i] + "\n");
         }
         builder.append("}");
-        Log.i("SHTTP", builder.toString());
         return builder.toString();
     }
 }

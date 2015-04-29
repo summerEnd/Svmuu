@@ -11,6 +11,7 @@
     <declare-styleable name="TwoTextItem">
 
         <attr name="prefix" format="string" />
+        <attr name="prefixStyle" format="reference" />
         <attr name="prefixTextColor" format="color" />
         <attr name="prefixTextSize" format="dimension" />
     </declare-styleable>

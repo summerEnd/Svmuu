@@ -16,5 +16,6 @@ public class MainActivity extends STestActivity {
     @Override
     protected void addTest(List<Class<? extends Activity>> activities) {
         activities.add(PagerTitle.class);
+        activities.add(HttpTest.class);
     }
 }

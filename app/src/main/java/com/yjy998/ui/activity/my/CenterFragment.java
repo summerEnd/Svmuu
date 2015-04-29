@@ -59,13 +59,11 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             case R.id.sellOut: {
                 startActivity(new Intent(getActivity(), BusinessActivity.class)
                         .putExtra(BusinessActivity.EXTRA_IS_BUY, false));
-                getActivity().overridePendingTransition(R.anim.dialog_anim_in, R.anim.stand_still);
                 break;
             }
             case R.id.buyIn: {
                 startActivity(new Intent(getActivity(), BusinessActivity.class)
                         .putExtra(BusinessActivity.EXTRA_IS_BUY, true));
-                getActivity().overridePendingTransition(R.anim.dialog_anim_in, R.anim.stand_still);
                 break;
             }
             case R.id.recharge: {

@@ -9,7 +9,9 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +26,7 @@ public class PageStrip extends HorizontalScrollView implements ViewPager.OnPageC
     private PagerTab curTab;
     private OnTabClick onTabClick = new OnTabClick();
     private float leftOffset;
+    private LinearLayout tabContainer;
 
     public PageStrip(Context context) {
         this(context, null);
@@ -37,7 +40,19 @@ public class PageStrip extends HorizontalScrollView implements ViewPager.OnPageC
         super(context, attrs, defStyle);
         indicatorDrawable = new ColorDrawable(Color.BLUE);
         indicatorDrawable.setBounds(1, 1, 1, 1);
+        tabContainer = new LinearLayout(getContext());
+        tabContainer.setOrientation(LinearLayout.HORIZONTAL);
+        addView(tabContainer);
+    }
 
+    @Override
+    public void addView(View child) {
+        tabContainer.addView(child);
+    }
+
+    @Override
+    public void addView(View child, ViewGroup.LayoutParams params) {
+        tabContainer.addView(child,params);
     }
 
     @Override

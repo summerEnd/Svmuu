@@ -60,12 +60,18 @@
         <item name="android:layout_width">1px</item>
     </style>
 
+    <style name="dialogPadding">
+        <item name="android:paddingTop">@dimen/dimen_20px</item>
+        <item name="android:paddingRight">@dimen/dimen_20px</item>
+        <item name="android:paddingLeft">@dimen/dimen_20px</item>
+        <item name="android:paddingBottom">@dimen/dimen_40px</item>
+    </style>
+
     <style name="loginDialogEditTextStyle">
-        <item name="android:layout_marginTop">5dp</item>
         <item name="android:paddingLeft">@dimen/loginDialog_edit_padding_horizontal</item>
         <item name="android:paddingRight">@dimen/loginDialog_edit_padding_horizontal</item>
-        <item name="android:layout_height">@dimen/login_dialog_editText_height</item>
-        <item name="android:textSize">@dimen/text_26px</item>
+        <item name="android:layout_height">@dimen/dimen_93px</item>
+        <item name="android:textSize">@dimen/text_24px</item>
         <item name="android:layout_width">match_parent</item>
     </style>
 
@@ -96,6 +102,7 @@
 
     <style name="redButton.mid">
         <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:layout_height">@dimen/mid_button_height</item>
     </style>
 
     <style name="whiteButton">
@@ -103,11 +110,13 @@
         <item name="android:textColor">@color/textColorBlack</item>
         <item name="android:textSize">@dimen/text_26px</item>
     </style>
+
     <style name="yellowButton">
         <item name="android:background">@drawable/yellow_button</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/text_26px</item>
     </style>
+
     <style name="tabStyle">
         <item name="android:textSize">13sp</item>
         <item name="android:layout_weight">1</item>
@@ -140,7 +149,7 @@
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:padding">@dimen/dimen_11px</item>
     </style>
 
     <style name="TwoTextItem" parent="android:TextAppearance">
@@ -229,6 +238,7 @@
     </style>
 
     <style name="centerText" parent="wrapLayout">
+        <item name="android:background">@drawable/clicked_white</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">@dimen/text_28px</item>
         <item name="android:drawablePadding">5dp</item>
@@ -283,10 +293,17 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/text_20px</item>
         <item name="android:background">#508FD4</item>
-        <item name="android:layout_width">@dimen/fragmentCapitalEditHeight</item>
-        <item name="android:layout_height">@dimen/fragmentCapitalEditHeight</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">3dp</item>
+    </style>
+
+    <style name="capitalAddReduceText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_18px</item>
     </style>
 
     <style name="capitalFragmentEdit">
@@ -294,7 +311,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/textColorBlack</item>
-        <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:textSize">@dimen/text_20px</item>
         <item name="android:background">@drawable/blue_frame</item>
     </style>
 
@@ -358,5 +375,33 @@
 
     <style name="gameInfoText.red">
         <item name="android:textColor">@color/textColorRed</item>
+    </style>
+
+    <style name="payYbItem">
+        <item name="android:paddingLeft">@dimen/dimen_11px</item>
+        <item name="android:paddingRight">@dimen/dimen_11px</item>
+        <item name="android:paddingTop">@dimen/dimen_38px</item>
+        <item name="android:paddingBottom">@dimen/dimen_38px</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:onClick">onYbClick</item>
+
+    </style>
+
+    <style name="payYbText" parent="wrapLayout">
+        <item name="android:textSize">@dimen/text_22px</item>
+        <item name="android:text">@string/YB</item>
+        <item name="android:textColor">@color/deepBlue</item>
+        <item name="android:layout_toRightOf">@id/mark</item>
+        <item name="android:layout_alignBaseline">@id/mark</item>
+    </style>
+
+    <style name="payYbTextNumber" parent="wrapLayout">
+        <item name="android:id">@id/mark</item>
+        <item name="android:textSize">@dimen/text_34px</item>
+        <item name="android:textColor">@color/deepBlue</item>
     </style>
 </resources>

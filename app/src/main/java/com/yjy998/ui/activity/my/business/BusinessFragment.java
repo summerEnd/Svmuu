@@ -26,10 +26,11 @@ public class BusinessFragment extends BaseFragment {
             new DealFragment()
     };
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        layout = inflater.inflate(R.layout.fragment_real_game, container, false);
+        layout = inflater.inflate(R.layout.layout_tab_pager, container, false);
         initialize(layout);
         return layout;
     }
@@ -41,6 +42,8 @@ public class BusinessFragment extends BaseFragment {
         pager = layout.findView(R.id.pager);
         pager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager(), fragments));
         tabStrip.setViewPager(pager);
+        tabStrip.setDividerColor(getResources().getColor(R.color.textColorDeepGray));
+        tabStrip.setBackgroundColor(0xfff2f2f2);
     }
 
 }

@@ -1,0 +1,89 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yjy998.ui.activity.other.pay.BankFragment">
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_15px"
+        android:paddingTop="@dimen/dimen_20px"
+        android:paddingBottom="@dimen/dimen_20px"
+        android:paddingLeft="@dimen/dimen_30px"
+        android:paddingRight="@dimen/dimen_30px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/text_20px"
+            android:layout_height="wrap_content"
+            android:textColor="#ff3232"
+            android:text="说明：" />
+
+        <TextView
+            android:textSize="@dimen/text_20px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="@dimen/dimen_8px"
+            android:textColor="#ff3232"
+            android:text="@string/transferMoneySummary" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_15px"
+        android:paddingTop="@dimen/dimen_20px"
+        android:paddingBottom="@dimen/dimen_20px"
+        android:paddingLeft="@dimen/dimen_30px"
+        android:paddingRight="@dimen/dimen_30px"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="@dimen/dimen_180px"
+            android:layout_height="@dimen/dimen_60px"
+
+            android:src="@drawable/bank_pingan"/>
+
+        <TextView
+            android:textSize="@dimen/text_24px"
+            android:textColor="@color/textColorDeepGray"
+            android:layout_width="wrap_content"
+            android:lineSpacingExtra="@dimen/dimen_11px"
+            android:layout_height="wrap_content"
+            android:text="@string/accountInfo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_15px"
+        android:paddingTop="@dimen/dimen_20px"
+        android:paddingBottom="@dimen/dimen_20px"
+        android:paddingLeft="@dimen/dimen_30px"
+        android:paddingRight="@dimen/dimen_30px"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:lineSpacingExtra="@dimen/dimen_11px"
+            android:textSize="@dimen/text_22px"
+            android:textColor="@color/textColorDeepGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/transferMoneyNotice" />
+    </LinearLayout>
+
+    <Button
+        style="@style/blueButton.big"
+        android:layout_marginLeft="@dimen/dimen_40px"
+        android:layout_marginRight="@dimen/dimen_40px"
+        android:layout_marginTop="@dimen/dimen_30px"
+        android:text="@string/dial_service"
+        android:layout_width="match_parent" />
+</LinearLayout>

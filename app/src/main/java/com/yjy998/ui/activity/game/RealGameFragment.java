@@ -36,7 +36,7 @@ public class RealGameFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.real_game, container, false);
+        return inflater.inflate(R.layout.layout_tab_pager, container, false);
     }
 
     @Override

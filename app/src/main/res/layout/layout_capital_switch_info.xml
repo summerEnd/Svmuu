@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:id="@+id/switchLayoutInfo"
+    android:paddingTop="@dimen/dimen_36px"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,10 +14,13 @@
         android:layout_weight="1">
 
         <EditText
+            android:id="@+id/codeEdit"
             android:hint="证券代码，简拼"
             android:layout_height="@dimen/fragmentCapitalEditHeight"
             android:layout_width="match_parent"
-            style="@style/capitalFragmentEdit" />
+            style="@style/capitalFragmentEdit">
+
+        </EditText>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,22 +28,51 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:drawableTop="@drawable/ic_reduce"
+            <LinearLayout
+                android:id="@+id/reducePrice"
                 style="@style/capitalFragmentAddReduce"
-                android:text="0.01" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_reduce" />
+
+                <TextView
+                    style="@style/capitalAddReduceText"
+                    android:text="0.01" />
+            </LinearLayout>
+
 
             <EditText
+                android:id="@+id/editPrice"
                 style="@style/capitalFragmentEdit"
-                android:hint="买入价格"
+                android:hint="@string/buyPrice"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:inputType="numberDecimal"
                 android:layout_height="match_parent" />
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/addPrice"
                 style="@style/capitalFragmentAddReduce"
-                android:drawableTop="@drawable/ic_add"
-                android:text="0.01" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_add" />
+
+                <TextView
+                    style="@style/capitalAddReduceText"
+                    android:text="0.01" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -49,48 +82,78 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:drawableTop="@drawable/ic_reduce"
+            <LinearLayout
+                android:id="@+id/reduceAmount"
                 style="@style/capitalFragmentAddReduce"
-                android:text="100" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_reduce" />
+
+                <TextView
+                    style="@style/capitalAddReduceText"
+                    android:text="100" />
+            </LinearLayout>
 
             <EditText
+                android:id="@+id/amountEdit"
+                android:inputType="number"
                 style="@style/capitalFragmentEdit"
-                android:hint="买入数量"
+                android:hint="@string/buyAmount"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent" />
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/addAmount"
                 style="@style/capitalFragmentAddReduce"
-                android:drawableTop="@drawable/ic_add"
-                android:text="100" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_add" />
+
+                <TextView
+                    style="@style/capitalAddReduceText"
+                    android:text="100" />
+            </LinearLayout>
         </LinearLayout>
 
         <TextView
+            android:id="@+id/seekerTitle"
             android:layout_marginTop="@dimen/capital_info_marginTop"
-            android:textSize="@dimen/text_24px"
+            android:textSize="@dimen/text_20px"
+            android:textColor="@color/textColorBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="可买数量：" />
+            android:text="@string/canBuyAmount" />
 
         <SeekBar
+            android:id="@+id/seeker"
+            android:progressDrawable="@drawable/seeker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="100"
-            android:progress="40" />
+            android:thumb="@drawable/thumb"
+            android:secondaryProgress="50"
+            android:progress="0" />
     </LinearLayout>
 
-    <LinearLayout
+    <com.sp.lib.widget.list.LinearListView
+        android:id="@+id/list"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="买入③：12131   123132" />
-    </LinearLayout>
 
 </LinearLayout>
