@@ -1,4 +1,4 @@
-package com.sp.lib.common.drawable;
+package com.sp.lib.common.image.drawable;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

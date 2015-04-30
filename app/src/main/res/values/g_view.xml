@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="GView">
+        <attr name="xMin" format="float" />
+        <attr name="xMax" format="float" />
+        <attr name="yMin" format="float" />
+        <attr name="yMax" format="float" />
+    </declare-styleable>
+</resources>

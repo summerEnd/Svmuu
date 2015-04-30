@@ -1,75 +1,39 @@
 package com.sp.lib.common.support.update;
 
-import android.content.Context;
-
-import com.loopj.android.http.RequestParams;
-import com.sp.lib.common.exception.SlibInitialiseException;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 /**
  * update the app
  */
-public abstract class UpdateManager {
-    private static Context mContext;
-    private static UpdateCallback mCallback;
-    private static ExecutorService service= Executors.newSingleThreadExecutor();
+public class UpdateManager {
 
-    /**
-     * init the UpdateManager
-     *
-     * @param context
-     */
-    public static void init(Context context, UpdateCallback callback) {
-        UpdateManager.mContext = context;
-        UpdateManager.mCallback = callback;
-    }
-
-    public static void start() {
-
-        if (mContext == null) {
-            throw new SlibInitialiseException(UpdateManager.class);
+    public static void start(Callback callback, UpdateHandler handler) {
+        handler.setUrl(callback.getDownloadUrl());
+        if (!callback.isNewestVersion()) {
+            handler.noticeNewest();
+            return;
         }
 
 
-        service.execute(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
-        if (!mCallback.checkNewestVersion()) {
-            if (mCallback.forceUpdate()) {
-
-            } else {
-
-            }
+        if (callback.forceUpdate()) {
+            handler.noticeForceUpdate();
+        } else {
+            handler.noticeUpdate();
         }
     }
 
-
-
-
-    /**
-     * the callback used when {@link com.sp.lib.common.support.update.UpdateManager} start;
-     */
-    public abstract class UpdateCallback {
+    public interface Callback {
         /**
-         * Check if the app is the latest version.do your check here,this method cost time.
-         *
-         * @return return true the app is newest,false otherwise
+         * 是否为最新版本
          */
-        public abstract boolean checkNewestVersion();
+        public boolean isNewestVersion();
 
         /**
-         * @return return true force update,false otherwise
+         * @return true 强制升级
          */
-        public abstract boolean forceUpdate();
+        public boolean forceUpdate();
 
-        public void post(String url,RequestParams params){
-        }
+        /**
+         * 获取下载链接
+         */
+        public String getDownloadUrl();
     }
-
-
 }

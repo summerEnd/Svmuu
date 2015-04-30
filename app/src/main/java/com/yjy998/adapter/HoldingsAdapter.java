@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.sp.lib.common.drawable.RoundDrawable;
+import com.sp.lib.common.image.drawable.RoundDrawable;
 import com.sp.lib.common.support.adapter.ViewHolderAdapter;
 import com.yjy998.R;
 import com.yjy998.entity.Hold;

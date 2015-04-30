@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,10 +18,9 @@ import android.widget.TextView;
 
 import com.sp.lib.R;
 import com.sp.lib.common.support.adapter.ViewHolderAdapter;
-import com.sp.lib.common.support.net.Downloader;
 import com.sp.lib.common.util.ContextUtil;
+import com.sp.lib.common.support.update.Downloader;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -153,8 +151,7 @@ public class DownloadTest extends SlibDemoWrapper {
 
         int i = item.getItemId();
         if (i == R.id.download) {
-            File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "520006_397.apk");
-            long id = Downloader.start(getActivity(), "http://cdn.longtugame.com/channel_bin/520006/apk/3.0.7/520006_397.apk", f);
+            long id = new Downloader().downloadWithNotification("http://cdn.longtugame.com/channel_bin/520006/apk/3.0.7/520006_397.apk", null, "520006_397.apk", "520006_397.apk", "520006_397.apk");
             ids.add(id);
             invalidate();
             return true;

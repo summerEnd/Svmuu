@@ -10,6 +10,8 @@
     <string name="fail">失败</string>
     <string name="loadFaile">加载失败</string>
     <string name="yes">确定</string>
+    <string name="no">取消</string>
+    <string name="alread_newest">已经是最新版本了！</string>
 
 
 </resources>

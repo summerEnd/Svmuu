@@ -65,7 +65,7 @@ public class RealGameFragment extends BaseFragment {
         adapter.add(mMyGameList);
         pager.setAdapter(adapter);
         tabStrip.setViewPager(pager);
-
+        tabStrip.setBackgroundColor(0xfff2f2f2);
     }
 
     ListAdapter getAdapter() {

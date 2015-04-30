@@ -1,10 +1,14 @@
-package com.sp.lib.common.util;
+package com.sp.lib.common.support.update;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
+
+import com.sp.lib.common.support.update.DownloadInfo;
+import com.sp.lib.common.util.ContextUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,15 +19,23 @@ import java.io.RandomAccessFile;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class Downloader {
     /**
+     * 使用{@link android.app.DownloadManager DownloadManager}进行下载
+     *
+     * @param downloadUrl         下载链接
+     * @param fileName            把下载文件名称改为fileName，如果不想改变就传null
+     * @param saveDir             下载文件保存到的目录
+     * @param notifyCationTitle   通知的标题
+     * @param notifyCationMessage 通知的消息
      * @return
      */
-    public long download(Context context, String downloadUrl, String fileName, String notifyCationTitle, String notifyCationMessage) {
+    public long downloadWithNotification(String downloadUrl, File saveDir, String fileName, String notifyCationTitle, String notifyCationMessage) {
         Uri uri = Uri.parse(downloadUrl);
 
         DownloadManager.Request request = new DownloadManager.Request(uri);
@@ -33,15 +45,17 @@ public class Downloader {
         request.setTitle(notifyCationTitle);
         request.setDescription(notifyCationMessage);
 
-        File dir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+        if (saveDir == null) {
+            saveDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        }
 
-        if (!dir.exists()) {
-            dir.mkdirs();
+        if (!saveDir.exists()) {
+            saveDir.mkdirs();
         }
 
         if (!TextUtils.isEmpty(fileName))
-            request.setDestinationUri(Uri.fromFile(new File(dir, fileName)));
-        DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+            request.setDestinationUri(Uri.fromFile(new File(saveDir, fileName)));
+        DownloadManager manager = (DownloadManager) ContextUtil.getContext().getSystemService(Context.DOWNLOAD_SERVICE);
         return manager.enqueue(request);
     }
 
@@ -99,7 +113,6 @@ public class Downloader {
     }
 
     /**
-     *
      * @param dir
      * @param fileName
      * @param url
@@ -203,5 +216,26 @@ public class Downloader {
         return filename;
     }
 
+    public ArrayList<DownloadInfo> getDownloadInfos(Context context, long... ids) {
+        DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        Cursor c = manager.query(new DownloadManager.Query().setFilterById(ids));
+
+        int _id = c.getColumnIndex(DownloadManager.COLUMN_ID);
+        int _status = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
+        int _down = c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
+        int _total = c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
+        ArrayList<DownloadInfo> downloadInfos = new ArrayList<DownloadInfo>();
+        while (c.moveToNext()) {
+            DownloadInfo p = new DownloadInfo();
+
+            p.downloadId = c.getLong(_id);
+            p.download_so_far = c.getLong(_down);
+            p.total = c.getLong(_total);
+            p.state= c.getInt(_status);
+            downloadInfos.add(p);
+        }
+        c.close();
+        return downloadInfos;
+    }
 
 }
