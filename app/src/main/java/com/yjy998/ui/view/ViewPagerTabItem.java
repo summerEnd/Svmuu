@@ -1,40 +1,38 @@
-package com.slib.demo.widget;
+package com.yjy998.ui.view;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 
 import com.sp.lib.widget.pager.title.TextPageTab;
+import com.yjy998.R;
 
+public class ViewPagerTabItem extends TextPageTab {
+    Animation animation;
 
-public class CustomTab extends TextPageTab {
-    private Animation mAnim;
-
-    public CustomTab(Context context) {
+    public ViewPagerTabItem(Context context) {
         this(context, null);
     }
 
-    public CustomTab(Context context, AttributeSet attrs) {
+    public ViewPagerTabItem(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CustomTab(Context context, AttributeSet attrs, int defStyle) {
+    public ViewPagerTabItem(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mAnim = createAnim();
-
+        animation = createAnim();
     }
 
     @Override
     protected void onTabSelected(boolean selected) {
         clearAnimation();
         if (selected) {
-            setTextColor(Color.RED);
-            startAnimation(mAnim);
+            setTextColor(getResources().getColor(R.color.deepBlue));
+            startAnimation(animation);
         } else {
-            setTextColor(Color.GRAY);
+            setTextColor(getResources().getColor(R.color.textColorDeepGray));
         }
     }
 

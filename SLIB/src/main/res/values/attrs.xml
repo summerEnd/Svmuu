@@ -24,7 +24,7 @@
     <declare-styleable name="IPagerTab">
         <attr name="indicator" format="color|reference" />
         <attr name="showIndicator" format="boolean" />
-        <!--<attr name="indicatorHeight" format="dimension"/>-->
+        <attr name="indicateHeight" format="dimension"/>
     </declare-styleable>
 
     <declare-styleable name="LockView">

@@ -67,12 +67,13 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
 
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.IPagerTab);
         indicatorDrawable = a.getDrawable(R.styleable.IPagerTab_indicator);
-        indicatorHeight = a.getInt(0, 3);
+        if (indicatorDrawable == null) {
+            indicatorDrawable = new ColorDrawable(a.getColor(R.styleable.IPagerTab_indicator,Color.BLUE));
+        }
+        indicatorHeight = a.getInt(R.styleable.IPagerTab_indicateHeight, 3);
         showIndicator = a.getBoolean(R.styleable.IPagerTab_showIndicator, true);
         a.recycle();
-        if (indicatorDrawable == null) {
-            indicatorDrawable = new ColorDrawable(Color.BLUE);
-        }
+
         setOrientation(LinearLayout.HORIZONTAL);
     }
 

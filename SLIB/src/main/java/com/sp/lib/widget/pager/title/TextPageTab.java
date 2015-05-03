@@ -7,18 +7,18 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-public class TextTable extends TextView implements IPagerTab {
+public class TextPageTab extends TextView implements IPagerTab {
     private boolean isChecked;
 
-    public TextTable(Context context) {
+    public TextPageTab(Context context) {
         this(context, null);
     }
 
-    public TextTable(Context context, AttributeSet attrs) {
+    public TextPageTab(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public TextTable(Context context, AttributeSet attrs, int defStyle) {
+    public TextPageTab(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         TypedArray a = getContext().obtainStyledAttributes(attrs, new int[]{android.R.attr.checked});
         setSelected(a.getBoolean(0, false));
