@@ -27,6 +27,11 @@ public abstract class SPagerTab extends View implements IPagerTab {
     }
 
     @Override
+    public View getView() {
+        return mTab;
+    }
+
+    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         mTab.measure(widthMeasureSpec, heightMeasureSpec);
@@ -38,36 +43,22 @@ public abstract class SPagerTab extends View implements IPagerTab {
     }
 
     @Override
-    public void setChecked(boolean b) {
+    public final void setTabSelect(boolean b) {
         if (isChecked == b) {
             return;
         }
-        if (b) {
-            onSelected();
-        } else {
-            onUnSelected();
-        }
+        onTabSelected(b);
         isChecked = b;
 
     }
 
+    protected void onTabSelected(boolean selected) {
+    }
+
     @Override
-    public boolean isChecked() {
+    public boolean isTabSelected() {
         return isChecked;
     }
-
-    @Override
-    public void toggle() {
-        setChecked(!isChecked);
-    }
-
-    public View getTab() {
-        return mTab;
-    }
-
-    protected abstract void onSelected();
-
-    protected abstract void onUnSelected();
 
     protected abstract View onCreateView();
 }

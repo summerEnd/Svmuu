@@ -5,28 +5,54 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
 import com.sp.lib.R;
+import com.sp.lib.common.util.DisplayUtil;
+import com.sp.lib.common.util.SLog;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeListener {
+    /**
+     * the height of the indicator
+     */
     private int indicatorHeight;
+    /**
+     * the drawable used as indicator
+     */
     private Drawable indicatorDrawable;
+
+    /**
+     * show the indicator or not
+     */
     private boolean showIndicator;
 
     private ViewPager mPager;
+    /**
+     * all tabs are add in this list
+     */
     private List<IPagerTab> tabs = new LinkedList<IPagerTab>();
+    /**
+     * the tab current selected
+     */
     private IPagerTab curTab;
+    /**
+     * the listener of the tab click
+     */
     private OnTabClick onTabClick = new OnTabClick();
+
+
+    private ViewPager.OnPageChangeListener mOnPageChangeListener;
 
     public PageStrip(Context context) {
         this(context, null);
@@ -40,9 +66,9 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
         super(context, attrs, defStyle);
 
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.IPagerTab);
-        indicatorDrawable = a.getDrawable(0);
+        indicatorDrawable = a.getDrawable(R.styleable.IPagerTab_indicator);
         indicatorHeight = a.getInt(0, 3);
-        showIndicator = a.getBoolean(0, true);
+        showIndicator = a.getBoolean(R.styleable.IPagerTab_showIndicator, true);
         a.recycle();
         if (indicatorDrawable == null) {
             indicatorDrawable = new ColorDrawable(Color.BLUE);
@@ -68,9 +94,22 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
         indicatorDrawable.draw(canvas);
     }
 
+    /**
+     * <p>
+     * set a ViewPager to control.In this method a {@link android.support.v4.view.ViewPager.OnPageChangeListener OnPageChangeListener}
+     * will be set for this ViewPager.so,don't call the {@link android.support.v4.view.ViewPager#setOnPageChangeListener(android.support.v4.view.ViewPager.OnPageChangeListener) ViewPager.setOnPageChangeListener}
+     * for this ViewPager .call {@link com.sp.lib.widget.pager.title.PageStrip#setPageChangeListener(android.support.v4.view.ViewPager.OnPageChangeListener) PageStrip.setOnPageChangeListener}
+     * instead </p>
+     *
+     * @param pager the page to control
+     */
     public void setViewPager(ViewPager pager) {
         mPager = pager;
         mPager.setOnPageChangeListener(this);
+    }
+
+    public void setPageChangeListener(ViewPager.OnPageChangeListener listener) {
+        this.mOnPageChangeListener = listener;
     }
 
     private void addTabInner(IPagerTab tab) {
@@ -83,38 +122,57 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        View childAt = getChildAt(position);
-        View nextChild = getChildAt(position + 1);
-        int leftOffset = childAt.getLeft();
+        if (mOnPageChangeListener != null) {
+            mOnPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
+        }
 
-        if (nextChild != null) {
-            leftOffset += nextChild.getWidth() * positionOffset;
+
+        View childAt = tabs.get(position).getView();
+        int drawableWidth = childAt.getWidth();
+
+        int leftOffset = childAt.getLeft();
+        if (position < tabs.size() - 1) {
+            View nextTab = tabs.get(position + 1).getView();
+            leftOffset += (nextTab.getLeft() - childAt.getLeft()) * positionOffset;
+            drawableWidth += (nextTab.getWidth() - childAt.getWidth()) * positionOffset;
         }
 
         int bottom = childAt.getBottom();
-        indicatorDrawable.setBounds(leftOffset, bottom - indicatorHeight, childAt.getWidth() + leftOffset, bottom);
+
+        indicatorDrawable.setBounds(leftOffset, bottom - indicatorHeight, drawableWidth + leftOffset, bottom);
+        adjustTabPosition();
         invalidate();
     }
 
     @Override
     public void onPageSelected(int position) {
+        if (mOnPageChangeListener != null) {
+            mOnPageChangeListener.onPageSelected(position);
+        }
         check(position);
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
+        if (mOnPageChangeListener != null) {
+            mOnPageChangeListener.onPageScrollStateChanged(state);
+        }
     }
 
+    /**
+     * check the tab at this position
+     *
+     * @param position the position of the tab
+     */
     public void check(int position) {
         IPagerTab clickedTab = tabs.get(position);
         if (curTab != null && clickedTab == curTab) {
             return;
         }
         if (curTab != null) {
-            curTab.setChecked(false);
+            curTab.setTabSelect(false);
         }
-        clickedTab.setChecked(true);
+        clickedTab.setTabSelect(true);
         curTab = clickedTab;
         if (mPager != null) {
             mPager.setCurrentItem(position);
@@ -124,8 +182,31 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
     private class OnTabClick implements OnClickListener {
         @Override
         public void onClick(View v) {
+            //noinspection SuspiciousMethodCalls
             check(tabs.indexOf(v));
         }
     }
 
+    /**
+     * adjust the tab position;
+     */
+    void adjustTabPosition() {
+        if (getParent() instanceof HorizontalScrollView) {
+            HorizontalScrollView scrollView = (HorizontalScrollView) getParent();
+            Rect indicator = indicatorDrawable.getBounds();
+
+            int scrollX = scrollView.getScrollX();
+            int leftOffset = indicator.left - scrollX;
+            int rightOffset = indicator.right - scrollX - scrollView.getWidth();
+            if (leftOffset < 0) {
+                scrollView.scrollBy(leftOffset, 0);
+            } else if (rightOffset > 0) {
+                scrollView.scrollBy(rightOffset, 0);
+            }
+        }
+    }
+
+    public int getTabCount() {
+        return tabs.size();
+    }
 }
