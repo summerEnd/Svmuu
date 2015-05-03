@@ -22,12 +22,16 @@ public class ViewPagerTabItem extends TextPageTab {
 
     public ViewPagerTabItem(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        animation = createAnim();
     }
 
     @Override
     protected void onTabSelected(boolean selected) {
-        clearAnimation();
+        if(animation==null){
+            animation=createAnim();
+        }else{
+            clearAnimation();
+        }
+
         if (selected) {
             setTextColor(getResources().getColor(R.color.deepBlue));
             startAnimation(animation);
@@ -39,7 +43,7 @@ public class ViewPagerTabItem extends TextPageTab {
     Animation createAnim() {
         AnimationSet set = new AnimationSet(true);
         set.setDuration(400);
-        set.addAnimation(new ScaleAnimation(1, 1.1f, 1, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f));
+        set.addAnimation(new ScaleAnimation(1, 1.2f, 1, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f));
         set.setFillAfter(true);
         return set;
     }

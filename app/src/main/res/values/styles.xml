@@ -24,6 +24,7 @@
     </style>
 
     <style name="mainMenuClickItemTextStyle">
+        <item name="android:duplicateParentState">true</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_marginLeft">@dimen/dimen_32px</item>
         <item name="android:layout_width">match_parent</item>
@@ -34,6 +35,7 @@
     </style>
 
     <style name="mainMenuClickItemIconStyle">
+        <item name="android:duplicateParentState">true</item>
         <item name="android:scaleType">centerInside</item>
         <item name="android:layout_width">@dimen/menuIconSize</item>
         <item name="android:layout_height">@dimen/menuIconSize</item>
@@ -410,6 +412,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/textColorDeepGray</item>
         <item name="android:textSize">@dimen/text_22px</item>
     </style>
 </resources>

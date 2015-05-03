@@ -16,8 +16,6 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
 import com.sp.lib.R;
-import com.sp.lib.common.util.DisplayUtil;
-import com.sp.lib.common.util.SLog;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -45,7 +43,7 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
     /**
      * the tab current selected
      */
-    private IPagerTab curTab;
+    private IPagerTab selectedTab;
     /**
      * the listener of the tab click
      */
@@ -68,7 +66,7 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.IPagerTab);
         indicatorDrawable = a.getDrawable(R.styleable.IPagerTab_indicator);
         if (indicatorDrawable == null) {
-            indicatorDrawable = new ColorDrawable(a.getColor(R.styleable.IPagerTab_indicator,Color.BLUE));
+            indicatorDrawable = new ColorDrawable(a.getColor(R.styleable.IPagerTab_indicator, Color.BLUE));
         }
         indicatorHeight = a.getInt(R.styleable.IPagerTab_indicateHeight, 3);
         showIndicator = a.getBoolean(R.styleable.IPagerTab_showIndicator, true);
@@ -118,7 +116,9 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
         if (tab instanceof View) {
             ((View) tab).setOnClickListener(onTabClick);
         }
-
+        if (tab.isTabSelected()) {
+            selectedTab = tab;
+        }
     }
 
     @Override
@@ -166,15 +166,14 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
      * @param position the position of the tab
      */
     public void check(int position) {
-        IPagerTab clickedTab = tabs.get(position);
-        if (curTab != null && clickedTab == curTab) {
+        IPagerTab tab = tabs.get(position);
+        if (selectedTab != null && tab == selectedTab) {
             return;
         }
-        if (curTab != null) {
-            curTab.setTabSelect(false);
+        selectedTab = tab;
+        for (IPagerTab mTab : tabs) {
+            mTab.setTabSelect(tab == mTab);
         }
-        clickedTab.setTabSelect(true);
-        curTab = clickedTab;
         if (mPager != null) {
             mPager.setCurrentItem(position);
         }

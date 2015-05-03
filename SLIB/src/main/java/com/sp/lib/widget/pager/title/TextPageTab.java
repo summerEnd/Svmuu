@@ -21,7 +21,7 @@ public class TextPageTab extends TextView implements IPagerTab {
     public TextPageTab(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         TypedArray a = getContext().obtainStyledAttributes(attrs, new int[]{android.R.attr.checked});
-        setSelected(a.getBoolean(0, false));
+        setTabSelect(a.getBoolean(0, false));
         a.recycle();
     }
 
