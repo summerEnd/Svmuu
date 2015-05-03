@@ -43,9 +43,7 @@ public class ShareWindow extends PopupWindow implements AdapterView.OnItemClickL
     public ShareWindow(Context context) {
         super(context);
         apps = IntentFactory.getShareAPPs(context);
-        final Point p = new Point();
-        DisplayUtil.getScreenSize((Activity)context,p);
-        width=p.x-100;
+        width=DisplayUtil.getScreenWidth(context)-100;
         setWidth(width);
         setHeight(WRAP_CONTENT);
         setFocusable(true);

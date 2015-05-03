@@ -18,7 +18,7 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class HttpTest extends SlibActivity {
+public class HttpTest extends SLIBTest {
     TextView tv;
 
     @Override

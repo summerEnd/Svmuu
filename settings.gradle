@@ -1,1 +1,1 @@
-include ':app', ':SLIB', ':slibdemo'
+include ':app', ':SLIB',':slibdemo'
