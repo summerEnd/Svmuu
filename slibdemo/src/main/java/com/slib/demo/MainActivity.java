@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.sp.lib.activity.DEBUGActivity;
 import com.sp.lib.activity.STestActivity;
 import com.sp.lib.activity.SlibActivity;
 
@@ -17,5 +18,6 @@ public class MainActivity extends STestActivity {
     protected void addTest(List<Class<? extends Activity>> activities) {
         activities.add(PagerTitle.class);
         activities.add(HttpTest.class);
+        activities.add(DEBUGActivity.class);
     }
 }

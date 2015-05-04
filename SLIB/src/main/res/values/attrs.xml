@@ -20,4 +20,26 @@
         <attr name="passwordRadius" format="dimension" />
         <attr name="cellWidth" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="IPagerTab">
+        <attr name="indicator" format="color|reference" />
+        <attr name="showIndicator" format="boolean" />
+        <attr name="indicateHeight" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="LockView">
+        <attr name="src" format="reference" />
+        <attr name="verticalSpacing" format="dimension" />
+        <attr name="horizontalSpacing" format="dimension" />
+        <attr name="password" format="string" />
+        <attr name="lineColor" format="reference" />
+        <attr name="failColor" format="color" />
+        <attr name="successColor" format="color" />
+        <attr name="layoutSquare" format="enum">
+            <enum name="width" value="1" />
+            <enum name="height" value="2" />
+            <enum name="shorter" value="3" />
+            <enum name="longer" value="4" />
+        </attr>
+    </declare-styleable>
 </resources>

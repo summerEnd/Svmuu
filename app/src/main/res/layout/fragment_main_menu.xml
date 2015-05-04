@@ -94,6 +94,7 @@
             style="@style/mainMenu.clickItem">
 
             <ImageView
+
                 style="@style/mainMenuClickItemIconStyle"
                 android:src="@drawable/s_left_buy_in" />
 

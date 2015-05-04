@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sp.lib.common.util.ViewFinder;
-import com.sp.lib.widget.PagerSlidingTabStrip;
+import com.sp.lib.widget.pager.title.PageStrip;
 import com.yjy998.R;
 import com.yjy998.adapter.FragmentPagerAdapter;
 import com.yjy998.ui.activity.other.BaseFragment;
@@ -17,7 +17,7 @@ public class BusinessFragment extends BaseFragment {
 
 
     View layout;
-    private PagerSlidingTabStrip tabStrip;
+    private PageStrip tabStrip;
     private ViewPager pager;
     BaseFragment[] fragments = new BaseFragment[]{
             new CapitalFragment(),
@@ -30,7 +30,7 @@ public class BusinessFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        layout = inflater.inflate(R.layout.layout_tab_pager, container, false);
+        layout = inflater.inflate(R.layout.fragment_business, container, false);
         initialize(layout);
         return layout;
     }
@@ -42,8 +42,6 @@ public class BusinessFragment extends BaseFragment {
         pager = layout.findView(R.id.pager);
         pager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager(), fragments));
         tabStrip.setViewPager(pager);
-        tabStrip.setDividerColor(getResources().getColor(R.color.textColorDeepGray));
-        tabStrip.setBackgroundColor(0xfff2f2f2);
     }
 
 }

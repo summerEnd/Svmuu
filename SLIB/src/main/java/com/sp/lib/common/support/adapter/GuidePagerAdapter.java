@@ -1,6 +1,7 @@
 package com.sp.lib.common.support.adapter;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
@@ -34,23 +35,29 @@ public class GuidePagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
 
         int resId = resIds[position];
-
-        String type = activity.getResources().getResourceTypeName(resId);
         View v;
-        if ("layout".equals(type)) {
-            v = activity.getLayoutInflater().inflate(resId, null);
-        } else if ("drawable".equals(type)) {
+
+        try {
+            String type = activity.getResources().getResourceTypeName(resId);
+            if ("layout".equals(type)) {
+                v = activity.getLayoutInflater().inflate(resId, null);
+            } else if ("drawable".equals(type) || "color".equals(type)) {
+                ImageView imageView = new ImageView(activity);
+                imageView.setImageResource(resId);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                v = imageView;
+            } else if ("string".equals(type)) {
+                TextView tv = new TextView(activity);
+                tv.setGravity(Gravity.CENTER);
+                tv.setText(resId);
+                v = tv;
+            } else {
+                throw new RuntimeException("unSupport type:"+type);
+            }
+        } catch (Resources.NotFoundException e) {
             ImageView imageView = new ImageView(activity);
-            imageView.setImageResource(resId);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setBackgroundColor(resId);
             v = imageView;
-        } else if ("string".equals(type)) {
-            TextView tv = new TextView(activity);
-            tv.setGravity(Gravity.CENTER);
-            tv.setText(resId);
-            v = tv;
-        } else {
-            throw new RuntimeException(" unSupport type " + type);
         }
 
         container.addView(v);

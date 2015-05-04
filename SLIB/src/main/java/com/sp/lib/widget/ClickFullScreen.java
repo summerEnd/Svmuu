@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -79,11 +80,10 @@ public class ClickFullScreen extends PopupWindow {
         Rect rect = new Rect(anchor.getLeft(), anchor.getTop(), anchor.getRight(), anchor.getBottom());
         showAtLocation(anchor, Gravity.NO_GRAVITY, 0, 0);
         //计算动画参数
-        Point p = new Point();
-        DisplayUtil.getScreenSize((Activity) anchor.getContext(), p);
-        float fromX = anchor.getWidth() / (p.x * 1f);
+        DisplayMetrics metrics=DisplayUtil.getDisplayMetrics(anchor.getContext());
+        float fromX = anchor.getWidth() / (metrics.widthPixels * 1f);
         float toX = 1f;
-        float fromY = anchor.getHeight() / (p.y * 1f);
+        float fromY = anchor.getHeight() / (metrics.heightPixels * 1f);
         float toY = 1f;
 
         float pivotX = rect.width() / 2 + location[0];
@@ -99,7 +99,7 @@ public class ClickFullScreen extends PopupWindow {
         int imageHeight = bitmap.getHeight();
 
         //图像宽度满屏，高度自适应
-        float scale = p.x / (imageWidth * 1.0f);
+        float scale = metrics.widthPixels / (imageWidth * 1.0f);
         int height = (int) (imageHeight * scale);
         mImageView.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, height));
         mImageView.setImageBitmap(bitmap);

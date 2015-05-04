@@ -17,7 +17,6 @@ import com.sp.lib.common.util.DisplayUtil;
 
 import java.util.List;
 
-import static com.sp.lib.common.util.DisplayUtil.getScreenSize;
 
 /**
  * 照片
@@ -40,9 +39,8 @@ public class PhotoGridAdapter extends BaseAdapter {
                 .showImageForEmptyUri(R.drawable.image_failed)
                 .build();
         header = LayoutInflater.from(mContext).inflate(R.layout.camera_header, null);
-        Point p = new Point();
-        getScreenSize((android.app.Activity) context, p);
-        width = (int) (p.x / 3 - DisplayUtil.dp(1, context.getResources()));
+        float screenWidth = DisplayUtil.getScreenWidth(context);
+        width = (int) (screenWidth / 3 - DisplayUtil.dp(1, context.getResources()));
         header.setLayoutParams(new AbsListView.LayoutParams(width, width));
     }
 

@@ -25,6 +25,8 @@
             android:name="com.slib.demo.HttpTest"
             android:label="@string/title_activity_pager_title" >
         </activity>
+        <activity android:name="com.sp.lib.activity.DEBUGActivity"/>
+        <activity android:name="com.sp.lib.activity.album.PhotoAlbumActivity"/>
     </application>
 
 </manifest>
