@@ -5,12 +5,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.view.WindowManager;
 
+import com.sp.lib.common.support.net.client.SRequest;
+import com.sp.lib.common.util.JsonUtil;
+import com.yjy998.AppDelegate;
 import com.yjy998.R;
+import com.yjy998.account.User;
+import com.yjy998.http.Response;
+import com.yjy998.http.YHttpClient;
+import com.yjy998.http.YHttpHandler;
 import com.yjy998.ui.activity.apply.ApplyFragment;
-import com.yjy998.ui.activity.game.RealGameFragment;
-import com.yjy998.ui.activity.my.business.BusinessFragment;
+import com.yjy998.ui.activity.contest.ContestFragment;
 import com.yjy998.ui.activity.home.HomeFragment;
 import com.yjy998.ui.activity.more.MoreFragment;
 import com.yjy998.ui.activity.my.CenterFragment;
@@ -32,7 +37,7 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
 
     private TabItem curTab;
     HomeFragment mHome;
-    RealGameFragment mGameFragment;
+    ContestFragment mGameFragment;
     ApplyFragment mApplyFragment;
     CenterFragment mCenterFragment;
     MoreFragment mMoreFragment;
@@ -117,7 +122,7 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
                 }
                 case R.id.tabGame: {
                     if (mGameFragment == null) {
-                        mGameFragment = new RealGameFragment();
+                        mGameFragment = new ContestFragment();
                     }
                     fragment = mGameFragment;
                     break;
@@ -193,5 +198,12 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
         }
         close();
         return true;
+    }
+
+
+
+    @Override
+    protected void refreshLayout() {
+        mMenuFragment.refresh();
     }
 }

@@ -44,7 +44,12 @@
         android:drawableLeft="@drawable/ic_password"
         android:hint="@string/hint_password"
         style="@style/loginDialogEditTextStyle" />
-
+    <EditText
+        android:inputType="textPassword"
+        android:id="@+id/passwordRepeat"
+        android:drawableLeft="@drawable/ic_password"
+        android:hint="@string/hint_repeat_password"
+        style="@style/loginDialogEditTextStyle" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

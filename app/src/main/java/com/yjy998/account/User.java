@@ -1,9 +1,14 @@
 package com.yjy998.account;
 
+import com.yjy998.entity.Contest;
+import com.yjy998.entity.Contract;
+
+import java.util.ArrayList;
+
+
 public class User {
-    /**
-     * 未登陆时id
-     */
-    public static final int ID_NO_USER = -100;
-    public int id = ID_NO_USER;
+
+    public Assent assent;
+    public ArrayList<Contest> myContests;
+    public ArrayList<Contract> myContracts;
 }

@@ -1,6 +1,6 @@
 package com.yjy998.http;
 
-public class Response {
+public class Response<T> {
     /**
      * 返回的数据
      */
@@ -17,5 +17,6 @@ public class Response {
      * code
      */
     public String code;
+
 
 }

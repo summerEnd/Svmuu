@@ -22,14 +22,14 @@ import static android.view.ViewGroup.LayoutParams;
 
 public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClick {
     private ViewGroup layoutContainer;
-    private MenuFragment mMenuFragment;
+    protected MenuFragment mMenuFragment;
     private MenuDrawer mMenuDrawer;
     private ImageView titleImage;
     private LoginRegisterWindow mLoginWindow;
     /**
      * 标志登录注册窗口是否为第一次弹出
      */
-    private static boolean isFirstShow = false;
+    private static boolean isFirstShow = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

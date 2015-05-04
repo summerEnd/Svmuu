@@ -9,20 +9,21 @@
     <com.sp.lib.widget.pager.title.PageStrip
         android:id="@+id/pageStrip"
         android:layout_width="match_parent"
-        android:background="@color/white"
+        android:background="#F2F2F2"
         app:indicator="@color/deepBlue"
         android:layout_height="@dimen/center_tab_height">
 
         <com.yjy998.ui.view.ViewPagerTabItem
             style="@style/pageTitleStyle"
             android:checked="true"
-            android:text="@string/tn" />
+            android:text="@string/gameList" />
 
 
         <com.yjy998.ui.view.ViewPagerTabItem
             style="@style/pageTitleStyle"
-            android:text="@string/t9" />
+            android:text="@string/my_game" />
     </com.sp.lib.widget.pager.title.PageStrip>
+
 
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"

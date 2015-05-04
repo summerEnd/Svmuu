@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.yjy998.R;
 import com.yjy998.common.Constant;
-import com.yjy998.ui.activity.other.TimeLineFragment;
 import com.yjy998.ui.activity.YJYActivity;
 import com.yjy998.ui.view.chart.GLine;
 import com.yjy998.ui.view.chart.GView;

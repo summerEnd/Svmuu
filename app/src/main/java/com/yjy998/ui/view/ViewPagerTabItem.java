@@ -2,6 +2,7 @@ package com.yjy998.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
@@ -26,9 +27,9 @@ public class ViewPagerTabItem extends TextPageTab {
 
     @Override
     protected void onTabSelected(boolean selected) {
-        if(animation==null){
-            animation=createAnim();
-        }else{
+        if (animation == null) {
+            animation = createAnim();
+        } else {
             clearAnimation();
         }
 
@@ -42,7 +43,8 @@ public class ViewPagerTabItem extends TextPageTab {
 
     Animation createAnim() {
         AnimationSet set = new AnimationSet(true);
-        set.setDuration(400);
+        set.setDuration(200);
+        set.setInterpolator(new AccelerateInterpolator());
         set.addAnimation(new ScaleAnimation(1, 1.2f, 1, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f));
         set.setFillAfter(true);
         return set;

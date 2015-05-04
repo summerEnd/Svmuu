@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/chartInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="当前价：0，均价：0" />
-
-    <FrameLayout
+    <com.yjy998.ui.view.chart.GView
+        android:id="@+id/gView"
+        android:padding="@dimen/dimen_15px"
+        android:background="@color/white"
+        app:gridColor="@color/lightGray"
+        app:labelTextSize="@dimen/text_18px"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_210px"
-        android:id="@+id/chartContainer" />
+        android:layout_height="@dimen/dimen_270px" />
+
 </LinearLayout>

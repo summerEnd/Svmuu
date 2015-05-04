@@ -3,10 +3,12 @@ package com.yjy998.http;
 import android.content.Context;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.PersistentCookieStore;
+import com.sp.lib.common.preference.PreferenceUtil;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.SLog;
 import com.yjy998.AppDelegate;
+import com.yjy998.common.preference.CookiePreference;
 
 /**
  * 所有网络请求统一入口
@@ -22,7 +24,9 @@ public final class YHttpClient {
         if (instance == null) {
             //做一些初始化操作
             instance = new YHttpClient();
-            instance.getClient().setTimeout(10000);
+            AsyncHttpClient client = instance.getClient();
+            client.setTimeout(10000);
+            //client.setCookieStore(new PersistentCookieStore(AppDelegate.getInstance()));
         }
         return instance;
     }
@@ -42,6 +46,7 @@ public final class YHttpClient {
      * 用post发起请求
      */
     public void post(Context context, SRequest request, YHttpHandler handler) {
+        SLog.debug(request.toLogString());
         client.post(context, request.getUrl(), request, handler);
     }
 
@@ -78,9 +83,14 @@ public final class YHttpClient {
     /**
      * get调用接口，不用传host，直接传方法
      */
-    public final void getMethod(String method, SRequest params, YHttpHandler httpHandler) {
+    public final void getByMethod(String method, SRequest params, YHttpHandler httpHandler) {
         params.setUrl(HOST + method);
         get(params, httpHandler);
+    }
+
+    public final void getByMethod(Context context, String method, SRequest params, YHttpHandler httpHandler) {
+        params.setUrl(HOST + method);
+        get(context, params, httpHandler);
     }
 
     /**
@@ -91,5 +101,35 @@ public final class YHttpClient {
         request.setUrl("http://www.yjy998.com/stock/getstockprice");
         request.put("code", code);
         get(request, handler);
+    }
+
+    /**
+     * 加密密码
+     */
+    public void getRsa(YHttpHandler handler) {
+        SRequest request = new SRequest();
+        request.setUrl("http://interface.yjy998.com/yjy/sec/rsa?_=" + Math.random());
+        get(request, handler);
+    }
+
+    /**
+     * 接口参数：
+     * login_name=15951996518
+     * login_passwd=123456
+     * login_rsapwd=4167dfca...
+     */
+    public void login(Context context, SRequest request, YHttpHandler handler) {
+        request.setUrl("http://www.yjy998.com/account/login");
+        post(context, request, handler);
+    }
+
+    /**
+     * 获取验证码
+     */
+    public void getCode(Context context, String phone, YHttpHandler handler) {
+        SRequest request = new SRequest("http://www.yjy998.com/account/getloginpwdcode");
+        request.put("phone", phone);
+        request.put("code", 6);
+        post(context, request, handler);
     }
 }

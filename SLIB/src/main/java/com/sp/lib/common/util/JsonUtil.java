@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class JsonUtil {
     public static <T> T get(String json, Class<T> cls) {
         return new Gson().fromJson(json, cls);
     }
+
 
     /**
      * 返回一个新的列表

@@ -7,16 +7,16 @@ import android.widget.TextView;
 
 import com.sp.lib.common.support.adapter.ViewHolderAdapter;
 import com.yjy998.R;
-import com.yjy998.entity.Game;
-import com.yjy998.ui.activity.game.RankActivity;
+import com.yjy998.entity.Contest;
+import com.yjy998.ui.activity.contest.RankActivity;
 import com.yjy998.ui.view.TwoTextItem;
 
 import java.util.List;
 
-public class GameListAdapter extends ViewHolderAdapter<Game, Object> implements View.OnClickListener{
+public class GameListAdapter extends ViewHolderAdapter<Contest, Object> implements View.OnClickListener{
 
 
-    public GameListAdapter(Context context, List<Game> data) {
+    public GameListAdapter(Context context, List<Contest> data) {
         super(context, data, R.layout.list_item_game);
     }
 

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
 import com.yjy998.entity.Contract;
-import com.yjy998.entity.Game;
 
 import java.util.LinkedList;
 import java.util.List;

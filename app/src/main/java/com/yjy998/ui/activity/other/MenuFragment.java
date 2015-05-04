@@ -11,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.yjy998.AppDelegate;
 import com.yjy998.R;
+import com.yjy998.account.Assent;
+import com.yjy998.account.User;
 import com.yjy998.common.ImageOptions;
 import com.yjy998.ui.activity.MainActivity;
 import com.yjy998.ui.activity.apply.ApplyActivity;
@@ -25,7 +28,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
     private TextView phoneText;
     private TextView remainMoneyText;
     private TextView goldIngotText;
-    private TextView discountTickets;
+    private TextView caopanTickets;
     private OnMenuClick menuClick;
 
     @Override
@@ -55,7 +58,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         phoneText = (TextView) findViewById(R.id.phoneText);
         remainMoneyText = (TextView) findViewById(R.id.remainMoneyText);
         goldIngotText = (TextView) findViewById(R.id.goldIngotText);
-        discountTickets = (TextView) findViewById(R.id.discountTickets);
+        caopanTickets = (TextView) findViewById(R.id.caopanTickets);
         findViewById(R.id.buyIn).setOnClickListener(this);
         findViewById(R.id.sellOut).setOnClickListener(this);
         findViewById(R.id.recharge).setOnClickListener(this);
@@ -64,8 +67,32 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         findViewById(R.id.realGame).setOnClickListener(this);
         findViewById(R.id.center).setOnClickListener(this);
         findViewById(R.id.help).setOnClickListener(this);
-        ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance(getResources().getDimensionPixelOffset(R.dimen.avatarSize)));
+        refresh();
 
+    }
+
+    public void refresh() {
+
+        if (!isVisible()) {
+            return;
+        }
+
+        if (AppDelegate.getInstance().isUserLogin()) {
+            User user = AppDelegate.getInstance().getUser();
+            Assent assent = user.assent;
+            if (assent == null) {
+                return;
+            }
+            phoneText.setText(assent.name);
+            remainMoneyText.setText(getString(R.string.remain_money_s, assent.avalaible_amount));
+            goldIngotText.setText(getString(R.string.GoldIngot_s, assent.yuanbao_total_amount));
+            caopanTickets.setText(getString(R.string.caopan_s, assent.quan_total_amount));
+
+            ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance(getResources().getDimensionPixelOffset(R.dimen.avatarSize)));
+
+        } else {
+
+        }
     }
 
     @Override

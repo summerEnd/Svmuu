@@ -78,7 +78,7 @@
                 android:textSize="@dimen/text_22px"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/GoldIngot_d" />
+                android:text="@string/GoldIngot_s" />
 
             <View style="@style/verticalLine" />
 
@@ -91,7 +91,7 @@
                 android:textSize="@dimen/text_22px"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/caopan_d" />
+                android:text="@string/caopan_s" />
         </LinearLayout>
 
         <View style="@style/horizontalLine" />

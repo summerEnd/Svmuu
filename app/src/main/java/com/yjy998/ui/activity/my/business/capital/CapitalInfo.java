@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity.my.business;
+package com.yjy998.ui.activity.my.business.capital;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,13 +15,11 @@ import android.widget.TextView;
 import com.sp.lib.widget.list.LinearListView;
 import com.yjy998.R;
 import com.yjy998.adapter.CapitalBuySellAdapter;
+import com.yjy998.entity.Stock;
 import com.yjy998.http.Response;
 import com.yjy998.http.YHttpClient;
 import com.yjy998.http.YHttpHandler;
 import com.yjy998.ui.activity.other.BaseFragment;
-
-import org.apache.http.Header;
-import org.json.JSONObject;
 
 public class CapitalInfo extends BaseFragment implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private EditText codeEdit;
@@ -83,15 +81,27 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.reduceAmount: {
+                int amount = Integer.parseInt(amountEdit.getText().toString());
+                amount -= 100;
+                amountEdit.setText("" + Math.max(0, amount));
                 break;
             }
             case R.id.addAmount: {
+                int amount = Integer.parseInt(amountEdit.getText().toString());
+                amount += 100;
+                amountEdit.setText("" + amount);
                 break;
             }
             case R.id.reducePrice: {
+                float price = Float.parseFloat(editPrice.getText().toString());
+                price -= 0.01;
+                editPrice.setText("" + Math.max(0, price));
                 break;
             }
             case R.id.addPrice: {
+                float price = Float.parseFloat(editPrice.getText().toString());
+                price += 0.01;
+                editPrice.setText("" + price);
                 break;
             }
         }
@@ -106,6 +116,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
 
     }
 
+
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
 
@@ -114,6 +125,16 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
+    }
+
+    /**
+     * 获取股票代码
+     */
+    public String getStockCode() {
+        if (codeEdit == null) {
+            return null;
+        }
+        return codeEdit.getText().toString();
     }
 
     /**
@@ -137,8 +158,6 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
                 return;
             }
             YHttpClient.getInstance().getStockInfo(code, new YHttpHandler() {
-
-
                 @Override
                 protected void onStatusCorrect(Response response) {
 

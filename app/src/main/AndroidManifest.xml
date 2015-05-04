@@ -74,15 +74,19 @@
         <activity android:name=".ui.activity.my.business.BusinessActivity" />
         <activity android:name=".ui.activity.test.MenuDrawerActivity" />
         <activity
-            android:name=".ui.activity.game.GameInfoActivity"
+            android:name=".ui.activity.contest.ContestInfoActivity"
             android:label="@string/title_activity_game_info" >
         </activity>
         <activity
-            android:name=".ui.activity.game.RankActivity"
+            android:name=".ui.activity.contest.RankActivity"
             android:label="@string/title_activity_rank" >
         </activity>
         <activity
             android:name=".ui.activity.other.pay.RechargeActivity"
+            android:label="@string/title_activity_recharge" >
+        </activity>
+        <activity
+            android:name=".ui.activity.test.TestRsa"
             android:label="@string/title_activity_recharge" >
         </activity>
     </application>

@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity.my.business;
+package com.yjy998.ui.activity.my.business.capital;
 
 
 import android.app.Activity;
@@ -12,14 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
-import com.yjy998.http.Response;
-import com.yjy998.http.YHttpClient;
-import com.yjy998.http.YHttpHandler;
+import com.yjy998.ui.activity.my.business.BusinessActivity;
 import com.yjy998.ui.activity.other.BaseFragment;
-import com.yjy998.ui.activity.other.TimeLineFragment;
 
 /**
  * 资产
@@ -59,23 +55,6 @@ public class CapitalFragment extends BaseFragment implements View.OnClickListene
 
 
         return layout;
-    }
-
-
-
-    /**
-     * 获取分时图数据
-     */
-    void getTrendList(String code) {
-        SRequest request = new SRequest();
-        request.setUrl("http://interface.yjy998.com/yjy/quote/stock/" + code + "/trend_data");
-        request.put("code", code);
-        YHttpClient.getInstance().get(request, new YHttpHandler() {
-            @Override
-            protected void onStatusCorrect(Response response) {
-
-            }
-        });
     }
 
     @Override
@@ -133,7 +112,7 @@ public class CapitalFragment extends BaseFragment implements View.OnClickListene
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 if (mTimeLineFragment.isHidden()) {
                     ft.show(mTimeLineFragment).hide(mCapitalInfo);
-
+                    mTimeLineFragment.setStockCode(mCapitalInfo.getStockCode());
                 } else {
                     ft.show(mCapitalInfo).hide(mTimeLineFragment);
                 }

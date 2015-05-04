@@ -1,7 +1,6 @@
-package com.yjy998.ui.activity.game;
+package com.yjy998.ui.activity.contest;
 
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -11,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 
-import com.sp.lib.widget.PagerSlidingTabStrip;
+import com.sp.lib.widget.pager.title.PageStrip;
 import com.yjy998.R;
 import com.yjy998.adapter.FragmentPagerAdapter;
 import com.yjy998.adapter.GameListAdapter;
-import com.yjy998.entity.Game;
+import com.yjy998.entity.Contest;
 import com.yjy998.ui.activity.other.BaseFragment;
 import com.yjy998.ui.activity.other.BaseListFragment;
 
@@ -25,10 +24,10 @@ import java.util.List;
 /**
  * A simple {@link android.app.Fragment} subclass.
  */
-public class RealGameFragment extends BaseFragment {
+public class ContestFragment extends BaseFragment {
 
 
-    private PagerSlidingTabStrip tabStrip;
+    private PageStrip pageStrip;
     private ViewPager pager;
     private BaseListFragment mGameListFragment;
     private BaseListFragment mMyGameList;
@@ -36,7 +35,7 @@ public class RealGameFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.layout_tab_pager, container, false);
+        return inflater.inflate(R.layout.fragment_real_game, container, false);
     }
 
     @Override
@@ -45,7 +44,7 @@ public class RealGameFragment extends BaseFragment {
     }
 
     private void initialize() {
-        tabStrip = (PagerSlidingTabStrip) getActivity().findViewById(R.id.tabStrip);
+        pageStrip = (PageStrip) getActivity().findViewById(R.id.pageStrip);
         pager = (ViewPager) getActivity().findViewById(R.id.pager);
 
         ListAdapter listAdapter = getAdapter();
@@ -64,14 +63,13 @@ public class RealGameFragment extends BaseFragment {
         adapter.add(mGameListFragment);
         adapter.add(mMyGameList);
         pager.setAdapter(adapter);
-        tabStrip.setViewPager(pager);
-        tabStrip.setBackgroundColor(0xfff2f2f2);
+        pageStrip.setViewPager(pager);
     }
 
     ListAdapter getAdapter() {
-        List<Game> data = new ArrayList<Game>();
+        List<Contest> data = new ArrayList<Contest>();
         for (int i = 0; i < 20; i++) {
-            data.add(new Game());
+            data.add(new Contest());
         }
         GameListAdapter gameListAdapter = new GameListAdapter(getActivity(), data);
 
@@ -81,14 +79,14 @@ public class RealGameFragment extends BaseFragment {
     private class OnGameListClick implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            startActivity(new Intent(view.getContext(), GameInfoActivity.class));
+            startActivity(new Intent(view.getContext(), ContestInfoActivity.class));
         }
     }
 
     private class OnMyGameListClick implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            startActivity(new Intent(view.getContext(), GameInfoActivity.class));
+            startActivity(new Intent(view.getContext(), ContestInfoActivity.class));
         }
     }
 }

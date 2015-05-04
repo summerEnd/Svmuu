@@ -7,24 +7,24 @@ import android.view.ViewGroup;
 
 import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
-import com.yjy998.entity.Game;
-import com.yjy998.ui.activity.game.GameInfoActivity;
+import com.yjy998.entity.Contest;
+import com.yjy998.ui.activity.contest.ContestInfoActivity;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class GamePagerAdapter extends PagerAdapter implements View.OnClickListener{
 
-    private List<Game> games;
+    private List<Contest> contests;
     int pageCount;
     LinkedList<View> views = new LinkedList<View>();
 
-    public GamePagerAdapter(List<Game> games) {
-        this.games = games;
-        if (games.isEmpty()) {
+    public GamePagerAdapter(List<Contest> contests) {
+        this.contests = contests;
+        if (contests.isEmpty()) {
             pageCount = 0;
         } else {
-            pageCount = (games.size() - 1) / 3 + 1;
+            pageCount = (contests.size() - 1) / 3 + 1;
         }
     }
 
@@ -66,7 +66,7 @@ public class GamePagerAdapter extends PagerAdapter implements View.OnClickListen
 
         if (position == pageCount - 1) {
             //最后一页，要根据比赛数量，来隐藏内容
-            int visiblePage = games.size() - (pageCount - 1) * 3;
+            int visiblePage = contests.size() - (pageCount - 1) * 3;
             for (int i = 0; i < 3; i++) {
                 convertView.getChildAt(i).setVisibility(i < visiblePage ? View.VISIBLE : View.INVISIBLE);
             }
@@ -83,7 +83,7 @@ public class GamePagerAdapter extends PagerAdapter implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        v.getContext().startActivity(new Intent(v.getContext(), GameInfoActivity.class));
+        v.getContext().startActivity(new Intent(v.getContext(), ContestInfoActivity.class));
     }
 
     private class ViewHolder {

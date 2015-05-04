@@ -16,7 +16,7 @@ import com.yjy998.adapter.ContractPagerAdapter;
 import com.yjy998.adapter.GamePagerAdapter;
 import com.yjy998.common.ImageOptions;
 import com.yjy998.entity.Contract;
-import com.yjy998.entity.Game;
+import com.yjy998.entity.Contest;
 import com.yjy998.ui.activity.my.business.BusinessActivity;
 import com.yjy998.ui.activity.other.BaseFragment;
 import com.yjy998.ui.view.TwoTextItem;
@@ -88,13 +88,13 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
         gamePager = (ViewPager) findViewById(R.id.gamePager);
 
         ArrayList<Contract> arrayList = new ArrayList<Contract>();
-        ArrayList<Game> gameList = new ArrayList<Game>();
+        ArrayList<Contest> contestList = new ArrayList<Contest>();
         for (int i = 0; i < 7; i++) {
             arrayList.add(new Contract());
-            gameList.add(new Game());
+            contestList.add(new Contest());
         }
         contractPager.setAdapter(new ContractPagerAdapter(arrayList));
-        gamePager.setAdapter(new GamePagerAdapter(gameList));
+        gamePager.setAdapter(new GamePagerAdapter(contestList));
     }
 
 }

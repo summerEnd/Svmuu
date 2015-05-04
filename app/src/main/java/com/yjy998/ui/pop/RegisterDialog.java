@@ -3,6 +3,7 @@ package com.yjy998.ui.pop;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ClickableSpan;
 import android.view.View;
@@ -24,6 +25,7 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
 
     private EditText phoneEdit;
     private EditText passwordEdit;
+    private EditText passwordRepeat;
     private EditText yzmEdit;
     private TextView resendText;
     private TextView protocolText;
@@ -45,16 +47,15 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.confirmButton: {
                 SRequest request = new SRequest("http://www.yjy998.com/account/register");
-                request.put("login_name", phoneEdit.getText().toString());
-                request.put("register_passwd", passwordEdit.getText().toString());
-                request.put("login_rsapwd", passwordEdit.getText().toString());
+                request.put("pnumber", phoneEdit.getText().toString());
+                request.put("password", passwordEdit.getText().toString());
+                request.put("repassword", passwordRepeat.getText().toString());
+                request.put(",is_agree", true);
                 confirmButton.setText(R.string.register_ing);
                 YHttpClient.getInstance().post(getContext(), request, new YHttpHandler() {
 
                     @Override
                     protected void onStatusCorrect(Response response) {
-                        User user = AppDelegate.getInstance().getUser();
-                        user.id = 0;
                         dismiss();
                     }
 
@@ -71,8 +72,8 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
                 break;
             }
             case R.id.resendText: {
-                resendText.setClickable(false);
-                countDownTime.start();
+
+                getCode();
                 break;
             }
         }
@@ -81,6 +82,7 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
     private void initialize() {
         phoneEdit = (EditText) findViewById(R.id.phoneEdit);
         passwordEdit = (EditText) findViewById(R.id.passwordEdit);
+        passwordRepeat = (EditText) findViewById(R.id.passwordRepeat);
         yzmEdit = (EditText) findViewById(R.id.yzmEdit);
         resendText = (TextView) findViewById(R.id.resendText);
         protocolText = (TextView) findViewById(R.id.protocolText);
@@ -89,6 +91,16 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
         confirmButton.setOnClickListener(this);
         resendText.setOnClickListener(RegisterDialog.this);
 
+        findViewById(R.id.closeButton).setOnClickListener(this);
+        protocolText.setText(getProtocol());
+        countDownTime = new CodeCountDown(60);
+        getCode();
+    }
+
+    /**
+     * 用户协议
+     */
+    SpannableString getProtocol() {
         String string = getContext().getResources().getString(R.string.protocolText);
         SpannableString spannable = new SpannableString(string);
         spannable.setSpan(new ClickableSpan() {
@@ -97,24 +109,41 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
 
             }
         }, string.indexOf("《"), string.length(), 0);
+        return spannable;
+    }
 
-        findViewById(R.id.closeButton).setOnClickListener(this);
-        protocolText.setText(spannable);
-        countDownTime = new TimeTicker(10) {
-
-            @Override
-            public void onTick(int time) {
-                SLog.debug("--->" + time);
-                resendText.setText(getContext().getString(R.string.resend_d, time));
-            }
-
-            @Override
-            public void onFinish() {
-                resendText.setClickable(true);
-                resendText.setText(R.string.resend);
-            }
-        };
+    /**
+     * 获取短信验证码
+     */
+    void getCode() {
         resendText.setClickable(false);
         countDownTime.start();
+        YHttpClient.getInstance().getCode(getContext(), phoneEdit.getText().toString(), new YHttpHandler() {
+            @Override
+            protected void onStatusCorrect(Response response) {
+
+            }
+        });
+    }
+
+    /**
+     * 倒计时
+     */
+    private class CodeCountDown extends TimeTicker {
+
+        protected CodeCountDown(int maxTime) {
+            super(maxTime);
+        }
+
+        @Override
+        public void onTick(int timeRemain) {
+            resendText.setText(getContext().getString(R.string.resend_d, timeRemain));
+        }
+
+        @Override
+        protected void onFinish() {
+            resendText.setClickable(true);
+            resendText.setText(R.string.resend);
+        }
     }
 }

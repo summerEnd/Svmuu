@@ -30,6 +30,7 @@
 
 
     <!--确定的-->
+    <dimen name="dimen_270px">150dp</dimen>
     <dimen name="dimen_210px">116.7dp</dimen>
     <dimen name="dimen_180px">100dp</dimen>
     <dimen name="dimen_94px">52.2dp</dimen>

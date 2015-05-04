@@ -1,12 +1,11 @@
-package com.yjy998.ui.activity.game;
+package com.yjy998.ui.activity.contest;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import com.yjy998.R;
 import com.yjy998.ui.activity.other.SecondActivity;
 
-public class GameInfoActivity extends SecondActivity {
+public class ContestInfoActivity extends SecondActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

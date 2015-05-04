@@ -16,7 +16,6 @@ public class TestActivity extends STestActivity {
         activities.add(LockActivity.class);
         activities.add(ChartActivity.class);
         activities.add(MenuDrawerActivity.class);
+        activities.add(TestRsa.class);
     }
-
-
 }

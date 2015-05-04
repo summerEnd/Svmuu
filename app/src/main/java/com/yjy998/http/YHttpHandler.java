@@ -1,15 +1,16 @@
 package com.yjy998.http;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.sp.lib.common.preference.PreferenceUtil;
 import com.sp.lib.common.support.net.client.SHttpProgressHandler;
 import com.sp.lib.common.util.ContextUtil;
-import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.common.util.SLog;
+import com.yjy998.common.preference.CookiePreference;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,12 +21,13 @@ public abstract class YHttpHandler extends SHttpProgressHandler {
 
     private boolean showToast;
 
+
     protected YHttpHandler(boolean showToast) {
         this.showToast = showToast;
     }
 
     protected YHttpHandler() {
-        showToast = true;
+        this(true);
     }
 
     @Override
@@ -35,8 +37,18 @@ public abstract class YHttpHandler extends SHttpProgressHandler {
 
 
     @Override
-    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+    public final void onSuccess(int statusCode, Header[] headers, JSONObject response) {
         super.onSuccess(statusCode, headers, response);
+
+        for (Header header : headers) {
+            SLog.debug("head:"+header);
+            if (CookiePreference.COOKIE.equals(header.getName())) {
+                //把cookie存起来
+                CookiePreference.get().setCookie(header.getValue());
+                SLog.debug("save Cookie:"+header.getValue());
+            }
+        }
+
         Response responseObject = parseResponse(response);
         if (responseObject.status) {
             onStatusCorrect(responseObject);
@@ -45,7 +57,7 @@ public abstract class YHttpHandler extends SHttpProgressHandler {
         }
         if (showToast) {
             String message = responseObject.message;
-            if (!TextUtils.isEmpty(message)) {
+            if (!TextUtils.isEmpty(message) && !"null".equals(message)) {
                 ContextUtil.toast_debug(message);
             }
         }
@@ -66,9 +78,23 @@ public abstract class YHttpHandler extends SHttpProgressHandler {
         Response response = new Response();
         try {
             response.data = jsonResponse.getString("data");
-            response.status = jsonResponse.getBoolean("status");
-            response.message = jsonResponse.getString("message");
-            response.code = jsonResponse.getString("code");
+
+            try {
+                response.status = jsonResponse.getBoolean("status");
+            } catch (JSONException e) {
+                response.status = jsonResponse.getBoolean("success");
+            }
+
+            try {
+                response.message = jsonResponse.getString("message");
+            } catch (JSONException e) {
+                response.message = jsonResponse.getString("msg");
+            }
+
+            if (jsonResponse.has("code")) {
+                response.code = jsonResponse.getString("code");
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

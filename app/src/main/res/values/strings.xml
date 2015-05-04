@@ -22,6 +22,7 @@
     <string name="login">登录</string>
     <string name="hint_phone">手机号码</string>
     <string name="hint_password">密码</string>
+    <string name="hint_repeat_password">重复密码</string>
     <string name="hint_yzm">验证码</string>
     <string name="protocolText">注册代表您同意《网上申请用户协议》</string>
     <string name="resend_d">重新发送（%d）</string>
@@ -108,8 +109,8 @@
     <string name="avatar">头像</string>
     <string name="logout">注销登录</string>
     <string name="title_activity_fresh">新手专享</string>
-    <string name="GoldIngot_d">金元宝：%d个</string>
-    <string name="caopan_d">操盘券：%d个</string>
+    <string name="GoldIngot_s">金元宝：%s个</string>
+    <string name="caopan_s">操盘券：%s个</string>
     <string name="confirm">确定</string>
     <string name="hold_stock">持有股票</string>
     <string name="float_balance">浮动盈亏</string>
@@ -151,6 +152,8 @@
     <string name="re_register">重新注册</string>
     <string name="login_ing">登录中...</string>
     <string name="re_login">重新登录</string>
+    <string name="get_info">获取用户信息...</string>
+    <string name="remain_money_s">账户余额：￥%s</string>
     <string-array name="numbers">
         <item>①</item>
         <item>②</item>

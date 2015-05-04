@@ -23,7 +23,7 @@ public class GView extends View {
 
     private String[] leftLabels = new String[]{"11.29", "11.02", "10.03", "10.02", "10.00"};
     private String[] rightLabels = new String[]{"1.56%", "1.26%", "0.00%", "-1.26%", "-1.56%"};
-    private String[] bottomLabels = new String[]{"", "11:30", "00.30", "14.00", ""};
+    private String[] bottomLabels = new String[]{"", "11:30", "", "14.00", ""};
     TextPaint labelPaint = new TextPaint();
     Paint framePaint = new Paint();
     Paint linePaint = new Paint();
@@ -34,6 +34,8 @@ public class GView extends View {
     float xMax;
     float yMin;
     float yMax;
+    int gridColor;
+    float labelTextSize;
     ArrayList<GLine> lines = new ArrayList<GLine>();
 
     float touchX;
@@ -55,9 +57,11 @@ public class GView extends View {
         xMax = a.getFloat(R.styleable.GView_xMax, 240);
         yMin = a.getFloat(R.styleable.GView_yMin, 0);
         yMax = a.getFloat(R.styleable.GView_yMax, 50);
+        gridColor = a.getColor(R.styleable.GView_gridColor, Color.GRAY);
+        labelTextSize = a.getDimensionPixelSize(R.styleable.GView_labelTextSize, 20);
         a.recycle();
 
-        labelPaint.setTextSize(20);
+        labelPaint.setTextSize(labelTextSize);
         labelPaint.setTextAlign(Paint.Align.CENTER);
         framePaint.setStyle(Paint.Style.STROKE);
         framePaint.setColor(Color.GRAY);
@@ -176,6 +180,11 @@ public class GView extends View {
             return;
         }
 
+        if (lines.isEmpty()) {
+            return;
+        }
+
+
         float cellHeight = frame.height() / (yMax - yMin);
         float cellWidth = frame.width() / (xMax - xMin);
         int position = (int) ((touchX - frame.left) / frame.width() * (xMax - xMin));
@@ -250,11 +259,12 @@ public class GView extends View {
     }
 
     private void drawFrame(Canvas canvas) {
-
+        framePaint.setColor(Color.BLACK);
         canvas.drawRect(frame, framePaint);
 
         float topOffset = frame.top;
         float height = frame.height() / (leftLabels.length - 1);
+        framePaint.setColor(gridColor);
         for (int i = 0; i < leftLabels.length; i++) {
             float y = topOffset + height * i;
             canvas.drawLine(frame.left, y, frame.right, y, framePaint);

@@ -50,7 +50,7 @@
                     android:textSize="@dimen/text_25px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="账户余额：￥123123" />
+                    android:text="@string/remain_money_s" />
             </LinearLayout>
         </LinearLayout>
 
@@ -67,7 +67,7 @@
                 android:textColor="@color/textColorGray"
                 android:gravity="center"
                 android:textSize="@dimen/text_22px"
-                android:text="@string/GoldIngot_d" />
+                android:text="@string/GoldIngot_s" />
 
             <View
                 android:layout_width="1dp"
@@ -76,13 +76,13 @@
 
             <TextView
                 android:textSize="@dimen/text_22px"
-                android:id="@+id/discountTickets"
+                android:id="@+id/caopanTickets"
                 android:layout_width="0dp"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:textColor="@color/textColorGray"
                 android:layout_height="wrap_content"
-                android:text="@string/caopan_d" />
+                android:text="@string/caopan_s" />
         </LinearLayout>
 
         <View

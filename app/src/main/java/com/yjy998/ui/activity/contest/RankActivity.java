@@ -1,6 +1,5 @@
-package com.yjy998.ui.activity.game;
+package com.yjy998.ui.activity.contest;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 

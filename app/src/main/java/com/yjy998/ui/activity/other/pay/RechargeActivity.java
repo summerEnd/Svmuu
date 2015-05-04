@@ -1,6 +1,5 @@
 package com.yjy998.ui.activity.other.pay;
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -8,17 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.widget.PagerSlidingTabStrip;
+import com.sp.lib.widget.pager.title.PageStrip;
 import com.yjy998.R;
 import com.yjy998.adapter.FragmentPagerAdapter;
-import com.yjy998.ui.activity.apply.T9Fragment;
-import com.yjy998.ui.activity.apply.TNFragment;
 import com.yjy998.ui.activity.other.SecondActivity;
 
 public class RechargeActivity extends SecondActivity {
 
-    private PagerSlidingTabStrip tabStrip;
+    private PageStrip tabStrip;
     private ViewPager pager;
     private int number;
     int SELECTED_COLOR;
@@ -28,14 +25,14 @@ public class RechargeActivity extends SecondActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_tab_pager);
+        setContentView(R.layout.activity_recharge);
         initialize();
     }
 
     @SuppressWarnings("ResourceType")
     private void initialize() {
 
-        tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabStrip);
+        tabStrip = (PageStrip) findViewById(R.id.pageStrip);
         pager = (ViewPager) findViewById(R.id.pager);
 
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager());

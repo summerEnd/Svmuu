@@ -11,6 +11,9 @@ public class AppDelegate extends SApplication {
 
     private static AppDelegate instance;
     private User mSharedUser;
+    private boolean isLogined;
+
+
 
     @Override
     public void onCreate() {
@@ -35,7 +38,15 @@ public class AppDelegate extends SApplication {
         return mSharedUser;
     }
 
+    public void setUser(User user) {
+        mSharedUser = user;
+    }
+
     public boolean isUserLogin() {
-        return getUser().id != User.ID_NO_USER;
+        return isLogined;
+    }
+
+    public void setLogined(boolean isLogined) {
+        this.isLogined = isLogined;
     }
 }
