@@ -3,9 +3,12 @@ package com.yjy998.ui.activity.my.business.capital;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
@@ -29,12 +32,16 @@ import java.util.List;
 /**
  * 分时线
  */
-public class TimeLineFragment extends BaseFragment {
+public class TimeLineFragment extends BaseFragment implements GView.OnPointTouchListener {
 
 
     List<Trend> list = new ArrayList<Trend>();
-
+    Toast toast;
+    float[] newPrice;
+    float[] average;
     GView gView;
+    private TextView newPriceText;
+    private TextView averagePriceText;
 
     @Nullable
     @Override
@@ -47,12 +54,13 @@ public class TimeLineFragment extends BaseFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        setStockCode("601899");
+
     }
 
     public void setStockCode(String code) {
         SRequest request = new SRequest();
-        request.setUrl("https://yjy998.com/yjy/quote/stock/" + code + "/trend_data");
+
+        request.setUrl("http://interface.yjy998.com/yjy/quote/stock/" + code + "/trend_data");
 
         YHttpClient.getInstance().get(request, new YHttpHandler() {
 
@@ -69,13 +77,14 @@ public class TimeLineFragment extends BaseFragment {
         });
     }
 
+
     /**
      * 将数据解析，并添加到图表中
      */
     private void addTrendListToChart(JSONArray array) throws JSONException {
         int length = array.length();
-        float[] newPrice = new float[length];
-        float[] average = new float[length];
+        newPrice = new float[length];
+        average = new float[length];
 
         Trend firstTrend = JsonUtil.get(array.get(0).toString(), Trend.class);
 
@@ -101,17 +110,38 @@ public class TimeLineFragment extends BaseFragment {
         newLine.setDrawBelowColor(true);
         newLine.setStartColor(0xffB28B59);
         newLine.setEndColor(0xffEAE9E9);
-        newLine.setLineColor(Color.YELLOW);
+        newLine.setLineColor(getResources().getColor(R.color.newPriceLineColor));
+        newLine.setDrawToucheLine(true);
         gView.addLine(newLine);
 
         GLine avLine = new GLine();
         avLine.setValues(average);
         avLine.setDrawBelowColor(false);
-        avLine.setLineColor(Color.RED);
+        avLine.setLineColor(getResources().getColor(R.color.textColorRed));
         gView.addLine(avLine);
 
         float delta = (max - min) * 0.3f;
         gView.setRangeY(min - delta, max + delta);
+        gView.setOnPointTouchListener(this);
+    }
+
+    @Override
+    public void onTouched(int position) {
+        if (toast == null) {
+            toast = new Toast(getActivity());
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.toast_view, null);
+            newPriceText = (TextView) view.findViewById(R.id.newPriceText);
+            averagePriceText = (TextView) view.findViewById(R.id.averagePriceText);
+            toast.setView(view);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER,0,30);
+        }
+        if (newPrice != null && average != null) {
+
+            newPriceText.setText(getString(R.string.new_price_s, newPrice[position] + ""));
+            averagePriceText.setText(getString(R.string.average_price_s, average[position] + ""));
+            toast.show();
+        }
 
     }
 

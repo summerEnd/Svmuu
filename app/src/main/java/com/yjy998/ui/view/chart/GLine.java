@@ -12,13 +12,35 @@ public class GLine extends Path {
     private int endColor;
     private int lineColor;
     private boolean isCreated = false;
+    private boolean drawToucheLine = false;
+    private Path rawPath = new Path();
+
+    public boolean isDrawToucheLine() {
+        return drawToucheLine;
+    }
+
+    public void setDrawToucheLine(boolean drawToucheLine) {
+        this.drawToucheLine = drawToucheLine;
+    }
+
+    public Path getRawPath() {
+        return rawPath;
+    }
 
     public boolean isCreated() {
         return isCreated;
     }
 
-    public void setCreated(boolean created) {
-        this.isCreated = created;
+    public void setCreated(boolean isCreated) {
+        this.isCreated = isCreated;
+    }
+
+    public void prepareBelowColor() {
+        isCreated=true;
+        if (isDrawBelowColor()) {
+            rawPath.addPath(this);
+        }
+
     }
 
     public int getLineColor() {

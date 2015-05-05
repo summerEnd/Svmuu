@@ -25,7 +25,6 @@
 
         <TextView
             android:id="@+id/capitalText"
-            android:text="￥909012"
             android:textSize="@dimen/text_30px"
             android:textStyle="bold"
             android:textColor="@color/textColorRed"

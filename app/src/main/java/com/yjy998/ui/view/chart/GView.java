@@ -17,7 +17,6 @@ import android.view.View;
 import com.yjy998.R;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class GView extends View {
 
@@ -28,6 +27,7 @@ public class GView extends View {
     Paint framePaint = new Paint();
     Paint linePaint = new Paint();
     RectF frame = new RectF();
+    OnPointTouchListener mOnPointTouchListener;
 
     float textVerticalOffset;
     float xMin;
@@ -65,9 +65,8 @@ public class GView extends View {
         labelPaint.setTextAlign(Paint.Align.CENTER);
         framePaint.setStyle(Paint.Style.STROKE);
         framePaint.setColor(Color.GRAY);
-        linePaint.setColor(Color.WHITE);
         linePaint.setStyle(Paint.Style.STROKE);
-        linePaint.setStrokeWidth(2);
+        linePaint.setStrokeWidth(1);
         //计算数字高度
         Rect rect = new Rect();
         labelPaint.getTextBounds("1", 0, 1, rect);
@@ -81,12 +80,16 @@ public class GView extends View {
         measureFrame();
     }
 
+    public void setOnPointTouchListener(OnPointTouchListener onPointTouchListener) {
+        this.mOnPointTouchListener = onPointTouchListener;
+    }
 
     /**
      * 添加一个曲线
      */
     public void addLine(GLine line) {
         lines.add(line);
+        invalidate();
     }
 
     private void initGraphic() {
@@ -131,6 +134,7 @@ public class GView extends View {
         int lineColor = line.getLineColor();
         if (lineColor != 0) line.getPaint().setColor(lineColor);
         if (line.isDrawBelowColor()) {
+            line.prepareBelowColor();
             line.lineTo(frame.left + (values.length - 1) * cellWidth, frame.bottom);
             line.lineTo(frame.left, frame.bottom);
             line.lineTo(firstPointX, firstPointY);
@@ -143,6 +147,8 @@ public class GView extends View {
                     new float[]{0.1f, 1},
                     Shader.TileMode.MIRROR);
             line.getPaint().setShader(shader);
+            line.getPaint().setStrokeWidth(2);
+
         } else {
             line.getPaint().setStyle(Paint.Style.STROKE);
         }
@@ -184,18 +190,27 @@ public class GView extends View {
             return;
         }
 
-
         float cellHeight = frame.height() / (yMax - yMin);
         float cellWidth = frame.width() / (xMax - xMin);
+        //确定触摸的点
         int position = (int) ((touchX - frame.left) / frame.width() * (xMax - xMin));
         float[] values = lines.get(0).getValues();
         position = Math.min(position, values.length - 1);
+
         float x = frame.left + position * cellWidth;
-        float y = frame.top + (yMax - values[position]) * cellHeight;
+        for (GLine line : lines) {
+            if (line.isDrawToucheLine()) {
+                float value = line.getValues()[position];
+                float y = frame.top + (yMax - value) * cellHeight;
+                linePaint.setColor(line.getLineColor());
+                canvas.drawLine(x, frame.bottom, x, frame.top, linePaint);
 
-        canvas.drawLine(x, frame.bottom, x, frame.top, linePaint);
-
-        canvas.drawLine(frame.left, y, frame.right, y, linePaint);
+                canvas.drawLine(frame.left, y, frame.right, y, linePaint);
+            }
+        }
+        if (mOnPointTouchListener != null) {
+            mOnPointTouchListener.onTouched(position);
+        }
 
     }
 
@@ -280,19 +295,23 @@ public class GView extends View {
     private void drawChart(Canvas canvas) {
         for (GLine line : lines) {
             Paint paint = line.getPaint();
-            if (line.isDrawBelowColor() && line.getLineColor() != 0) {
-                canvas.save();
-                Shader shader = paint.getShader();
 
-                canvas.translate(-1, -2);
+            if (line.isDrawBelowColor() && line.getLineColor() != 0) {
+
+                canvas.drawPath(line, paint);
+
+                Shader shader = paint.getShader();
                 paint.setShader(null);
                 paint.setStyle(Paint.Style.STROKE);
-                canvas.drawPath(line, paint);
-                paint.setShader(shader);
+
+                canvas.drawPath(line.getRawPath(),paint);
+
                 paint.setStyle(Paint.Style.FILL);
-                canvas.restore();
+                paint.setShader(shader);
+            }else{
+                canvas.drawPath(line, paint);
             }
-            canvas.drawPath(line, paint);
+
         }
     }
 
@@ -334,10 +353,15 @@ public class GView extends View {
             case MotionEvent.ACTION_UP: {
                 touchX = -1;
                 touchY = -1;
+                invalidate();
                 break;
             }
         }
 
         return true;
+    }
+
+    public interface OnPointTouchListener {
+        public void onTouched(int position);
     }
 }

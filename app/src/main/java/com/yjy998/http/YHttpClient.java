@@ -18,7 +18,7 @@ public final class YHttpClient {
     private static YHttpClient instance;
     private AsyncHttpClient client = new AsyncHttpClient();
 
-    private final String HOST = "http://www.yjy998.com";
+    private final String HOST = "http://mobile.yjy998.com";
 
     public static YHttpClient getInstance() {
         if (instance == null) {

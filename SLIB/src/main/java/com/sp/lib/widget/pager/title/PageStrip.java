@@ -49,6 +49,7 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
      */
     private OnTabClick onTabClick = new OnTabClick();
 
+    OnTitleChangeListener mOnTitleChangeListener;
 
     private ViewPager.OnPageChangeListener mOnPageChangeListener;
 
@@ -208,5 +209,11 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
 
     public int getTabCount() {
         return tabs.size();
+    }
+
+    public interface OnTitleChangeListener {
+        public void onSelected(int position, IPagerTab tab);
+
+        public void onUnSelected(int position, IPagerTab tab);
     }
 }

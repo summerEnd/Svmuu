@@ -1,7 +1,9 @@
 package com.yjy998.entity;
 
-/**
- * Created by user1 on 2015/4/28.
- */
 public class Rank {
+    public String user_id;
+    public double rate;
+    public String update_time;
+    public String nick;
+    public String prod_id;
 }

@@ -1,4 +1,4 @@
-package com.yjy998.ui.activity.other;
+package com.yjy998.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,6 +19,7 @@ import com.yjy998.common.ImageOptions;
 import com.yjy998.ui.activity.MainActivity;
 import com.yjy998.ui.activity.apply.ApplyActivity;
 import com.yjy998.ui.activity.my.business.BusinessActivity;
+import com.yjy998.ui.activity.other.BaseFragment;
 import com.yjy998.ui.activity.other.pay.RechargeActivity;
 import com.yjy998.ui.activity.other.pay.YbPayFragment;
 
@@ -67,6 +68,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         findViewById(R.id.realGame).setOnClickListener(this);
         findViewById(R.id.center).setOnClickListener(this);
         findViewById(R.id.help).setOnClickListener(this);
+        findViewById(R.id.about).setOnClickListener(this);
         refresh();
 
     }
@@ -139,6 +141,10 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
             case R.id.help: {
                 startActivity(new Intent(getActivity(), MainActivity.class)
                         .putExtra(MainActivity.EXTRA_CHECK_TAB_ID, MainActivity.ID_MORE));
+                break;
+            }
+            case R.id.about: {
+                startActivity(new Intent(getActivity(), About.class));
                 break;
             }
         }

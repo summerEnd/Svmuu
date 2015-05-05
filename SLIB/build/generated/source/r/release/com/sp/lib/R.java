@@ -677,8 +677,9 @@ containing a value of this type.
         public static int pushmsg_center_pull_down_update_time=0x7f0a001e;
         public static int pushmsg_center_pull_release_text=0x7f0a001f;
         public static int pushmsg_center_pull_up_text=0x7f0a0020;
-        public static int xsearch_loading=0x7f0a0021;
-        public static int yes=0x7f0a0022;
+        public static int request_is_failed=0x7f0a0021;
+        public static int xsearch_loading=0x7f0a0022;
+        public static int yes=0x7f0a0023;
     }
     public static final class style {
         public static int Widget=0x7f0b0000;

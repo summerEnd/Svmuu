@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    style="@style/dialogPadding"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right">
+
+        <ImageView
+            android:id="@+id/closeButton"
+            android:layout_width="@dimen/dimen_40px"
+            android:layout_height="@dimen/dimen_40px"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_close" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:paddingLeft="@dimen/dimen_72px"
+        android:paddingRight="@dimen/dimen_72px"
+        android:paddingTop="@dimen/dimen_11px"
+        android:paddingBottom="@dimen/dimen_11px"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/login_logo" />
+
+    <EditText
+        android:layout_marginTop="@dimen/dimen_50px"
+        android:id="@+id/phoneEdit"
+        android:inputType="phone"
+        style="@style/loginDialogEditTextStyle"
+        android:drawableLeft="@drawable/ic_phone"
+        android:hint="@string/hint_phone" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:maxLength="6"
+            android:id="@+id/yzmEdit"
+            android:drawableLeft="@drawable/ic_yzm"
+            android:hint="@string/hint_yzm"
+            style="@style/loginDialogEditTextStyle" />
+
+        <TextView
+            android:layout_marginRight="@dimen/loginDialog_edit_padding_horizontal"
+            android:layout_marginLeft="@dimen/loginDialog_edit_padding_horizontal"
+            android:id="@+id/resendText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:text="重新发送（25）" />
+    </FrameLayout>
+    <EditText
+        android:layout_marginTop="@dimen/dimen_15px"
+        android:inputType="textPassword"
+        android:id="@+id/passwordEdit"
+        android:drawableLeft="@drawable/ic_new_password"
+        android:hint="@string/hint_new_password"
+        style="@style/loginDialogEditTextStyle" />
+
+
+    <Button
+        android:layout_marginTop="@dimen/dimen_38px"
+        android:id="@+id/confirmButton"
+        style="@style/blueButton.big"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm" />
+
+</LinearLayout>

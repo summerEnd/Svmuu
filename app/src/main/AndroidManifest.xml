@@ -89,6 +89,14 @@
             android:name=".ui.activity.test.TestRsa"
             android:label="@string/title_activity_recharge" >
         </activity>
+        <activity
+            android:name=".ui.activity.MessageActivity"
+            android:label="@string/title_activity_message" >
+        </activity>
+        <activity
+            android:name=".ui.activity.About"
+            android:label="@string/title_activity_abount" >
+        </activity>
     </application>
 
 </manifest>

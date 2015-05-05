@@ -44,5 +44,11 @@ public class TwoTextItem extends LinearLayout {
         array.recycle();
     }
 
+    public void setText(String text) {
+        textViewValue.setText(text);
+    }
 
+    public void setText(int resId) {
+        textViewValue.setText(resId);
+    }
 }

@@ -21,7 +21,7 @@ public class LockActivity extends YJYActivity {
             public boolean tryUnLock() {
                 boolean equals = "456".equals(getSecret());
                 if (equals) {
-                    AppDelegate.getInstance().unLockScreen();
+                    AppDelegate.getInstance().setEnterBackground(false);
                     finish();
                 }
                 return equals;
@@ -31,6 +31,6 @@ public class LockActivity extends YJYActivity {
 
     @Override
     public void onBackPressed() {
-
+        //什么也不做，只是为了拦截返回键
     }
 }

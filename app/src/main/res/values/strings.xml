@@ -22,6 +22,7 @@
     <string name="login">登录</string>
     <string name="hint_phone">手机号码</string>
     <string name="hint_password">密码</string>
+    <string name="hint_new_password">新密码</string>
     <string name="hint_repeat_password">重复密码</string>
     <string name="hint_yzm">验证码</string>
     <string name="protocolText">注册代表您同意《网上申请用户协议》</string>
@@ -154,6 +155,16 @@
     <string name="re_login">重新登录</string>
     <string name="get_info">获取用户信息...</string>
     <string name="remain_money_s">账户余额：￥%s</string>
+    <string name="login_fail">登录失败</string>
+    <string name="register_fail">注册失败</string>
+    <string name="game_start_end_s">赛事起止时间：%s</string>
+    <string name="Elite">精英赛</string>
+    <string name="sea_race">海选赛</string>
+    <string name="normal_race">普通赛</string>
+    <string name="unknow">未知</string>
+    <string name="rate_f">%.2f%%</string>
+    <string name="new_price_s">最新价：%s</string>
+    <string name="average_price_s">均价：%s</string>
     <string-array name="numbers">
         <item>①</item>
         <item>②</item>
@@ -163,4 +174,8 @@
         <item>⑥</item>
         <item>⑦</item>
     </string-array>
+    <string name="title_activity_message">MessageActivity</string>
+    <string name="title_activity_abount">关于我们</string>
+    <string name="about_text">&#160;&#160;&#160;&#160;&#160;&#160;&#160;易交易（www.yjy998.com）以先进的互联网技术为支撑，致力于倡导新型资金融合模式，整合金融业与其他金融机构的关系，建立开放共享的互联网金融平台，为投资者在证券、基金、期货、信托、私募等领域提供更低成本、更快速度、更小风险、更高效益的投资通道。</string>
+    <string name="curVersion_s">当前版本：%s</string>
 </resources>

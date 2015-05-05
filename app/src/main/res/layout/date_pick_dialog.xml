@@ -35,7 +35,7 @@
             android:gravity="center"
             android:padding="10dp"
             android:textSize="@dimen/text_28px"
-            android:background="@drawable/date_picker_button"
+            android:background="@drawable/dialog_bottom_button"
             android:textColor="@color/textColorDeepGray"
             android:layout_height="wrap_content"
             android:text="@string/cancel" />
@@ -49,7 +49,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:padding="10dp"
-            android:background="@drawable/date_picker_button"
+            android:background="@drawable/dialog_bottom_button"
             android:textColor="@color/textColorBlue"
             android:layout_height="wrap_content"
             android:text="@string/confirm" />

@@ -2,10 +2,8 @@ package com.yjy998.ui.activity.other;
 
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -15,10 +13,9 @@ import com.sp.lib.widget.slide.menu.MenuDrawer;
 import com.sp.lib.widget.slide.menu.Position;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
+import com.yjy998.ui.activity.MenuFragment;
 import com.yjy998.ui.activity.YJYActivity;
 import com.yjy998.ui.pop.LoginRegisterWindow;
-
-import static android.view.ViewGroup.LayoutParams;
 
 public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClick {
     private ViewGroup layoutContainer;

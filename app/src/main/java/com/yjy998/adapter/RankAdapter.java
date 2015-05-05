@@ -36,6 +36,7 @@ public class RankAdapter extends ViewHolderAdapter<Rank, Object> {
     @Override
     public void displayView(View convertView, Object holder, int position) {
         ViewHolder vHolder = (ViewHolder) holder;
+        Rank rank = getItem(position);
         switch (position) {
             case 0: {
                 showRankImage(vHolder, R.drawable.ic_no1);
@@ -54,6 +55,8 @@ public class RankAdapter extends ViewHolderAdapter<Rank, Object> {
                 vHolder.rankText.setText(String.valueOf(position + 1));
             }
         }
+        vHolder.profitText.setText(convertView.getContext().getString(R.string.rate_f, (float)rank.rate * 100));
+        vHolder.nameText.setText(rank.nick);
     }
 
     private void showRankImage(ViewHolder holder, int image) {

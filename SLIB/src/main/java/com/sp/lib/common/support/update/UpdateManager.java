@@ -1,22 +1,21 @@
 package com.sp.lib.common.support.update;
 
 /**
- * update the app
+ * app检查更新
  */
 public class UpdateManager {
 
-    public static void start(Callback callback, UpdateHandler handler) {
-        handler.setUrl(callback.getDownloadUrl());
+    public static void start(Callback callback) {
         if (!callback.isNewestVersion()) {
-            handler.noticeNewest();
+            callback.noticeNewest();
             return;
         }
 
 
         if (callback.forceUpdate()) {
-            handler.noticeForceUpdate();
+            callback.noticeForceUpdate();
         } else {
-            handler.noticeUpdate();
+            callback.noticeUpdate();
         }
     }
 
@@ -35,5 +34,17 @@ public class UpdateManager {
          * 获取下载链接
          */
         public String getDownloadUrl();
+
+        /**
+         * 通知当前版本为最新版本
+         */
+        public void noticeNewest();
+
+        /**
+         * 通知用户更新，并不执行更新
+         */
+        public void noticeUpdate();
+
+        public void noticeForceUpdate();
     }
 }

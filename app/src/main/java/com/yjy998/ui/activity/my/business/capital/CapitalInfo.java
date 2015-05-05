@@ -157,7 +157,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
             if (TextUtils.isEmpty(code) || code.length() < 4) {
                 return;
             }
-            YHttpClient.getInstance().getStockInfo(code, new YHttpHandler() {
+            YHttpClient.getInstance().getStockInfo(code, new YHttpHandler(false) {
                 @Override
                 protected void onStatusCorrect(Response response) {
 

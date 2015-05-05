@@ -209,5 +209,19 @@
         </LinearLayout>
 
         <View style="@style/horizontalLine.homeMenu" />
+
+        <LinearLayout
+            android:id="@+id/about"
+            style="@style/mainMenu.clickItem">
+
+            <ImageView
+                style="@style/mainMenuClickItemIconStyle"
+                android:src="@drawable/s_left_about" />
+
+            <TextView
+                style="@style/mainMenuClickItemTextStyle"
+                android:text="@string/title_activity_abount" />
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

@@ -31,9 +31,10 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
     private TextView protocolText;
     private Button confirmButton;
     TimeTicker countDownTime;
-
+    private Context context;
     public RegisterDialog(Context context) {
         super(context);
+        this.context=context;
     }
 
     @Override
@@ -57,6 +58,11 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
                     @Override
                     protected void onStatusCorrect(Response response) {
                         dismiss();
+                    }
+
+                    @Override
+                    protected void onStatusFailed(Response response) {
+                        YAlertDialog.show(context, context.getString(R.string.register_fail), response.message);
                     }
 
                     @Override
@@ -94,7 +100,6 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
         findViewById(R.id.closeButton).setOnClickListener(this);
         protocolText.setText(getProtocol());
         countDownTime = new CodeCountDown(60);
-        getCode();
     }
 
     /**

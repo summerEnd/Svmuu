@@ -9,7 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.sp.lib.common.support.net.client.SRequest;
 import com.yjy998.R;
+import com.yjy998.http.Response;
+import com.yjy998.http.YHttpClient;
+import com.yjy998.http.YHttpHandler;
 import com.yjy998.ui.activity.other.BaseFragment;
 import com.yjy998.ui.activity.other.NewMemberActivity;
 
@@ -46,6 +50,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         findViewById(R.id.safeLayout).setOnClickListener(this);
         findViewById(R.id.speedLayout).setOnClickListener(this);
         findViewById(R.id.proLayout).setOnClickListener(this);
+
+        getCapital();
     }
 
     @Override
@@ -99,5 +105,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     public interface HomeListener {
         public void onHomeFragmentClick(View v);
+    }
+
+    public void getCapital() {
+         SRequest request = new SRequest();
+        request.setUrl("http://mobile.yjy998.com/h5/index/loanamount");
+        YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler() {
+            @Override
+            protected void onStatusCorrect(Response response) {
+                capitalText.setText(response.data);
+            }
+        });
     }
 }

@@ -26,7 +26,7 @@ import java.util.List;
 
 public class SApplication extends Application {
     //锁屏的时间间隔
-    private final int BACK_DURATION = 10 * 1000;
+    private final int BACK_DURATION = 1000;
 
     @Override
     public void onCreate() {
@@ -114,10 +114,12 @@ public class SApplication extends Application {
      * 设置当前app是否进入后台
      */
     public void setEnterBackground(boolean background) {
-        PreferenceUtil.getPreference(AppInfo.class).edit()
-                .putBoolean(AppInfo.background, background)
-                .putLong(AppInfo.enterBackgroundTimeMillis, System.currentTimeMillis())
-                .commit();
+        SharedPreferences.Editor editor = PreferenceUtil.getPreference(AppInfo.class).edit();
+        editor.putBoolean(AppInfo.background, background);
+        if (background) {
+            editor.putLong(AppInfo.enterBackgroundTimeMillis, System.currentTimeMillis());
+        }
+        editor.commit();
     }
 
     /**
@@ -136,7 +138,4 @@ public class SApplication extends Application {
         return false;
     }
 
-    public void unLockScreen() {
-        setEnterBackground(false);
-    }
 }

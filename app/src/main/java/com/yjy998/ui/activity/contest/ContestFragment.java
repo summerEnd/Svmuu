@@ -8,15 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 
+import com.sp.lib.common.support.net.client.SRequest;
+import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.widget.pager.title.PageStrip;
 import com.yjy998.R;
 import com.yjy998.adapter.FragmentPagerAdapter;
-import com.yjy998.adapter.GameListAdapter;
+import com.yjy998.adapter.ContestListAdapter;
 import com.yjy998.entity.Contest;
+import com.yjy998.http.Response;
+import com.yjy998.http.YHttpClient;
+import com.yjy998.http.YHttpHandler;
 import com.yjy998.ui.activity.other.BaseFragment;
 import com.yjy998.ui.activity.other.BaseListFragment;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +31,15 @@ import java.util.List;
 /**
  * A simple {@link android.app.Fragment} subclass.
  */
-public class ContestFragment extends BaseFragment {
+public class ContestFragment extends BaseFragment implements ViewPager.OnPageChangeListener{
 
 
     private PageStrip pageStrip;
     private ViewPager pager;
     private BaseListFragment mGameListFragment;
     private BaseListFragment mMyGameList;
+    private ContestListAdapter allGameAdapter;
+    private ContestListAdapter myGameAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,16 +56,17 @@ public class ContestFragment extends BaseFragment {
         pageStrip = (PageStrip) getActivity().findViewById(R.id.pageStrip);
         pager = (ViewPager) getActivity().findViewById(R.id.pager);
 
-        ListAdapter listAdapter = getAdapter();
+        allGameAdapter = getAdapter();
+        myGameAdapter = getAdapter();
 
         mGameListFragment = new BaseListFragment();
         mGameListFragment.setTitle(getString(R.string.gameList));
-        mGameListFragment.setAdapter(listAdapter);
+        mGameListFragment.setAdapter(allGameAdapter);
         mGameListFragment.setOnItemClickListener(new OnGameListClick());
 
         mMyGameList = new BaseListFragment();
         mMyGameList.setTitle(getString(R.string.my_game));
-        mMyGameList.setAdapter(listAdapter);
+        mMyGameList.setAdapter(myGameAdapter);
         mMyGameList.setOnItemClickListener(new OnMyGameListClick());
 
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getChildFragmentManager());
@@ -64,16 +74,34 @@ public class ContestFragment extends BaseFragment {
         adapter.add(mMyGameList);
         pager.setAdapter(adapter);
         pageStrip.setViewPager(pager);
+        pageStrip.setPageChangeListener(this);
+        getContestList();
     }
 
-    ListAdapter getAdapter() {
+    ContestListAdapter getAdapter() {
         List<Contest> data = new ArrayList<Contest>();
-        for (int i = 0; i < 20; i++) {
-            data.add(new Contest());
-        }
-        GameListAdapter gameListAdapter = new GameListAdapter(getActivity(), data);
+        ContestListAdapter contestListAdapter = new ContestListAdapter(getActivity(), data);
 
-        return gameListAdapter;
+        return contestListAdapter;
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i2) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+        if (i==1){
+            if (myGameAdapter.getData().size()==0){
+                getMyContestList();
+            }
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
     }
 
     private class OnGameListClick implements AdapterView.OnItemClickListener {
@@ -88,5 +116,45 @@ public class ContestFragment extends BaseFragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             startActivity(new Intent(view.getContext(), ContestInfoActivity.class));
         }
+    }
+
+    /**
+     * 获取大赛列表
+     */
+    private void getContestList() {
+        SRequest request = new SRequest();
+        request.setUrl("http://mobile.yjy998.com/h5/contest/contestlist");
+        YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler() {
+            @Override
+            protected void onStatusCorrect(Response response) {
+                try {
+                    JSONArray data = new JSONArray(response.data);
+                    JsonUtil.getArray(data, Contest.class, allGameAdapter.getData());
+                    allGameAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * 获取我参加的大赛列表
+     */
+    private void getMyContestList() {
+        SRequest request = new SRequest();
+        request.setUrl("http://mobile.yjy998.com/h5/contest/mycontest");
+        YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler() {
+            @Override
+            protected void onStatusCorrect(Response response) {
+                try {
+                    JSONArray data = new JSONArray(response.data);
+                    JsonUtil.getArray(data, Contest.class, myGameAdapter.getData());
+                    myGameAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

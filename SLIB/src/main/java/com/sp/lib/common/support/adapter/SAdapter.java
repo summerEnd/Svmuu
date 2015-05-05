@@ -24,6 +24,10 @@ public abstract class SAdapter<T> extends BaseAdapter {
         return mData.size();
     }
 
+    public List<T> getData(){
+        return mData;
+    }
+
     @Override
     public final T getItem(int position) {
         return mData.get(position);
