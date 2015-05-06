@@ -3,9 +3,11 @@ package com.yjy998.adapter;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
+import com.yjy998.entity.Contest;
 import com.yjy998.entity.Contract;
 
 import java.util.LinkedList;
@@ -19,7 +21,7 @@ public class ContractPagerAdapter extends PagerAdapter {
 
     public ContractPagerAdapter(List<Contract> contracts) {
         this.contracts = contracts;
-        if (contracts.isEmpty()) {
+        if (contracts == null || contracts.isEmpty()) {
             pageCount = 0;
         } else {
             pageCount = (contracts.size() - 1) / 3 + 1;
@@ -45,12 +47,7 @@ public class ContractPagerAdapter extends PagerAdapter {
             holder = (ViewHolder) convertView.getTag();
         } catch (IndexOutOfBoundsException e) {
             convertView = (ViewGroup) View.inflate(container.getContext(), R.layout.item_contract, null);
-            convertView.getChildAt(0).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ContextUtil.toast_debug(v);
-                }
-            });
+
             holder = new ViewHolder();
             holder.item1 = convertView.findViewById(R.id.item1);
             holder.item2 = convertView.findViewById(R.id.item2);
@@ -59,16 +56,27 @@ public class ContractPagerAdapter extends PagerAdapter {
             views.add(convertView);
         }
 
-        if (position == pageCount - 1) {
-            //最后一页，要根据比赛数量，来隐藏内容
-            int visiblePage = contracts.size() - (pageCount - 1) * 3;
-            for (int i = 0; i < 3; i++) {
-                convertView.getChildAt(i).setVisibility(i < visiblePage ? View.VISIBLE : View.INVISIBLE);
-            }
-        }
+        int dataPosition = position * 3;
+        initItem(holder.item1, dataPosition);
+        initItem(holder.item2, dataPosition + 1);
+        initItem(holder.item3, dataPosition + 2);
 
         container.addView(convertView);
         return convertView;
+    }
+
+    private void initItem(View item, int dataPosition) {
+        try {
+            Contract contract = contracts.get(dataPosition);
+            TextView contractNo = (TextView) item.findViewById(R.id.contractNo);
+            TextView typeText = (TextView) item.findViewById(R.id.typeText);
+            contractNo.setText(contract.contract_no);
+            typeText.setText("T+" + contract.type);
+            item.setVisibility(View.VISIBLE);
+        } catch (IndexOutOfBoundsException e) {
+            item.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     @Override

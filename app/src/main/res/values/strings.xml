@@ -93,7 +93,7 @@
     <string name="introduce">玩法介绍</string>
     <string name="change_group">换组金额</string>
     <string name="countCapital__">累计配资：</string>
-    <string name="myGame_d">我的大赛(%d)</string>
+    <string name="myContest_d">我的大赛(%d)</string>
     <string name="myContract_d">当前合约(%d)</string>
     <string name="help_info">常见问题</string>
     <string name="title_activity_change_data">ChangeData</string>
@@ -178,4 +178,11 @@
     <string name="title_activity_abount">关于我们</string>
     <string name="about_text">&#160;&#160;&#160;&#160;&#160;&#160;&#160;易交易（www.yjy998.com）以先进的互联网技术为支撑，致力于倡导新型资金融合模式，整合金融业与其他金融机构的关系，建立开放共享的互联网金融平台，为投资者在证券、基金、期货、信托、私募等领域提供更低成本、更快速度、更小风险、更高效益的投资通道。</string>
     <string name="curVersion_s">当前版本：%s</string>
+    <string name="warn">温馨提示</string>
+    <string name="find_new_version">发现新版本！</string>
+    <string name="download_failed">下载失败！</string>
+    <string name="income_rate_f">收益率%.2f%%</string>
+    <string name="title_activity_contract_info">ContractInfo</string>
+    <string name="confirm_logout">确定退出？</string>
+    <string name="userName">用户名</string>
 </resources>

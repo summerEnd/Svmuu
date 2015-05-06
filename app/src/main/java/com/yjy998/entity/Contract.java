@@ -1,7 +1,12 @@
 package com.yjy998.entity;
 
 
-public class Contract {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class Contract implements Serializable{
     public String uid;
     public String verify_date;
     public String new_rate;
@@ -23,4 +28,6 @@ public class Contract {
     public String start_time;
     public String add_time;
     public String quan_amount;
+
+
 }

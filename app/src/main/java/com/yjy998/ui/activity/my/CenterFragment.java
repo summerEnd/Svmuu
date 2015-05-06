@@ -11,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.yjy998.AppDelegate;
 import com.yjy998.R;
+import com.yjy998.account.Assent;
+import com.yjy998.account.User;
 import com.yjy998.adapter.ContractPagerAdapter;
 import com.yjy998.adapter.GamePagerAdapter;
 import com.yjy998.common.ImageOptions;
@@ -32,6 +35,8 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
     private TwoTextItem moneyText;
     private TextView goldIngotText;
     private TextView caopanTicketsText;
+    private TextView contractAmount;
+    private TextView contestAmount;
     private ViewPager contractPager;
     private ViewPager gamePager;
 
@@ -75,26 +80,64 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
     private void initialize() {
         avatarImage = (ImageView) findViewById(R.id.avatarImage);
         avatarImage.setOnClickListener(this);
-        ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance());
+
 
         telText = (TextView) findViewById(R.id.telText);
         moneyText = (TwoTextItem) findViewById(R.id.moneyText);
         goldIngotText = (TextView) findViewById(R.id.goldIngotText);
         caopanTicketsText = (TextView) findViewById(R.id.caopanTicketsText);
+        contractAmount = (TextView) findViewById(R.id.contractAmount);
+        contestAmount = (TextView) findViewById(R.id.contestAmount);
         findViewById(R.id.buyIn).setOnClickListener(this);
         findViewById(R.id.sellOut).setOnClickListener(this);
         findViewById(R.id.recharge).setOnClickListener(this);
         contractPager = (ViewPager) findViewById(R.id.contractPager);
         gamePager = (ViewPager) findViewById(R.id.gamePager);
+        refresh();
+    }
 
-        ArrayList<Contract> arrayList = new ArrayList<Contract>();
-        ArrayList<Contest> contestList = new ArrayList<Contest>();
-        for (int i = 0; i < 7; i++) {
-            arrayList.add(new Contract());
-            contestList.add(new Contest());
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        refresh();
+    }
+
+    public void refresh() {
+        if (!isVisible()) {
+            return;
         }
-        contractPager.setAdapter(new ContractPagerAdapter(arrayList));
-        gamePager.setAdapter(new GamePagerAdapter(contestList));
+
+        if (AppDelegate.getInstance().isUserLogin()) {
+
+            User user = AppDelegate.getInstance().getUser();
+
+            Assent assent = user.assent;
+            telText.setText(assent.name);
+            moneyText.setText("￥" + assent.avalaible_amount);
+            goldIngotText.setText(getString(R.string.GoldIngot_s, assent.yuanbao_total_amount));
+            caopanTicketsText.setText(getString(R.string.caopan_s, assent.quan_total_amount));
+
+            ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance());
+
+            ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
+            ArrayList<Contest> myContests = AppDelegate.getInstance().getUser().myContests;
+            contestAmount.setText(getString(R.string.myContest_d, myContests != null ? myContests.size() : 0));
+            contractAmount.setText(getString(R.string.myContract_d, myContracts != null ? myContracts.size() : 0));
+
+            contractPager.setAdapter(new ContractPagerAdapter(myContracts));
+            gamePager.setAdapter(new GamePagerAdapter(myContests));
+        } else {
+            telText.setText(R.string.userName);
+            moneyText.setText("￥0");
+            goldIngotText.setText(getString(R.string.GoldIngot_s, "0"));
+            caopanTicketsText.setText(getString(R.string.caopan_s, "0"));
+            ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance());
+            contestAmount.setText(getString(R.string.myContest_d, 0));
+            contractAmount.setText(getString(R.string.myContract_d, 0));
+            contractPager.setVisibility(View.GONE);
+            gamePager.setVisibility(View.GONE);
+        }
+
+
     }
 
 }

@@ -12,12 +12,14 @@
         style="@style/center_pager_item">
 
         <TextView
+            android:id="@+id/areaText"
             style="@style/centerItemText1"
             android:text="美国赛区" />
 
         <TextView
+            android:id="@+id/rateText"
             style="@style/centerItemText1"
-            android:text="收益率100%" />
+            android:text="@string/income_rate_f" />
 
         <LinearLayout android:baselineAligned="true" style="@style/centerItemLayout">
 
@@ -26,6 +28,7 @@
                 android:text="@string/di" />
 
             <TextView
+                android:id="@+id/rankText"
                 style="@style/centerItemText4"
                 android:text="1" />
 
@@ -42,12 +45,14 @@
         android:id="@+id/item2">
 
         <TextView
+            android:id="@id/areaText"
             style="@style/centerItemText1"
             android:text="美国赛区" />
 
         <TextView
+            android:id="@id/rateText"
             style="@style/centerItemText1"
-            android:text="收益率100%" />
+            android:text="@string/income_rate_f" />
 
         <LinearLayout style="@style/centerItemLayout">
 
@@ -56,6 +61,7 @@
                 android:text="@string/di" />
 
             <TextView
+                android:id="@id/rankText"
                 style="@style/centerItemText4"
                 android:text="2" />
 
@@ -72,12 +78,14 @@
         android:id="@+id/item3">
 
         <TextView
+            android:id="@id/areaText"
             style="@style/centerItemText1"
             android:text="美国赛区" />
 
         <TextView
+            android:id="@id/rateText"
             style="@style/centerItemText1"
-            android:text="收益率100%" />
+            android:text="@string/income_rate_f" />
 
         <LinearLayout style="@style/centerItemLayout">
 
@@ -86,6 +94,7 @@
                 android:text="@string/di" />
 
             <TextView
+                android:id="@id/rankText"
                 style="@style/centerItemText4"
                 android:text="3" />
 

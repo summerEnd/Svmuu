@@ -16,11 +16,16 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sp.lib.activity.album.PhotoAlbumActivity;
 import com.sp.lib.activity.dialog.ListDialog;
 import com.sp.lib.common.util.ImageUtil;
+import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.common.ImageOptions;
+import com.yjy998.http.Response;
+import com.yjy998.http.YHttpClient;
+import com.yjy998.http.YHttpHandler;
 import com.yjy998.ui.activity.other.SecondActivity;
 import com.yjy998.ui.pop.DatePickDialog;
 import com.yjy998.ui.pop.PickCity;
+import com.yjy998.ui.pop.YAlertDialogTwoButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,7 +41,6 @@ public class ChangeData extends SecondActivity {
     private TextView educationText;
     private TextView handPasswordText;
     private EditText expEdit;
-    private Button logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,7 @@ public class ChangeData extends SecondActivity {
         educationText = (TextView) findViewById(R.id.educationText);
         handPasswordText = (TextView) findViewById(R.id.handPasswordText);
         expEdit = (EditText) findViewById(R.id.expEdit);
-        logout = (Button) findViewById(R.id.logout);
+        findViewById(R.id.logout).setOnClickListener(this);
         findViewById(R.id.birthDayLayout).setOnClickListener(this);
         findViewById(R.id.genderLayout).setOnClickListener(this);
         findViewById(R.id.pickAddress).setOnClickListener(this);
@@ -97,8 +101,26 @@ public class ChangeData extends SecondActivity {
                 dialog.show();
                 break;
             }
-            case R.id.pickAddress:{
+            case R.id.pickAddress: {
                 new PickCity(this).show();
+                break;
+            }
+            case R.id.logout: {
+                YAlertDialogTwoButton dialog = new YAlertDialogTwoButton(this);
+                dialog.setButton1(R.string.logout, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        YHttpClient.getInstance().logout(new YHttpHandler() {
+                            @Override
+                            protected void onStatusCorrect(Response response) {
+                                AppDelegate.getInstance().logout();
+                            }
+                        });
+                    }
+                });
+                dialog.setButton2(R.string.cancel, null);
+                dialog.setMessage(getString(R.string.confirm_logout));
+                dialog.show();
                 break;
             }
         }

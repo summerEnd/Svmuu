@@ -6,7 +6,7 @@ package com.sp.lib.common.support.update;
 public class UpdateManager {
 
     public static void start(Callback callback) {
-        if (!callback.isNewestVersion()) {
+        if (callback.isNewestVersion()) {
             callback.noticeNewest();
             return;
         }

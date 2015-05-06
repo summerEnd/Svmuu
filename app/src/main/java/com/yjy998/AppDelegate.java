@@ -31,6 +31,11 @@ public class AppDelegate extends SApplication {
         return instance;
     }
 
+    public void logout(){
+        setLogined(false);
+        setUser(null);
+    }
+
     public User getUser() {
         if (mSharedUser == null) {
             mSharedUser = new User();

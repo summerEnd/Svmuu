@@ -12,10 +12,12 @@
         style="@style/center_pager_item">
 
         <TextView
+            android:id="@+id/contractNo"
             style="@style/centerItemText1"
             android:text="NO.22312" />
 
         <TextView
+            android:id="@+id/typeText"
             style="@style/centerItemText1"
             android:text="T+9盈亏" />
 
@@ -29,10 +31,12 @@
         android:id="@+id/item2">
 
         <TextView
+            android:id="@id/contractNo"
             style="@style/centerItemText1"
             android:text="NO.22312" />
 
         <TextView
+            android:id="@id/typeText"
             style="@style/centerItemText1"
             android:text="T+9盈亏" />
 
@@ -46,10 +50,12 @@
         style="@style/center_pager_item">
 
         <TextView
+            android:id="@id/contractNo"
             style="@style/centerItemText1"
             android:text="NO.22312" />
 
         <TextView
+            android:id="@id/typeText"
             style="@style/centerItemText1"
             android:text="T+9盈亏" />
 

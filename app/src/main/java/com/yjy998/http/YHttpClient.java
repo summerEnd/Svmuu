@@ -132,4 +132,9 @@ public final class YHttpClient {
         request.put("code", 6);
         post(context, request, handler);
     }
+
+    public void logout(YHttpHandler handle) {
+        SRequest request = new SRequest("http://www.yjy998.com/account/logout?exit=1");
+        post(request, handle);
+    }
 }

@@ -36,6 +36,7 @@ public class Downloader {
      * @return
      */
     public long downloadWithNotification(String downloadUrl, File saveDir, String fileName, String notifyCationTitle, String notifyCationMessage) {
+
         Uri uri = Uri.parse(downloadUrl);
 
         DownloadManager.Request request = new DownloadManager.Request(uri);

@@ -21,7 +21,7 @@ public class RSA {
     }
 
     public static String encrypt(String source, RSAPublicKey publicKey) throws Exception {
-        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+        Cipher cipher = Cipher.getInstance("RSA","BC");
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
         // 模长
         int key_len = publicKey.getModulus().bitLength() / 8;
@@ -32,15 +32,15 @@ public class RSA {
         for (String s : datas) {
             mi += bcd2Str(cipher.doFinal(s.getBytes()));
         }
-//        return mi;
-        return testRsa;
+        return mi;
+//        return testRsa;
     }
 
     private static RSAPublicKey getPublicKey(String modulus, String exponent) {
         try {
             BigInteger b1 = new BigInteger(modulus, 16);
             BigInteger b2 = new BigInteger(exponent, 16);
-            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA","BC");
             RSAPublicKeySpec keySpec = new RSAPublicKeySpec(b1, b2);
             return (RSAPublicKey) keyFactory.generatePublic(keySpec);
         } catch (Exception e) {

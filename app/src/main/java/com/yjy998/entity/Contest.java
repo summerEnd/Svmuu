@@ -3,7 +3,7 @@ package com.yjy998.entity;
 import com.yjy998.R;
 
 public class Contest {
-    public String profitRatio;
+    public float profitRatio;
     public String area;
     //比赛id
     public String id;

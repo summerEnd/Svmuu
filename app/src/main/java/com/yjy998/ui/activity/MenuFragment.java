@@ -93,7 +93,12 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
             ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance(getResources().getDimensionPixelOffset(R.dimen.avatarSize)));
 
         } else {
+            phoneText.setText(getString(R.string.userName));
+            remainMoneyText.setText(getString(R.string.remain_money_s, 0));
+            goldIngotText.setText(getString(R.string.GoldIngot_s, 0));
+            caopanTickets.setText(getString(R.string.caopan_s, 0));
 
+            ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance(getResources().getDimensionPixelOffset(R.dimen.avatarSize)));
         }
     }
 

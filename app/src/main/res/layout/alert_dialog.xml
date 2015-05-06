@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="登录失败" />
+        android:text="@string/warn" />
 
     <TextView
         android:layout_marginTop="@dimen/dimen_8px"

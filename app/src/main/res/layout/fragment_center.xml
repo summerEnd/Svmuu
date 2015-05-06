@@ -130,6 +130,7 @@
         </FrameLayout>
 
         <TextView
+            android:id="@+id/contractAmount"
             android:paddingLeft="@dimen/homeLogined_pd_horizontal"
             android:paddingRight="@dimen/homeLogined_pd_horizontal"
             android:paddingTop="7dp"
@@ -148,12 +149,13 @@
 
 
         <TextView
+            android:id="@+id/contestAmount"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/homeLogined_pd_horizontal"
             android:paddingRight="@dimen/homeLogined_pd_horizontal"
             android:paddingTop="7dp"
             android:paddingBottom="7dp"
-            android:text="@string/myGame_d"
+            android:text="@string/myContest_d"
             android:background="#EEEEEE"
             android:textColor="@color/textColorBlack"
             android:textSize="@dimen/text_24px"

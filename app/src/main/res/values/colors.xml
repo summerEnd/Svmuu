@@ -25,6 +25,7 @@
     <color name="mainMenuColor">#2F2F39</color>
 
     <color name="deepBlue">#0F4279</color>
+    <drawable name="transparent">#0000</drawable>
     <drawable name="actionBarBackground">@color/deepBlue</drawable>
     <drawable name="windowBackground">#F0F0F0</drawable>
 </resources>

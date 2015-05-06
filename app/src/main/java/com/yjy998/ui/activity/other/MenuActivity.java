@@ -151,10 +151,17 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
 
     public void toggle() {
         if (mMenuDrawer.isMenuVisible()) {
-            mMenuDrawer.closeMenu();
+            close();
         } else {
-            mMenuDrawer.openMenu();
+            open();
+
         }
+    }
+
+    public void open() {
+        mMenuFragment.refresh();
+        mMenuDrawer.openMenu();
+
     }
 
     /**

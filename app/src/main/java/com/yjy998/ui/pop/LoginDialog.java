@@ -21,7 +21,7 @@ import com.yjy998.http.YHttpHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginDialog extends Dialog implements View.OnClickListener {
+public class LoginDialog extends Dialog implements View.OnClickListener, RSAUtil.Callback {
     private EditText phoneEdit;
     private EditText passwordEdit;
     private Button confirmButton;
@@ -46,60 +46,21 @@ public class LoginDialog extends Dialog implements View.OnClickListener {
             case R.id.confirmButton: {
                 confirmButton.setText(R.string.login_ing);
                 confirmButton.requestFocus();
-                //获取Rsa
-                YHttpClient.getInstance().getRsa(new YHttpHandler() {
-                    @Override
-                    protected void onStatusCorrect(Response response) {
-                        try {
-                            JSONObject data = new JSONObject(response.data);
-                            String password = passwordEdit.getText().toString();
-                            String rsaPsw = RSA.encrypt(password, data.getString("modulus"), data.getString("exponent"));
-                            String phone = phoneEdit.getText().toString();
-
-                            SRequest request = new SRequest();
-                            request.put("login_name", phone);
-                            request.put("login_passwd", password);
-                            request.put("login_rsapwd", rsaPsw);
-
-                            //登录
-                            YHttpClient.getInstance().login(getContext(), request, new YHttpHandler() {
-                                @Override
-                                public void onFinish() {
-                                    super.onFinish();
-                                    confirmButton.setText(R.string.re_login);
-                                }
-
-                                @Override
-                                protected void onStatusFailed(Response response) {
-                                    YAlertDialog.show(context, context.getString(R.string.login_fail), response.message);
-                                }
-
-                                @Override
-                                protected void onStatusCorrect(Response response) {
-                                    getUserInfo();
-                                }
-                            });
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                });
-
-
+                RSAUtil.sign(getContext(), passwordEdit.getText().toString(), this);
                 break;
             }
+
             case R.id.closeButton: {
                 dismiss();
                 break;
             }
+
             case R.id.forgetText: {
                 new ForgetPasswordDialog(context).show();
                 break;
             }
         }
+
     }
 
     void getUserInfo() {
@@ -136,5 +97,34 @@ public class LoginDialog extends Dialog implements View.OnClickListener {
             passwordEdit.setText("ldp8718");
         }
 
+    }
+
+    @Override
+    public void onResult(String rsa) {
+        String phone = phoneEdit.getText().toString();
+        String password = passwordEdit.getText().toString();
+        SRequest request = new SRequest();
+        request.put("login_name", phone);
+        request.put("login_passwd", password);
+        request.put("login_rsapwd", rsa);
+
+        //登录
+        YHttpClient.getInstance().login(getContext(), request, new YHttpHandler() {
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                confirmButton.setText(R.string.re_login);
+            }
+
+            @Override
+            protected void onStatusFailed(Response response) {
+                YAlertDialog.show(context, context.getString(R.string.login_fail), response.message);
+            }
+
+            @Override
+            protected void onStatusCorrect(Response response) {
+                getUserInfo();
+            }
+        });
     }
 }

@@ -97,6 +97,10 @@
             android:name=".ui.activity.About"
             android:label="@string/title_activity_abount" >
         </activity>
+        <activity
+            android:name=".ui.activity.ContractInfo"
+            android:label="@string/title_activity_contract_info" >
+        </activity>
     </application>
 
 </manifest>

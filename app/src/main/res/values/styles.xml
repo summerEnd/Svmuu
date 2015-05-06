@@ -154,6 +154,15 @@
         <item name="android:padding">@dimen/dimen_11px</item>
     </style>
 
+    <style name="contractInfoLayoutStyle">
+        <item name="android:background">@color/lightGray</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:padding">@dimen/dimen_11px</item>
+    </style>
+
     <style name="TwoTextItem" parent="android:TextAppearance">
         <item name="android:textSize">@dimen/text_22px</item>
         <item name="android:text">test</item>
@@ -319,7 +328,8 @@
 
     <style name="center_pager_item">
         <item name="android:clickable">true</item>
-        <item name="android:padding">12dp</item>
+        <item name="android:paddingTop">@dimen/dimen_24px</item>
+        <item name="android:paddingBottom">@dimen/dimen_24px</item>
         <item name="android:background">@drawable/clicked_white</item>
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
@@ -329,7 +339,8 @@
     </style>
 
     <style name="centerItemText1" parent="wrapLayout">
-        <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/text_22px</item>
         <item name="android:textColor">@color/textColorBlack</item>
     </style>
 
