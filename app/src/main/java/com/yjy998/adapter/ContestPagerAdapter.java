@@ -14,15 +14,15 @@ import com.yjy998.ui.activity.contest.ContestInfoActivity;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GamePagerAdapter extends PagerAdapter implements View.OnClickListener {
+public class ContestPagerAdapter extends PagerAdapter implements View.OnClickListener {
 
     private List<Contest> contests;
     int pageCount;
     LinkedList<View> views = new LinkedList<View>();
 
-    public GamePagerAdapter(List<Contest> contests) {
+    public ContestPagerAdapter(List<Contest> contests) {
         this.contests = contests;
-        if ( contests == null||contests.isEmpty()) {
+        if (contests == null || contests.isEmpty()) {
             pageCount = 0;
         } else {
             pageCount = (contests.size() - 1) / 3 + 1;
@@ -76,11 +76,13 @@ public class GamePagerAdapter extends PagerAdapter implements View.OnClickListen
             TextView rankText = (TextView) item.findViewById(R.id.rankText);
             TextView rateText = (TextView) item.findViewById(R.id.rateText);
             areaText.setText(contest.area);
-//        rankText.setText(contest.);
-            rateText.setText(item.getContext().getString(R.string.income_rate_f, contest.profitRatio*100));
+            //rankText.setText(contest.);
+            rateText.setText(item.getContext().getString(R.string.income_rate_f, contest.profitRatio * 100));
             item.setVisibility(View.VISIBLE);
+            item.setTag(contest);
         } catch (IndexOutOfBoundsException e) {
             item.setVisibility(View.INVISIBLE);
+            item.setTag(null);
         }
 
     }
@@ -92,7 +94,12 @@ public class GamePagerAdapter extends PagerAdapter implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        v.getContext().startActivity(new Intent(v.getContext(), ContestInfoActivity.class));
+        Contest contest = (Contest) v.getTag();
+        if (contest == null) {
+            return;
+        }
+        v.getContext().startActivity(new Intent(v.getContext(), ContestInfoActivity.class)
+                .putExtra("bean", contest));
     }
 
     private class ViewHolder {

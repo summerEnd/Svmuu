@@ -6,14 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import com.sp.lib.common.support.net.client.SRequest;
-import com.sp.lib.common.util.JsonUtil;
-import com.yjy998.AppDelegate;
 import com.yjy998.R;
-import com.yjy998.account.User;
-import com.yjy998.http.Response;
-import com.yjy998.http.YHttpClient;
-import com.yjy998.http.YHttpHandler;
 import com.yjy998.ui.activity.apply.ApplyFragment;
 import com.yjy998.ui.activity.contest.ContestFragment;
 import com.yjy998.ui.activity.home.HomeFragment;

@@ -2,7 +2,9 @@ package com.yjy998.entity;
 
 import com.yjy998.R;
 
-public class Contest {
+import java.io.Serializable;
+
+public class Contest implements Serializable{
     public float profitRatio;
     public String area;
     //比赛id

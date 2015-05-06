@@ -2,20 +2,16 @@ package com.yjy998.ui.pop;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sp.lib.common.support.net.client.SRequest;
-import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.common.util.time.TimeTicker;
-import com.yjy998.AppDelegate;
-import com.yjy998.BuildConfig;
 import com.yjy998.R;
-import com.yjy998.account.User;
 import com.yjy998.http.Response;
 import com.yjy998.http.YHttpClient;
 import com.yjy998.http.YHttpHandler;
@@ -23,7 +19,7 @@ import com.yjy998.http.YHttpHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ForgetPasswordDialog extends Dialog implements View.OnClickListener {
+public class ForgetPasswordDialog extends Dialog implements View.OnClickListener, RSAUtil.Callback {
 
 
     private EditText phoneEdit;
@@ -32,9 +28,10 @@ public class ForgetPasswordDialog extends Dialog implements View.OnClickListener
     private EditText passwordEdit;
     private Button confirmButton;
     TimeTicker countDownTime;
-
+    private Context context;
     public ForgetPasswordDialog(Context context) {
         super(context);
+        this.context=context;
     }
 
     @Override
@@ -48,39 +45,9 @@ public class ForgetPasswordDialog extends Dialog implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirmButton: {
-                confirmButton.setText(R.string.login_ing);
+                confirmButton.setText(R.string.op_ing);
                 confirmButton.requestFocus();
-                //获取Rsa
-                YHttpClient.getInstance().getRsa(new YHttpHandler() {
-                    @Override
-                    protected void onStatusCorrect(Response response) {
-                        try {
-
-                            JSONObject data = new JSONObject(response.data);
-                            SRequest request = new SRequest();
-                            request.setUrl("http://www.yjy998.com/account/resetloginpwd");
-                            request.put("phone", phoneEdit.getText().toString());
-                            request.put("login_pwd", passwordEdit.getText().toString());
-                            request.put("new_psw_rsa", "73c3deb2f89d08647d6311ac513a2538829ed329c1ac8413e0074ea735d0eeabffd17f08acd8bce9431802bde2e2614a0073d95fc1d80bdceb5ca9c053ccf472846acea88dab76f5c529b1efd4b4fa5e33a88e2c52c6a1cf4acf2dd1908f2850f0db502a7fe9082a60c80ee0c314a04864db55cce11900976ff293965ea7af13");
-                            request.put("re_login_pwd", passwordEdit.getText().toString());
-                            request.put("biz_sms", yzmEdit.getText().toString());
-
-                            YHttpClient.getInstance().post(getContext(), request, new YHttpHandler() {
-                                @Override
-                                protected void onStatusCorrect(Response response) {
-
-                                }
-                            });
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                });
-
-
+                RSAUtil.sign(getContext(), passwordEdit.getText().toString(), this);
                 break;
             }
             case R.id.closeButton: {
@@ -88,14 +55,13 @@ public class ForgetPasswordDialog extends Dialog implements View.OnClickListener
                 break;
             }
 
-            case R.id.resendText:{
+            case R.id.resendText: {
                 getCode();
                 break;
             }
 
         }
     }
-
 
 
     private void initialize() {
@@ -122,6 +88,30 @@ public class ForgetPasswordDialog extends Dialog implements View.OnClickListener
             @Override
             protected void onStatusCorrect(Response response) {
 
+            }
+        });
+    }
+
+    @Override
+    public void onResult(String rsa) {
+
+        SRequest request = new SRequest();
+        request.setUrl("http://www.yjy998.com/account/resetloginpwd");
+        request.put("phone", phoneEdit.getText().toString());
+        request.put("login_pwd", passwordEdit.getText().toString());
+        request.put("new_psw_rsa", rsa);
+        request.put("re_login_pwd", passwordEdit.getText().toString());
+        request.put("biz_sms", yzmEdit.getText().toString());
+
+        YHttpClient.getInstance().post(getContext(), request, new YHttpHandler() {
+            @Override
+            protected void onStatusCorrect(Response response) {
+                YAlertDialog.show(context, response.message).setOnDismissListener(new OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        dismiss();
+                    }
+                });
             }
         });
     }

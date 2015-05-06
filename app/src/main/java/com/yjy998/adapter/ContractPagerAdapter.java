@@ -1,19 +1,19 @@
 package com.yjy998.adapter;
 
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
-import com.yjy998.entity.Contest;
 import com.yjy998.entity.Contract;
+import com.yjy998.ui.activity.my.ContractInfo;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class ContractPagerAdapter extends PagerAdapter {
+public class ContractPagerAdapter extends PagerAdapter implements View.OnClickListener {
 
     private List<Contract> contracts;
     int pageCount;
@@ -52,6 +52,9 @@ public class ContractPagerAdapter extends PagerAdapter {
             holder.item1 = convertView.findViewById(R.id.item1);
             holder.item2 = convertView.findViewById(R.id.item2);
             holder.item3 = convertView.findViewById(R.id.item3);
+            holder.item1.setOnClickListener(this);
+            holder.item2.setOnClickListener(this);
+            holder.item3.setOnClickListener(this);
             convertView.setTag(holder);
             views.add(convertView);
         }
@@ -73,8 +76,10 @@ public class ContractPagerAdapter extends PagerAdapter {
             contractNo.setText(contract.contract_no);
             typeText.setText("T+" + contract.type);
             item.setVisibility(View.VISIBLE);
+            item.setTag(contract);
         } catch (IndexOutOfBoundsException e) {
             item.setVisibility(View.INVISIBLE);
+            item.setTag(null);
         }
 
     }
@@ -82,6 +87,15 @@ public class ContractPagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Contract contract= (Contract) v.getTag();
+        if (contract==null){
+            return;
+        }
+        v.getContext().startActivity(new Intent(v.getContext(), ContractInfo.class).putExtra(ContractInfo.EXTRA_CONTRACT_NO,contract.contract_no));
     }
 
     private class ViewHolder {

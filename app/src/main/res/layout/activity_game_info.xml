@@ -18,6 +18,7 @@
 
         <TextView
             android:textSize="@dimen/text_28px"
+            android:id="@+id/titleText"
             android:textColor="@color/textColorBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,6 +37,7 @@
             android:text="当前排名：" />
 
         <TextView
+            android:id="@+id/rankText"
             android:text="3"
             style="@style/gameInfoText.red" />
     </LinearLayout>
@@ -47,6 +49,7 @@
             android:text="收益率：" />
 
         <TextView
+            android:id="@+id/rateText"
             android:text="10%"
             style="@style/gameInfoText.red" />
     </LinearLayout>
@@ -54,10 +57,12 @@
     <LinearLayout style="@style/gameInfoItem">
 
         <TextView
+            android:id="@+id/stockNoText"
             style="@style/gameInfoText"
             android:text="股票：600011" />
 
         <TextView
+            android:id="@+id/stockNameText"
             android:layout_marginLeft="18dp"
             android:text="华能国际"
             style="@style/gameInfoText" />
@@ -76,6 +81,7 @@
                 android:text="股票市值：" />
 
             <TextView
+                android:id="@+id/stockValueText"
                 android:text="3768.00"
                 style="@style/gameInfoText.red" />
         </LinearLayout>
@@ -91,6 +97,7 @@
                 android:text="持股数量：" />
 
             <TextView
+                android:id="@+id/stockHoldingText"
                 android:text="1000"
                 android:textColor="@color/textColorBlue"
                 style="@style/gameInfoText" />
@@ -103,7 +110,8 @@
         android:layout_marginTop="@dimen/gameInfoMarginTop"
         android:layout_marginRight="@dimen/gameInfoHorizontalMargin"
         style="@style/gameInfoText"
-        android:text="申请日期：2015.03.01" />
+        android:id="@+id/applyDate"
+        android:text="@string/apply_date" />
 
     <View
         android:layout_width="match_parent"
@@ -124,6 +132,7 @@
         android:gravity="center">
 
         <Button
+            android:id="@+id/buyIn"
             style="@style/blueButton.big"
             android:layout_width="match_parent"
             android:text="@string/buyIn"
@@ -131,6 +140,7 @@
             android:layout_height="@dimen/round_button_height" />
 
         <Button
+            android:id="@+id/sellOut"
             android:layout_marginTop="10dp"
             style="@style/redButton.big"
             android:layout_width="match_parent"

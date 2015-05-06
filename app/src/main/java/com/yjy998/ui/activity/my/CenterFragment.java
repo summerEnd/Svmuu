@@ -13,10 +13,10 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
-import com.yjy998.account.Assent;
-import com.yjy998.account.User;
+import com.yjy998.admin.Assent;
+import com.yjy998.admin.User;
 import com.yjy998.adapter.ContractPagerAdapter;
-import com.yjy998.adapter.GamePagerAdapter;
+import com.yjy998.adapter.ContestPagerAdapter;
 import com.yjy998.common.ImageOptions;
 import com.yjy998.entity.Contract;
 import com.yjy998.entity.Contest;
@@ -58,7 +58,9 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.avatarImage: {
-                startActivity(new Intent(getActivity(), ChangeData.class));
+                if (AppDelegate.getInstance().isUserLogin()) {
+                    startActivity(new Intent(getActivity(), ChangeData.class));
+                }
                 break;
             }
             case R.id.sellOut: {
@@ -102,7 +104,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
     }
 
     public void refresh() {
-        if (!isVisible()) {
+        if (getView() == null) {
             return;
         }
 
@@ -122,9 +124,10 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             ArrayList<Contest> myContests = AppDelegate.getInstance().getUser().myContests;
             contestAmount.setText(getString(R.string.myContest_d, myContests != null ? myContests.size() : 0));
             contractAmount.setText(getString(R.string.myContract_d, myContracts != null ? myContracts.size() : 0));
-
+            contractPager.setVisibility(View.VISIBLE);
+            gamePager.setVisibility(View.VISIBLE);
             contractPager.setAdapter(new ContractPagerAdapter(myContracts));
-            gamePager.setAdapter(new GamePagerAdapter(myContests));
+            gamePager.setAdapter(new ContestPagerAdapter(myContests));
         } else {
             telText.setText(R.string.userName);
             moneyText.setText("￥0");

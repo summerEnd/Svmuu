@@ -18,6 +18,7 @@ import com.sp.lib.activity.dialog.ListDialog;
 import com.sp.lib.common.util.ImageUtil;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
+import com.yjy998.admin.Assent;
 import com.yjy998.common.ImageOptions;
 import com.yjy998.http.Response;
 import com.yjy998.http.YHttpClient;
@@ -32,7 +33,6 @@ import java.util.Calendar;
 
 public class ChangeData extends SecondActivity {
 
-    private ImageView toggle;
     private ImageView avatarImage;
     private TextView nickText;
     private TextView genderText;
@@ -50,10 +50,12 @@ public class ChangeData extends SecondActivity {
     }
 
     private void initialize() {
-
-        toggle = (ImageView) findViewById(R.id.toggle);
+        Assent assent = AppDelegate.getInstance().getUser().assent;
+        if (assent==null){
+            finish();
+        }
         avatarImage = (ImageView) findViewById(R.id.avatarImage);
-        nickText = (TextView) findViewById(R.id.nickText);
+        nickText = (EditText) findViewById(R.id.nickText);
         genderText = (TextView) findViewById(R.id.genderText);
         birthDayText = (TextView) findViewById(R.id.birthDayText);
         liveText = (TextView) findViewById(R.id.liveText);
@@ -65,8 +67,17 @@ public class ChangeData extends SecondActivity {
         findViewById(R.id.genderLayout).setOnClickListener(this);
         findViewById(R.id.pickAddress).setOnClickListener(this);
         avatarImage.setOnClickListener(this);
+
+        nickText.setText(assent.name);
+//        genderText.setText(assent.);
+//        birthDayText.setText(assent.);
+//        educationText.setText(assent.);
         ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance());
+
+
     }
+
+
 
     @Override
     public void onClick(View v) {

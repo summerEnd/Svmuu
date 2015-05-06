@@ -3,7 +3,6 @@ package com.yjy998.ui.pop;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ClickableSpan;
 import android.view.View;
@@ -12,16 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.sp.lib.common.support.net.client.SRequest;
-import com.sp.lib.common.util.SLog;
 import com.sp.lib.common.util.time.TimeTicker;
-import com.yjy998.AppDelegate;
 import com.yjy998.R;
-import com.yjy998.account.User;
 import com.yjy998.http.Response;
 import com.yjy998.http.YHttpClient;
 import com.yjy998.http.YHttpHandler;
 
-public class RegisterDialog extends Dialog implements View.OnClickListener {
+public class RegisterDialog extends Dialog implements View.OnClickListener, RSAUtil.Callback {
 
     private EditText phoneEdit;
     private EditText passwordEdit;
@@ -32,9 +28,10 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
     private Button confirmButton;
     TimeTicker countDownTime;
     private Context context;
+
     public RegisterDialog(Context context) {
         super(context);
-        this.context=context;
+        this.context = context;
     }
 
     @Override
@@ -47,30 +44,7 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirmButton: {
-                SRequest request = new SRequest("http://www.yjy998.com/account/register");
-                request.put("pnumber", phoneEdit.getText().toString());
-                request.put("password", passwordEdit.getText().toString());
-                request.put("repassword", passwordRepeat.getText().toString());
-                request.put(",is_agree", true);
-                confirmButton.setText(R.string.register_ing);
-                YHttpClient.getInstance().post(getContext(), request, new YHttpHandler() {
-
-                    @Override
-                    protected void onStatusCorrect(Response response) {
-                        dismiss();
-                    }
-
-                    @Override
-                    protected void onStatusFailed(Response response) {
-                        YAlertDialog.show(context, context.getString(R.string.register_fail), response.message);
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        confirmButton.setText(R.string.re_register);
-                    }
-                });
+                RSAUtil.sign(context, passwordEdit.getText().toString(), this);
                 break;
             }
             case R.id.closeButton: {
@@ -78,7 +52,6 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
                 break;
             }
             case R.id.resendText: {
-
                 getCode();
                 break;
             }
@@ -121,12 +94,41 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
      * 获取短信验证码
      */
     void getCode() {
-        resendText.setClickable(false);
-        countDownTime.start();
+
         YHttpClient.getInstance().getCode(getContext(), phoneEdit.getText().toString(), new YHttpHandler() {
             @Override
             protected void onStatusCorrect(Response response) {
+                resendText.setClickable(false);
+                countDownTime.start();
+            }
+        });
+    }
 
+    @Override
+    public void onResult(String rsa) {
+        SRequest request = new SRequest("http://www.yjy998.com/account/register");
+        request.put("pnumber", phoneEdit.getText().toString());
+        request.put("password", passwordEdit.getText().toString());
+        request.put("rsapassword", rsa);
+        request.put("repassword", passwordRepeat.getText().toString());
+        request.put("is_agree", true);
+        confirmButton.setText(R.string.register_ing);
+        YHttpClient.getInstance().post(getContext(), request, new YHttpHandler() {
+
+            @Override
+            protected void onStatusCorrect(Response response) {
+                dismiss();
+            }
+
+            @Override
+            protected void onStatusFailed(Response response) {
+                YAlertDialog.show(context, context.getString(R.string.register_fail), response.message);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                confirmButton.setText(R.string.re_register);
             }
         });
     }

@@ -98,7 +98,7 @@
             android:label="@string/title_activity_abount" >
         </activity>
         <activity
-            android:name=".ui.activity.ContractInfo"
+            android:name=".ui.activity.my.ContractInfo"
             android:label="@string/title_activity_contract_info" >
         </activity>
     </application>

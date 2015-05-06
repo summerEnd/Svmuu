@@ -1,4 +1,4 @@
-package com.yjy998.account;
+package com.yjy998.admin;
 
 public class Assent {
    public String freeze_amount;

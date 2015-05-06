@@ -1,4 +1,4 @@
-package com.yjy998.account;
+package com.yjy998.admin;
 
 import com.yjy998.entity.Contest;
 import com.yjy998.entity.Contract;

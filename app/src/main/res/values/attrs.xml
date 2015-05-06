@@ -24,4 +24,8 @@
             <enum name="blue" value="0" />
         </attr>
     </declare-styleable>
+    <declare-styleable name="RoundButton">
+        <attr name="pressedColor" format="color" />
+        <attr name="normalColor" format="color" />
+    </declare-styleable>
 </resources>

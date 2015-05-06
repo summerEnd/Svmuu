@@ -38,6 +38,7 @@
         style="@style/loginDialogEditTextStyle"
         android:drawableLeft="@drawable/ic_phone"
         android:hint="@string/hint_phone" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -56,8 +57,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
-            android:text="重新发送（25）" />
+            android:text="发送验证码" />
     </FrameLayout>
+
     <EditText
         android:layout_marginTop="@dimen/dimen_15px"
         android:inputType="textPassword"

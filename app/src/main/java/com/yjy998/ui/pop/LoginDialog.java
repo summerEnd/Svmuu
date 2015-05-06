@@ -7,19 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.sp.lib.common.admin.RSA;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.yjy998.AppDelegate;
 import com.yjy998.BuildConfig;
 import com.yjy998.R;
-import com.yjy998.account.User;
+import com.yjy998.admin.User;
 import com.yjy998.http.Response;
 import com.yjy998.http.YHttpClient;
 import com.yjy998.http.YHttpHandler;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class LoginDialog extends Dialog implements View.OnClickListener, RSAUtil.Callback {
     private EditText phoneEdit;

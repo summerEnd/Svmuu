@@ -108,12 +108,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void getCapital() {
-         SRequest request = new SRequest();
+        SRequest request = new SRequest();
         request.setUrl("http://mobile.yjy998.com/h5/index/loanamount");
-        YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler() {
+        YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler(false) {
             @Override
             protected void onStatusCorrect(Response response) {
-                capitalText.setText(response.data);
+                capitalText.setText("￥" + response.data);
             }
         });
     }

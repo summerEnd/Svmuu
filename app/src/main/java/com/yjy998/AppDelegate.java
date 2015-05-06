@@ -1,7 +1,7 @@
 package com.yjy998;
 
 import com.sp.lib.SApplication;
-import com.yjy998.account.User;
+import com.yjy998.admin.User;
 import com.yjy998.ui.activity.test.TestActivity;
 
 /**

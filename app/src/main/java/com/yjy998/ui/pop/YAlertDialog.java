@@ -31,6 +31,13 @@ public class YAlertDialog extends Dialog implements View.OnClickListener {
         return show(context, context.getString(title), context.getString(message));
     }
 
+    public static YAlertDialog show(Context context, String message) {
+        YAlertDialog dialog = new YAlertDialog(context);
+        dialog.setMessage(message);
+        dialog.show();
+        return dialog;
+    }
+
     private void initialize() {
 
         title = (TextView) findViewById(R.id.title);

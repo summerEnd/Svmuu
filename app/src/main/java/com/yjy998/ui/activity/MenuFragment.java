@@ -13,15 +13,13 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
-import com.yjy998.account.Assent;
-import com.yjy998.account.User;
+import com.yjy998.admin.Assent;
+import com.yjy998.admin.User;
 import com.yjy998.common.ImageOptions;
-import com.yjy998.ui.activity.MainActivity;
 import com.yjy998.ui.activity.apply.ApplyActivity;
 import com.yjy998.ui.activity.my.business.BusinessActivity;
 import com.yjy998.ui.activity.other.BaseFragment;
 import com.yjy998.ui.activity.other.pay.RechargeActivity;
-import com.yjy998.ui.activity.other.pay.YbPayFragment;
 
 public class MenuFragment extends BaseFragment implements View.OnClickListener {
 

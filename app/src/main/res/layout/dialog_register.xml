@@ -44,12 +44,14 @@
         android:drawableLeft="@drawable/ic_password"
         android:hint="@string/hint_password"
         style="@style/loginDialogEditTextStyle" />
+
     <EditText
         android:inputType="textPassword"
         android:id="@+id/passwordRepeat"
         android:drawableLeft="@drawable/ic_password"
         android:hint="@string/hint_repeat_password"
         style="@style/loginDialogEditTextStyle" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -68,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
-            android:text="重新发送（25）" />
+            android:text="发送验证码" />
     </FrameLayout>
 
     <TextView
@@ -87,5 +89,5 @@
         android:layout_marginBottom="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="确定" />
+        android:text="@string/yes" />
 </LinearLayout>
