@@ -22,6 +22,7 @@ import com.yjy998.entity.Contract;
 import com.yjy998.entity.Contest;
 import com.yjy998.ui.activity.my.business.BusinessActivity;
 import com.yjy998.ui.activity.other.BaseFragment;
+import com.yjy998.ui.activity.other.pay.RechargeActivity;
 import com.yjy998.ui.view.TwoTextItem;
 
 import java.util.ArrayList;
@@ -74,6 +75,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
                 break;
             }
             case R.id.recharge: {
+                startActivity(new Intent(getActivity(), RechargeActivity.class));
                 break;
             }
         }

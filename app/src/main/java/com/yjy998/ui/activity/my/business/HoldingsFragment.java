@@ -40,8 +40,8 @@ public class HoldingsFragment extends BusinessListFragment {
 
     @Override
     protected void onCreatePop(CenterPopup.PopWidget popWidget) {
-        popWidget.add(new CenterPopup.PopItem(0, getString(R.string.buyIn), R.drawable.bitmap_blue_button));
-        popWidget.add(new CenterPopup.PopItem(1, getString(R.string.sellOut), R.drawable.bitmap_red_button));
+        popWidget.add(new CenterPopup.PopItem(0, getString(R.string.buyIn), getResources().getColor(R.color.roundButtonBlue)));
+        popWidget.add(new CenterPopup.PopItem(1, getString(R.string.sellOut), getResources().getColor(R.color.roundButtonRed)));
     }
 
     @Override

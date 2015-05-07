@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -131,21 +132,19 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <Button
+        <com.yjy998.ui.view.RoundButton
             android:id="@+id/buyIn"
-            style="@style/blueButton.big"
-            android:layout_width="match_parent"
             android:text="@string/buyIn"
-            android:background="@drawable/bitmap_blue_button"
-            android:layout_height="@dimen/round_button_height" />
+            app:pressedColor="@color/roundButtonBluePre"
+            app:normalColor="@color/roundButtonBlue"
+            style="@style/roundButtonStyle.Big" />
 
-        <Button
+        <com.yjy998.ui.view.RoundButton
             android:id="@+id/sellOut"
             android:layout_marginTop="10dp"
-            style="@style/redButton.big"
-            android:layout_width="match_parent"
-            android:text="@string/buyIn"
-            android:background="@drawable/bitmap_red_button"
-            android:layout_height="@dimen/round_button_height" />
+            app:normalColor="@color/roundButtonRed"
+            app:pressedColor="@color/roundButtonRedPre"
+            style="@style/roundButtonStyle.Big"
+            android:text="@string/sellOut" />
     </LinearLayout>
 </LinearLayout>

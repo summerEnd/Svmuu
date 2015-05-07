@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 
 import com.yjy998.R;
+import com.yjy998.ui.view.RoundButton;
 
 import java.util.ArrayList;
 
@@ -48,11 +49,11 @@ public class CenterPopup extends PopupWindow implements View.OnClickListener {
                 context.getResources().getDimensionPixelSize(R.dimen.dimen_pop_btnHeight));
         params.topMargin = context.getResources().getDimensionPixelSize(R.dimen.dimen_15px);
         for (PopItem item : popWidget.widgets) {
-            Button button = new Button(context);
+            RoundButton button = new RoundButton(context);
             button.setTextSize(15);
             button.setText(item.text);
             button.setTextColor(context.getResources().getColor(R.color.white));
-            button.setBackgroundResource(item.drawableId);
+            button.setColor(item.color);
             button.setTag(item);
             button.setOnClickListener(this);
             layout.addView(button, params);
@@ -79,14 +80,14 @@ public class CenterPopup extends PopupWindow implements View.OnClickListener {
     public static class PopItem {
         public int id;
 
-        public PopItem(int id, String text, int drawableId) {
+        public PopItem(int id, String text, int color) {
             this.id = id;
             this.text = text;
-            this.drawableId = drawableId;
+            this.color = color;
         }
 
         public String text;
-        public int drawableId;
+        public int color;
 
 
     }

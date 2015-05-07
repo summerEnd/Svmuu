@@ -20,8 +20,8 @@ public class CancellationEntrustFragment extends BusinessListFragment {
 
     @Override
     protected void onCreatePop(PopWidget popWidget) {
-        popWidget.add(new PopItem(1,getString(R.string.cancelOrder), R.drawable.bitmap_blue_button));
-        popWidget.add(new PopItem(2,getString(R.string.cancelAndRebuy), R.drawable.bitmap_red_button));
+        popWidget.add(new PopItem(1,getString(R.string.cancelOrder), getResources().getColor(R.color.roundButtonBlue)));
+        popWidget.add(new PopItem(2,getString(R.string.cancelAndRebuy),  getResources().getColor(R.color.roundButtonRed)));
     }
 
     @Override

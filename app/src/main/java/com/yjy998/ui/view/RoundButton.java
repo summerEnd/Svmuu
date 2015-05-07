@@ -3,10 +3,12 @@ package com.yjy998.ui.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
@@ -37,6 +39,14 @@ public class RoundButton extends TextView {
         mPaint.setStyle(Paint.Style.FILL);
         a.recycle();
         setClickable(true);
+        setGravity(Gravity.CENTER);
+    }
+
+    public void setColor(int color) {
+        normal_color = color;
+        pressed_color = Color.rgb(Color.red(color)-0x10, Color.green(color)-0x10, Color.blue(color)-0x10);
+        mPaint.setColor(color);
+        invalidate();
     }
 
     @Override

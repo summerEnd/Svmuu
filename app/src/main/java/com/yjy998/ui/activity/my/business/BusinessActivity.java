@@ -70,7 +70,7 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
 
     @Override
     public void onPageSelected(int i) {
-        if (fragments[i].isVisible()) {
+        if (fragments[i]!=null&&fragments[i].isVisible()) {
             fragments[i].refresh();
         }
     }

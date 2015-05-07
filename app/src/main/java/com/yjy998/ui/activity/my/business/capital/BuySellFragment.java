@@ -23,6 +23,7 @@ import com.yjy998.http.Response;
 import com.yjy998.http.YHttpClient;
 import com.yjy998.http.YHttpHandler;
 import com.yjy998.ui.activity.other.BaseFragment;
+import com.yjy998.ui.view.RoundButton;
 
 import java.util.ArrayList;
 
@@ -38,8 +39,8 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
     private TextView balanceText;
     private TextView stockValueText;
     private TextView totalText;
-    private Button buySellButton;
-    private Button resetButton;
+    private RoundButton buySellButton;
+    private RoundButton resetButton;
     private TextView stockName;
     private TextView floatBalance;
     private TextView holdNumber;
@@ -116,8 +117,8 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         balanceText = (TextView) findViewById(R.id.balanceText);
         stockValueText = (TextView) findViewById(R.id.stockValueText);
         totalText = (TextView) findViewById(R.id.totalText);
-        buySellButton = (Button) findViewById(R.id.buySellButton);
-        resetButton = (Button) findViewById(R.id.resetButton);
+        buySellButton = (RoundButton) findViewById(R.id.buySellButton);
+        resetButton = (RoundButton) findViewById(R.id.resetButton);
         stockName = (TextView) findViewById(R.id.stockName);
         floatBalance = (TextView) findViewById(R.id.floatBalance);
         holdNumber = (TextView) findViewById(R.id.holdNumber);

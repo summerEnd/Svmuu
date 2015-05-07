@@ -76,7 +76,7 @@ public class BusinessListFragment extends BaseFragment implements AdapterView.On
             onCreatePop(widget);
             //添加取消按钮
             if (widget.getChildrenCount() != 0) {
-                widget.add(new PopItem(R.string.cancel, getString(R.string.cancel), R.drawable.bitmap_gray_button));
+                widget.add(new PopItem(R.string.cancel, getString(R.string.cancel),0xff949494));
             } else {
                 return false;
             }

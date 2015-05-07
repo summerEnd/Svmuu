@@ -265,6 +265,8 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">@dimen/text_28px</item>
         <item name="android:drawablePadding">5dp</item>
+        <item name="android:paddingLeft">@dimen/dimen_10px</item>
+        <item name="android:paddingRight">@dimen/dimen_10px</item>
         <item name="android:textColor">@color/textColorBlack</item>
     </style>
 

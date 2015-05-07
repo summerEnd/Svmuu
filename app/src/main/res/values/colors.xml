@@ -34,4 +34,8 @@
 
     <color name="roundButtonRed">#DF3238</color>
     <color name="roundButtonRedPre">#EF2228</color>
+
+    <color name="roundButtonGray">#949494</color>
+    <color name="roundButtonGrayPre">#848484</color>
+
 </resources>
