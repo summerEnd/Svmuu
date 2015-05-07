@@ -13,16 +13,18 @@
         android:text="买①：" />
 
     <TextView
+        android:id="@+id/priceText"
         android:layout_width="0dp"
         android:textSize="@dimen/text_18px"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="250.250" />
+        android:text="------" />
 
     <TextView
+        android:id="@+id/amountText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_18px"
         android:layout_weight="1"
-        android:text="250.250" />
+        android:text="------" />
 </LinearLayout>

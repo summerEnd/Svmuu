@@ -11,6 +11,7 @@ import com.sp.lib.common.util.SLog;
 import com.yjy998.common.preference.CookiePreference;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,17 +36,37 @@ public abstract class YHttpHandler extends SHttpProgressHandler {
         return null;
     }
 
+    @Override
+    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+        super.onFailure(statusCode, headers, responseString, throwable);
+        Response response = new Response();
+        onStatusFailed(response);
+    }
+
+    @Override
+    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+        super.onFailure(statusCode, headers, throwable, errorResponse);
+        Response response = new Response();
+        onStatusFailed(response);
+    }
+
+    @Override
+    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+        super.onFailure(statusCode, headers, throwable, errorResponse);
+        Response response = new Response();
+        onStatusFailed(response);
+    }
 
     @Override
     public final void onSuccess(int statusCode, Header[] headers, JSONObject response) {
         super.onSuccess(statusCode, headers, response);
 
         for (Header header : headers) {
-            SLog.debug("head:"+header);
+            SLog.debug("head:" + header);
             if (CookiePreference.COOKIE.equals(header.getName())) {
                 //把cookie存起来
                 CookiePreference.get().setCookie(header.getValue());
-                SLog.debug("save Cookie:"+header.getValue());
+                SLog.debug("save Cookie:" + header.getValue());
             }
         }
 
@@ -68,6 +89,10 @@ public abstract class YHttpHandler extends SHttpProgressHandler {
      */
     protected abstract void onStatusCorrect(Response response);
 
+    /**
+     * 所有的失败都会调用这个方法
+     * 网络请求失败，或者请求结果的业务逻辑错误等
+     */
     protected void onStatusFailed(Response response) {
     }
 

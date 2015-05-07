@@ -72,6 +72,10 @@ public final class YHttpClient {
         client.cancelAllRequests(true);
     }
 
+    public final void cancel(Context context) {
+        client.cancelRequests(context, true);
+    }
+
     /**
      * post调用接口，不用传host，直接传方法
      */
@@ -136,5 +140,11 @@ public final class YHttpClient {
     public void logout(YHttpHandler handle) {
         SRequest request = new SRequest("http://www.yjy998.com/account/logout?exit=1");
         post(request, handle);
+    }
+
+    public void getContractInfo(Context context, String contract_id, YHttpHandler handler) {
+        SRequest request = new SRequest();
+        request.put("contract_no", contract_id);
+        YHttpClient.getInstance().getByMethod(context, "/h5/account/contractinfo", request, handler);
     }
 }

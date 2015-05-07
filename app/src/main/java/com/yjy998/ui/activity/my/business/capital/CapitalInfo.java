@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.widget.list.LinearListView;
 import com.yjy998.R;
 import com.yjy998.adapter.CapitalBuySellAdapter;
@@ -21,13 +22,27 @@ import com.yjy998.http.YHttpClient;
 import com.yjy998.http.YHttpHandler;
 import com.yjy998.ui.activity.other.BaseFragment;
 
+import java.math.BigDecimal;
+
 public class CapitalInfo extends BaseFragment implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+    /**
+     * 价格最小单元
+     */
+    private final float PRICE_UNIT = 0.01f;
+    /**
+     * 数量最小单元
+     */
+    private final int COUNT_UNIT = 100;
+
+
+    private int count = 0;
     private EditText codeEdit;
     private EditText editPrice;
     private EditText amountEdit;
     private SeekBar seeker;
     private LinearListView list;
     private boolean isBuy;
+    CapitalBuySellAdapter adapter;
 
     public static CapitalInfo newInstance(boolean isBuy) {
         CapitalInfo fragment = new CapitalInfo();
@@ -55,7 +70,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         seeker = (SeekBar) findViewById(R.id.seeker);
 
         list = (LinearListView) findViewById(R.id.list);
-        CapitalBuySellAdapter adapter = new CapitalBuySellAdapter(getActivity());
+        adapter = new CapitalBuySellAdapter(getActivity(), null);
         adapter.setBuy(isBuy);
         list.setAdapter(adapter);
 
@@ -81,30 +96,43 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.reduceAmount: {
-                int amount = Integer.parseInt(amountEdit.getText().toString());
-                amount -= 100;
-                amountEdit.setText("" + Math.max(0, amount));
+                addCount(-COUNT_UNIT);
                 break;
             }
             case R.id.addAmount: {
-                int amount = Integer.parseInt(amountEdit.getText().toString());
-                amount += 100;
-                amountEdit.setText("" + amount);
+                addCount(COUNT_UNIT);
                 break;
             }
             case R.id.reducePrice: {
-                float price = Float.parseFloat(editPrice.getText().toString());
-                price -= 0.01;
-                editPrice.setText("" + Math.max(0, price));
+                addPrice(-PRICE_UNIT);
                 break;
             }
             case R.id.addPrice: {
-                float price = Float.parseFloat(editPrice.getText().toString());
-                price += 0.01;
-                editPrice.setText("" + price);
+                addPrice(PRICE_UNIT);
                 break;
             }
         }
+    }
+
+    public void addPrice(float dPrice) {
+
+        String val = editPrice.getText().toString();
+
+        if (TextUtils.isEmpty(val)) {
+            val = "0";
+        }
+
+        //解决float加减法精度丢失的问题
+        BigDecimal _price = new BigDecimal(val);
+        BigDecimal _dPrice = new BigDecimal(Float.toString(dPrice));
+        editPrice.setText("" + Math.max(0, _price.add(_dPrice).floatValue()));
+    }
+
+    public void addCount(int dAmount) {
+
+        count += dAmount;
+        count = Math.max(0, count);
+        amountEdit.setText("" + count);
     }
 
     public void setBuy(boolean buy) {
@@ -143,7 +171,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
     private class CodeEditTextWatcher implements TextWatcher {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            YHttpClient.getInstance().cancelAll();
+            YHttpClient.getInstance().cancel(getActivity());
         }
 
         @Override
@@ -160,7 +188,14 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
             YHttpClient.getInstance().getStockInfo(code, new YHttpHandler(false) {
                 @Override
                 protected void onStatusCorrect(Response response) {
-
+                    try {
+                        //服务端可能返回json数组，会报异常
+                        Stock stock = JsonUtil.get(response.data, Stock.class);
+                        adapter.setStock(stock);
+                        editPrice.setText(stock.newPrice);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }

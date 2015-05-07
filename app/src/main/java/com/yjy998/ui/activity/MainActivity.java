@@ -194,9 +194,9 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
     }
 
 
-
     @Override
     protected void refreshLayout() {
         mMenuFragment.refresh();
+        if (mCenterFragment != null) mCenterFragment.refresh();
     }
 }

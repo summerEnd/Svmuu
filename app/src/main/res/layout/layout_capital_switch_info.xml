@@ -15,7 +15,7 @@
 
         <EditText
             android:id="@+id/codeEdit"
-            android:hint="证券代码，简拼"
+            android:hint="证券代码"
             android:layout_height="@dimen/fragmentCapitalEditHeight"
             android:layout_width="match_parent"
             style="@style/capitalFragmentEdit">
@@ -31,8 +31,6 @@
             <LinearLayout
                 android:id="@+id/reducePrice"
                 style="@style/capitalFragmentAddReduce"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <ImageView
@@ -59,8 +57,6 @@
             <LinearLayout
                 android:id="@+id/addPrice"
                 style="@style/capitalFragmentAddReduce"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <ImageView
@@ -85,8 +81,6 @@
             <LinearLayout
                 android:id="@+id/reduceAmount"
                 style="@style/capitalFragmentAddReduce"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <ImageView
@@ -112,8 +106,6 @@
             <LinearLayout
                 android:id="@+id/addAmount"
                 style="@style/capitalFragmentAddReduce"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <ImageView

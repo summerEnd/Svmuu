@@ -105,7 +105,7 @@ public class RegisterDialog extends Dialog implements View.OnClickListener, RSAU
     }
 
     @Override
-    public void onResult(String rsa) {
+    public void onRSAEncodeSuccess(String rsa) {
         SRequest request = new SRequest("http://www.yjy998.com/account/register");
         request.put("pnumber", phoneEdit.getText().toString());
         request.put("password", passwordEdit.getText().toString());
@@ -131,6 +131,11 @@ public class RegisterDialog extends Dialog implements View.OnClickListener, RSAU
                 confirmButton.setText(R.string.re_register);
             }
         });
+    }
+
+    @Override
+    public void onRSAEncodeFailed() {
+
     }
 
     /**

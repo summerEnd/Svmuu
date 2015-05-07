@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.yjy998.R;
 import com.yjy998.entity.Contract;
-import com.yjy998.ui.activity.my.ContractInfo;
+import com.yjy998.ui.activity.my.ContractInfoActivity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -73,8 +73,8 @@ public class ContractPagerAdapter extends PagerAdapter implements View.OnClickLi
             Contract contract = contracts.get(dataPosition);
             TextView contractNo = (TextView) item.findViewById(R.id.contractNo);
             TextView typeText = (TextView) item.findViewById(R.id.typeText);
-            contractNo.setText(contract.contract_no);
-            typeText.setText("T+" + contract.type);
+            contractNo.setText("NO." + contract.id);
+            typeText.setText(contract.contract_type);
             item.setVisibility(View.VISIBLE);
             item.setTag(contract);
         } catch (IndexOutOfBoundsException e) {
@@ -91,11 +91,11 @@ public class ContractPagerAdapter extends PagerAdapter implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        Contract contract= (Contract) v.getTag();
-        if (contract==null){
+        Contract contract = (Contract) v.getTag();
+        if (contract == null) {
             return;
         }
-        v.getContext().startActivity(new Intent(v.getContext(), ContractInfo.class).putExtra(ContractInfo.EXTRA_CONTRACT_NO,contract.contract_no));
+        v.getContext().startActivity(new Intent(v.getContext(), ContractInfoActivity.class).putExtra(ContractInfoActivity.EXTRA_CONTRACT_NO, contract.id));
     }
 
     private class ViewHolder {

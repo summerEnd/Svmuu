@@ -6,7 +6,10 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
-public class Contract implements Serializable{
+public class Contract implements Serializable {
+
+
+
     public String uid;
     public String verify_date;
     public String new_rate;
@@ -16,6 +19,7 @@ public class Contract implements Serializable{
     public String apply_amount;
     public String fee_type;
     public String type;
+    public String contract_type;
     public String verify_user;
     public String real_end_time;
     public String real_end_remark;
@@ -29,5 +33,13 @@ public class Contract implements Serializable{
     public String add_time;
     public String quan_amount;
 
+    public static String getType(String type) {
+        if ("2".equals(type)) {
+            return "T+N";
+        } else if ("3".equals(type)) {
+            return "T+9";
+        }
+        return null;
+    }
 
 }

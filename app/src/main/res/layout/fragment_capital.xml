@@ -4,7 +4,7 @@
     android:background="@color/white"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context="com.yjy998.ui.activity.my.business.capital.CapitalFragment">
+    tools:context="com.yjy998.ui.activity.my.business.capital.BuySellFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,12 +21,14 @@
             android:orientation="vertical">
             <!--选择合约-->
             <LinearLayout
+                android:id="@+id/chooseContract"
                 android:background="@drawable/gray_frame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/contractText"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
@@ -235,39 +237,9 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <com.sp.lib.widget.list.LinearListView
+            android:id="@+id/list"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/stockName"
-                style="@style/capitalFragmentBottomText.value"
-                android:text="华能国际" />
-
-
-            <TextView
-                android:id="@+id/floatBalance"
-                style="@style/capitalFragmentBottomText.value"
-                android:textColor="@color/textColorGreen"
-                android:text="-42.41" />
-
-
-            <TextView
-                android:id="@+id/holdNumber"
-                style="@style/capitalFragmentBottomText.value"
-                android:textColor="@color/textColorBlue"
-                android:text="3000" />
-
-
-            <TextView
-                android:id="@+id/holdValue"
-                style="@style/capitalFragmentBottomText.value"
-                android:textColor="@color/textColorBlue"
-                android:text="2778.415" />
-
-        </LinearLayout>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>

@@ -4,12 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.sp.lib.common.util.SLog;
 import com.sp.lib.widget.list.refresh.PullToRefreshListView;
 import com.yjy998.R;
 import com.yjy998.adapter.HoldingsAdapter;
+import com.yjy998.entity.Contract;
 import com.yjy998.entity.Hold;
 import com.yjy998.ui.activity.other.BaseFragment;
 import com.yjy998.ui.pop.CenterPopup;
@@ -24,6 +28,7 @@ public class BusinessListFragment extends BaseFragment implements AdapterView.On
     View layout;
     PullToRefreshListView mRefreshList;
     CenterPopup mCenterPopup;
+    private ListAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,8 +39,9 @@ public class BusinessListFragment extends BaseFragment implements AdapterView.On
         } else {
             layout = inflater.inflate(R.layout.fragment_cancellation_etrust, container, false);
             mRefreshList = (PullToRefreshListView) layout.findViewById(R.id.list);
+            mRefreshList.setPullRefreshEnabled(false);
             ListView refreshableView = mRefreshList.getRefreshableView();
-            refreshableView.setAdapter(new HoldingsAdapter(getActivity(), getData()));
+            refreshableView.setAdapter(adapter);
             refreshableView.setOnItemLongClickListener(this);
             mRefreshList.setHasMoreData(true);
             mRefreshList.setPullLoadEnabled(true);
@@ -43,20 +49,14 @@ public class BusinessListFragment extends BaseFragment implements AdapterView.On
         return layout;
     }
 
-    private List<Hold> getData() {
-        List<Hold> data = new ArrayList<Hold>();
-        for (int i = 0; i < 20; i++) {
-            Hold hold = new Hold();
-            data.add(hold);
-        }
-        return data;
-    }
 
 
+    //回调方法
     protected void onCreatePop(PopWidget popWidget) {
 
     }
 
+    //回调方法
     protected void onPopItemClick(PopItem item) {
     }
 
@@ -88,5 +88,17 @@ public class BusinessListFragment extends BaseFragment implements AdapterView.On
         }
         mCenterPopup.show(view);
         return true;
+    }
+
+    public ListAdapter getAdapter() {
+        return adapter;
+    }
+
+    public void setAdapter(ListAdapter adapter) {
+        this.adapter = adapter;
+        if (mRefreshList != null) {
+            mRefreshList.getRefreshableView().setAdapter(adapter);
+        }
+
     }
 }

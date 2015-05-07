@@ -31,7 +31,7 @@ import com.yjy998.ui.pop.YAlertDialogTwoButton;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class ChangeData extends SecondActivity {
+public class ChangeDataActivity extends SecondActivity {
 
     private ImageView avatarImage;
     private TextView nickText;

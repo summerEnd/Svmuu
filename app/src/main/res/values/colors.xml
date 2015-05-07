@@ -28,4 +28,10 @@
     <drawable name="transparent">#0000</drawable>
     <drawable name="actionBarBackground">@color/deepBlue</drawable>
     <drawable name="windowBackground">#F0F0F0</drawable>
+
+    <color name="roundButtonBlue">#2E93FB</color>
+    <color name="roundButtonBluePre">#1E83EB</color>
+
+    <color name="roundButtonRed">#DF3238</color>
+    <color name="roundButtonRedPre">#EF2228</color>
 </resources>

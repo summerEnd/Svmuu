@@ -119,6 +119,17 @@
         <item name="android:textSize">@dimen/text_26px</item>
     </style>
 
+    <style name="roundButtonStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="roundButtonStyle.Big">
+        <item name="android:textSize">@dimen/text_30px</item>
+        <item name="android:layout_height">@dimen/round_button_height</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
     <style name="tabStyle">
         <item name="android:textSize">13sp</item>
         <item name="android:layout_weight">1</item>
@@ -305,8 +316,8 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/text_20px</item>
         <item name="android:background">#508FD4</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">@dimen/dimen_50px</item>
+        <item name="android:layout_height">@dimen/dimen_50px</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">3dp</item>
     </style>

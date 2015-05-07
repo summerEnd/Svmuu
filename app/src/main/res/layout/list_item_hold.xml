@@ -61,6 +61,7 @@
 
             <com.yjy998.ui.view.TwoTextItem
                 style="@style/TwoTextItem.Red"
+                android:id="@+id/tradeType"
                 app:prefix="交易类型:"
                 android:text="买入"
                 android:textSize="@dimen/text_22px"
@@ -75,6 +76,7 @@
             <com.yjy998.ui.view.TwoTextItem
                 style="@style/TwoTextItem.Red"
                 app:prefix="委托价格:"
+                android:id="@+id/priceText"
                 android:textSize="@dimen/text_22px"
                 app:prefixTextColor="@color/textColorDeepGray"
                 android:text="8.26"
@@ -86,6 +88,7 @@
                 android:layout_height="match_parent" />
 
             <com.yjy998.ui.view.TwoTextItem
+                android:id="@+id/countText"
                 style="@style/TwoTextItem.Red"
                 app:prefix="数量:"
                 android:textSize="@dimen/text_22px"

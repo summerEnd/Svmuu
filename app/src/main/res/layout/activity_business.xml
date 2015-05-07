@@ -16,7 +16,17 @@
         <com.yjy998.ui.view.ViewPagerTabItem
             style="@style/pageTitleStyle"
             android:checked="true"
-            android:text="@string/capital" />
+            android:text="@string/buyIn" />
+
+        <View
+            style="@style/verticalLine"
+            android:background="@color/textColorDeepGray"
+            android:layout_marginTop="@dimen/dimen_18px"
+            android:layout_marginBottom="@dimen/dimen_18px" />
+
+        <com.yjy998.ui.view.ViewPagerTabItem
+            style="@style/pageTitleStyle"
+            android:text="@string/sellOut" />
 
         <View
             style="@style/verticalLine"
@@ -46,7 +56,7 @@
 
         <com.yjy998.ui.view.ViewPagerTabItem
             style="@style/pageTitleStyle"
-            android:text="@string/deal" />
+            android:text="@string/trade" />
     </com.sp.lib.widget.pager.title.PageStrip>
 
     <android.support.v4.view.ViewPager

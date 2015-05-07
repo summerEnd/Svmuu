@@ -64,7 +64,7 @@
             android:label="@string/title_activity_t9_tn" >
         </activity>
         <activity
-            android:name=".ui.activity.my.ChangeData"
+            android:name=".ui.activity.my.ChangeDataActivity"
             android:label="@string/title_activity_change_data" >
         </activity>
         <activity
@@ -98,7 +98,7 @@
             android:label="@string/title_activity_abount" >
         </activity>
         <activity
-            android:name=".ui.activity.my.ContractInfo"
+            android:name=".ui.activity.my.ContractInfoActivity"
             android:label="@string/title_activity_contract_info" >
         </activity>
     </application>

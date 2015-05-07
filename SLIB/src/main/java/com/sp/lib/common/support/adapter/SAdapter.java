@@ -21,10 +21,15 @@ public abstract class SAdapter<T> extends BaseAdapter {
         if (count >= 0) {
             return count;
         }
+
+        if (mData == null) {
+            return 0;
+        }
+
         return mData.size();
     }
 
-    public List<T> getData(){
+    public List<T> getData() {
         return mData;
     }
 

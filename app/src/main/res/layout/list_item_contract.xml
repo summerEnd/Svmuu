@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/clicked_white"
+    android:padding="@dimen/dimen_11px"
+    android:id="@+id/listContractText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="T+9"
+    android:textSize="@dimen/text_26px" />

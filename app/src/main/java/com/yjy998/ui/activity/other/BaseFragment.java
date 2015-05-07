@@ -20,4 +20,10 @@ public class BaseFragment extends Fragment {
     public View findViewById(int id) {
         return getView().findViewById(id);
     }
+
+    /**
+     * 刷新
+     */
+    public void refresh() {
+    }
 }

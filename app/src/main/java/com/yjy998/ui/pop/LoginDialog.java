@@ -96,7 +96,7 @@ public class LoginDialog extends Dialog implements View.OnClickListener, RSAUtil
     }
 
     @Override
-    public void onResult(String rsa) {
+    public void onRSAEncodeSuccess(String rsa) {
         String phone = phoneEdit.getText().toString();
         String password = passwordEdit.getText().toString();
         SRequest request = new SRequest();
@@ -122,5 +122,10 @@ public class LoginDialog extends Dialog implements View.OnClickListener, RSAUtil
                 getUserInfo();
             }
         });
+    }
+
+    @Override
+    public void onRSAEncodeFailed() {
+
     }
 }

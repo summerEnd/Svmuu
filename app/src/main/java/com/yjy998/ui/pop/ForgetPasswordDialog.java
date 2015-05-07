@@ -29,9 +29,10 @@ public class ForgetPasswordDialog extends Dialog implements View.OnClickListener
     private Button confirmButton;
     TimeTicker countDownTime;
     private Context context;
+
     public ForgetPasswordDialog(Context context) {
         super(context);
-        this.context=context;
+        this.context = context;
     }
 
     @Override
@@ -93,7 +94,7 @@ public class ForgetPasswordDialog extends Dialog implements View.OnClickListener
     }
 
     @Override
-    public void onResult(String rsa) {
+    public void onRSAEncodeSuccess(String rsa) {
 
         SRequest request = new SRequest();
         request.setUrl("http://www.yjy998.com/account/resetloginpwd");
@@ -114,6 +115,11 @@ public class ForgetPasswordDialog extends Dialog implements View.OnClickListener
                 });
             }
         });
+    }
+
+    @Override
+    public void onRSAEncodeFailed() {
+
     }
 
     /**

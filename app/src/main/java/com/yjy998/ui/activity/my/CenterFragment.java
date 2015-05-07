@@ -59,7 +59,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
         switch (v.getId()) {
             case R.id.avatarImage: {
                 if (AppDelegate.getInstance().isUserLogin()) {
-                    startActivity(new Intent(getActivity(), ChangeData.class));
+                    startActivity(new Intent(getActivity(), ChangeDataActivity.class));
                 }
                 break;
             }
