@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.sp.lib.common.util.JsonUtil;
 import com.yjy998.R;
+import com.yjy998.entity.Contract;
 import com.yjy998.entity.ContractDetail;
 import com.yjy998.http.Response;
 import com.yjy998.http.YHttpClient;
@@ -31,12 +32,12 @@ public class ContractInfoActivity extends SecondActivity implements DialogInterf
     private TextView applyDate;
     private TextView totalText;
     private TextView areaText;
+    private ContractDetail detail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contract_info);
-
         initialize();
     }
 
@@ -45,16 +46,17 @@ public class ContractInfoActivity extends SecondActivity implements DialogInterf
             @Override
             protected void onStatusCorrect(Response response) {
                 try {
-                    ContractDetail detail = JsonUtil.get(response.data, ContractDetail.class);
-                    contractNo.setText(getString(R.string.contract_no_s,detail.contractId));
-                    contractType.setText(getString(R.string.contractType_s,detail.contract_type));
-                    totalText.setText(getString(R.string.total_capital_s,detail.totalAsset));
-                    manageFeeText.setText(getString(R.string.s_day,detail.accountFee));
-                    areaText.setText(getString(R.string.relative_area_s,detail.relatedContest));
-                    applyDate.setText(getString(R.string.apply_date_s,detail.applyTime));
+                    detail = JsonUtil.get(response.data, ContractDetail.class);
+                    contractNo.setText(getString(R.string.contract_no_s, detail.contractId));
+                    contractType.setText(getString(R.string.contractType_s, detail.contract_type));
+                    totalText.setText(getString(R.string.total_capital_s, detail.totalAsset));
+                    manageFeeText.setText(getString(R.string.s_day, detail.accountFee));
+                    areaText.setText(getString(R.string.relative_area_s, detail.relatedContest));
+                    applyDate.setText(getString(R.string.apply_date_s, detail.applyTime));
                     balanceText.setText(detail.totalProfit);
-                    rateText.setText(detail.profitRatio+"%");
+                    rateText.setText(detail.profitRatio + "%");
                     positionText.setText(detail.storageRatio);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -65,10 +67,15 @@ public class ContractInfoActivity extends SecondActivity implements DialogInterf
 
     @Override
     public void onClick(View v) {
+
+        if (detail == null) {
+            return;
+        }
+
         switch (v.getId()) {
             case R.id.addCapital: {
                 if (appendCapitalDialog == null) {
-                    appendCapitalDialog = new AppendCapitalDialog(this);
+                    appendCapitalDialog = new AppendCapitalDialog(this, detail.contractId);
                     appendCapitalDialog.setOnDismissListener(this);
                 }
                 appendCapitalDialog.show();

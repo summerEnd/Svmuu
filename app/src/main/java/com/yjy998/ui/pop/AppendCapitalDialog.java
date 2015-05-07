@@ -16,9 +16,11 @@ public class AppendCapitalDialog extends Dialog implements View.OnClickListener 
 
     private TextView title;
     private EditText editPrice;
+    private String contract_id;
 
-    public AppendCapitalDialog(Context context) {
+    public AppendCapitalDialog(Context context, String contract_id) {
         super(context);
+        this.contract_id = contract_id;
         setContentView(R.layout.append_capital);
         initialize();
     }
@@ -52,12 +54,13 @@ public class AppendCapitalDialog extends Dialog implements View.OnClickListener 
      * @return
      */
     public String getAppendAmount() {
-        return editPrice.getText().toString();
+        String s = editPrice.getText().toString();
+        return s.isEmpty() ? "0" : s;
     }
 
     public void addCapital() {
         SRequest request = new SRequest("http://www.yjy998.com/asset/append");
-        request.put("contract_no", "");
+        request.put("contract_no", contract_id);
         request.put("amount", getAppendAmount());
         YHttpClient.getInstance().post(getContext(), request, new YHttpHandler() {
             @Override

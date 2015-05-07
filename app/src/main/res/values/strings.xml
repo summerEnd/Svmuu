@@ -187,7 +187,7 @@
     <string name="confirm_logout">确定退出？</string>
     <string name="userName">用户名</string>
     <string name="apply_date">申请日期：%s</string>
-    <string name="s_day">%s/天</string>
+    <string name="s_day">%s元/天</string>
     <string name="dealing">处理中...</string>
     <string name="retry">重试</string>
     <string name="trade">交易</string>
