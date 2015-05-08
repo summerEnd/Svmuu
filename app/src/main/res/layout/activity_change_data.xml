@@ -45,7 +45,7 @@
                 android:background="#0000"
                 android:id="@+id/nickText"
                 style="@style/changeDataTabValue"
-                android:text="范迪塞尔" />
+                />
 
             <ImageView
                 style="@style/changeDataTabImage"
@@ -65,7 +65,7 @@
             <TextView
                 android:id="@+id/genderText"
                 style="@style/changeDataTabValue"
-                android:text="@string/male" />
+               />
 
             <ImageView style="@style/changeDataTabImage" />
         </RelativeLayout>
@@ -83,7 +83,7 @@
             <TextView
                 android:id="@+id/birthDayText"
                 style="@style/changeDataTabValue"
-                android:text="1985.02.23" />
+                />
 
             <ImageView style="@style/changeDataTabImage" />
         </RelativeLayout>
@@ -101,7 +101,7 @@
             <TextView
                 android:id="@+id/liveText"
                 style="@style/changeDataTabValue"
-                android:text="南京" />
+                />
 
             <ImageView style="@style/changeDataTabImage" />
         </RelativeLayout>
@@ -120,7 +120,7 @@
                 android:background="#0000"
                 android:id="@+id/educationText"
                 style="@style/changeDataTabValue"
-                android:text="博士后" />
+                />
 
             <ImageView
                 android:visibility="invisible"

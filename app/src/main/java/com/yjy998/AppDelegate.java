@@ -1,7 +1,10 @@
 package com.yjy998;
 
+import android.content.Context;
+
 import com.sp.lib.SApplication;
 import com.yjy998.admin.User;
+import com.yjy998.common.Constant;
 import com.yjy998.ui.activity.test.TestActivity;
 
 /**
@@ -12,7 +15,6 @@ public class AppDelegate extends SApplication {
     private static AppDelegate instance;
     private User mSharedUser;
     private boolean isLogined;
-
 
 
     @Override
@@ -31,9 +33,15 @@ public class AppDelegate extends SApplication {
         return instance;
     }
 
-    public void logout(){
+    public void logout() {
         setLogined(false);
         setUser(null);
+        getSharedPreferences(Constant.PRE_LOGIN, Context.MODE_PRIVATE)
+                .edit()
+                .putString(Constant.PRE_LOGIN_PASSWORD, null)
+                //.putString(Constant.PRE_LOGIN_PHONE, null) //先不清理登录账号
+                .putString(Constant.PRE_LOGIN_PASSWORD_RSA, null)
+                .commit();
     }
 
     public User getUser() {

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.admin.Assent;
@@ -22,6 +23,7 @@ import com.yjy998.entity.Contract;
 import com.yjy998.entity.Contest;
 import com.yjy998.ui.activity.my.business.BusinessActivity;
 import com.yjy998.ui.activity.other.BaseFragment;
+import com.yjy998.ui.activity.other.MenuActivity;
 import com.yjy998.ui.activity.other.pay.RechargeActivity;
 import com.yjy998.ui.view.TwoTextItem;
 
@@ -61,6 +63,8 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             case R.id.avatarImage: {
                 if (AppDelegate.getInstance().isUserLogin()) {
                     startActivity(new Intent(getActivity(), ChangeDataActivity.class));
+                } else {
+                    showLoginDialog();
                 }
                 break;
             }
@@ -78,6 +82,13 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
                 startActivity(new Intent(getActivity(), RechargeActivity.class));
                 break;
             }
+        }
+    }
+
+    void showLoginDialog() {
+        if (getActivity() instanceof MenuActivity) {
+            ((MenuActivity) getActivity()).showLoginWindow();
+            ContextUtil.toast(getString(R.string.please_login_first));
         }
     }
 

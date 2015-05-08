@@ -49,5 +49,6 @@ public class Stock implements Serializable {
     public String turnOverRate;
     public String outside;
     public String minPrice;
+    public String entrust_price;
 
 }

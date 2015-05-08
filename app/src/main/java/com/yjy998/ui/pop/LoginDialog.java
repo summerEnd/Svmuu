@@ -13,6 +13,7 @@ import com.yjy998.AppDelegate;
 import com.yjy998.BuildConfig;
 import com.yjy998.R;
 import com.yjy998.admin.User;
+import com.yjy998.common.Constant;
 import com.yjy998.http.Response;
 import com.yjy998.http.YHttpClient;
 import com.yjy998.http.YHttpHandler;
@@ -87,18 +88,14 @@ public class LoginDialog extends Dialog implements View.OnClickListener, RSAUtil
         findViewById(R.id.forgetText).setOnClickListener(this);
         findViewById(R.id.closeButton).setOnClickListener(this);
         confirmButton.setOnClickListener(this);
-        //todo 注释掉，此处方便调试
-        if (BuildConfig.DEBUG) {
-            phoneEdit.setText("13364388718");
-            passwordEdit.setText("ldp8718");
-        }
+        phoneEdit.setText(getContext().getSharedPreferences(Constant.PRE_LOGIN, Context.MODE_PRIVATE).getString(Constant.PRE_LOGIN_PHONE, null));
 
     }
 
     @Override
-    public void onRSAEncodeSuccess(String rsa) {
-        String phone = phoneEdit.getText().toString();
-        String password = passwordEdit.getText().toString();
+    public void onRSAEncodeSuccess(final String rsa) {
+        final String phone = phoneEdit.getText().toString();
+        final String password = passwordEdit.getText().toString();
         SRequest request = new SRequest();
         request.put("login_name", phone);
         request.put("login_passwd", password);
@@ -119,6 +116,13 @@ public class LoginDialog extends Dialog implements View.OnClickListener, RSAUtil
 
             @Override
             protected void onStatusCorrect(Response response) {
+                //保存参数，自动登录
+                getContext().getSharedPreferences(Constant.PRE_LOGIN, Context.MODE_PRIVATE)
+                        .edit()
+                        .putString(Constant.PRE_LOGIN_PASSWORD, password)
+                        .putString(Constant.PRE_LOGIN_PHONE, phone)
+                        .putString(Constant.PRE_LOGIN_PASSWORD_RSA, rsa)
+                        .commit();
                 getUserInfo();
             }
         });

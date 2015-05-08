@@ -3,12 +3,9 @@ package com.yjy998.http;
 import android.content.Context;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.PersistentCookieStore;
-import com.sp.lib.common.preference.PreferenceUtil;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.SLog;
 import com.yjy998.AppDelegate;
-import com.yjy998.common.preference.CookiePreference;
 
 /**
  * 所有网络请求统一入口
@@ -100,7 +97,7 @@ public final class YHttpClient {
     /**
      * 获取股票价格
      */
-    public void getStockInfo(String code, YHttpHandler handler) {
+    public void getStockPrice(String code, YHttpHandler handler) {
         SRequest request = new SRequest();
         request.setUrl("http://www.yjy998.com/stock/getstockprice");
         request.put("code", code);

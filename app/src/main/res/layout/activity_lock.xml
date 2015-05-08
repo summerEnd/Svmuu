@@ -22,6 +22,7 @@
         android:layout_height="match_parent" />
 
     <TextView
+        android:id="@+id/lockText"
         android:text="@string/forget_hand_password"
         android:layout_marginTop="20dp"
         android:textSize="15sp"

@@ -15,10 +15,13 @@ import android.widget.TextView;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
+import com.sp.lib.common.util.JsonUtil;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.adapter.ContractListAdapter;
 import com.yjy998.entity.Contract;
+import com.yjy998.entity.ContractDetail;
+import com.yjy998.entity.Stock;
 import com.yjy998.http.Response;
 import com.yjy998.http.YHttpClient;
 import com.yjy998.http.YHttpHandler;
@@ -72,7 +75,6 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
     public void setBuy(boolean isBuy) {
         this.isBuy = isBuy;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -134,10 +136,18 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
             buySellButton.setText(R.string.sellOut);
         }
 
-        if (getActivity() instanceof ContractObserver) {
-            setContract(((ContractObserver) getActivity()).getContract());
-        }
+        setContract(getSharedContract());
 
+    }
+
+    /**
+     * 获取共享的合约
+     */
+    ContractDetail getSharedContract() {
+        if (getActivity() instanceof ContractObserver) {
+            return ((ContractObserver) getActivity()).getContract();
+        }
+        return null;
     }
 
     @Override
@@ -157,6 +167,7 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
                 break;
             }
             case R.id.resetButton: {
+                mCapitalInfo.reset();
                 break;
             }
             case R.id.buySellButton: {
@@ -179,8 +190,7 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
                             contractListWindow.dismiss();
                             ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
                             Contract contract = myContracts.get(position);
-                            setContract(contract);
-                            notifyContractChange(contract);
+                            getContractInfo(contract.id);
                         }
                     });
                 }
@@ -190,13 +200,25 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
-    public void setContract(Contract contract) {
+    public void getContractInfo(String contract_id) {
+        SRequest request = new SRequest("");
+        YHttpClient.getInstance().get(request, new YHttpHandler() {
+            @Override
+            protected void onStatusCorrect(Response response) {
+                ContractDetail detail = JsonUtil.get(response.data, ContractDetail.class);
+                setContract(detail);
+                notifyContractChange(detail);
+            }
+        });
+    }
+
+    public void setContract(ContractDetail contract) {
         if (contract != null) {
-            usableText.setText(contract.cash_amount);
-            balanceText.setText(contract.trade_amount);
-            stockValueText.setText(contract.apply_amount);
-            totalText.setText(contract.quan_amount);
-            contractText.setText(contract.contract_type + " " + contract.contract_no);
+            usableText.setText(contract.currentCash);
+            balanceText.setText(contract.totalProfit);
+            stockValueText.setText(contract.totalMarketValue);
+            totalText.setText(contract.totalAsset);
+            contractText.setText(getString(R.string.contract_s1_s2, contract.contract_type, contract.contractId));
         } else {
             usableText.setText("0");
             balanceText.setText("0");
@@ -207,11 +229,12 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
 
     }
 
-    public void notifyContractChange(Contract contract) {
+    public void notifyContractChange(ContractDetail contract) {
         if (observer != null) {
             observer.setContract(contract);
         }
     }
+
 
     /**
      * 买入
@@ -234,8 +257,9 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
     }
 
     public static interface ContractObserver {
-        public Contract getContract();
+        public ContractDetail getContract();
 
-        public void setContract(Contract contract);
+        public void setContract(ContractDetail contract);
+
     }
 }

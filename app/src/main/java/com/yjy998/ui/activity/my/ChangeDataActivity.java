@@ -51,7 +51,7 @@ public class ChangeDataActivity extends SecondActivity {
 
     private void initialize() {
         Assent assent = AppDelegate.getInstance().getUser().assent;
-        if (assent==null){
+        if (assent == null) {
             finish();
         }
         avatarImage = (ImageView) findViewById(R.id.avatarImage);
@@ -66,6 +66,7 @@ public class ChangeDataActivity extends SecondActivity {
         findViewById(R.id.birthDayLayout).setOnClickListener(this);
         findViewById(R.id.genderLayout).setOnClickListener(this);
         findViewById(R.id.pickAddress).setOnClickListener(this);
+        handPasswordText.setOnClickListener(this);
         avatarImage.setOnClickListener(this);
 
         nickText.setText(assent.name);
@@ -76,7 +77,6 @@ public class ChangeDataActivity extends SecondActivity {
 
 
     }
-
 
 
     @Override
@@ -125,6 +125,7 @@ public class ChangeDataActivity extends SecondActivity {
                             @Override
                             protected void onStatusCorrect(Response response) {
                                 AppDelegate.getInstance().logout();
+                                finish();
                             }
                         });
                     }
@@ -134,10 +135,16 @@ public class ChangeDataActivity extends SecondActivity {
                 dialog.show();
                 break;
             }
+            case R.id.handPasswordText: {
+                startActivity(new Intent(this, SetGesturePassword.class));
+                break;
+            }
         }
 
         super.onClick(v);
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

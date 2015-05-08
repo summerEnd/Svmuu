@@ -4,6 +4,7 @@ package com.yjy998.ui.activity.my.business;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
@@ -11,19 +12,16 @@ import com.sp.lib.common.util.JsonUtil;
 import com.yjy998.R;
 import com.yjy998.adapter.HoldingsAdapter;
 import com.yjy998.entity.Contract;
-import com.yjy998.entity.Hold;
+import com.yjy998.entity.ContractDetail;
+import com.yjy998.entity.Holding;
 import com.yjy998.http.Response;
 import com.yjy998.http.YHttpClient;
 import com.yjy998.http.YHttpHandler;
-import com.yjy998.ui.activity.my.business.capital.BuySellFragment;
 import com.yjy998.ui.pop.CenterPopup;
 import com.yjy998.ui.pop.PayDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.yjy998.ui.activity.my.business.capital.BuySellFragment.ContractObserver;
 
@@ -37,7 +35,7 @@ public class HoldingsFragment extends BusinessListFragment {
     public String getTitle() {
         return ContextUtil.getString(R.string.holdings);
     }
-
+    Holding sel;
     @Override
     protected void onCreatePop(CenterPopup.PopWidget popWidget) {
         popWidget.add(new CenterPopup.PopItem(0, getString(R.string.buyIn), getResources().getColor(R.color.roundButtonBlue)));
@@ -50,12 +48,18 @@ public class HoldingsFragment extends BusinessListFragment {
         getHoldings();
     }
 
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        super.onItemLongClick(parent, view, position, id);
+
+        return true;
+    }
 
     @Override
     protected void onPopItemClick(CenterPopup.PopItem item) {
         switch (item.id) {
             case 0: {
-                new PayDialog(getActivity()).show();
+
                 break;
             }
             case 1: {
@@ -66,21 +70,21 @@ public class HoldingsFragment extends BusinessListFragment {
 
     public void getHoldings() {
         if (getActivity() instanceof ContractObserver) {
-            Contract contract = ((ContractObserver) getActivity()).getContract();
+            ContractDetail contract = ((ContractObserver) getActivity()).getContract();
             if (contract == null) {
                 //没有选择合约
                 return;
             }
 
-            String contract_no = contract.id;
+            String contract_no = contract.contractId;
             SRequest request = new SRequest("http://www.yjy998.com/stock/hold");
             request.put("contract_no", contract_no);
-            YHttpClient.getInstance().get(getActivity(), request, new YHttpHandler() {
+            YHttpClient.getInstance().get(getActivity(), request, new YHttpHandler(false) {
                 @Override
                 protected void onStatusCorrect(Response response) {
                     try {
                         JSONArray array = new JSONArray(response.data);
-                        HoldingsAdapter adapter = new HoldingsAdapter(getActivity(), JsonUtil.getArray(array, Hold.class));
+                        HoldingsAdapter adapter = new HoldingsAdapter(getActivity(), JsonUtil.getArray(array, Holding.class));
                         setAdapter(adapter);
 
                     } catch (JSONException e) {

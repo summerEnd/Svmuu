@@ -193,10 +193,17 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshLayout();
+    }
 
     @Override
     protected void refreshLayout() {
         mMenuFragment.refresh();
-        if (mCenterFragment != null) mCenterFragment.refresh();
+        if (mCenterFragment != null && mCenterFragment.getView() != null) {
+            mCenterFragment.refresh();
+        }
     }
 }

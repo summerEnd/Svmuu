@@ -8,21 +8,35 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListPopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.sp.lib.common.support.net.client.SRequest;
+import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.widget.list.LinearListView;
 import com.yjy998.R;
 import com.yjy998.adapter.CapitalBuySellAdapter;
+import com.yjy998.adapter.StockListAdapter;
+import com.yjy998.entity.Contract;
+import com.yjy998.entity.ContractDetail;
 import com.yjy998.entity.Stock;
 import com.yjy998.http.Response;
 import com.yjy998.http.YHttpClient;
 import com.yjy998.http.YHttpHandler;
 import com.yjy998.ui.activity.other.BaseFragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.yjy998.ui.activity.my.business.capital.BuySellFragment.ContractObserver;
 
 public class CapitalInfo extends BaseFragment implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     /**
@@ -33,8 +47,6 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
      * 数量最小单元
      */
     private final int COUNT_UNIT = 100;
-
-
     private int count = 0;
     private EditText codeEdit;
     private EditText editPrice;
@@ -43,7 +55,18 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
     private LinearListView list;
     private boolean isBuy;
     CapitalBuySellAdapter adapter;
+    private Stock mStock;
+    private ListPopupWindow stockListWindow;
+    private StockListAdapter stockListAdapter;
+    private boolean isStockSelected = false;
+    /**
+     * 最大买卖数量
+     */
+    private int maxAmount;
 
+    /**
+     * 根据字段创建买入或者卖出
+     */
     public static CapitalInfo newInstance(boolean isBuy) {
         CapitalInfo fragment = new CapitalInfo();
         fragment.setBuy(isBuy);
@@ -81,6 +104,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
 
         seeker.setOnSeekBarChangeListener(this);
         codeEdit.addTextChangedListener(new CodeEditTextWatcher());
+        //买入卖出初始化
         if (isBuy) {
             editPrice.setHint(R.string.buyPrice);
             amountEdit.setHint(R.string.buyAmount);
@@ -90,11 +114,14 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
             amountEdit.setHint(R.string.sellAmount);
             seekerTitle.setText(R.string.canSellAmount);
         }
+        stockListAdapter = new StockListAdapter(getActivity(), new ArrayList<Stock>());
     }
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
             case R.id.reduceAmount: {
                 addCount(-COUNT_UNIT);
                 break;
@@ -114,22 +141,21 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         }
     }
 
+    //加价格
     public void addPrice(float dPrice) {
-
         String val = editPrice.getText().toString();
-
         if (TextUtils.isEmpty(val)) {
             val = "0";
         }
-
         //解决float加减法精度丢失的问题
         BigDecimal _price = new BigDecimal(val);
         BigDecimal _dPrice = new BigDecimal(Float.toString(dPrice));
         editPrice.setText("" + Math.max(0, _price.add(_dPrice).floatValue()));
+
     }
 
+    //加数量
     public void addCount(int dAmount) {
-
         count += dAmount;
         count = Math.max(0, count);
         amountEdit.setText("" + count);
@@ -141,9 +167,9 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+        count = progress * 100;
+        addCount(0);
     }
-
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
@@ -156,6 +182,51 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
     }
 
     /**
+     * 获取共享的合约
+     */
+    ContractDetail getSharedContract() {
+        if (getActivity() instanceof ContractObserver) {
+            return ((ContractObserver) getActivity()).getContract();
+        }
+        return null;
+    }
+
+    /**
+     * 获取可买数量
+     */
+    public void buyQuantity() {
+        ContractDetail contract = getSharedContract();
+        Stock stock = getStock();
+
+        if (contract == null) {
+            ContextUtil.toast(R.string.contract_not_selected);
+            return;
+        }
+
+        if (stock == null) {
+            ContextUtil.toast(R.string.stock_not_selected);
+            return;
+        }
+
+        SRequest request = new SRequest("http://www.yjy998.com/stock/buyquantity");
+        request.put("entrust_price", stock.entrust_price);
+        request.put("contract_id", contract.contractId);
+        request.put("exchange_type", stock.exchangeType);
+        request.put("stock_code", stock.stockCode);
+        YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler(false) {
+            @Override
+            protected void onStatusCorrect(Response response) {
+                try {
+                    maxAmount = Integer.parseInt(response.data);
+                    seeker.setMax(maxAmount / 100);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
      * 获取股票代码
      */
     public String getStockCode() {
@@ -163,6 +234,13 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
             return null;
         }
         return codeEdit.getText().toString();
+    }
+
+    public Stock getStock() {
+        if (mStock != null) {
+            mStock.entrust_price = editPrice.getText().toString();
+        }
+        return mStock;
     }
 
     /**
@@ -182,22 +260,110 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         @Override
         public void afterTextChanged(Editable s) {
             String code = s.toString();
-            if (TextUtils.isEmpty(code) || code.length() < 4) {
+            if (TextUtils.isEmpty(code)) {
+                if (stockListWindow != null) {
+                    stockListWindow.dismiss();
+                }
                 return;
             }
-            YHttpClient.getInstance().getStockInfo(code, new YHttpHandler(false) {
+
+            if (code.length() < 6) {
+                isStockSelected = false;
+            }
+
+            if (!isStockSelected) {
+                getStockInfo(code);
+            }
+        }
+    }
+
+    private void initStockListWindow() {
+        if (stockListWindow == null) {
+            stockListWindow = new ListPopupWindow(getActivity());
+            stockListWindow.setAnchorView(codeEdit);
+            stockListWindow.setAdapter(stockListAdapter);
+            stockListWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                protected void onStatusCorrect(Response response) {
-                    try {
-                        //服务端可能返回json数组，会报异常
-                        Stock stock = JsonUtil.get(response.data, Stock.class);
-                        adapter.setStock(stock);
-                        editPrice.setText(stock.newPrice);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    isStockSelected = true;
+                    Stock stock = stockListAdapter.getData().get(position);
+                    codeEdit.setText(stock.stockCode);
+                    //这里的stock只是一个简要的股票信息，需要重新调接口获取详情
+                    getStockPrice(stock.stockCode);
+                    stockListWindow.dismiss();
                 }
             });
         }
     }
+
+    /**
+     * 获取股票五买五卖信息
+     *
+     * @param code 6位完整的股票代码
+     */
+    private void getStockPrice(String code) {
+        YHttpClient.getInstance().getStockPrice(code, new YHttpHandler(false) {
+            @Override
+            protected void onStatusCorrect(Response response) {
+
+                try {
+                    //服务端可能返回json数组，会报异常
+                    setStock(JsonUtil.get(response.data, Stock.class));
+                } catch (Exception e) {
+
+                }
+
+
+            }
+        });
+    }
+
+    /**
+     * 根据code进行模糊查询，获取股票列表
+     *
+     * @param code 小于等于六位
+     */
+    private void getStockInfo(String code) {
+
+        if (code == null || code.length() >= 6) {
+
+        } else {
+            SRequest request = new SRequest("http://www.yjy998.com/stock/getstockinfo");
+            request.put("code", code);
+            YHttpClient.getInstance().get(request, new YHttpHandler() {
+                @Override
+                protected void onStatusCorrect(Response response) {
+                    try {
+
+                        List<Stock> data = stockListAdapter.getData();
+                        data.clear();
+                        JsonUtil.getArray(new JSONArray(response.data), Stock.class, data);
+
+                        stockListAdapter.notifyDataSetChanged();
+                        initStockListWindow();
+                        stockListWindow.show();
+
+                    } catch (JSONException e1) {
+
+                    }
+
+                }
+            });
+        }
+    }
+
+    public void reset(){
+        codeEdit.setText("");
+        editPrice.setText("");
+        amountEdit.setText("");
+    }
+
+    private void setStock(Stock stock) {
+        this.mStock = stock;
+        adapter.setStock(stock);
+        editPrice.setText(stock.newPrice);
+        buyQuantity();
+    }
+
+
 }

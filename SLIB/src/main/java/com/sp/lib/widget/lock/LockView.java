@@ -90,7 +90,7 @@ public class LockView extends View {
     }
 
     public void setLock(NineLock lock) {
-        lock.setSecret(mLock.getSecret());
+        lock.setSecret(mLock.getDrawSecret());
         mLock = lock;
     }
 
@@ -148,7 +148,7 @@ public class LockView extends View {
     void drawPath(Canvas canvas) {
         int drawableHeight = drawable.getBounds().height();
         int drawableWidth = drawable.getBounds().width();
-        String secret = mLock.getSecret();
+        String secret = mLock.getDrawSecret();
 
         if (secret.length() == 0) {
             return;

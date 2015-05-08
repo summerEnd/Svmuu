@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yjy998" >
+    package="com.yjy998">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,8 +15,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".ui.activity.other.EnterActivity" >
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.activity.other.EnterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,17 +29,15 @@
             android:launchMode="singleTask" />
         <activity
             android:name="com.sp.lib.activity.album.PhotoAlbumActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name" />
         <activity
             android:name="com.sp.lib.activity.DEBUGActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name" />
         <!-- todo 发布时要注释掉 -->
         <activity
             android:name="com.sp.lib.demo.SlibDemo"
             android:icon="@drawable/ic_lincoln"
-            android:label="SLIB" >
+            android:label="SLIB">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,59 +46,47 @@
         </activity>
         <activity
             android:name=".ui.activity.test.ChartActivity"
-            android:label="@string/title_activity_chart" >
-        </activity>
+            android:label="@string/title_activity_chart" />
         <activity
             android:name=".ui.activity.other.LockActivity"
             android:label="@string/title_activity_lock"
-            android:launchMode="singleTop" >
-        </activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.activity.test.TestActivity"
-            android:label="@string/title_activity_test" >
-        </activity>
+            android:label="@string/title_activity_test" />
         <activity
             android:name=".ui.activity.apply.ApplyActivity"
-            android:label="@string/title_activity_t9_tn" >
-        </activity>
+            android:label="@string/title_activity_t9_tn" />
         <activity
             android:name=".ui.activity.my.ChangeDataActivity"
-            android:label="@string/title_activity_change_data" >
-        </activity>
+            android:label="@string/title_activity_change_data" />
         <activity
             android:name=".ui.activity.other.NewMemberActivity"
-            android:label="@string/title_activity_fresh" >
-        </activity>
+            android:label="@string/title_activity_fresh" />
         <activity android:name=".ui.activity.my.business.BusinessActivity" />
         <activity android:name=".ui.activity.test.MenuDrawerActivity" />
         <activity
             android:name=".ui.activity.contest.ContestInfoActivity"
-            android:label="@string/title_activity_game_info" >
-        </activity>
+            android:label="@string/title_activity_game_info" />
         <activity
             android:name=".ui.activity.contest.RankActivity"
-            android:label="@string/title_activity_rank" >
-        </activity>
+            android:label="@string/title_activity_rank" />
         <activity
             android:name=".ui.activity.other.pay.RechargeActivity"
-            android:label="@string/title_activity_recharge" >
-        </activity>
+            android:label="@string/title_activity_recharge" />
         <activity
             android:name=".ui.activity.test.TestRsa"
-            android:label="@string/title_activity_recharge" >
-        </activity>
+            android:label="@string/title_activity_recharge" />
         <activity
             android:name=".ui.activity.MessageActivity"
-            android:label="@string/title_activity_message" >
-        </activity>
+            android:label="@string/title_activity_message" />
         <activity
             android:name=".ui.activity.About"
-            android:label="@string/title_activity_abount" >
-        </activity>
+            android:label="@string/title_activity_abount" />
         <activity
             android:name=".ui.activity.my.ContractInfoActivity"
-            android:label="@string/title_activity_contract_info" >
-        </activity>
+            android:label="@string/title_activity_contract_info" />
+        <activity android:name=".ui.activity.my.SetGesturePassword" />
     </application>
 
 </manifest>

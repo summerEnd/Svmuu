@@ -124,7 +124,7 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
     private void getContestList() {
         SRequest request = new SRequest();
         request.setUrl("http://mobile.yjy998.com/h5/contest/contestlist");
-        YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler() {
+        YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler(false) {
             @Override
             protected void onStatusCorrect(Response response) {
                 try {
@@ -144,7 +144,7 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
     private void getMyContestList() {
         SRequest request = new SRequest();
         request.setUrl("http://mobile.yjy998.com/h5/contest/mycontest");
-        YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler() {
+        YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler(false) {
             @Override
             protected void onStatusCorrect(Response response) {
                 try {

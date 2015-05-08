@@ -4,22 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.sp.lib.common.util.SLog;
 import com.sp.lib.widget.list.refresh.PullToRefreshListView;
 import com.yjy998.R;
-import com.yjy998.adapter.HoldingsAdapter;
-import com.yjy998.entity.Contract;
-import com.yjy998.entity.Hold;
 import com.yjy998.ui.activity.other.BaseFragment;
 import com.yjy998.ui.pop.CenterPopup;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.yjy998.ui.pop.CenterPopup.*;
 

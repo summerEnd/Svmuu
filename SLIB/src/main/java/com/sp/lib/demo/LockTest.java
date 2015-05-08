@@ -1,6 +1,5 @@
 package com.sp.lib.demo;
 
-import com.sp.lib.R;
 import com.sp.lib.widget.lock.NineLock;
 import com.sp.lib.widget.lock.LockView;
 
@@ -24,7 +23,7 @@ public class LockTest extends SlibDemoWrapper {
 
         @Override
         public boolean tryUnLock() {
-            boolean equals = "3459".equals(getSecret().toString());
+            boolean equals = "3459".equals(getDrawSecret().toString());
             reset();
             return equals;
         }

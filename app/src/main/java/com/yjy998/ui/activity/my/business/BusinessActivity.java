@@ -10,13 +10,14 @@ import android.support.v4.view.ViewPager;
 import com.sp.lib.widget.pager.title.PageStrip;
 import com.yjy998.R;
 import com.yjy998.entity.Contract;
+import com.yjy998.entity.ContractDetail;
 import com.yjy998.ui.activity.my.business.capital.BuySellFragment;
 import com.yjy998.ui.activity.other.BaseFragment;
 import com.yjy998.ui.activity.other.SecondActivity;
 
 public class BusinessActivity extends SecondActivity implements BuySellFragment.ContractObserver, ViewPager.OnPageChangeListener {
     public static final String EXTRA_IS_BUY = "extra_buy";
-    Contract contract;
+    ContractDetail contract;
 
     BaseFragment[] fragments = new BaseFragment[5];
     private PageStrip pageStrip;
@@ -48,12 +49,12 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
 
 
     @Override
-    public Contract getContract() {
+    public ContractDetail getContract() {
         return contract;
     }
 
     @Override
-    public void setContract(Contract contract) {
+    public void setContract(ContractDetail contract) {
         this.contract = contract;
         if (fragments[0] instanceof BuySellFragment && fragments[0].isVisible()) {
             ((BuySellFragment) fragments[0]).setContract(contract);

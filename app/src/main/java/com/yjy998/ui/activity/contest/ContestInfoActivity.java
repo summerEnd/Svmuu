@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.yjy998.R;
 import com.yjy998.entity.Contest;
 import com.yjy998.ui.activity.other.SecondActivity;
+import com.yjy998.ui.view.RoundButton;
+import com.yjy998.ui.view.TwoTextItem;
 
 public class ContestInfoActivity extends SecondActivity {
 
@@ -18,8 +20,8 @@ public class ContestInfoActivity extends SecondActivity {
     private TextView stockValueText;
     private TextView stockHoldingText;
     private TextView applyDate;
-    private Button buyIn;
-    private Button sellOut;
+    private RoundButton buyIn;
+    private RoundButton sellOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +45,8 @@ public class ContestInfoActivity extends SecondActivity {
         stockValueText = (TextView) findViewById(R.id.stockValueText);
         stockHoldingText = (TextView) findViewById(R.id.stockHoldingText);
         applyDate = (TextView) findViewById(R.id.applyDate);
-        buyIn = (Button) findViewById(R.id.buyIn);
-        sellOut = (Button) findViewById(R.id.sellOut);
+        buyIn = (RoundButton) findViewById(R.id.buyIn);
+        sellOut = (RoundButton) findViewById(R.id.sellOut);
 
         titleText.setText(contest.name);
 

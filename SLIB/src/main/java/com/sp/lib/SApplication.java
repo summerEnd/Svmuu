@@ -138,4 +138,12 @@ public class SApplication extends Application {
         return false;
     }
 
+    public boolean isFirstStartApplication() {
+        return getSharedPreferences("config", MODE_PRIVATE).getBoolean("is_first_login", true);
+    }
+
+    public void setIsFirstStartApplication(boolean isFirstStartApplication){
+        getSharedPreferences("config", MODE_PRIVATE).edit().putBoolean("is_first_login",isFirstStartApplication).commit();
+    }
+
 }

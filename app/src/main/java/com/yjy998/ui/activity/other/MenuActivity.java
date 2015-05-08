@@ -32,7 +32,7 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //隐藏标题栏
-        getActionBar().hide();
+        if (getActionBar() != null) getActionBar().hide();
 
         mMenuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.BEHIND, Position.START, MenuDrawer.MENU_DRAG_CONTENT);
 
@@ -93,7 +93,7 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
     /**
      * 弹出登录注册window
      */
-    private void showLoginWindow() {
+    public void showLoginWindow() {
 
         if (AppDelegate.getInstance().isUserLogin()) {
             return;

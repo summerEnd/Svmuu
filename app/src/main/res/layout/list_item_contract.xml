@@ -2,9 +2,9 @@
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/clicked_white"
-    android:padding="@dimen/dimen_11px"
+    android:padding="@dimen/dimen_15px"
     android:id="@+id/listContractText"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="T+9"
-    android:textSize="@dimen/text_26px" />
+    android:textSize="@dimen/text_22px" />

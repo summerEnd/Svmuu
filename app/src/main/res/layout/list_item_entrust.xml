@@ -60,7 +60,7 @@
             android:orientation="horizontal">
 
             <com.yjy998.ui.view.TwoTextItem
-                style="@style/TwoTextItem.Red"
+                style="@style/BusinessTwoTextItem.Red"
                 android:id="@+id/tradeType"
                 app:prefix="交易类型:"
                 android:text="买入"
@@ -68,13 +68,10 @@
                 app:prefixTextColor="@color/textColorDeepGray"
                 app:prefixTextSize="@dimen/text_22px" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent" />
+
 
             <com.yjy998.ui.view.TwoTextItem
-                style="@style/TwoTextItem.Red"
+                style="@style/BusinessTwoTextItem.Red"
                 app:prefix="委托价格:"
                 android:id="@+id/priceText"
                 android:textSize="@dimen/text_22px"
@@ -82,14 +79,11 @@
                 android:text="8.26"
                 app:prefixTextSize="@dimen/text_22px" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent" />
+
 
             <com.yjy998.ui.view.TwoTextItem
                 android:id="@+id/countText"
-                style="@style/TwoTextItem.Red"
+                style="@style/BusinessTwoTextItem.Red"
                 app:prefix="数量:"
                 android:textSize="@dimen/text_22px"
                 app:prefixTextColor="@color/textColorDeepGray"
@@ -97,21 +91,37 @@
                 android:text="1000"
                 app:prefixTextSize="@dimen/text_22px" />
         </LinearLayout>
-
-        <TextView
-            android:layout_marginTop="@dimen/dimen_11px"
-            android:textColor="@color/textColorDeepGray"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_22px"
-            android:text="委托时间：2015-03-31 15:26:25" />
-
-        <TextView
-            android:textSize="@dimen/text_22px"
             android:layout_marginTop="@dimen/dimen_11px"
-            android:textColor="@color/textColorDeepGray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="挂单截止日：2015-04-31 15:26:25" />
+            android:orientation="horizontal">
+
+            <com.yjy998.ui.view.TwoTextItem
+                style="@style/BusinessTwoTextItem.Gray"
+                android:id="@+id/entrustTime"
+                app:prefix="委托时间:"
+                android:text="10:10:10"
+                android:textSize="@dimen/text_22px"
+                app:prefixTextColor="@color/textColorDeepGray"
+                app:prefixTextSize="@dimen/text_22px" />
+
+
+
+            <com.yjy998.ui.view.TwoTextItem
+                style="@style/BusinessTwoTextItem.Red"
+                app:prefix="委托状态:"
+                android:id="@+id/entrustStatus"
+                android:textSize="@dimen/text_22px"
+                app:prefixTextColor="@color/textColorDeepGray"
+                android:text="已撤销"
+                app:prefixTextSize="@dimen/text_22px" />
+
+
+
+
+        </LinearLayout>
+
+
     </LinearLayout>
 </RelativeLayout>

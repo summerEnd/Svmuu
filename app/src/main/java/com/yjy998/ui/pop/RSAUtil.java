@@ -26,7 +26,7 @@ public class RSAUtil {
         }
 
         //调用接口获取exponent和modulus
-        YHttpClient.getInstance().getRsa(new YHttpHandler() {
+        YHttpClient.getInstance().getRsa(new YHttpHandler(false) {
             @Override
             protected void onStatusCorrect(Response response) {
                 try {

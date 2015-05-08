@@ -11,9 +11,11 @@ import java.util.List;
 public abstract class ViewHolderAdapter<T, H> extends SAdapter<T> {
     int layoutId;
     LayoutInflater inflater;
+    protected Context context;
 
     public ViewHolderAdapter(Context context, List<T> data, int layoutId) {
         super(data);
+        this.context = context;
         this.layoutId = layoutId;
         inflater = LayoutInflater.from(context);
     }
@@ -51,5 +53,8 @@ public abstract class ViewHolderAdapter<T, H> extends SAdapter<T> {
      */
     public abstract void displayView(View convertView, H holder, int position);
 
+    public Context getContext() {
+        return context;
+    }
 
 }

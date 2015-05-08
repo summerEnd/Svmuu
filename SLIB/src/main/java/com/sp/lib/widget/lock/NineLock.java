@@ -1,7 +1,5 @@
 package com.sp.lib.widget.lock;
 
-import android.util.Log;
-
 public class NineLock implements ILock {
 
     public static final int STATUS_NORMAL = 0;
@@ -14,7 +12,7 @@ public class NineLock implements ILock {
             '7', '8', '9'
     };
 
-    private String mSecret = "";
+    private String mDrawSecret = "";
     private int status = STATUS_NORMAL;
 
     public NineLock() {
@@ -34,17 +32,17 @@ public class NineLock implements ILock {
 
     public void appendSecret(char secret) {
 
-        if (mSecret.length() >= RAW_PASSWORD.length) {
+        if (mDrawSecret.length() >= RAW_PASSWORD.length) {
             return;
         }
         if (!contains(RAW_PASSWORD, secret)) {
             return;
         }
 
-        if (contains(mSecret.toCharArray(), secret)) {
+        if (contains(mDrawSecret.toCharArray(), secret)) {
             return;
         }
-        mSecret += secret;
+        mDrawSecret += secret;
     }
 
     /**
@@ -59,12 +57,12 @@ public class NineLock implements ILock {
     public void appendFixedPosition(int position) {
 
         //如果是第一次添加，就不用补全了
-        if (mSecret.length() == 0) {
+        if (mDrawSecret.length() == 0) {
             appendPosition(position);
             return;
         }
 
-        int lastPosition = getPosition(mSecret.charAt(mSecret.length() - 1));
+        int lastPosition = getPosition(mDrawSecret.charAt(mDrawSecret.length() - 1));
         int currentPosition = position;
 
         int lastRow = lastPosition / 3;
@@ -107,7 +105,7 @@ public class NineLock implements ILock {
     }
 
     public boolean contains(char secret) {
-        return contains(mSecret.toCharArray(), secret);
+        return contains(mDrawSecret.toCharArray(), secret);
     }
 
     private boolean contains(char[] array, char c) {
@@ -141,13 +139,13 @@ public class NineLock implements ILock {
 
     @Override
     public void reset() {
-        mSecret = "";
+        mDrawSecret = "";
         status = STATUS_NORMAL;
     }
 
 
-    public String getSecret() {
-        return mSecret;
+    public String getDrawSecret() {
+        return mDrawSecret;
     }
 
     /**

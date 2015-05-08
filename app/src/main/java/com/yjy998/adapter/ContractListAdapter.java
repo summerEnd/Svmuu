@@ -30,7 +30,7 @@ public class ContractListAdapter extends ViewHolderAdapter<Contract, Object> {
     public void displayView(View convertView, Object holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         Contract contract = getItem(position);
-        viewHolder.listContractText.setText(contract.contract_type + " " + contract.contract_no);
+        viewHolder.listContractText.setText(getContext().getString(R.string.contract_s1_s2,contract.contract_type,contract.id));
     }
 
     private class ViewHolder {

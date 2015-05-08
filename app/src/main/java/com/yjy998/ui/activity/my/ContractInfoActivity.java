@@ -42,7 +42,7 @@ public class ContractInfoActivity extends SecondActivity implements DialogInterf
     }
 
     void getContractInfo() {
-        YHttpClient.getInstance().getContractInfo(this, getIntent().getStringExtra(EXTRA_CONTRACT_NO), new YHttpHandler() {
+        YHttpClient.getInstance().getContractInfo(this, getIntent().getStringExtra(EXTRA_CONTRACT_NO), new YHttpHandler(false) {
             @Override
             protected void onStatusCorrect(Response response) {
                 try {

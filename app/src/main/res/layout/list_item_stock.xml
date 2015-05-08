@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:textColor="@color/textColorBlack"
+    android:textSize="@dimen/text_20px"
+    android:padding="@dimen/dimen_11px"
+    android:background="@drawable/clicked_white"
+    android:text="600400红豆"
+    android:layout_height="wrap_content" />
+

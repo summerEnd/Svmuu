@@ -24,7 +24,7 @@ public class ChartActivity extends YJYActivity {
         GView gView = findView(R.id.gView);
 
         try {
-            JSONObject data = new JSONObject(Constant.DATA);
+            JSONObject data = new JSONObject("");
             JSONArray array = data.getJSONObject("data").getJSONArray("trendList");
             int length = array.length();
             int displayLength=200;

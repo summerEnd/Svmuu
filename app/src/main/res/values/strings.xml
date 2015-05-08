@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--
         命名规范：
@@ -105,6 +106,7 @@
     <string name="education_lvl">教育程度</string>
     <string name="handPassword">手势密码</string>
     <string name="setAlready">已设置</string>
+    <string name="notSet">已设置</string>
     <string name="investment_exp">投资经验</string>
     <string name="hint_investment_lvl">请输入投资经验</string>
     <string name="avatar">头像</string>
@@ -188,7 +190,7 @@
     <string name="userName">用户名</string>
     <string name="apply_date">申请日期：%s</string>
     <string name="s_day">%s元/天</string>
-    <string name="dealing">处理中...</string>
+    <string name="dealing">处理中…</string>
     <string name="retry">重试</string>
     <string name="trade">交易</string>
     <string name="contract_no_s">合约编号：%s</string>
@@ -196,4 +198,21 @@
     <string name="total_capital_s">总资产：%s</string>
     <string name="relative_area_s">关联赛区：%s</string>
     <string name="apply_date_s">申请日期：%s</string>
+    <string name="entrustTime_s">委托时间：%s</string>
+    <string name="dealTime_s">成交时间：%s</string>
+    <string name="dealPrice_s">成交金额：%s</string>
+
+    <string name="contract_s1_s2">%1$s 编号：%2$s</string>
+    <string name="entrusting">委托中</string>
+    <string name="canceledOrder">已撤单</string>
+    <string name="deal_done">已成交</string>
+    <string name="contract_not_selected">还没选择合约！</string>
+    <string name="stock_not_selected">没有选择股票！</string>
+    <string name="draw_gesture_psw">请绘制手势密码</string>
+    <string name="draw_open_gesture_psw">绘制解锁密码</string>
+    <string name="open_lock_failed_d">密码错了，还可输入%d次</string>
+    <string name="draw_gesture_second">请再次绘制手势密码</string>
+    <string name="re_draw_gesture">与上次绘制不一样，请重新绘制</string>
+    <string name="password_failed">手势密码已失效，请重新登录！</string>
+    <string name="please_login_first">请先登录或注册！</string>
 </resources>

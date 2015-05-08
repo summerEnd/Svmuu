@@ -10,6 +10,7 @@ import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
 import com.yjy998.entity.Contest;
 import com.yjy998.ui.activity.contest.ContestInfoActivity;
+import com.yjy998.ui.activity.my.ContractInfoActivity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -98,8 +99,8 @@ public class ContestPagerAdapter extends PagerAdapter implements View.OnClickLis
         if (contest == null) {
             return;
         }
-        v.getContext().startActivity(new Intent(v.getContext(), ContestInfoActivity.class)
-                .putExtra("bean", contest));
+        v.getContext().startActivity(new Intent(v.getContext(), ContractInfoActivity.class)
+                .putExtra(ContractInfoActivity.EXTRA_CONTRACT_NO, "1"));
     }
 
     private class ViewHolder {

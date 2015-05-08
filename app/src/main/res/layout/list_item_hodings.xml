@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:background="@drawable/clicked_white"
+    android:paddingLeft="@dimen/dimen_40px"
+    android:paddingRight="@dimen/dimen_40px"
+    android:paddingTop="@dimen/dimen_50px"
+    android:paddingBottom="@dimen/dimen_15px"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:id="@+id/titleLayout"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/dotSize"
+            android:layout_height="@dimen/dotSize"
+            android:src="@drawable/ic_launcher"
+            android:scaleType="centerInside"
+            android:id="@+id/indicator" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/list_item_hold_margin_dot1"
+            android:layout_marginStart="@dimen/list_item_hold_margin_dot1"
+            android:textSize="@dimen/text_28px"
+            android:id="@+id/stockName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorBlack"
+            android:text="华能国际" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/list_item_hold_title_space"
+            android:layout_marginStart="@dimen/list_item_hold_title_space"
+            android:textSize="@dimen/text_28px"
+            android:textColor="@color/textColorBlack"
+            android:id="@+id/stockCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="600011" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/list_item_hold_margin_dot2"
+        android:layout_marginTop="@dimen/dimen_11px"
+        android:layout_below="@id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.yjy998.ui.view.TwoTextItem
+                style="@style/BusinessTwoTextItem.Gray"
+                android:id="@+id/stockAmount"
+                app:prefix="持股数:"
+                android:text="1000"
+                app:prefixTextColor="@color/textColorDeepGray"
+                app:prefixTextSize="@dimen/businessListTextSize" />
+
+
+            <com.yjy998.ui.view.TwoTextItem
+                style="@style/BusinessTwoTextItem.Red"
+                app:prefix="当前价:"
+                android:id="@+id/priceText"
+                app:prefixTextColor="@color/textColorDeepGray"
+                android:text="8.26"
+                app:prefixTextSize="@dimen/text_22px" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_11px"
+            android:orientation="horizontal">
+
+            <com.yjy998.ui.view.TwoTextItem
+                style="@style/BusinessTwoTextItem.Red"
+                android:id="@+id/marketValue"
+                app:prefix="最新市值:"
+                android:text="25.2"
+                app:prefixTextColor="@color/textColorDeepGray"
+                app:prefixTextSize="@dimen/businessListTextSize" />
+
+
+            <com.yjy998.ui.view.TwoTextItem
+                android:id="@+id/costPrice"
+                style="@style/BusinessTwoTextItem.Gray"
+                app:prefix="成本价:"
+                app:prefixTextColor="@color/textColorDeepGray"
+                android:text="2.55"
+                app:prefixTextSize="@dimen/text_22px" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_11px"
+            android:orientation="horizontal">
+
+
+            <com.yjy998.ui.view.TwoTextItem
+                style="@style/BusinessTwoTextItem.Red"
+                app:prefix="可买数量:"
+                android:id="@+id/buyAmount"
+                app:prefixTextColor="@color/textColorDeepGray"
+                android:text="1000"
+                app:prefixTextSize="@dimen/text_22px" />
+
+            <com.yjy998.ui.view.TwoTextItem
+                android:id="@+id/balanceRate"
+                style="@style/BusinessTwoTextItem.Green"
+                app:prefix="盈亏比例:"
+                app:prefixTextColor="@color/textColorDeepGray"
+                android:text="-2.55%"
+                app:prefixTextSize="@dimen/text_22px" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

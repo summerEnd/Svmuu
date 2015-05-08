@@ -1,14 +1,10 @@
 package com.yjy998.http;
 
 import android.app.Dialog;
-import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.sp.lib.common.preference.PreferenceUtil;
 import com.sp.lib.common.support.net.client.SHttpProgressHandler;
 import com.sp.lib.common.util.ContextUtil;
-import com.sp.lib.common.util.SLog;
-import com.yjy998.common.preference.CookiePreference;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -61,14 +57,14 @@ public abstract class YHttpHandler extends SHttpProgressHandler {
     public final void onSuccess(int statusCode, Header[] headers, JSONObject response) {
         super.onSuccess(statusCode, headers, response);
 
-        for (Header header : headers) {
-            SLog.debug("head:" + header);
-            if (CookiePreference.COOKIE.equals(header.getName())) {
-                //把cookie存起来
-                CookiePreference.get().setCookie(header.getValue());
-                SLog.debug("save Cookie:" + header.getValue());
-            }
-        }
+//        for (Header header : headers) {
+//            SLog.debug("head:" + header);
+//            if (CookiePreference.COOKIE.equals(header.getName())) {
+//                //把cookie存起来
+//                CookiePreference.get().setCookie(header.getValue());
+//                SLog.debug("save Cookie:" + header.getValue());
+//            }
+//        }
 
         Response responseObject = parseResponse(response);
         if (responseObject.status) {

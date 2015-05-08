@@ -94,4 +94,5 @@
     <dimen name="capitalTextSize">@dimen/text_22px</dimen>
     <dimen name="contractTextSize">@dimen/text_24px</dimen>
     <dimen name="logoWidth">@dimen/dimen_270px</dimen>
+    <dimen name="businessListTextSize">@dimen/text_22px</dimen>
 </resources>

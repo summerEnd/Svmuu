@@ -175,19 +175,24 @@
         <item name="android:padding">@dimen/dimen_20px</item>
     </style>
 
-    <style name="TwoTextItem" parent="android:TextAppearance">
-        <item name="android:textSize">@dimen/text_22px</item>
+    <style name="BusinessTwoTextItem" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/text_20px</item>
         <item name="android:text">test</item>
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="TwoTextItem.Red">
+    <style name="BusinessTwoTextItem.Red">
         <item name="android:textColor">@color/textColorRed</item>
     </style>
 
-    <style name="TwoTextItem.Green">
+    <style name="BusinessTwoTextItem.Green">
         <item name="android:textColor">@color/textColorGreen</item>
+    </style>
+
+    <style name="BusinessTwoTextItem.Gray">
+        <item name="android:textColor">@color/textColorDeepGray</item>
     </style>
 
     <style name="businessPopAnimation" parent="popup_window_animation">

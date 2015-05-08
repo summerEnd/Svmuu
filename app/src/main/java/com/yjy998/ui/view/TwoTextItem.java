@@ -51,4 +51,7 @@ public class TwoTextItem extends LinearLayout {
     public void setText(int resId) {
         textViewValue.setText(resId);
     }
+    public void setTextColor(int color){
+        textViewValue.setTextColor(color);
+    }
 }
