@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@drawable/windowBackground"
-    tools:context="com.yjy998.ui.activity.my.ChangeDataActivity"
+    tools:context="com.yjy998.ui.activity.main.my.ChangeDataActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 

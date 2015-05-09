@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.yjy998.ui.activity.other.NewMemberActivity">
+    tools:context="com.yjy998.ui.activity.main.home.NewMemberActivity">
 
     <TextView
         android:background="#f2f2f2"

@@ -5,7 +5,7 @@
     style="@style/activityPadding"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.yjy998.ui.activity.more.MoreFragment">
+    tools:context="com.yjy998.ui.activity.main.more.MoreFragment">
 
     <TextView
         android:textSize="@dimen/text_30px"

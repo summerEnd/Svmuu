@@ -4,7 +4,7 @@
     android:background="@color/white"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context="com.yjy998.ui.activity.my.business.capital.BuySellFragment"
+    tools:context="com.yjy998.ui.activity.main.my.business.capital.BuySellFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout

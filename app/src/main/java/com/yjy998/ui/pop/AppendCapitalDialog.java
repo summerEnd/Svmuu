@@ -8,9 +8,9 @@ import android.widget.TextView;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.yjy998.R;
-import com.yjy998.http.Response;
-import com.yjy998.http.YHttpClient;
-import com.yjy998.http.YHttpHandler;
+import com.yjy998.common.http.Response;
+import com.yjy998.common.http.YHttpClient;
+import com.yjy998.common.http.YHttpHandler;
 
 public class AppendCapitalDialog extends Dialog implements View.OnClickListener {
 

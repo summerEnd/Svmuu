@@ -3,9 +3,9 @@ package com.yjy998;
 import android.content.Context;
 
 import com.sp.lib.SApplication;
-import com.yjy998.admin.User;
+import com.yjy998.common.entity.User;
 import com.yjy998.common.Constant;
-import com.yjy998.ui.activity.test.TestActivity;
+import com.yjy998.common.test.TestActivity;
 
 /**
  * 程序入口,存放全局数据，进行初始化等操作

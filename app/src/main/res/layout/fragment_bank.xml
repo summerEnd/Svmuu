@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.yjy998.ui.activity.other.pay.BankFragment">
+    tools:context="com.yjy998.ui.activity.pay.BankFragment">
 
     <LinearLayout
         android:layout_marginTop="@dimen/dimen_15px"

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.yjy998.ui.activity.other.pay.YbPayFragment">
+    tools:context="com.yjy998.ui.activity.pay.YbPayFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

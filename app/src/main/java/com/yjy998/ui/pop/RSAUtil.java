@@ -9,9 +9,9 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.yjy998.http.Response;
-import com.yjy998.http.YHttpClient;
-import com.yjy998.http.YHttpHandler;
+import com.yjy998.common.http.Response;
+import com.yjy998.common.http.YHttpClient;
+import com.yjy998.common.http.YHttpHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;

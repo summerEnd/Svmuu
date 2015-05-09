@@ -6,7 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.yjy998.ui.activity.About">
+    tools:context="com.yjy998.ui.activity.admin.About">
 
     <ImageView
         android:layout_marginTop="@dimen/dimen_84px"

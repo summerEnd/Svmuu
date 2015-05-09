@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="@color/white"
     tools:ignore="NestedWeights"
-    tools:context="com.yjy998.ui.activity.home.HomeFragment">
+    tools:context="com.yjy998.ui.activity.main.home.HomeFragment">
 
 
     <include layout="@layout/layout_msg" />

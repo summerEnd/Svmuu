@@ -5,7 +5,7 @@
     android:orientation="vertical"
     style="@style/activityPadding"
     android:background="@color/white"
-    tools:context="com.yjy998.ui.activity.contest.RankActivity">
+    tools:context="com.yjy998.ui.activity.main.contest.RankActivity">
 
     <TextView
         android:textSize="@dimen/text_30px"

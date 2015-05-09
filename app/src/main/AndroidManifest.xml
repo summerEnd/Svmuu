@@ -16,7 +16,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.other.EnterActivity">
+        <activity android:name=".ui.activity.EnterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".ui.activity.main.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" />
         <activity
@@ -45,48 +45,48 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.test.ChartActivity"
+            android:name=".common.test.ChartActivity"
             android:label="@string/title_activity_chart" />
         <activity
-            android:name=".ui.activity.other.LockActivity"
+            android:name=".ui.activity.admin.LockActivity"
             android:label="@string/title_activity_lock"
             android:launchMode="singleTop" />
         <activity
-            android:name=".ui.activity.test.TestActivity"
+            android:name=".common.test.TestActivity"
             android:label="@string/title_activity_test" />
         <activity
-            android:name=".ui.activity.apply.ApplyActivity"
+            android:name=".ui.activity.main.apply.ApplyActivity"
             android:label="@string/title_activity_t9_tn" />
         <activity
-            android:name=".ui.activity.my.ChangeDataActivity"
+            android:name=".ui.activity.main.my.ChangeDataActivity"
             android:label="@string/title_activity_change_data" />
         <activity
-            android:name=".ui.activity.other.NewMemberActivity"
+            android:name=".ui.activity.main.home.NewMemberActivity"
             android:label="@string/title_activity_fresh" />
-        <activity android:name=".ui.activity.my.business.BusinessActivity" />
-        <activity android:name=".ui.activity.test.MenuDrawerActivity" />
+        <activity android:name=".ui.activity.main.my.business.BusinessActivity" />
+        <activity android:name=".common.test.MenuDrawerActivity" />
         <activity
-            android:name=".ui.activity.contest.ContestInfoActivity"
+            android:name=".ui.activity.main.contest.ContestInfoActivity"
             android:label="@string/title_activity_game_info" />
         <activity
-            android:name=".ui.activity.contest.RankActivity"
+            android:name=".ui.activity.main.contest.RankActivity"
             android:label="@string/title_activity_rank" />
         <activity
-            android:name=".ui.activity.other.pay.RechargeActivity"
+            android:name=".ui.activity.pay.RechargeActivity"
             android:label="@string/title_activity_recharge" />
         <activity
-            android:name=".ui.activity.test.TestRsa"
+            android:name=".common.test.TestRsa"
             android:label="@string/title_activity_recharge" />
         <activity
-            android:name=".ui.activity.MessageActivity"
+            android:name=".ui.activity.main.home.MessageActivity"
             android:label="@string/title_activity_message" />
         <activity
-            android:name=".ui.activity.About"
+            android:name=".ui.activity.admin.About"
             android:label="@string/title_activity_abount" />
         <activity
-            android:name=".ui.activity.my.ContractInfoActivity"
+            android:name=".ui.activity.main.my.ContractInfoActivity"
             android:label="@string/title_activity_contract_info" />
-        <activity android:name=".ui.activity.my.SetGesturePassword" />
+        <activity android:name=".ui.activity.main.my.SetGesturePassword" />
     </application>
 
 </manifest>
