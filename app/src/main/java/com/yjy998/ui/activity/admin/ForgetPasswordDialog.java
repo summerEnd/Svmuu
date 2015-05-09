@@ -15,7 +15,7 @@ import com.yjy998.R;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
-import com.yjy998.ui.pop.RSAUtil;
+import com.yjy998.common.util.RSAUtil;
 import com.yjy998.ui.pop.YAlertDialog;
 
 public class ForgetPasswordDialog extends Dialog implements View.OnClickListener, RSAUtil.Callback {

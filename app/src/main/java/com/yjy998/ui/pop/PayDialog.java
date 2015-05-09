@@ -4,11 +4,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.sp.lib.widget.input.PasswordEdit;
 import com.yjy998.R;
+import com.yjy998.common.util.RSAUtil;
 
 public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.Callback {
     private TextView accountText;

@@ -1,4 +1,4 @@
-package com.yjy998.ui.pop;
+package com.yjy998.common.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
