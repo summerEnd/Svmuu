@@ -42,7 +42,7 @@
                     style="@style/circleStyle"
                     android:id="@+id/circle1"
                     app:boldText="1"
-                    app:circle="red"
+                    app:circle="blue"
                     app:normalText="@string/ten_thousand" />
 
                 <View style="@style/horizontalSpace" />

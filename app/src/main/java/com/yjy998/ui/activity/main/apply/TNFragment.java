@@ -16,13 +16,14 @@ import com.yjy998.ui.view.CircleItem;
 
 public class TNFragment extends BaseFragment implements View.OnClickListener {
 
-
-    private CircleItem circle0;
-    private CircleItem circle1;
-    private CircleItem circle2;
-    private CircleItem circle3;
-    private CircleItem circle4;
-    private CircleItem circle5;
+    private final int W = 10000;
+    private int[] DATA = new int[]{
+            5000, 1 * W, 3 * W, 5 * W, 10 * W, 20 * W,
+            30 * W, 50 * W, 80 * W, 100 * W, 150 * W, 200 * W
+    };
+    private Item[] items = new Item[12];
+    private CircleItem[] circle = new CircleItem[6];
+    private int currentGroup = 0;
     private TextView totalCapitalText;
     private TextView manageFeeText;
     private ImageView questionImage;
@@ -48,13 +49,17 @@ public class TNFragment extends BaseFragment implements View.OnClickListener {
 
     private void initialize() {
 
-        circle0 = (CircleItem) findViewById(R.id.circle0);
-        circle1 = (CircleItem) findViewById(R.id.circle1);
-        circle2 = (CircleItem) findViewById(R.id.circle2);
+        circle[0] = (CircleItem) findViewById(R.id.circle0);
+        circle[1] = (CircleItem) findViewById(R.id.circle1);
+        circle[2] = (CircleItem) findViewById(R.id.circle2);
+        circle[3] = (CircleItem) findViewById(R.id.circle3);
+        circle[4] = (CircleItem) findViewById(R.id.circle4);
+        circle[5] = (CircleItem) findViewById(R.id.circle5);
+        OnCircleClickListener listener = new OnCircleClickListener();
+        for (CircleItem item : circle) {
+            item.setOnClickListener(listener);
+        }
 
-        circle3 = (CircleItem) findViewById(R.id.circle3);
-        circle4 = (CircleItem) findViewById(R.id.circle4);
-        circle5 = (CircleItem) findViewById(R.id.circle5);
         findViewById(R.id.changeGroup).setOnClickListener(this);
         findViewById(R.id.introduce).setOnClickListener(this);
         totalCapitalText = (TextView) findViewById(R.id.totalCapitalText);
@@ -62,10 +67,69 @@ public class TNFragment extends BaseFragment implements View.OnClickListener {
         questionImage = (ImageView) findViewById(R.id.questionImage);
         pingCangText = (TextView) findViewById(R.id.pingCangText);
         traderText = (TextView) findViewById(R.id.traderText);
+
+        //初始化数据
+        for (int i = 0; i < items.length; i++) {
+            items[i] = new Item();
+            if (DATA[i] < W) {
+                items[i].boldText = "";
+                items[i].normalText = DATA[i] + getString(R.string.yuan);
+            } else {
+                items[i].boldText = DATA[i] / W + "";
+                items[i].normalText = getString(R.string.ten_thousand);
+            }
+        }
+        setCircleGroup(currentGroup);
     }
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.changeGroup: {
+                changeGroup();
+                break;
+            }
+        }
+    }
+
+    public void changeGroup() {
+        currentGroup = (currentGroup + 1) % 2;
+        setCircleGroup(currentGroup);
+    }
+
+    void setCircleGroup(int group) {
+        int index = group * 6;
+        for (int i = 0; i < circle.length; i++) {
+            Item item = items[i + index];
+            circle[i].setBoldText(item.boldText);
+            circle[i].setNormalText(item.normalText);
+            if (item.isSelected) {
+                circle[i].setCircle(CircleItem.CIRCLE_RED);
+            } else {
+                circle[i].setCircle(CircleItem.CIRCLE_BLUE);
+            }
+        }
+    }
+
+    void setData(Item item){
 
     }
+
+    public class Item {
+        private String normalText;
+        private String boldText;
+        private boolean isSelected;
+    }
+
+    private class OnCircleClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            int index = currentGroup * 6;
+            for (int i = 0; i < circle.length; i++) {
+                items[i + index].isSelected = (circle[i] == v);
+            }
+            setCircleGroup(currentGroup);
+        }
+    }
+
 }
