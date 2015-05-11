@@ -29,11 +29,15 @@ public class ContractStockListAdapter extends ViewHolderAdapter<Holding, Object>
 
     @Override
     public void displayView(View convertView, Object holder, int position) {
-        ViewHolder viewHolder= (ViewHolder) holder;
-        Holding holding =getItem(position);
-//        viewHolder.stockName.setText(hold.);
-//        viewHolder.floatBalance.setText(stock.turnOverRate);
-//        viewHolder.holdNumber.setText(stock.);
+        ViewHolder viewHolder = (ViewHolder) holder;
+        Holding holding = getItem(position);
+        viewHolder.stockName.setText(holding.stockName);
+        String floatRatio = holding.getFloatRatio();
+        int textColor = floatRatio.startsWith("-") ? R.color.textColorGreen : R.color.textColorRed;
+        viewHolder.floatBalance.setTextColor(convertView.getResources().getColor(textColor));
+        viewHolder.floatBalance.setText(floatRatio);
+        viewHolder.holdNumber.setText(holding.currentAmount + "");
+        viewHolder.holdValue.setText(holding.marketValue + "");
     }
 
     private class ViewHolder {

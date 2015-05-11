@@ -4,9 +4,12 @@ import com.yjy998.R;
 
 import java.io.Serializable;
 
-public class Contest implements Serializable{
-    public float profitRatio;
+public class Contest implements Serializable {
+    public String profitRatio;
+    //区域
     public String area;
+    //排名
+    public String rank;
     //比赛id
     public String id;
     //比赛名称
@@ -40,5 +43,13 @@ public class Contest implements Serializable{
             }
         }
         return R.string.unknow;
+    }
+
+    public float getProfitRatio() {
+        try {
+            return Float.parseFloat(profitRatio);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }

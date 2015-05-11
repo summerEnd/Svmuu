@@ -1,6 +1,7 @@
 package com.yjy998.ui.activity.main.my.business;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -21,6 +22,8 @@ import com.yjy998.ui.pop.CenterPopup;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
+
 import static com.yjy998.ui.activity.main.my.business.capital.BuySellFragment.ContractObserver;
 
 /**
@@ -28,12 +31,15 @@ import static com.yjy998.ui.activity.main.my.business.capital.BuySellFragment.Co
  */
 public class HoldingsFragment extends BusinessListFragment {
 
+    ArrayList<Holding> holdings = new ArrayList<Holding>();
 
     @Override
     public String getTitle() {
         return ContextUtil.getString(R.string.holdings);
     }
+
     Holding sel;
+
     @Override
     protected void onCreatePop(CenterPopup.PopWidget popWidget) {
         popWidget.add(new CenterPopup.PopItem(0, getString(R.string.buyIn), getResources().getColor(R.color.roundButtonBlue)));
@@ -46,21 +52,24 @@ public class HoldingsFragment extends BusinessListFragment {
         getHoldings();
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        super.onItemLongClick(parent, view, position, id);
-
-        return true;
-    }
 
     @Override
     protected void onPopItemClick(CenterPopup.PopItem item) {
         switch (item.id) {
             case 0: {
-
+                startActivity(new Intent(getActivity(), BusinessActivity.class)
+                                .putExtra(BusinessActivity.EXTRA_IS_BUY, true)
+                                .putExtra(BusinessActivity.EXTRA_CONTRACT_NO, getSharedContract().contractId)
+                                .putExtra(BusinessActivity.EXTRA_STOCK_CODE, holdings.get(getSelectedPosition()).stockCode)
+                );
                 break;
             }
             case 1: {
+                startActivity(new Intent(getActivity(), BusinessActivity.class)
+                                .putExtra(BusinessActivity.EXTRA_IS_BUY, false)
+                                .putExtra(BusinessActivity.EXTRA_CONTRACT_NO, getSharedContract().contractId)
+                                .putExtra(BusinessActivity.EXTRA_STOCK_CODE, holdings.get(getSelectedPosition()).stockCode)
+                );
                 break;
             }
         }
@@ -82,7 +91,9 @@ public class HoldingsFragment extends BusinessListFragment {
                 protected void onStatusCorrect(Response response) {
                     try {
                         JSONArray array = new JSONArray(response.data);
-                        HoldingsAdapter adapter = new HoldingsAdapter(getActivity(), JsonUtil.getArray(array, Holding.class));
+                        holdings.clear();
+                        JsonUtil.getArray(array, Holding.class, holdings);
+                        HoldingsAdapter adapter = new HoldingsAdapter(getActivity(), holdings);
                         setAdapter(adapter);
 
                     } catch (JSONException e) {

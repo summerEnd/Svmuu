@@ -35,17 +35,6 @@ public class DealFragment extends BusinessListFragment {
     }
 
     @Override
-    protected void onCreatePop(PopWidget popWidget) {
-        popWidget.add(new CenterPopup.PopItem(0, getString(R.string.buyIn), getResources().getColor(R.color.roundButtonBlue)));
-        popWidget.add(new CenterPopup.PopItem(1, getString(R.string.sellOut), getResources().getColor(R.color.roundButtonRed)));
-    }
-
-    @Override
-    protected void onPopItemClick(PopItem item) {
-        super.onPopItemClick(item);
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         refresh();

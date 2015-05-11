@@ -6,8 +6,7 @@ import java.io.Serializable;
 public class Contract implements Serializable {
 
 
-
-
+    public String contract_name;
     public String uid;
     public String verify_date;
     public String new_rate;

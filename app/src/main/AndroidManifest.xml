@@ -63,7 +63,7 @@
         <activity
             android:name=".ui.activity.main.home.NewMemberActivity"
             android:label="@string/title_activity_fresh" />
-        <activity android:name=".ui.activity.main.my.business.BusinessActivity" />
+        <activity android:name=".ui.activity.main.my.business.BusinessActivity" android:launchMode="singleTop"/>
         <activity android:name=".common.test.MenuDrawerActivity" />
         <activity
             android:name=".ui.activity.main.contest.ContestInfoActivity"
@@ -74,9 +74,7 @@
         <activity
             android:name=".ui.activity.pay.RechargeActivity"
             android:label="@string/title_activity_recharge" />
-        <activity
-            android:name=".common.test.TestRsa"
-            android:label="@string/title_activity_recharge" />
+
         <activity
             android:name=".ui.activity.main.home.MessageActivity"
             android:label="@string/title_activity_message" />

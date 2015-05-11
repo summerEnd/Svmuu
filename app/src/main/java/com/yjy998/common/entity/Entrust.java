@@ -3,6 +3,8 @@ package com.yjy998.common.entity;
 import com.yjy998.R;
 
 public class Entrust {
+
+
     public String entrustPrice;
     public String stockCode;
     public String homsFundAccount;

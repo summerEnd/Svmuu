@@ -151,12 +151,12 @@
     <string name="dial_service">一键客服</string>
     <string name="tn_notice">提醒：申请当日必须买入股票，T+N日14:40分之前必须卖出股票，14:40分之后系统自动平仓</string>
     <string name="notice2">盈利全归您，亏损我们来承担！</string>
-    <string name="register_ing">注册中...</string>
+    <string name="register_ing">注册中…</string>
     <string name="re_register">重新注册</string>
-    <string name="login_ing">登录中...</string>
-    <string name="op_ing">操作中...</string>
+    <string name="login_ing">登录中…</string>
+    <string name="op_ing">操作中…</string>
     <string name="re_login">重新登录</string>
-    <string name="get_info">获取用户信息...</string>
+    <string name="get_info">获取用户信息…</string>
     <string name="remain_money_s">账户余额：￥%s</string>
     <string name="login_fail">登录失败</string>
     <string name="register_fail">注册失败</string>
@@ -215,4 +215,9 @@
     <string name="re_draw_gesture">与上次绘制不一样，请重新绘制</string>
     <string name="password_failed">手势密码已失效，请重新登录！</string>
     <string name="please_login_first">请先登录或注册！</string>
+    <string name="load_amount">加载账户资产…</string>
+    <string name="toast_no_stock">没有选择股票</string>
+    <string name="toast_no_price">请输入价格</string>
+    <string name="toast_no_amout">请输入数量</string>
+    <string name="get_contract_info_ing">获取合约详情…</string>
 </resources>

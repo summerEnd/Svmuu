@@ -51,9 +51,7 @@ public class LinearListView extends LinearLayout implements View.OnClickListener
 
     public void setAdapter(ListAdapter adapter) {
 
-        if (mAdapter != null) {
-            mAdapter.unregisterDataSetObserver(mObserver);
-        }
+        unregisterDataSetObserverSafe();
 
         this.mAdapter = adapter;
 
@@ -113,8 +111,15 @@ public class LinearListView extends LinearLayout implements View.OnClickListener
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        unregisterDataSetObserverSafe();
+    }
+
+    void unregisterDataSetObserverSafe() {
         if (mAdapter != null) {
-            mAdapter.unregisterDataSetObserver(mObserver);
+            try {
+                mAdapter.unregisterDataSetObserver(mObserver);
+            } catch (Exception e) {
+            }
         }
     }
 

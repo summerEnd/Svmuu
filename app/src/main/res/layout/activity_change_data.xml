@@ -149,7 +149,6 @@
             android:orientation="vertical"
             style="@style/changeDataTabRow">
 
-
             <EditText
                 android:id="@+id/expEdit"
                 android:background="#0000"

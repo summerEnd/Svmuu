@@ -125,7 +125,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
 
             User user = AppDelegate.getInstance().getUser();
 
-            Assent assent = user.assent;
+            Assent assent = user.userInfo;
             telText.setText(assent.name);
             moneyText.setText("￥" + assent.avalaible_amount);
             goldIngotText.setText(getString(R.string.GoldIngot_s, assent.yuanbao_total_amount));

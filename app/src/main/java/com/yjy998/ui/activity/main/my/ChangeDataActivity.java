@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sp.lib.activity.album.PhotoAlbumActivity;
 import com.sp.lib.activity.dialog.ListDialog;
+import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ImageUtil;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
@@ -28,6 +30,7 @@ import com.yjy998.ui.pop.YAlertDialogTwoButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class ChangeDataActivity extends SecondActivity {
 
@@ -39,6 +42,8 @@ public class ChangeDataActivity extends SecondActivity {
     private TextView educationText;
     private TextView handPasswordText;
     private EditText expEdit;
+    String mProvince;
+    String mCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +53,10 @@ public class ChangeDataActivity extends SecondActivity {
     }
 
     private void initialize() {
-        Assent assent = AppDelegate.getInstance().getUser().assent;
+        Assent assent = AppDelegate.getInstance().getUser().userInfo;
         if (assent == null) {
             finish();
+            return;
         }
         avatarImage = (ImageView) findViewById(R.id.avatarImage);
         nickText = (EditText) findViewById(R.id.nickText);
@@ -67,11 +73,27 @@ public class ChangeDataActivity extends SecondActivity {
         handPasswordText.setOnClickListener(this);
         avatarImage.setOnClickListener(this);
 
+        if (TextUtils.isEmpty(assent.r_location)) {
+            mProvince = "";
+            mCity = "";
+        } else {
+            String location[] = assent.r_location.split(",");
+            mProvince = location[0];
+            if (location.length >= 2) {
+                mCity = location[1];
+            } else {
+                mCity = "";
+            }
+        }
+
+        String genders[] = getResources().getStringArray(R.array.genders);
+        liveText.setText(mProvince + "," + mCity);
+
         nickText.setText(assent.name);
-//        genderText.setText(assent.);
-//        birthDayText.setText(assent.);
-//        educationText.setText(assent.);
-        ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance());
+        genderText.setText(assent.gender.equals("0")?genders[0]:genders[1]);
+        birthDayText.setText(assent.birthday);
+        educationText.setText(assent.education_degree);
+        ImageLoader.getInstance().displayImage(assent.uface, avatarImage, ImageOptions.getAvatarInstance());
 
 
     }
@@ -79,20 +101,22 @@ public class ChangeDataActivity extends SecondActivity {
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.avatarImage: {
-                startActivityForResult(new Intent(this, PhotoAlbumActivity.class)
-                        .putExtra(PhotoAlbumActivity.EXTRA_RETURN_DATA, true)
-                        .putExtra(PhotoAlbumActivity.EXTRA_CAMERA_OUTPUT_HEIGHT, 200)
-                        .putExtra(PhotoAlbumActivity.EXTRA_CAMERA_OUTPUT_WIDTH, 200)
-                        , 100);
+//                startActivityForResult(new Intent(this, PhotoAlbumActivity.class)
+//                        .putExtra(PhotoAlbumActivity.EXTRA_RETURN_DATA, true)
+//                        .putExtra(PhotoAlbumActivity.EXTRA_CAMERA_OUTPUT_HEIGHT, 200)
+//                        .putExtra(PhotoAlbumActivity.EXTRA_CAMERA_OUTPUT_WIDTH, 200)
+//                        , 100);
                 break;
             }
             case R.id.birthDayLayout: {
                 new DatePickDialog(this, new DatePickDialog.OnDatePicked() {
                     @Override
                     public void onPick(Calendar cal) {
-                        birthDayText.setText(new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime()));
+                        birthDayText.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cal.getTime()));
+                        updateInfo();
                     }
                 }).show();
                 break;
@@ -104,14 +128,25 @@ public class ChangeDataActivity extends SecondActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         genderText.setText(genders[position]);
+                        genderText.setTag(position);
                         dialog.dismiss();
+                        updateInfo();
                     }
                 });
                 dialog.show();
                 break;
             }
             case R.id.pickAddress: {
-                new PickCity(this).show();
+                new PickCity(this)
+                        .setOnSelectListener(new PickCity.OnSelectListener() {
+                            @Override
+                            public void onSelect(String province, String city) {
+                                mProvince = province;
+                                mCity = city;
+                                updateInfo();
+                            }
+                        })
+                        .show();
                 break;
             }
             case R.id.logout: {
@@ -143,7 +178,6 @@ public class ChangeDataActivity extends SecondActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -153,6 +187,34 @@ public class ChangeDataActivity extends SecondActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 参数：sex（性别，0男1女），unick（昵称），birthday（生日），mProvince（省），city（市），email（邮箱），education-degree（教育程度），invest-exper（投资经验）
+     */
+    public void updateInfo() {
+
+        String sex = genderText.getTag() + "";
+        String unick = nickText.getText().toString();
+        String birthday = birthDayText.getText().toString();
+        String education = educationText.getText().toString();
+        String invest_exp = expEdit.getText().toString();
+
+        SRequest request = new SRequest("http://www.yjy998.com/account/info");
+        request.put("sex", sex);
+        request.put("unick", unick);
+        request.put("birthday", birthday);
+        request.put("province", mProvince);
+        request.put("city", mCity);
+        //request.put("email", "");
+        request.put("education-degree", education);
+        request.put("invest-exper", invest_exp);
+        YHttpClient.getInstance().post(request, new YHttpHandler() {
+            @Override
+            protected void onStatusCorrect(Response response) {
+
+            }
+        });
     }
 
 }

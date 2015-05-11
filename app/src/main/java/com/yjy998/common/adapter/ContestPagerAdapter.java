@@ -2,6 +2,7 @@ package com.yjy998.common.adapter;
 
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -75,8 +76,13 @@ public class ContestPagerAdapter extends PagerAdapter implements View.OnClickLis
             TextView rankText = (TextView) item.findViewById(R.id.rankText);
             TextView rateText = (TextView) item.findViewById(R.id.rateText);
             areaText.setText(contest.area);
-            //rankText.setText(contest.);
-            rateText.setText(item.getContext().getString(R.string.income_rate_f, contest.profitRatio * 100));
+            if (TextUtils.isEmpty(contest.rank)) {
+                ((View) rankText.getParent()).setVisibility(View.GONE);
+            } else {
+                rankText.setText(contest.rank);
+                ((View) rankText.getParent()).setVisibility(View.VISIBLE);
+            }
+            rateText.setText(item.getContext().getString(R.string.income_rate_f, contest.getProfitRatio() * 100));
             item.setVisibility(View.VISIBLE);
             item.setTag(contest);
         } catch (IndexOutOfBoundsException e) {

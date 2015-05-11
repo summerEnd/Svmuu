@@ -62,7 +62,6 @@
                         android:textSize="@dimen/capitalTextSize"
                         android:textColor="@color/textColorRed"
                         android:layout_width="wrap_content"
-                        android:text="@string/__testNumber"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
 
@@ -80,10 +79,10 @@
 
                     <TextView
                         android:textSize="@dimen/capitalTextSize"
-                        android:textColor="@color/textColorBlack"
+                        android:textColor="@color/textColorRed"
                         android:id="@+id/balanceText"
                         android:layout_width="wrap_content"
-                        android:text="@string/__testNumber"
+
                         android:layout_height="wrap_content" />
                 </LinearLayout>
             </LinearLayout>
@@ -105,10 +104,9 @@
 
                     <TextView
                         android:textSize="@dimen/capitalTextSize"
-                        android:textColor="@color/textColorBlack"
+                        android:textColor="@color/textColorRed"
                         android:id="@+id/stockValueText"
                         android:layout_width="wrap_content"
-                        android:text="@string/__testNumber"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
 
@@ -126,10 +124,9 @@
 
                     <TextView
                         android:textSize="@dimen/capitalTextSize"
-                        android:textColor="@color/textColorBlack"
+                        android:textColor="@color/textColorRed"
                         android:id="@+id/totalText"
                         android:layout_width="wrap_content"
-                        android:text="@string/__testNumber"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
             </LinearLayout>
@@ -248,6 +245,7 @@
 
         <com.sp.lib.widget.list.LinearListView
             android:id="@+id/list"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

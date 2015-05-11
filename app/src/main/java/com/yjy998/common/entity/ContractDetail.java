@@ -1,7 +1,9 @@
 package com.yjy998.common.entity;
 
 
-public class ContractDetail {
+import java.io.Serializable;
+
+public class ContractDetail implements Serializable{
     public String contract_type;
 
     public String currentCash;

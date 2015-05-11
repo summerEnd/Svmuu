@@ -1,30 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Month -->
-    <NumberPicker
-        android:id="@+id/province"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Month -->
+        <NumberPicker
+            android:id="@+id/province"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dip"
+            android:layout_marginEnd="1dip"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+
+        <!-- Day -->
+        <NumberPicker
+
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/city"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dip"
+            android:layout_marginEnd="1dip"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_15px"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dip"
-        android:layout_marginEnd="1dip"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:orientation="horizontal">
 
-    <!-- Day -->
-    <NumberPicker
+        <TextView
+            android:id="@+id/buttonYes"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/text_28px"
+            android:padding="@dimen/dimen_15px"
+            android:text="@string/yes"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/dialog_bottom_button"
+            android:textColor="@drawable/color_blue_clicked" />
 
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:id="@+id/city"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dip"
-        android:layout_marginEnd="1dip"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
+        <View style="@style/verticalLine" />
 
+        <TextView
+            android:id="@+id/buttonNo"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/text_28px"
+            android:padding="@dimen/dimen_15px"
+            android:text="@string/no"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/dialog_bottom_button"
+            android:textColor="@drawable/color_blue_clicked" />
+    </LinearLayout>
 </LinearLayout>

@@ -59,7 +59,7 @@ public class TimeLineFragment extends BaseFragment implements GView.OnPointTouch
 
         request.setUrl("http://interface.yjy998.com/yjy/quote/stock/" + code + "/trend_data");
 
-        YHttpClient.getInstance().get(request, new YHttpHandler() {
+        YHttpClient.getInstance().get(request, new YHttpHandler(false) {
 
             @Override
             protected void onStatusCorrect(Response response) {
@@ -131,12 +131,26 @@ public class TimeLineFragment extends BaseFragment implements GView.OnPointTouch
             averagePriceText = (TextView) view.findViewById(R.id.averagePriceText);
             toast.setView(view);
             toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER,0,30);
+            toast.setGravity(Gravity.CENTER, 0, 30);
         }
         if (newPrice != null && average != null) {
 
+            int gravity = Gravity.CENTER_VERTICAL;
+            if (position < 120) {
+                gravity |= Gravity.RIGHT;
+            } else {
+                gravity |= Gravity.LEFT;
+            }
+
+            if (toast.getGravity() != gravity) {
+                toast.cancel();
+
+                toast.setGravity(gravity, 0, 0);
+            }
+
             newPriceText.setText(getString(R.string.new_price_s, newPrice[position] + ""));
             averagePriceText.setText(getString(R.string.average_price_s, average[position] + ""));
+
             toast.show();
         }
 

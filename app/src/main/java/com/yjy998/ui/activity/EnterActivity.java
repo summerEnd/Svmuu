@@ -125,11 +125,17 @@ public class EnterActivity extends Activity {
     void getUserInfo() {
         SRequest request = new SRequest();
 
-        YHttpClient.getInstance().getByMethod(this, "/h5/account/assentinfo", request, new YHttpHandler() {
+        YHttpClient.getInstance().getByMethod(this, "/h5/account/assentinfo", request, new YHttpHandler(false) {
             @Override
             protected void onStatusCorrect(Response response) {
-                AppDelegate.getInstance().setUser(JsonUtil.get(response.data, User.class));
-                AppDelegate.getInstance().setLogined(true);
+
+                try {
+                    AppDelegate.getInstance().setUser(JsonUtil.get(response.data, User.class));
+                    AppDelegate.getInstance().setLogined(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    enterMain();
+                }
             }
 
             @Override

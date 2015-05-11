@@ -10,9 +10,12 @@ import android.widget.ListView;
 
 import com.sp.lib.widget.list.refresh.PullToRefreshListView;
 import com.yjy998.R;
+import com.yjy998.common.entity.ContractDetail;
 import com.yjy998.ui.activity.base.BaseFragment;
+import com.yjy998.ui.activity.main.my.business.capital.BuySellFragment;
 import com.yjy998.ui.pop.CenterPopup;
 
+import static com.yjy998.ui.activity.main.my.business.capital.BuySellFragment.ContractObserver;
 import static com.yjy998.ui.pop.CenterPopup.*;
 
 public class BusinessListFragment extends BaseFragment implements AdapterView.OnItemLongClickListener, Listener {
@@ -21,6 +24,7 @@ public class BusinessListFragment extends BaseFragment implements AdapterView.On
     PullToRefreshListView mRefreshList;
     CenterPopup mCenterPopup;
     private ListAdapter adapter;
+    private int position;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +45,15 @@ public class BusinessListFragment extends BaseFragment implements AdapterView.On
         return layout;
     }
 
+    /**
+     * 获取共享的合约
+     */
+    ContractDetail getSharedContract() {
+        if (getActivity() instanceof ContractObserver) {
+            return ((ContractObserver) getActivity()).getContract();
+        }
+        return null;
+    }
 
 
     //回调方法
@@ -58,17 +71,26 @@ public class BusinessListFragment extends BaseFragment implements AdapterView.On
             mCenterPopup.dismiss();
         } else {
             onPopItemClick(item);
+            mCenterPopup.dismiss();
         }
+    }
+
+    /**
+     * 获取列表中选中的位置
+     */
+    public int getSelectedPosition() {
+        return position;
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        this.position = position;
         if (mCenterPopup == null) {
             PopWidget widget = new PopWidget();
             onCreatePop(widget);
             //添加取消按钮
             if (widget.getChildrenCount() != 0) {
-                widget.add(new PopItem(R.string.cancel, getString(R.string.cancel),0xff949494));
+                widget.add(new PopItem(R.string.cancel, getString(R.string.cancel), 0xff949494));
             } else {
                 return false;
             }
