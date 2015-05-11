@@ -18,6 +18,7 @@ import com.yjy998.common.entity.Assent;
 import com.yjy998.common.entity.User;
 import com.yjy998.common.adapter.ContractPagerAdapter;
 import com.yjy998.common.adapter.ContestPagerAdapter;
+import com.yjy998.common.entity.UserInfo;
 import com.yjy998.common.util.ImageOptions;
 import com.yjy998.common.entity.Contract;
 import com.yjy998.common.entity.Contest;
@@ -125,8 +126,9 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
 
             User user = AppDelegate.getInstance().getUser();
 
-            Assent assent = user.userInfo;
-            telText.setText(assent.name);
+            Assent assent = user.assent;
+            UserInfo info = user.userInfo;
+            telText.setText(info.unick);
             moneyText.setText("￥" + assent.avalaible_amount);
             goldIngotText.setText(getString(R.string.GoldIngot_s, assent.yuanbao_total_amount));
             caopanTicketsText.setText(getString(R.string.caopan_s, assent.quan_total_amount));

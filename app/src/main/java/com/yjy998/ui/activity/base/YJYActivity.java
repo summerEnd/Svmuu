@@ -32,7 +32,7 @@ public class YJYActivity extends SlibActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        if (AppDelegate.getInstance().shouldLockScreen() && LockActivity.isLockEnabled()) {
+        if (AppDelegate.getInstance().isUserLogin()&&AppDelegate.getInstance().shouldLockScreen() && LockActivity.isLockEnabled()) {
             startActivity(new Intent(this, LockActivity.class));
         }
     }

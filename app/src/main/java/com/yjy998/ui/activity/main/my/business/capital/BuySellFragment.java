@@ -177,7 +177,7 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
                             Contract contract = myContracts.get(position);
                             contractText.setText(getString(R.string.contract_s1_s2, contract.contract_type, contract.id));
                             setData(null);
-                            refresh();
+                            refreshInternal(contract.id);
                         }
                     });
                 }
@@ -187,30 +187,28 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
-    public void getContractInfo(String contract_id) {
+    public void getContractInfo(final String contract_id) {
         SRequest request = new SRequest("http://mobile.yjy998.com/h5/account/contractinfo");
         request.put("contract_no", contract_id);
         YHttpClient.getInstance().get(request, new YHttpHandler(true) {
             @Override
             protected void onStatusCorrect(Response response) {
                 ContractDetail detail = JsonUtil.get(response.data, ContractDetail.class);
-                CacheManager.getInstance().write(CONTRACT_DETAIL, detail);
+                observer.saveContract(detail);
                 notifyContractChange(detail);
             }
 
             @Override
             public Dialog onCreateDialog() {
-                ContractDetail detail = (ContractDetail) CacheManager.getInstance().read(CONTRACT_DETAIL);
+                ContractDetail detail = (ContractDetail) observer.readContractFromCache(contract_id);
                 if (detail == null) {
                     YProgressDialog yProgressDialog = new YProgressDialog(getActivity());
                     yProgressDialog.setMessage(getString(R.string.load_amount));
                     return yProgressDialog;
                 } else {
                     setData(detail);
-                    return null;
                 }
-
-
+                return null;
             }
 
         });
@@ -271,7 +269,7 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
             public void onPay(String password, String rsa_password) {
                 String url = isBuy ? "http://www.yjy998.com/stock/buystock" : "http://www.yjy998.com/stock/sellstock";
                 SRequest request = new SRequest(url);
-                ContractDetail detail = observer.getContract();
+                ContractDetail detail = observer.getSharedContract();
                 request.put("contract_no", detail.contractId);
                 request.put("contract_id", detail.contractId);
                 request.put("raw_pwd", password);
@@ -297,8 +295,11 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         if (observer == null) {
             return;
         }
-        setData(observer.getContract());
-        String contractId = observer.getContractId();
+        setData(observer.getSharedContract());
+        refreshInternal(observer.getContractId());
+    }
+
+    private void refreshInternal(String contractId) {
         if (!TextUtils.isEmpty(contractId)) {
             getContractInfo(contractId);
         }
@@ -329,7 +330,7 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
     }
 
     public static interface ContractObserver {
-        public ContractDetail getContract();
+        public ContractDetail getSharedContract();
 
         public void setContract(ContractDetail contract);
 
@@ -337,5 +338,8 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
 
         public String getContractId();
 
+        public Object readContractFromCache(String contract_id);
+
+        public Object saveContract(ContractDetail detail);
     }
 }

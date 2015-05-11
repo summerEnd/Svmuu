@@ -5,6 +5,7 @@ import java.util.List;
 
 public interface ICache<K, D> {
 
+
     /**
      * 从缓存中读取一个
      *

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -12,17 +14,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.sp.lib.activity.album.PhotoAlbumActivity;
 import com.sp.lib.activity.dialog.ListDialog;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ImageUtil;
+import com.sp.lib.common.util.JsonUtil;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
-import com.yjy998.common.entity.Assent;
-import com.yjy998.common.util.ImageOptions;
+import com.yjy998.common.Constant;
+import com.yjy998.common.entity.User;
+import com.yjy998.common.entity.UserInfo;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
+import com.yjy998.common.util.ImageOptions;
+import com.yjy998.ui.activity.admin.LockActivity;
 import com.yjy998.ui.activity.base.SecondActivity;
 import com.yjy998.ui.pop.DatePickDialog;
 import com.yjy998.ui.pop.PickCity;
@@ -53,7 +58,7 @@ public class ChangeDataActivity extends SecondActivity {
     }
 
     private void initialize() {
-        Assent assent = AppDelegate.getInstance().getUser().userInfo;
+        UserInfo assent = AppDelegate.getInstance().getUser().userInfo;
         if (assent == null) {
             finish();
             return;
@@ -72,7 +77,12 @@ public class ChangeDataActivity extends SecondActivity {
         findViewById(R.id.pickAddress).setOnClickListener(this);
         handPasswordText.setOnClickListener(this);
         avatarImage.setOnClickListener(this);
+        refresh();
 
+    }
+
+    void refresh() {
+        UserInfo assent = AppDelegate.getInstance().getUser().userInfo;
         if (TextUtils.isEmpty(assent.r_location)) {
             mProvince = "";
             mCity = "";
@@ -89,15 +99,38 @@ public class ChangeDataActivity extends SecondActivity {
         String genders[] = getResources().getStringArray(R.array.genders);
         liveText.setText(mProvince + "," + mCity);
 
-        nickText.setText(assent.name);
-        genderText.setText(assent.gender.equals("0")?genders[0]:genders[1]);
+        nickText.setText(assent.unick);
+        genderText.setText(assent.gender.equals("0") ? genders[0] : genders[1]);
         birthDayText.setText(assent.birthday);
         educationText.setText(assent.education_degree);
+        expEdit.setText(assent.invest_exper);
         ImageLoader.getInstance().displayImage(assent.uface, avatarImage, ImageOptions.getAvatarInstance());
-
-
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handPasswordText.setText(LockActivity.isLockEnabled() ? R.string.setAlready : R.string.notSet);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_change_data, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_done: {
+                updateInfo();
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -116,7 +149,6 @@ public class ChangeDataActivity extends SecondActivity {
                     @Override
                     public void onPick(Calendar cal) {
                         birthDayText.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cal.getTime()));
-                        updateInfo();
                     }
                 }).show();
                 break;
@@ -130,7 +162,6 @@ public class ChangeDataActivity extends SecondActivity {
                         genderText.setText(genders[position]);
                         genderText.setTag(position);
                         dialog.dismiss();
-                        updateInfo();
                     }
                 });
                 dialog.show();
@@ -143,7 +174,7 @@ public class ChangeDataActivity extends SecondActivity {
                             public void onSelect(String province, String city) {
                                 mProvince = province;
                                 mCity = city;
-                                updateInfo();
+                                liveText.setText(mProvince + "," + city);
                             }
                         })
                         .show();
@@ -169,7 +200,48 @@ public class ChangeDataActivity extends SecondActivity {
                 break;
             }
             case R.id.handPasswordText: {
-                startActivity(new Intent(this, SetGesturePassword.class));
+                if (LockActivity.isLockEnabled()) {
+                    String[] items = new String[]{getString(R.string.close_psw), getString(R.string.change_hand_psw)};
+                    final ListDialog dialog = new ListDialog(this, items);
+                    dialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            switch (position) {
+                                case 0:
+                                    startActivity(new Intent(ChangeDataActivity.this, SetGesturePassword.class)
+                                                    .putExtra(SetGesturePassword.EXTRA_DO_WHAT, SetGesturePassword.DO_CLOSE)
+                                    );
+
+                                    break;
+                                case 1:
+                                    startActivity(new Intent(ChangeDataActivity.this, SetGesturePassword.class)
+                                                    .putExtra(SetGesturePassword.EXTRA_DO_WHAT, SetGesturePassword.DO_CHANGE)
+                                    );
+                                    break;
+                            }
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                } else {
+                    String[] items = new String[]{getString(R.string.open_psw)};
+                    final ListDialog dialog = new ListDialog(this, items);
+                    dialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            switch (position) {
+                                case 0:
+                                    startActivity(new Intent(ChangeDataActivity.this, SetGesturePassword.class)
+                                                    .putExtra(SetGesturePassword.EXTRA_DO_WHAT, SetGesturePassword.DO_OPEN)
+                                    );
+                                    break;
+                            }
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                }
+
                 break;
             }
         }
@@ -206,15 +278,35 @@ public class ChangeDataActivity extends SecondActivity {
         request.put("birthday", birthday);
         request.put("province", mProvince);
         request.put("city", mCity);
-        //request.put("email", "");
+        request.put("email", "-");
         request.put("education-degree", education);
         request.put("invest-exper", invest_exp);
         YHttpClient.getInstance().post(request, new YHttpHandler() {
             @Override
             protected void onStatusCorrect(Response response) {
-
+                getUserInfo();
             }
         });
     }
 
+    void getUserInfo() {
+        SRequest request = new SRequest();
+
+        YHttpClient.getInstance().getByMethod(this, "/h5/account/assentinfo", request, new YHttpHandler(false) {
+            @Override
+            protected void onStatusCorrect(Response response) {
+
+                try {
+                    AppDelegate.getInstance().setUser(JsonUtil.get(response.data, User.class));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                refresh();
+            }
+        });
+    }
 }

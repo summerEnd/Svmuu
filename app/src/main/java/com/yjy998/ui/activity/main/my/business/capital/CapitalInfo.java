@@ -210,7 +210,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
      */
     ContractDetail getSharedContract() {
         if (getActivity() instanceof ContractObserver) {
-            return ((ContractObserver) getActivity()).getContract();
+            return ((ContractObserver) getActivity()).getSharedContract();
         }
         return null;
     }

@@ -4,14 +4,12 @@ package com.yjy998.ui.activity.main.my.business;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.JsonUtil;
 import com.yjy998.R;
 import com.yjy998.common.adapter.EntrustAdapter;
-import com.yjy998.common.entity.Contract;
 import com.yjy998.common.entity.ContractDetail;
 import com.yjy998.common.entity.Entrust;
 import com.yjy998.common.http.Response;
@@ -69,7 +67,7 @@ public class CancellationEntrustFragment extends BusinessListFragment {
     @Override
     public void refresh() {
         if (getActivity() instanceof BuySellFragment.ContractObserver) {
-            ContractDetail contract = ((BuySellFragment.ContractObserver) getActivity()).getContract();
+            ContractDetail contract = ((BuySellFragment.ContractObserver) getActivity()).getSharedContract();
             if (contract == null) {
                 //没有选择合约
                 return;

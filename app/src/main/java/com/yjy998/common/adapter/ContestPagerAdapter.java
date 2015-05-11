@@ -103,8 +103,9 @@ public class ContestPagerAdapter extends PagerAdapter implements View.OnClickLis
         if (contest == null) {
             return;
         }
+        //这里的id就是比赛的id
         v.getContext().startActivity(new Intent(v.getContext(), ContractInfoActivity.class)
-                .putExtra(ContractInfoActivity.EXTRA_CONTRACT_NO, "1"));
+                .putExtra(ContractInfoActivity.EXTRA_CONTRACT_NO, contest.id));
     }
 
     private class ViewHolder {

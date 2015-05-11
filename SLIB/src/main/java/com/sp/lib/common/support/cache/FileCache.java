@@ -19,7 +19,6 @@ public abstract class FileCache<D> implements ICache<String, D> {
      * @param dir 存放缓存的目录。程序将在该目录下再创建一个目录，放置本框架的缓存。
      */
     public FileCache(File dir) {
-        this.cacheDir = dir;
         if (dir == null) {
             throw new SlibInitialiseException(getClass().getName() + "必须要有一个缓存目录！");
         } else {
@@ -44,11 +43,7 @@ public abstract class FileCache<D> implements ICache<String, D> {
         try {
             f = getFile(key);
         } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (f == null) {
-                return null;
-            }
+            return null;
         }
         D data = read(key);
         f.delete();

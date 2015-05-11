@@ -13,6 +13,7 @@
         <item name="android:dialogTheme">@style/dialogTheme</item>
         <item name="android:homeAsUpIndicator">@drawable/nav_return</item>
         <item name="android:alertDialogTheme">@style/alertDialog</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
     </style>
 
     <style name="window_animation">

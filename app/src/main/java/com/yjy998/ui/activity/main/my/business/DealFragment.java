@@ -16,13 +16,9 @@ import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.main.my.business.capital.BuySellFragment;
-import com.yjy998.ui.pop.CenterPopup;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-
-import static com.yjy998.ui.pop.CenterPopup.PopItem;
-import static com.yjy998.ui.pop.CenterPopup.PopWidget;
 
 /**
  * 成交
@@ -43,7 +39,7 @@ public class DealFragment extends BusinessListFragment {
     @Override
     public void refresh() {
         if (getActivity() instanceof BuySellFragment.ContractObserver) {
-            ContractDetail contract = ((BuySellFragment.ContractObserver) getActivity()).getContract();
+            ContractDetail contract = ((BuySellFragment.ContractObserver) getActivity()).getSharedContract();
             if (contract == null) {
                 //没有选择合约
                 return;

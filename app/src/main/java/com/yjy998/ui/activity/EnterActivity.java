@@ -19,6 +19,7 @@ import com.yjy998.common.Constant;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
+import com.yjy998.ui.activity.admin.LockActivity;
 import com.yjy998.ui.activity.main.MainActivity;
 
 /**
@@ -147,9 +148,11 @@ public class EnterActivity extends Activity {
     }
 
     private void enterMain() {
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+
                 startActivity(new Intent(EnterActivity.this, MainActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();

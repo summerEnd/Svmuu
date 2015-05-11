@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 public class User {
 
-    public Assent userInfo;
+    public UserInfo userInfo;
+    public Assent assent;
     public ArrayList<Contest> myContests;
     public ArrayList<Contract> myContracts;
 }

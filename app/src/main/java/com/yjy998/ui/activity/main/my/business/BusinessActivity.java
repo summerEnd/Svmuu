@@ -8,12 +8,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.sp.lib.common.support.cache.CacheManager;
+import com.sp.lib.common.support.cache.FileObjectCache;
 import com.sp.lib.widget.pager.title.PageStrip;
 import com.yjy998.R;
 import com.yjy998.common.entity.ContractDetail;
 import com.yjy998.ui.activity.main.my.business.capital.BuySellFragment;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.base.SecondActivity;
+
+import java.io.File;
 
 public class BusinessActivity extends SecondActivity implements BuySellFragment.ContractObserver, ViewPager.OnPageChangeListener {
     public static final String EXTRA_IS_BUY = "extra_buy";
@@ -25,11 +28,13 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
 
     BaseFragment[] fragments = new BaseFragment[5];
     private ViewPager pager;
+    FileObjectCache cache;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business);
+
         initialize();
     }
 
@@ -61,7 +66,7 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
     }
 
     @Override
-    public ContractDetail getContract() {
+    public ContractDetail getSharedContract() {
         return contract;
     }
 
@@ -81,8 +86,27 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
     }
 
     @Override
-    public void onPageScrolled(int i, float v, int i2) {
+    public ContractDetail readContractFromCache(String contract_id) {
+        if (cache == null) {
+            File dir = new File(getCacheDir(), "contract");
+            dir.mkdirs();
+            cache = new FileObjectCache(dir);
+        }
+        return (ContractDetail) cache.read(contract_id);
+    }
 
+    @Override
+    public Object saveContract(ContractDetail detail) {
+        if (cache == null) {
+            File dir = new File(getCacheDir(), "contract");
+            dir.mkdirs();
+            cache = new FileObjectCache(dir);
+        }
+        return cache.write(detail.contractId, detail);
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i2) {
     }
 
     @Override
@@ -144,6 +168,8 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        CacheManager.getInstance().remove(BuySellFragment.CONTRACT_DETAIL);
+        if (cache != null) {
+            cache.clear();
+        }
     }
 }

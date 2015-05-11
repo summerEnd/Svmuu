@@ -9,6 +9,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_save">保存</string>
     <string name="contentDescription_image">Image</string>
     <string name="title_activity_chart">ChartActivity</string>
     <string name="average_price">均价</string>
@@ -106,7 +107,7 @@
     <string name="education_lvl">教育程度</string>
     <string name="handPassword">手势密码</string>
     <string name="setAlready">已设置</string>
-    <string name="notSet">已设置</string>
+    <string name="notSet">未设置</string>
     <string name="investment_exp">投资经验</string>
     <string name="hint_investment_lvl">请输入投资经验</string>
     <string name="avatar">头像</string>
@@ -220,4 +221,8 @@
     <string name="toast_no_price">请输入价格</string>
     <string name="toast_no_amout">请输入数量</string>
     <string name="get_contract_info_ing">获取合约详情…</string>
+    <string name="close_psw">关闭手势密码</string>
+    <string name="change_hand_psw">修改手势密码</string>
+    <string name="open_psw">开启手势密码</string>
+    <string name="forget_hand_psw_msg">忘记手势密码，需要重新登录,手势密码将自动失效</string>
 </resources>

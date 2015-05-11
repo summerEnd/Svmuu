@@ -1,6 +1,5 @@
 package com.yjy998.common.util;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,11 +7,17 @@ import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Handler;
 
+import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.support.update.DownloadInfo;
 import com.sp.lib.common.support.update.Downloader;
 import com.sp.lib.common.support.update.UpdateManager;
 import com.sp.lib.common.util.ContextUtil;
+import com.sp.lib.common.util.JsonUtil;
 import com.yjy998.R;
+import com.yjy998.common.entity.UpdateInfo;
+import com.yjy998.common.http.Response;
+import com.yjy998.common.http.YHttpClient;
+import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.pop.YAlertDialog;
 import com.yjy998.ui.pop.YAlertDialogTwoButton;
 
@@ -20,16 +25,28 @@ import java.util.ArrayList;
 
 public class VersionUtil {
 
-    public static void start(Context context) {
-        UpdateManager.start(new VersionCallback(context));
+    public static void start(final Context context) {
+
+        YHttpClient.getInstance().get(context, new SRequest("http://mobile.yjy998.com/h5/version/check"), new YHttpHandler() {
+            @Override
+            protected void onStatusCorrect(Response response) {
+                UpdateInfo info = JsonUtil.get(response.data, UpdateInfo.class);
+                if (info != null) {
+                    UpdateManager.start(new VersionCallback(context, info));
+                }
+            }
+        });
+
     }
 
     private static class VersionCallback implements UpdateManager.Callback {
         Context context;
         private ProgressDialog dialog;
         private Downloader downloader;
+        private UpdateInfo info;
 
-        public VersionCallback(Context context) {
+        public VersionCallback(Context context, UpdateInfo info) {
+            this.info = info;
             this.context = context;
             dialog = new ProgressDialog(context);
             dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -39,17 +56,17 @@ public class VersionUtil {
 
         @Override
         public boolean isNewestVersion() {
-            return false;
+            return info.version.compareTo(ContextUtil.getPackageInfo().versionName) <=0;
         }
 
         @Override
         public boolean forceUpdate() {
-            return false;
+            return info.force;
         }
 
         @Override
         public String getDownloadUrl() {
-            return null;
+            return info.download;
         }
 
         @Override

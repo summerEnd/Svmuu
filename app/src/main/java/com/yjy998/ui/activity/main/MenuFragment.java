@@ -80,7 +80,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
 
         if (AppDelegate.getInstance().isUserLogin()) {
             User user = AppDelegate.getInstance().getUser();
-            Assent assent = user.userInfo;
+            Assent assent = user.assent;
             if (assent == null) {
                 return;
             }

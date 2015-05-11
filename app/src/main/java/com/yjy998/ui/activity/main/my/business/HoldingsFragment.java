@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
@@ -77,9 +76,10 @@ public class HoldingsFragment extends BusinessListFragment {
 
     public void getHoldings() {
         if (getActivity() instanceof ContractObserver) {
-            ContractDetail contract = ((ContractObserver) getActivity()).getContract();
+            ContractDetail contract = ((ContractObserver) getActivity()).getSharedContract();
             if (contract == null) {
                 //没有选择合约
+                ContextUtil.toast(R.string.contract_not_selected);
                 return;
             }
 
@@ -101,7 +101,6 @@ public class HoldingsFragment extends BusinessListFragment {
                     }
                 }
             });
-
         }
     }
 

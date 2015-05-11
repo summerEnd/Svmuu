@@ -1,5 +1,7 @@
 package com.yjy998.common.util;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -10,16 +12,15 @@ import com.yjy998.R;
 
 public class ImageOptions {
     public static DisplayImageOptions getAvatarInstance(int radius) {
-
         return new DisplayImageOptions.Builder()
                 .displayer(new RoundDisplayer(radius))
-                .showImageOnFail(new RoundDrawable(Color.BLUE, radius))
-                .showImageForEmptyUri(new RoundDrawable(Color.BLUE, radius))
+                .showImageOnFail(R.drawable.avatar)
+                .showImageForEmptyUri(R.drawable.avatar)
                 .showImageOnLoading(new RoundDrawable(Color.BLUE, radius))
                 .build();
     }
 
-    public static DisplayImageOptions getAvatarInstance(){
+    public static DisplayImageOptions getAvatarInstance() {
         return getAvatarInstance(ContextUtil.getContext().getResources().getDimensionPixelSize(R.dimen.avatarSize));
     }
 }
