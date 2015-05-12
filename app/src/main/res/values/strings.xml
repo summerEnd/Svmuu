@@ -145,6 +145,7 @@
     <string name="onlinePay_yb">网银支付（易宝）</string>
     <string name="bankPay">银行转账</string>
     <string name="YB">易宝</string>
+    <string name="YB_day">易宝/天</string>
     <string name="confirmPay">确认支付</string>
     <string name="accountInfo">帐号：11014718678007 \n户名：南京融证通网络科技有限公司 \n开户行：平安银行南京奥体支行</string>
     <string name="transferMoneyNotice">1、转账时金额最好有些零头（如1000.85），这样我们好确认是您的汇款 \n2、用户网银转账之后，请务必保留网银转账成功时的截图，并在 资金或者转账用途中 备注清自己要转入的XX用户名 ，将回单发到QQ客服，以便尽快到账！</string>

@@ -195,7 +195,7 @@
 
             <TextView
                 style="@style/applyActivityTextStyle2.yuan"
-                android:text="@string/yuan" />
+                android:text="@string/YB_day" />
 
             <ImageView
                 android:id="@+id/questionImage"
@@ -268,7 +268,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/traderText"
+                android:id="@+id/keepText"
                 style="@style/applyActivityTextStyle2"
                 android:text="1003.0" />
 
@@ -304,12 +304,14 @@
 
             <TextView
                 android:textSize="@dimen/text_24px"
+                android:id="@+id/pay"
                 android:textColor="@color/textColorBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="合计支付" />
 
             <TextView
+                android:id="@+id/payAmount"
                 android:textSize="@dimen/text_30px"
                 android:textColor="@color/deepBlue"
                 android:layout_width="wrap_content"
@@ -319,6 +321,7 @@
             <View style="@style/horizontalSpace" />
 
             <Button
+                android:id="@+id/payNow"
                 android:text="@string/payNow"
                 style="@style/blueButton.mid" />
         </LinearLayout>
