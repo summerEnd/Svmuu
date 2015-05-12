@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
+import com.yjy998.AppDelegate;
 import com.yjy998.R;
+import com.yjy998.common.util.VersionUtil;
 import com.yjy998.ui.activity.main.apply.ApplyFragment;
 import com.yjy998.ui.activity.main.contest.ContestFragment;
 import com.yjy998.ui.activity.main.home.HomeFragment;
@@ -82,6 +84,7 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
         tabCenter.setCheckListener(listener);
 
         tabHome.performClick();
+        VersionUtil.start(this, false);
     }
 
 
@@ -121,6 +124,9 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
                     break;
                 }
                 case R.id.tabCenter: {
+                    if (!AppDelegate.getInstance().isUserLogin()) {
+                        showLoginWindow();
+                    }
                     if (mCenterFragment == null) {
                         mCenterFragment = new CenterFragment();
                     }
@@ -175,6 +181,7 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
         switch (v.getId()) {
 
             case R.id.center: {
+
                 tabCenter.performClick();
                 break;
             }

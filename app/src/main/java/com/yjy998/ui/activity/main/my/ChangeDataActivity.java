@@ -100,7 +100,7 @@ public class ChangeDataActivity extends SecondActivity {
         liveText.setText(mProvince + "," + mCity);
 
         nickText.setText(assent.unick);
-        genderText.setText(assent.gender.equals("0") ? genders[0] : genders[1]);
+        genderText.setText("0".equals(assent.gender) ? genders[0] : genders[1]);
         birthDayText.setText(assent.birthday);
         educationText.setText(assent.education_degree);
         expEdit.setText(assent.invest_exper);

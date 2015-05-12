@@ -7,15 +7,16 @@ import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
 
-import com.sp.lib.common.support.update.DownloadInfo;
 import com.sp.lib.common.util.ContextUtil;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -64,8 +65,16 @@ public class Downloader {
      * @param saveDir 保存目录
      * @param url     下载链接
      */
-    public void download(File saveDir, String url) {
-        download(saveDir, null, url);
+    public File download(File saveDir, String url, Callback listener) {
+        return download(saveDir, null, url, listener);
+    }
+
+    /**
+     * @param saveDir 保存目录
+     * @param url     下载链接
+     */
+    public File download(File saveDir, String url) {
+        return download(saveDir, url, null);
     }
 
     /**
@@ -73,12 +82,13 @@ public class Downloader {
      * @param fileName 保存文件名
      * @param url      下载链接
      */
-    public void download(File dir, String fileName, String url) {
+    public File download(File dir, String fileName, String url, Callback listener) {
         FileOutputStream fot = null;
         try {
-            URLConnection conn = new URL(url).openConnection();
+            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setDoInput(true);
-            InputStream in = conn.getInputStream();
+            conn.setRequestProperty("Charset", "UTF-8");
+            BufferedInputStream in = new BufferedInputStream(conn.getInputStream());
 
             if (TextUtils.isEmpty(fileName)) {
                 //根据conn获取文件名称
@@ -93,12 +103,32 @@ public class Downloader {
             File saveFile = new File(dir, fileName);
             fot = new FileOutputStream(saveFile);
 
-            byte[] buffer = new byte[1024 * 10];
-            int length;
-            while ((length = in.read(buffer)) != -1) {
-                fot.write(buffer, 0, length);
+            int total = conn.getContentLength();
+            byte[] buffer;
+            if (total > 1024 * 1024) {
+                buffer = new byte[total / 100];
+            } else {
+                buffer = new byte[1024 * 20];
             }
+            int length;
 
+            int downloaded = 0;
+            while ((length = in.read(buffer)) != -1) {
+
+                fot.write(buffer, 0, length);
+
+                if (listener != null) {
+                    if (listener.isCanceled()) {
+                        in.close();
+                        conn.disconnect();
+                        break;
+                    }
+                    downloaded += length;
+                    listener.publish(total, downloaded);
+                }
+            }
+            in.close();
+            return saveFile;
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -111,6 +141,7 @@ public class Downloader {
                 }
             }
         }
+        return null;
     }
 
     /**
@@ -232,11 +263,20 @@ public class Downloader {
             p.downloadId = c.getLong(_id);
             p.download_so_far = c.getLong(_down);
             p.total = c.getLong(_total);
-            p.state= c.getInt(_status);
+            p.state = c.getInt(_status);
             downloadInfos.add(p);
         }
         c.close();
         return downloadInfos;
     }
 
+    public interface Callback {
+        /**
+         * @param total      全部
+         * @param downloaded 已下载的
+         */
+        public void publish(int total, int downloaded);
+
+        public boolean isCanceled();
+    }
 }

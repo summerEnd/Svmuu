@@ -20,6 +20,8 @@ import com.yjy998.ui.activity.main.my.business.capital.BuySellFragment;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
+
 /**
  * 成交
  */
@@ -53,9 +55,13 @@ public class DealFragment extends BusinessListFragment {
                 protected void onStatusCorrect(Response response) {
                     try {
                         JSONArray array = new JSONArray(response.data);
-                        DealAdapter adapter = new DealAdapter(getActivity(), JsonUtil.getArray(array, Deal.class));
-                        setAdapter(adapter);
-
+                        DealAdapter adapter = (DealAdapter) getAdapter();
+                        if (adapter==null){
+                            adapter=new DealAdapter(getActivity(),new ArrayList<Deal>());
+                            setAdapter(adapter);
+                        }
+                        JsonUtil.getArray(array,Deal.class,adapter.getData());
+                        adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

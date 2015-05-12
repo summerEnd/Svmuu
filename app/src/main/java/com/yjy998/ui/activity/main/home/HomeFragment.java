@@ -15,6 +15,7 @@ import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.base.BaseFragment;
+import com.yjy998.ui.activity.main.apply.ApplyActivity;
 
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
@@ -91,9 +92,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
 
             case R.id.TN: {
+                startActivity(new Intent(getActivity(), ApplyActivity.class)
+                                .putExtra(ApplyActivity.EXTRA_APPLY, ApplyActivity._TN)
+                );
                 break;
             }
             case R.id.T9: {
+                startActivity(new Intent(getActivity(), ApplyActivity.class)
+                                .putExtra(ApplyActivity.EXTRA_APPLY, ApplyActivity._T9)
+                );
                 break;
             }
             default:

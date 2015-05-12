@@ -93,8 +93,13 @@ public class HoldingsFragment extends BusinessListFragment {
                         JSONArray array = new JSONArray(response.data);
                         holdings.clear();
                         JsonUtil.getArray(array, Holding.class, holdings);
-                        HoldingsAdapter adapter = new HoldingsAdapter(getActivity(), holdings);
-                        setAdapter(adapter);
+                        HoldingsAdapter adapter = (HoldingsAdapter) getAdapter();
+                        if (adapter == null) {
+                            adapter = new HoldingsAdapter(getActivity(), holdings);
+                            setAdapter(adapter);
+                        } else {
+                            adapter.notifyDataSetChanged();
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();

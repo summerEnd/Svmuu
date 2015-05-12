@@ -62,6 +62,7 @@ public class CancellationEntrustFragment extends BusinessListFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         refresh();
+
     }
 
     @Override
@@ -83,8 +84,14 @@ public class CancellationEntrustFragment extends BusinessListFragment {
                         JSONArray array = new JSONArray(response.data);
                         entrusts.clear();
                         JsonUtil.getArray(array, Entrust.class, entrusts);
-                        EntrustAdapter adapter = new EntrustAdapter(getActivity(), entrusts);
-                        setAdapter(adapter);
+
+                        EntrustAdapter adapter = (EntrustAdapter) getAdapter();
+                        if (adapter == null) {
+                            adapter = new EntrustAdapter(getActivity(), entrusts);
+                            setAdapter(adapter);
+                        } else {
+                            adapter.notifyDataSetChanged();
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -110,7 +117,7 @@ public class CancellationEntrustFragment extends BusinessListFragment {
         request.put("stock_code", entrust.stockCode);
         request.put("stock_name", entrust.stockName);
         request.put("withdrawal_amount", entrust.withdrawAmount);
-        YHttpClient.getInstance().post(request,new YHttpHandler() {
+        YHttpClient.getInstance().post(request, new YHttpHandler() {
             @Override
             protected void onStatusCorrect(Response response) {
 

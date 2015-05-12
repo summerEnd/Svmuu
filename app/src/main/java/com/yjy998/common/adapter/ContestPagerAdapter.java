@@ -5,6 +5,7 @@ import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yjy998.R;
@@ -23,7 +24,7 @@ public class ContestPagerAdapter extends PagerAdapter implements View.OnClickLis
     public ContestPagerAdapter(List<Contest> contests) {
         this.contests = contests;
         if (contests == null || contests.isEmpty()) {
-            pageCount = 0;
+            pageCount = 1;
         } else {
             pageCount = (contests.size() - 1) / 3 + 1;
         }
@@ -41,6 +42,17 @@ public class ContestPagerAdapter extends PagerAdapter implements View.OnClickLis
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+
+        if (contests.size() == 0) {
+            LinearLayout empty = (LinearLayout) View.inflate(container.getContext(), R.layout.empty_layout, null);
+            empty.setOrientation(LinearLayout.HORIZONTAL);
+            TextView emptyText= (TextView) empty.findViewById(R.id.noDataText);
+            emptyText.setText(R.string.no_contest);
+            container.addView(empty);
+
+            return empty;
+        }
+
         ViewGroup convertView;
         ViewHolder holder;
         try {

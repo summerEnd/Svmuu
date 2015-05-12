@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.sp.lib.common.support.net.client.SRequest;
+import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.widget.pager.title.PageStrip;
+import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.common.adapter.FragmentPagerAdapter;
 import com.yjy998.common.adapter.ContestListAdapter;
@@ -21,6 +23,7 @@ import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.base.BaseListFragment;
+import com.yjy998.ui.activity.base.MenuActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +34,7 @@ import java.util.List;
 /**
  * A simple {@link android.app.Fragment} subclass.
  */
-public class ContestFragment extends BaseFragment implements ViewPager.OnPageChangeListener{
+public class ContestFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
 
 
     private PageStrip pageStrip;
@@ -60,14 +63,12 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
         myGameAdapter = getAdapter();
 
         mGameListFragment = new BaseListFragment();
-        mGameListFragment.setTitle(getString(R.string.gameList));
+        mGameListFragment.setTitle(getString(R.string.contest));
         mGameListFragment.setAdapter(allGameAdapter);
-//        mGameListFragment.setOnItemClickListener(new OnGameListClick());
 
         mMyGameList = new BaseListFragment();
-        mMyGameList.setTitle(getString(R.string.my_game));
+        mMyGameList.setTitle(getString(R.string.contest));
         mMyGameList.setAdapter(myGameAdapter);
-//        mMyGameList.setOnItemClickListener(new OnMyGameListClick());
 
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getChildFragmentManager());
         adapter.add(mGameListFragment);
@@ -92,8 +93,8 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
 
     @Override
     public void onPageSelected(int i) {
-        if (i==1){
-            if (myGameAdapter.getData().size()==0){
+        if (i == 1) {
+            if (myGameAdapter.getData().size() == 0) {
                 getMyContestList();
             }
         }

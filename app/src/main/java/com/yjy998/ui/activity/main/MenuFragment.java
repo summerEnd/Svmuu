@@ -11,13 +11,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.common.entity.Assent;
 import com.yjy998.common.entity.User;
 import com.yjy998.common.util.ImageOptions;
 import com.yjy998.ui.activity.admin.About;
+import com.yjy998.ui.activity.base.MenuActivity;
 import com.yjy998.ui.activity.main.apply.ApplyActivity;
+import com.yjy998.ui.activity.main.my.ChangeDataActivity;
 import com.yjy998.ui.activity.main.my.business.BusinessActivity;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.pay.RechargeActivity;
@@ -59,6 +62,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         remainMoneyText = (TextView) findViewById(R.id.remainMoneyText);
         goldIngotText = (TextView) findViewById(R.id.goldIngotText);
         caopanTickets = (TextView) findViewById(R.id.caopanTickets);
+        avatarImage.setOnClickListener(this);
         findViewById(R.id.buyIn).setOnClickListener(this);
         findViewById(R.id.sellOut).setOnClickListener(this);
         findViewById(R.id.recharge).setOnClickListener(this);
@@ -151,8 +155,24 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), About.class));
                 break;
             }
+            case R.id.avatarImage: {
+                if (!AppDelegate.getInstance().isUserLogin()) {
+                    showLoginDialog();
+                    return;
+                }
+                startActivity(new Intent(getActivity(), ChangeDataActivity.class));
+                break;
+            }
         }
 //        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+
+    void showLoginDialog() {
+        if (getActivity() instanceof MenuActivity) {
+            ((MenuActivity) getActivity()).showLoginWindow();
+            ContextUtil.toast(getString(R.string.please_login_first));
+        }
     }
 
     public interface OnMenuClick {

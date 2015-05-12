@@ -33,7 +33,7 @@
         <activity
             android:name="com.sp.lib.activity.DEBUGActivity"
             android:label="@string/app_name" />
-        <!-- todo 发布时要注释掉 -->
+        <!--todo-->
         <activity
             android:name="com.sp.lib.demo.SlibDemo"
             android:icon="@drawable/ic_lincoln"
@@ -85,6 +85,7 @@
             android:name=".ui.activity.main.my.ContractInfoActivity"
             android:label="@string/title_activity_contract_info" />
         <activity android:name=".ui.activity.main.my.SetGesturePassword" />
+        <activity android:name=".ui.activity.main.more.WebViewActivity" />
     </application>
 
 </manifest>

@@ -295,7 +295,11 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         if (observer == null) {
             return;
         }
-        setData(observer.getSharedContract());
+        if (!isVisible()){
+            return;
+        }
+
+            setData(observer.getSharedContract());
         refreshInternal(observer.getContractId());
     }
 

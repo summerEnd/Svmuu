@@ -127,6 +127,7 @@
     <string name="rankList">排行榜</string>
     <string name="gameList">大赛列表</string>
     <string name="my_game">我参加的比赛</string>
+    <string name="contest">大赛</string>
 
     <string-array name="genders">
         <item>男</item>
@@ -226,4 +227,13 @@
     <string name="change_hand_psw">修改手势密码</string>
     <string name="open_psw">开启手势密码</string>
     <string name="forget_hand_psw_msg">忘记手势密码，需要重新登录,手势密码将自动失效</string>
+    <string name="update_now">立即升级</string>
+    <string name="download_ok">下载完成！</string>
+    <string name="install_now">立即安装</string>
+    <string name="no_data">没有数据</string>
+    <string name="no_contest">没有大赛</string>
+    <string name="no_contract">没有合约</string>
+    <string name="no_my_contest">你还没有参加大赛</string>
+    <string name="no_entrust_data">没有委托撤单信息</string>
+    <string name="no_s_data">没有%s数据</string>
 </resources>

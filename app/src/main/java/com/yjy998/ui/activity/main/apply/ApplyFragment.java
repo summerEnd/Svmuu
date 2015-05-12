@@ -18,6 +18,7 @@ import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.base.BaseFragment;
+import com.yjy998.ui.activity.main.home.NewMemberActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,7 +73,6 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener 
             @Override
             protected void onStatusCorrect(Response response) {
                 try {
-                    freshLayout.setVisibility(View.INVISIBLE);
                     JSONArray array = new JSONArray(response.data);
                     for (int i = 0; i < array.length(); i++) {
                         Apply object = JsonUtil.get(array.getString(i), Apply.class);
@@ -83,9 +83,6 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener 
                         } else if (Apply.ID_TN.equals(object.prodId)) {
                             tnCapitalText.setText(object.trade);
                             tnMemberText.setText(object.attenders);
-                        } else if (Apply.ID_NEW.equals(object.prodId)) {
-                            freshLayout.setVisibility(View.VISIBLE);
-                            freshMemberText.setText(object.attenders);
                         }
                     }
                 } catch (JSONException e) {
@@ -109,6 +106,7 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener 
                 break;
             }
             case R.id.freshLayout: {
+                startActivity(new Intent(getActivity(), NewMemberActivity.class));
                 break;
             }
         }

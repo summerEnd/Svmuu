@@ -95,7 +95,7 @@ public class SetGesturePassword extends SecondActivity {
             //重新登录
             YAlertDialog dialog = new YAlertDialog(this);
             dialog.setMessage(getString(R.string.password_failed));
-            dialog.setButton(getString(R.string.re_login));
+            dialog.setButton(getString(R.string.re_login),null);
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {

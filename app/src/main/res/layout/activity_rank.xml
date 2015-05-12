@@ -3,7 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    style="@style/activityPadding"
+   android:paddingLeft="@dimen/dimen_20px"
+    android:paddingRight="@dimen/dimen_20px"
+    android:paddingTop="@dimen/dimen_11px"
+    android:paddingBottom="@dimen/dimen_11px"
     android:background="@color/white"
     tools:context="com.yjy998.ui.activity.main.contest.RankActivity">
 
@@ -17,6 +20,7 @@
     <View style="@style/horizontalLine" />
 
     <LinearLayout
+        android:layout_marginTop="@dimen/dimen_11px"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_45px"
         android:background="#f2f2f2"

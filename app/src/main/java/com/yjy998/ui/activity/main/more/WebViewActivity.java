@@ -9,6 +9,9 @@ import android.webkit.WebViewClient;
 import com.yjy998.ui.activity.base.SecondActivity;
 
 public class WebViewActivity extends SecondActivity {
+
+    public static final String EXTRA_URL = "url";
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +21,7 @@ public class WebViewActivity extends SecondActivity {
         webView.setWebViewClient(new WebClient());
         webView.setWebChromeClient(new ChromeClient());
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl(getIntent().getStringExtra(EXTRA_URL));
     }
 
     private class WebClient extends WebViewClient {
