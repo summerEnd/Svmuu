@@ -62,12 +62,12 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
         mGameListFragment = new BaseListFragment();
         mGameListFragment.setTitle(getString(R.string.gameList));
         mGameListFragment.setAdapter(allGameAdapter);
-        mGameListFragment.setOnItemClickListener(new OnGameListClick());
+//        mGameListFragment.setOnItemClickListener(new OnGameListClick());
 
         mMyGameList = new BaseListFragment();
         mMyGameList.setTitle(getString(R.string.my_game));
         mMyGameList.setAdapter(myGameAdapter);
-        mMyGameList.setOnItemClickListener(new OnMyGameListClick());
+//        mMyGameList.setOnItemClickListener(new OnMyGameListClick());
 
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getChildFragmentManager());
         adapter.add(mGameListFragment);
