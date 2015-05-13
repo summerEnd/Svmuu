@@ -53,15 +53,14 @@
 
     <View style="@style/horizontalLine" />
 
-    <com.sp.lib.widget.input.PasswordEdit
+    <EditText
         android:id="@+id/passwordEdit"
         android:layout_margin="@dimen/dimen_25px"
         android:layout_gravity="center_horizontal"
-        app:borderColor="@color/white"
-        app:passwordLength="6"
-        app:contentColor="@color/lightGray"
-        android:padding="1px"
-        android:text=""
+        android:paddingLeft="@dimen/dimen_20px"
+        android:paddingRight="@dimen/dimen_20px"
+        android:textSize="@dimen/text_24px"
+        android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
