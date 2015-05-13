@@ -36,18 +36,14 @@ public abstract class SHttpProgressHandler extends JsonHttpResponseHandler imple
 
     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
         log("status:" + statusCode + "-->" + responseString);
-        ContextUtil.toast(R.string.request_is_failed);
-
     }
 
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
         log("status:" + statusCode + "-->" + errorResponse);
-        ContextUtil.toast(R.string.request_is_failed);
     }
 
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
         log("status:" + statusCode + "-->" + errorResponse);
-        ContextUtil.toast(R.string.request_is_failed);
     }
 
     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

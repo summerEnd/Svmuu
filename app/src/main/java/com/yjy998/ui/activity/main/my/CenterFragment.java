@@ -137,14 +137,6 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             caopanTicketsText.setText(getString(R.string.caopan_s, assent.quan_total_amount));
             ImageLoader.getInstance().displayImage(user.userInfo.uface, avatarImage, ImageOptions.getAvatarInstance());
 
-            ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
-            ArrayList<Contest> myContests = AppDelegate.getInstance().getUser().myContests;
-            contestAmount.setText(getString(R.string.myContest_d, myContests != null ? myContests.size() : 0));
-            contractAmount.setText(getString(R.string.myContract_d, myContracts != null ? myContracts.size() : 0));
-            contractPager.setVisibility(View.VISIBLE);
-            gamePager.setVisibility(View.VISIBLE);
-            contractPager.setAdapter(new ContractPagerAdapter(myContracts));
-            gamePager.setAdapter(new ContestPagerAdapter(myContests));
         } else {
             telText.setText(R.string.userName);
             moneyText.setText("￥0");
@@ -153,10 +145,13 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance());
             contestAmount.setText(getString(R.string.myContest_d, 0));
             contractAmount.setText(getString(R.string.myContract_d, 0));
-            contractPager.setVisibility(View.GONE);
-            gamePager.setVisibility(View.GONE);
         }
-
+        ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
+        ArrayList<Contest> myContests = AppDelegate.getInstance().getUser().myContests;
+        contestAmount.setText(getString(R.string.myContest_d, myContests != null ? myContests.size() : 0));
+        contractAmount.setText(getString(R.string.myContract_d, myContracts != null ? myContracts.size() : 0));
+        contractPager.setAdapter(new ContractPagerAdapter(myContracts));
+        gamePager.setAdapter(new ContestPagerAdapter(myContests));
 
     }
 

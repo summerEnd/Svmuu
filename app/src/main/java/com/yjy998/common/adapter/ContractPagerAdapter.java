@@ -42,11 +42,11 @@ public class ContractPagerAdapter extends PagerAdapter implements View.OnClickLi
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        if (contracts.size() == 0) {
+        if (contracts==null||contracts.size() == 0) {
             LinearLayout empty = (LinearLayout) View.inflate(container.getContext(), R.layout.empty_layout, null);
             empty.setOrientation(LinearLayout.HORIZONTAL);
             TextView emptyText = (TextView) empty.findViewById(R.id.noDataText);
-            emptyText.setText(R.string.no_contest);
+            emptyText.setText(R.string.no_contract);
             container.addView(empty);
             return empty;
         }

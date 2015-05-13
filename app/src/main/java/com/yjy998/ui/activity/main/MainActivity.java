@@ -125,9 +125,7 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
                     break;
                 }
                 case R.id.tabCenter: {
-                    if (!AppDelegate.getInstance().isUserLogin()) {
-                        showLoginWindow();
-                    }
+
                     if (mCenterFragment == null) {
                         mCenterFragment = new CenterFragment();
                     }

@@ -153,7 +153,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
         manageFeeText.setText(fee + "");
         keepText.setText(keep + "");
         pingCangText.setText(pingCang + "");
-        payAmount.setText(pay + "");
+        payAmount.setText("￥"+pay );
         pingCangSummary.setText(getString(R.string.pingCangSummary_f, rate));
     }
 

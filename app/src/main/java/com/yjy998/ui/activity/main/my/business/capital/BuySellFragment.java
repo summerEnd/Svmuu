@@ -3,6 +3,7 @@ package com.yjy998.ui.activity.main.my.business.capital;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -30,8 +31,10 @@ import com.yjy998.common.entity.Stock;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
+import com.yjy998.ui.activity.admin.LoginDialog;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.pop.PayDialog;
+import com.yjy998.ui.pop.YAlertDialog;
 import com.yjy998.ui.pop.YProgressDialog;
 import com.yjy998.ui.view.RoundButton;
 
@@ -164,6 +167,17 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
                 break;
             }
             case R.id.chooseContract: {
+
+                if (!AppDelegate.getInstance().isUserLogin()) {
+                    YAlertDialog.show(getActivity(), getString(R.string.please_login_first)).setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            new LoginDialog(getActivity()).show();
+                        }
+                    });
+                    return;
+                }
+
                 if (contractListWindow == null) {
                     contractListWindow = new ListPopupWindow(getActivity());
                     contractListWindow.setAnchorView(v);
@@ -295,11 +309,11 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         if (observer == null) {
             return;
         }
-        if (!isVisible()){
+        if (!isVisible()) {
             return;
         }
 
-            setData(observer.getSharedContract());
+        setData(observer.getSharedContract());
         refreshInternal(observer.getContractId());
     }
 

@@ -43,7 +43,7 @@ public class ContestPagerAdapter extends PagerAdapter implements View.OnClickLis
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        if (contests.size() == 0) {
+        if (contests==null||contests.size() == 0) {
             LinearLayout empty = (LinearLayout) View.inflate(container.getContext(), R.layout.empty_layout, null);
             empty.setOrientation(LinearLayout.HORIZONTAL);
             TextView emptyText = (TextView) empty.findViewById(R.id.noDataText);
