@@ -34,7 +34,7 @@
             android:focusableInTouchMode="true" />
 
     </LinearLayout>
-
+    <View style="@style/horizontalLine"/>
     <LinearLayout
         android:layout_marginTop="@dimen/dimen_15px"
         android:layout_width="match_parent"

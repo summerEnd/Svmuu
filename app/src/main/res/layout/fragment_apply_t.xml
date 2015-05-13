@@ -220,9 +220,10 @@
                 android:text="@string/pingCang" />
 
             <TextView
+                android:id="@+id/pingCangSummary"
                 android:textSize="@dimen/text_19px"
                 style="@style/applyActivityTextStyle1"
-                android:text="@string/pingCangSummary" />
+                android:text="@string/pingCangSummary_f" />
             <!--占位控件-->
             <TextView
                 android:layout_width="0dp"

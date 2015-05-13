@@ -19,7 +19,6 @@ public class CapitalBuySellAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private boolean isBuy = true;
     private Stock stock;
-    List<Item> items = new ArrayList<Item>();
     String[] numbers;
     private String titlePrefix1;
     private String titlePrefix2;

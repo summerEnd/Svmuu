@@ -47,9 +47,9 @@ public class EnterActivity extends Activity {
     void startGuide() {
         pager = new ViewPager(this);
         pager.setAdapter(new GuidePagerAdapter(this, new int[]{
-                R.drawable.guide_01,
-                R.drawable.guide_02,
-                R.drawable.guide_03
+                R.drawable.guide1,
+                R.drawable.guide2,
+                R.drawable.guide3
         }));
         pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 

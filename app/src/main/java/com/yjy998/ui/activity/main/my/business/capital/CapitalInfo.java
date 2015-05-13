@@ -223,12 +223,12 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         Stock stock = getStock();
 
         if (contract == null) {
-            ContextUtil.toast(R.string.contract_not_selected);
+//            if (isVisible())ContextUtil.toast(R.string.contract_not_selected);
             return;
         }
 
         if (stock == null) {
-            ContextUtil.toast(R.string.stock_not_selected);
+//           if (isVisible())ContextUtil.toast(R.string.stock_not_selected);
             return;
         }
 
@@ -405,7 +405,9 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         if (mWatcher != null) {
             codeEdit.removeTextChangedListener(mWatcher);
         }
-        codeEdit.setText(stockCode);
+        if (!TextUtils.isEmpty(stockCode)){
+            codeEdit.setText(stockCode);
+        }
         codeEdit.addTextChangedListener(mWatcher);
         if (!TextUtils.isEmpty(stockCode)) {
             getStockPrice(stockCode);

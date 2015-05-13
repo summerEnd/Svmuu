@@ -89,7 +89,7 @@
     <string name="yuan">元</string>
     <string name="manageFee">账户管理费</string>
     <string name="pingCang">平仓线</string>
-    <string name="pingCangSummary">(平仓线=操盘保证金*0.4)</string>
+    <string name="pingCangSummary_f">(平仓线=操盘保证金*%.2f)</string>
     <string name="tradersMargins">操盘保证金</string>
     <string name="payNow">立即支付</string>
     <string name="introduce">玩法介绍</string>
@@ -167,6 +167,7 @@
     <string name="Elite">精英赛</string>
     <string name="sea_race">海选赛</string>
     <string name="normal_race">普通赛</string>
+    <string name="not_race">非比赛</string>
     <string name="unknow">未知</string>
     <string name="rate_f">%.2f%%</string>
     <string name="new_price_s">最新价：%s</string>
@@ -209,8 +210,8 @@
     <string name="entrusting">委托中</string>
     <string name="canceledOrder">已撤单</string>
     <string name="deal_done">已成交</string>
-    <string name="contract_not_selected">还没选择合约！</string>
-    <string name="stock_not_selected">没有选择股票！</string>
+    <string name="contract_not_selected">请选择合约</string>
+    <string name="stock_not_selected">请选择股票</string>
     <string name="draw_gesture_psw">请绘制手势密码</string>
     <string name="draw_open_gesture_psw">绘制解锁密码</string>
     <string name="open_lock_failed_d">密码错了，还可输入%d次</string>

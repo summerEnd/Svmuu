@@ -17,6 +17,7 @@ import com.yjy998.R;
 import com.yjy998.common.entity.Assent;
 import com.yjy998.common.entity.User;
 import com.yjy998.common.util.ImageOptions;
+import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.admin.About;
 import com.yjy998.ui.activity.base.MenuActivity;
 import com.yjy998.ui.activity.main.apply.ApplyActivity;
@@ -78,7 +79,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
 
     public void refresh() {
 
-        if (!isVisible()) {
+        if (getView() == null) {
             return;
         }
 
@@ -89,11 +90,11 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 return;
             }
             phoneText.setText(assent.name);
-            remainMoneyText.setText(getString(R.string.remain_money_s, assent.avalaible_amount));
+            remainMoneyText.setText(getString(R.string.remain_money_s, NumberUtil.formatStr(assent.avalaible_amount)));
             goldIngotText.setText(getString(R.string.GoldIngot_s, assent.yuanbao_total_amount));
             caopanTickets.setText(getString(R.string.caopan_s, assent.quan_total_amount));
 
-            ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance(getResources().getDimensionPixelOffset(R.dimen.avatarSize)));
+            ImageLoader.getInstance().displayImage(user.userInfo.uface, avatarImage, ImageOptions.getAvatarInstance(getResources().getDimensionPixelOffset(R.dimen.avatarSize)));
 
         } else {
             phoneText.setText(getString(R.string.userName));

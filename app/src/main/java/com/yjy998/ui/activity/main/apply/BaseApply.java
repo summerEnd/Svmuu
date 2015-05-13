@@ -1,5 +1,6 @@
 package com.yjy998.ui.activity.main.apply;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.base.BaseFragment;
+import com.yjy998.ui.activity.main.more.WebViewActivity;
 import com.yjy998.ui.pop.PayDialog;
 import com.yjy998.ui.view.CircleItem;
 
@@ -33,11 +35,12 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
     private TextView pingCangText;
     private TextView keepText;
     private TextView payAmount;
+    private TextView pingCangSummary;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tn, container, false);
+        return inflater.inflate(R.layout.fragment_apply_t, container, false);
     }
 
     @Override
@@ -64,6 +67,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
         findViewById(R.id.payNow).setOnClickListener(this);
         totalCapitalText = (TextView) findViewById(R.id.totalCapitalText);
         manageFeeText = (TextView) findViewById(R.id.manageFeeText);
+        pingCangSummary = (TextView) findViewById(R.id.pingCangSummary);
         findViewById(R.id.questionImage).setOnClickListener(this);
         pingCangText = (TextView) findViewById(R.id.pingCangText);
         keepText = (TextView) findViewById(R.id.keepText);
@@ -96,8 +100,8 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                 new PayDialog(getActivity()).setCallback(new PayDialog.Callback() {
                     @Override
                     public void onPay(String password, String rsa_password) {
-                        SRequest request=new SRequest("http://www.yjy998.com/contract/apply");
-                        YHttpClient.getInstance().post(request,new YHttpHandler() {
+                        SRequest request = new SRequest("http://www.yjy998.com/contract/apply");
+                        YHttpClient.getInstance().post(request, new YHttpHandler() {
                             @Override
                             protected void onStatusCorrect(Response response) {
 
@@ -105,6 +109,11 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                         });
                     }
                 }).show();
+                break;
+            }
+            case R.id.introduce: {
+                startActivity(new Intent(getActivity(), WebViewActivity.class)
+                        .putExtra(WebViewActivity.EXTRA_URL, "http://m.yjy998.com/rules.html"));
                 break;
             }
         }
@@ -136,7 +145,8 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
 
         float fee = total * 0.098f / 100f;//管理费：按天收取，周末节假日免费
         float keep = getKeep(total);
-        float pingCang = keep * getRate(total) + total - keep;
+        float rate = getRate(total);
+        float pingCang = keep * rate + total - keep;
         float pay = getFeeDays() * fee + keep;
 
         totalCapitalText.setText(total + "");
@@ -144,6 +154,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
         keepText.setText(keep + "");
         pingCangText.setText(pingCang + "");
         payAmount.setText(pay + "");
+        pingCangSummary.setText(getString(R.string.pingCangSummary_f, rate));
     }
 
     /**

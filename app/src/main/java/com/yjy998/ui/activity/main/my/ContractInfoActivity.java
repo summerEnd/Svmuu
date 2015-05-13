@@ -13,6 +13,7 @@ import com.yjy998.common.entity.ContractDetail;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
+import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.main.my.business.BusinessActivity;
 import com.yjy998.ui.activity.base.SecondActivity;
 import com.yjy998.ui.pop.AppendCapitalDialog;
@@ -102,7 +103,7 @@ public class ContractInfoActivity extends SecondActivity implements DialogInterf
 
             contractNo.setText(getString(R.string.contract_no_s, detail.contractId));
             contractType.setText(getString(R.string.contractType_s, detail.contract_type));
-            totalText.setText(getString(R.string.total_capital_s, detail.totalAsset));
+            totalText.setText(getString(R.string.total_capital_s,  NumberUtil.formatStr(detail.totalAsset)));
             manageFeeText.setText(getString(R.string.s_day, detail.accountFee));
             areaText.setText(getString(R.string.relative_area_s, detail.relatedContest));
             applyDate.setText(getString(R.string.apply_date_s, detail.applyTime));

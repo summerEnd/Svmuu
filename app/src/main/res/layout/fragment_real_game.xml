@@ -22,6 +22,7 @@
         <com.yjy998.ui.view.ViewPagerTabItem
             style="@style/pageTitleStyle"
             android:text="@string/my_game" />
+
     </com.sp.lib.widget.pager.title.PageStrip>
 
 

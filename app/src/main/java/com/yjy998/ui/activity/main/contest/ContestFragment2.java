@@ -1,13 +1,12 @@
 package com.yjy998.ui.activity.main.contest;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
@@ -30,16 +29,16 @@ import java.util.ArrayList;
 /**
  * A simple {@link android.app.Fragment} subclass.
  */
-public class ContestFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
+public class ContestFragment2 extends BaseFragment implements ViewPager.OnPageChangeListener {
 
 
-    private ContestListAdapter allGameAdapter;
-    private ContestListAdapter myGameAdapter;
+    private SparseArray<BaseListFragment> fragments = new SparseArray<BaseListFragment>();
+    private int[] types = new int[]{R.string.my_game, R.string.Elite, R.string.sea_race, R.string.normal_race, R.string.not_race};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_real_game, container, false);
+        return inflater.inflate(R.layout.fragment_real_game2, container, false);
     }
 
     @Override
@@ -51,29 +50,20 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
         PageStrip pageStrip = (PageStrip) getActivity().findViewById(R.id.pageStrip);
         ViewPager pager = (ViewPager) getActivity().findViewById(R.id.pager);
 
-        allGameAdapter = getAdapter();
-        myGameAdapter = getAdapter();
-
-        BaseListFragment mGameListFragment = new BaseListFragment();
-        mGameListFragment.setTitle(getString(R.string.contest));
-        mGameListFragment.setAdapter(allGameAdapter);
-
-        BaseListFragment mMyGameList = new BaseListFragment();
-        mMyGameList.setTitle(getString(R.string.contest));
-        mMyGameList.setAdapter(myGameAdapter);
-
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getChildFragmentManager());
-        adapter.add(mGameListFragment);
-        adapter.add(mMyGameList);
+
+        for (int i = 0; i < types.length; i++) {
+            BaseListFragment fragment = new BaseListFragment();
+            String titleId = getString(types[i]);
+            fragment.setTitle(titleId);
+            fragment.setAdapter(new ContestListAdapter(getActivity(), new ArrayList<Contest>()));
+            fragments.append(types[i], fragment);
+            adapter.add(fragment);
+        }
         pager.setAdapter(adapter);
         pageStrip.setViewPager(pager);
         pageStrip.setPageChangeListener(this);
         getContestList();
-    }
-
-    ContestListAdapter getAdapter() {
-
-        return new ContestListAdapter(getActivity(), new ArrayList<Contest>());
     }
 
     @Override
@@ -83,9 +73,12 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
 
     @Override
     public void onPageSelected(int i) {
-        if (i == 1) {
-            if (myGameAdapter.getData().size() == 0) {
+        ContestListAdapter adapter = (ContestListAdapter) fragments.get(types[i]).getAdapter();
+        if (adapter.getData().size() == 0) {
+            if (i == 0) {
                 getMyContestList();
+            } else {
+                getContestList();
             }
         }
     }
@@ -95,19 +88,6 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
 
     }
 
-//    private class OnGameListClick implements AdapterView.OnItemClickListener {
-//        @Override
-//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            startActivity(new Intent(view.getContext(), ContestInfoActivity.class));
-//        }
-//    }
-//
-//    private class OnMyGameListClick implements AdapterView.OnItemClickListener {
-//        @Override
-//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            startActivity(new Intent(view.getContext(), ContestInfoActivity.class));
-//        }
-//    }
 
     /**
      * 获取大赛列表
@@ -120,8 +100,23 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
             protected void onStatusCorrect(Response response) {
                 try {
                     JSONArray data = new JSONArray(response.data);
-                    JsonUtil.getArray(data, Contest.class, allGameAdapter.getData());
-                    allGameAdapter.notifyDataSetChanged();
+                    ArrayList<Contest> array = JsonUtil.getArray(data, Contest.class);
+                    //清空数据
+                    for (int i = 1; i < types.length; i++) {
+                        ((ContestListAdapter) fragments.get(types[i]).getAdapter()).getData().clear();
+                    }
+
+                    //按类型将比赛分类
+                    for (Contest contest : array) {
+                        int type = contest.getType();
+                        ContestListAdapter adapter = (ContestListAdapter) fragments.get(type).getAdapter();
+                        adapter.getData().add(contest);
+                    }
+                    //刷新列表
+                    for (int i = 1; i < types.length; i++) {
+                        ((ContestListAdapter) fragments.get(types[i]).getAdapter()).notifyDataSetChanged();
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -139,9 +134,10 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
             @Override
             protected void onStatusCorrect(Response response) {
                 try {
+                    ContestListAdapter adapter = (ContestListAdapter) fragments.get(R.string.my_game).getAdapter();
                     JSONArray data = new JSONArray(response.data);
-                    JsonUtil.getArray(data, Contest.class, myGameAdapter.getData());
-                    myGameAdapter.notifyDataSetChanged();
+                    JsonUtil.getArray(data, Contest.class, adapter.getData());
+                    adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

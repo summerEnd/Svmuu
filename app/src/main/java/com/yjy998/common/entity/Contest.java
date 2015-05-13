@@ -18,6 +18,9 @@ public class Contest implements Serializable {
     public String attenders;
     //比赛类型:1精英赛，2海选赛，3普通赛
     public int type;
+
+    public String contest_type;
+
     //老师圈号
     public String teachId;
     //开始时间
@@ -32,6 +35,11 @@ public class Contest implements Serializable {
      */
     public int getType() {
         switch (type) {
+
+            case 0: {
+                return R.string.not_race;
+            }
+
             case 1: {
                 return R.string.Elite;
             }
@@ -42,7 +50,7 @@ public class Contest implements Serializable {
                 return R.string.normal_race;
             }
         }
-        return R.string.unknow;
+        return R.string.normal_race;
     }
 
     public float getProfitRatio() {

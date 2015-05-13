@@ -22,12 +22,14 @@ import com.yjy998.common.entity.UserInfo;
 import com.yjy998.common.util.ImageOptions;
 import com.yjy998.common.entity.Contract;
 import com.yjy998.common.entity.Contest;
+import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.main.my.business.BusinessActivity;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.base.MenuActivity;
 import com.yjy998.ui.activity.pay.RechargeActivity;
 import com.yjy998.ui.view.TwoTextItem;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -129,11 +131,11 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             Assent assent = user.assent;
             UserInfo info = user.userInfo;
             telText.setText(info.unick);
-            moneyText.setText("￥" + assent.avalaible_amount);
+
+            moneyText.setText("￥" + NumberUtil.formatStr(assent.avalaible_amount));
             goldIngotText.setText(getString(R.string.GoldIngot_s, assent.yuanbao_total_amount));
             caopanTicketsText.setText(getString(R.string.caopan_s, assent.quan_total_amount));
-
-            ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance());
+            ImageLoader.getInstance().displayImage(user.userInfo.uface, avatarImage, ImageOptions.getAvatarInstance());
 
             ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
             ArrayList<Contest> myContests = AppDelegate.getInstance().getUser().myContests;

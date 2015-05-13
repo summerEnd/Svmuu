@@ -14,6 +14,7 @@ import com.yjy998.R;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
+import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.main.apply.ApplyActivity;
 
@@ -119,7 +120,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler(false) {
             @Override
             protected void onStatusCorrect(Response response) {
-                capitalText.setText("￥" + response.data);
+                capitalText.setText("￥" + NumberUtil.formatStr(response.data));
             }
         });
     }

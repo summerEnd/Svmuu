@@ -46,7 +46,7 @@ public class ContestPagerAdapter extends PagerAdapter implements View.OnClickLis
         if (contests.size() == 0) {
             LinearLayout empty = (LinearLayout) View.inflate(container.getContext(), R.layout.empty_layout, null);
             empty.setOrientation(LinearLayout.HORIZONTAL);
-            TextView emptyText= (TextView) empty.findViewById(R.id.noDataText);
+            TextView emptyText = (TextView) empty.findViewById(R.id.noDataText);
             emptyText.setText(R.string.no_contest);
             container.addView(empty);
 
@@ -95,13 +95,21 @@ public class ContestPagerAdapter extends PagerAdapter implements View.OnClickLis
                 ((View) rankText.getParent()).setVisibility(View.VISIBLE);
             }
             rateText.setText(item.getContext().getString(R.string.income_rate_f, contest.getProfitRatio() * 100));
-            item.setVisibility(View.VISIBLE);
+            setVisibility((ViewGroup) item, View.VISIBLE);
             item.setTag(contest);
         } catch (IndexOutOfBoundsException e) {
-            item.setVisibility(View.INVISIBLE);
+            setVisibility((ViewGroup) item, View.INVISIBLE);
             item.setTag(null);
         }
 
+    }
+
+    public void setVisibility(ViewGroup item, int visibility) {
+
+        item.setEnabled(visibility == View.VISIBLE);
+        for (int i = 0; i < item.getChildCount(); i++) {
+            item.getChildAt(i).setVisibility(visibility);
+        }
     }
 
     @Override

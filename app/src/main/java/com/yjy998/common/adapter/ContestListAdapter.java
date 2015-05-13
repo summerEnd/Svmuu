@@ -43,7 +43,7 @@ public class ContestListAdapter extends ViewHolderAdapter<Contest, Object> imple
         viewHolder.gameTime.setText(convertView.getContext().getString(R.string.game_start_end_s, contest.startTime + " - " + contest.endTime));
         viewHolder.titleText.setText(contest.name);
         viewHolder.membersText.setText(contest.attenders);
-        viewHolder.typeText.setText(contest.getType());
+        viewHolder.typeText.setText(contest.contest_type);
         viewHolder.rankText.setTag(contest.id);
     }
 

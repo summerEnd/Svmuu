@@ -39,14 +39,13 @@ public class BaseListFragment extends BaseFragment {
         registerObserver();
 
         String title = getTitle();
-        if (title !=null){
+        if (title != null) {
             TextView emptyText = (TextView) emptyView.findViewById(R.id.noDataText);
-            emptyText.setText(getString(R.string.no_s_data,title));
+            emptyText.setText(getString(R.string.no_s_data, title));
         }
 
         return parent;
     }
-
 
 
     @Override
@@ -104,13 +103,11 @@ public class BaseListFragment extends BaseFragment {
     }
 
     void updateEmptyStatus() {
-        if (adapter != null) {
-            parent.removeAllViews();
-            if (adapter.getCount() == 0) {
-                parent.addView(emptyView);
-            } else {
-                parent.addView(refreshList);
-            }
+        parent.removeAllViews();
+        if (adapter != null && adapter.getCount() != 0) {
+            parent.addView(refreshList);
+        } else {
+            parent.addView(emptyView);
         }
     }
 

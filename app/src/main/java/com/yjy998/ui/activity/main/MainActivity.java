@@ -11,6 +11,7 @@ import com.yjy998.R;
 import com.yjy998.common.util.VersionUtil;
 import com.yjy998.ui.activity.main.apply.ApplyFragment;
 import com.yjy998.ui.activity.main.contest.ContestFragment;
+import com.yjy998.ui.activity.main.contest.ContestFragment2;
 import com.yjy998.ui.activity.main.home.HomeFragment;
 import com.yjy998.ui.activity.main.more.MoreFragment;
 import com.yjy998.ui.activity.main.my.CenterFragment;
