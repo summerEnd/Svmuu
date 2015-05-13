@@ -18,7 +18,9 @@ import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.main.apply.ApplyActivity;
 
-
+/**
+ * 首页
+ */
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
@@ -114,6 +116,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         public void onHomeFragmentClick(View v);
     }
 
+    /**
+     * 获取累计配资
+     */
     public void getCapital() {
         SRequest request = new SRequest();
         request.setUrl("http://mobile.yjy998.com/h5/index/loanamount");

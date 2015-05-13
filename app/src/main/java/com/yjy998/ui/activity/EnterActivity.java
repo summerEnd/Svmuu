@@ -19,7 +19,6 @@ import com.yjy998.common.Constant;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
-import com.yjy998.ui.activity.admin.LockActivity;
 import com.yjy998.ui.activity.main.MainActivity;
 
 /**
@@ -33,7 +32,7 @@ public class EnterActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+
         if (AppDelegate.getInstance().isFirstStartApplication()) {
             startGuide();
         } else {
@@ -46,15 +45,18 @@ public class EnterActivity extends Activity {
      */
     void startGuide() {
         pager = new ViewPager(this);
+        //加载引导页图片
         pager.setAdapter(new GuidePagerAdapter(this, new int[]{
                 R.drawable.guide1,
                 R.drawable.guide2,
                 R.drawable.guide3
         }));
+        //监听滑动事件
         pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                //如果是最后一页，并且也不能向右滑动，可以接结束
                 exit = (positionOffsetPixels == lastPosition) && !pager.canScrollHorizontally(1);
                 lastPosition = positionOffsetPixels;
             }
@@ -66,7 +68,7 @@ public class EnterActivity extends Activity {
             @Override
             public void onPageScrollStateChanged(int state) {
                 if (state == ViewPager.SCROLL_STATE_IDLE && exit) {
-
+                    //滑动结束，根据exit判断是否可以结束
                     startLoading();
                 }
             }
@@ -79,20 +81,21 @@ public class EnterActivity extends Activity {
      */
 
     void startLoading() {
+        //设置下次不再启动引导页
         AppDelegate.getInstance().setIsFirstStartApplication(false);
-
+        //显示loading图片
         ImageView imageView = new ImageView(this);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         setContentView(imageView);
         imageView.setImageResource(R.drawable.loading);
 
-        login();
+        loginBackground();
     }
 
     /**
-     * 自动登录
+     * 后台自动登录
      */
-    void login() {
+    void loginBackground() {
         SharedPreferences sp = getSharedPreferences(Constant.PRE_LOGIN, MODE_PRIVATE);
         String phone = sp.getString(Constant.PRE_LOGIN_PHONE, null);
         String password = sp.getString(Constant.PRE_LOGIN_PASSWORD, null);
@@ -148,7 +151,7 @@ public class EnterActivity extends Activity {
     }
 
     private void enterMain() {
-
+        //延迟进入
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

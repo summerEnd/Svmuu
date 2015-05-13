@@ -30,15 +30,20 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
     public static final int ID_APPLY = R.id.tabApply;
     public static final int ID_CENTER = R.id.tabCenter;
     public static final int ID_MORE = R.id.tabMore;
-
+    //当前选中的tab
     private TabItem curTab;
+    //首页
     HomeFragment mHome;
+    //我的大赛
     ContestFragment mGameFragment;
+    //实盘申请
     ApplyFragment mApplyFragment;
+    //个人中心
     CenterFragment mCenterFragment;
+    //更多
     MoreFragment mMoreFragment;
+    //正在显示的页面
     Fragment displayingFragment;
-
 
     TabItem tabGame;
     TabItem tabMore;
@@ -54,10 +59,6 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
         initialize();
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-    }
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -98,16 +99,14 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
             }
             curTab = view;
             BaseFragment fragment = null;
+            //采用延迟创建对象，来提高首次进入的速度
             switch (view.getId()) {
                 case R.id.tabHome: {
 
-
                     if (mHome == null) {
                         mHome = new HomeFragment();
-
                     }
                     fragment = mHome;
-
                     break;
                 }
                 case R.id.tabApply: {
@@ -140,7 +139,7 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
                     break;
                 }
             }
-
+            //如果当前页面已经在展示了，就不要再切换了
             if (fragment != null && fragment != displayingFragment) {
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
@@ -180,7 +179,6 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
         switch (v.getId()) {
 
             case R.id.center: {
-
                 tabCenter.performClick();
                 break;
             }
@@ -205,6 +203,9 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
         refreshLayout();
     }
 
+    /**
+     * 刷新页面
+     */
     @Override
     protected void refreshLayout() {
         mMenuFragment.refresh();

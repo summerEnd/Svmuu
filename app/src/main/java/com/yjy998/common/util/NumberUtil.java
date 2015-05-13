@@ -9,6 +9,9 @@ public class NumberUtil {
         return format.format(number);
     }
 
+    /**
+     * 尝试将数字字符串转化为如下格式：12,345.45
+     */
     public static String formatStr(String number) {
         String money;
         try {

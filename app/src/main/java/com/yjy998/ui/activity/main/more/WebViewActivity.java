@@ -3,6 +3,7 @@ package com.yjy998.ui.activity.main.more;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -21,6 +22,7 @@ public class WebViewActivity extends SecondActivity {
         webView.setWebViewClient(new WebClient());
         webView.setWebChromeClient(new ChromeClient());
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.loadUrl(getIntent().getStringExtra(EXTRA_URL));
     }
 

@@ -1,25 +1,20 @@
 package com.yjy998.ui.activity.main.more;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.sp.lib.common.util.SLog;
 import com.yjy998.R;
 import com.yjy998.ui.activity.base.BaseFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MoreFragment extends BaseFragment {
 
@@ -35,11 +30,13 @@ public class MoreFragment extends BaseFragment {
         return layout;
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         webView.loadUrl("http://m.yjy998.com/faq.html");
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
