@@ -68,6 +68,9 @@ public class AdminManager {
         return this;
     }
 
+    /**
+     * @return true 测试通过,false 不通过
+     */
     public boolean start() {
         for (ICheck check : checks) {
             if (!check.doCheck()) {
