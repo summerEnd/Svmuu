@@ -19,7 +19,7 @@
         android:src="@drawable/logo_white" />
 
     <ImageView
-
+        android:visibility="invisible"
         android:layout_gravity="center_vertical|right"
         android:src="@drawable/nav_center"
         android:layout_width="wrap_content"

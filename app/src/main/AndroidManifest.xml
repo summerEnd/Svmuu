@@ -43,7 +43,7 @@
             android:name="com.sp.lib.activity.DEBUGActivity"
             android:label="@string/app_name" />
         <!--todo-->
-        <activity
+     <!--   <activity
             android:name="com.sp.lib.demo.SlibDemo"
             android:icon="@drawable/ic_lincoln"
             android:label="SLIB">
@@ -52,7 +52,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>-->
         <activity
             android:name=".common.test.ChartActivity"
             android:label="@string/title_activity_chart" />

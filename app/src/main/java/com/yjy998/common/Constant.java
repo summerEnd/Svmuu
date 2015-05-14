@@ -19,6 +19,9 @@ public class Constant {
     public static final String PRE_LOGIN_PASSWORD_RSA = "password_rsa";
     public static final String PRE_LOGIN_PHONE = "login_name";
 
+
+    public static final String PATTERN_PHONE="^(1)\\d{10}$";
+
     //直辖市 4
     public static String[][] citys = new String[][]{{"北京市", "西城区", "东城区", "宣武区", "崇文区", "海淀区", "朝阳区", "丰台区", "石景山区"},
             {"上海市", "黄浦区", "卢湾区", "徐汇区", "长宁区", "静安区", "普陀区", "闸北区", "虹口区", "杨浦区", "闵行区", "宝山区", "嘉定区", "浦东新区", "金山区", "松江区", "青浦区", "南汇区", "奉贤区"},

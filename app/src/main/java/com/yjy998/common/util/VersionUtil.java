@@ -62,7 +62,7 @@ public class VersionUtil {
         @Override
         public boolean forceUpdate() {
             //todo return info.force;
-            return false;
+            return info.force;
         }
 
         @Override

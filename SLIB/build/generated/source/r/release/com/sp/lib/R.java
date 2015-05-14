@@ -9,20 +9,22 @@ package com.sp.lib;
 
 public final class R {
     public static final class anim {
-        public static int pull_arrow_down=0x7f040000;
-        public static int pull_arrow_up=0x7f040001;
-        public static int scale_big_in=0x7f040002;
-        public static int scale_big_out=0x7f040003;
-        public static int slide_down_out=0x7f040004;
-        public static int slide_in_left=0x7f040005;
-        public static int slide_in_right=0x7f040006;
-        public static int slide_out_left=0x7f040007;
-        public static int slide_out_right=0x7f040008;
-        public static int slide_up_in=0x7f040009;
-        public static int stand_still=0x7f04000a;
-        public static int update_loading_progressbar_anim=0x7f04000b;
-        public static int window_enter=0x7f04000c;
-        public static int window_exit=0x7f04000d;
+        public static int cycle=0x7f040000;
+        public static int pull_arrow_down=0x7f040001;
+        public static int pull_arrow_up=0x7f040002;
+        public static int scale_big_in=0x7f040003;
+        public static int scale_big_out=0x7f040004;
+        public static int shake=0x7f040005;
+        public static int slide_down_out=0x7f040006;
+        public static int slide_in_left=0x7f040007;
+        public static int slide_in_right=0x7f040008;
+        public static int slide_out_left=0x7f040009;
+        public static int slide_out_right=0x7f04000a;
+        public static int slide_up_in=0x7f04000b;
+        public static int stand_still=0x7f04000c;
+        public static int update_loading_progressbar_anim=0x7f04000d;
+        public static int window_enter=0x7f04000e;
+        public static int window_exit=0x7f04000f;
     }
     public static final class attr {
         /** <p>Must be a floating point value, such as "<code>1.2</code>".

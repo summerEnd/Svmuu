@@ -46,8 +46,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.fragment_main_menu, null);
-        return inflate;
+        return inflater.inflate(R.layout.fragment_main_menu, null);
     }
 
     @Override
@@ -64,6 +63,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         goldIngotText = (TextView) findViewById(R.id.goldIngotText);
         caopanTickets = (TextView) findViewById(R.id.caopanTickets);
         avatarImage.setOnClickListener(this);
+        phoneText.setOnClickListener(this);
         findViewById(R.id.buyIn).setOnClickListener(this);
         findViewById(R.id.sellOut).setOnClickListener(this);
         findViewById(R.id.recharge).setOnClickListener(this);
@@ -97,7 +97,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
             ImageLoader.getInstance().displayImage(user.userInfo.uface, avatarImage, ImageOptions.getAvatarInstance(getResources().getDimensionPixelOffset(R.dimen.avatarSize)));
 
         } else {
-            phoneText.setText(getString(R.string.userName));
+            phoneText.setText(getString(R.string.userName_not_login));
             remainMoneyText.setText(getString(R.string.remain_money_s, 0));
             goldIngotText.setText(getString(R.string.GoldIngot_s, 0));
             caopanTickets.setText(getString(R.string.caopan_s, 0));
@@ -156,6 +156,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), About.class));
                 break;
             }
+            case R.id.phoneText:
             case R.id.avatarImage: {
                 if (!AppDelegate.getInstance().isUserLogin()) {
                     showLoginDialog();

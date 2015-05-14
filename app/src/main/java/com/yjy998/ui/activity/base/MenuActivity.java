@@ -118,8 +118,11 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
     private void refreshTitle() {
         if (AppDelegate.getInstance().isUserLogin()) {
             setTitleImage(R.drawable.ic_call);
+            titleImage.setVisibility(View.VISIBLE);
+
         } else {
             setTitleImage(R.drawable.nav_center);
+            titleImage.setVisibility(View.INVISIBLE);
         }
     }
 

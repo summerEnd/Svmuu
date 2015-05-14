@@ -22,11 +22,11 @@
     <string name="__testPhone">18761844602</string>
     <string name="__testNumber">15848.123</string>
     <string name="login">登录</string>
-    <string name="hint_phone">手机号码</string>
-    <string name="hint_password">密码</string>
-    <string name="hint_new_password">新密码</string>
-    <string name="hint_repeat_password">重复密码</string>
-    <string name="hint_yzm">验证码</string>
+    <string name="hint_phone">请输入手机号码</string>
+    <string name="hint_password">请输入密码</string>
+    <string name="hint_new_password">请输入新密码</string>
+    <string name="hint_repeat_password">请再次输入密码</string>
+    <string name="hint_yzm">请输入验证码</string>
     <string name="protocolText">注册代表您同意《网上申请用户协议》</string>
     <string name="resend_d">重新发送（%d）</string>
     <string name="resend">重新发送</string>
@@ -94,7 +94,7 @@
     <string name="payNow">立即支付</string>
     <string name="introduce">玩法介绍</string>
     <string name="change_group">换组金额</string>
-    <string name="countCapital__">累计配资：</string>
+    <string name="countCapital__">平台累计配资：</string>
     <string name="myContest_d">我的大赛(%d)</string>
     <string name="myContract_d">当前合约(%d)</string>
     <string name="help_info">常见问题</string>
@@ -192,6 +192,7 @@
     <string name="title_activity_contract_info">ContractInfo</string>
     <string name="confirm_logout">确定退出？</string>
     <string name="userName">用户名</string>
+    <string name="userName_not_login">登录 | 注册</string>
     <string name="apply_date">申请日期：%s</string>
     <string name="s_day">%s元/天</string>
     <string name="dealing">处理中…</string>
@@ -237,4 +238,7 @@
     <string name="no_my_contest">你还没有参加大赛</string>
     <string name="no_entrust_data">没有委托撤单信息</string>
     <string name="no_s_data">没有%s数据</string>
+    <string name="repeat_not_equal">两次密码输入不一致</string>
+    <string name="phone_not_correct">手机号格式不正确</string>
+    <string name="password_length_error">密码长度介于6-20位</string>
 </resources>

@@ -63,6 +63,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.telText:
             case R.id.avatarImage: {
                 if (AppDelegate.getInstance().isUserLogin()) {
                     startActivity(new Intent(getActivity(), ChangeDataActivity.class));
@@ -106,6 +107,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
         caopanTicketsText = (TextView) findViewById(R.id.caopanTicketsText);
         contractAmount = (TextView) findViewById(R.id.contractAmount);
         contestAmount = (TextView) findViewById(R.id.contestAmount);
+        telText.setOnClickListener(this);
         findViewById(R.id.buyIn).setOnClickListener(this);
         findViewById(R.id.sellOut).setOnClickListener(this);
         findViewById(R.id.recharge).setOnClickListener(this);
@@ -138,7 +140,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             ImageLoader.getInstance().displayImage(user.userInfo.uface, avatarImage, ImageOptions.getAvatarInstance());
 
         } else {
-            telText.setText(R.string.userName);
+            telText.setText(R.string.userName_not_login);
             moneyText.setText("￥0");
             goldIngotText.setText(getString(R.string.GoldIngot_s, "0"));
             caopanTicketsText.setText(getString(R.string.caopan_s, "0"));
