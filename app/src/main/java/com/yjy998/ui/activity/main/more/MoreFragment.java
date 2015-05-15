@@ -11,6 +11,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import com.sp.lib.common.util.SLog;
 import com.yjy998.R;
@@ -20,6 +21,7 @@ public class MoreFragment extends BaseFragment {
 
     View layout;
     WebView webView;
+    ProgressBar webProgress;
     private boolean initialLoad = true;
 
     @Override
@@ -27,6 +29,7 @@ public class MoreFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.fragment_more, container, false);
         webView = (WebView) layout.findViewById(R.id.webView);
+        webProgress = (ProgressBar) layout.findViewById(R.id.webProgress);
         return layout;
     }
 
@@ -41,6 +44,7 @@ public class MoreFragment extends BaseFragment {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 initialLoad = newProgress < 100;
+                webProgress.setProgress(newProgress);
             }
 
         });
@@ -55,7 +59,10 @@ public class MoreFragment extends BaseFragment {
                 return true;
             }
 
-
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                webProgress.setVisibility(View.GONE);
+            }
         });
 
     }
