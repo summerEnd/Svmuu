@@ -1,8 +1,10 @@
 package com.yjy998;
 
 import android.content.Context;
+import android.view.Gravity;
 
 import com.sp.lib.SApplication;
+import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.common.entity.User;
 import com.yjy998.common.Constant;
 import com.yjy998.common.test.TestActivity;
@@ -25,6 +27,8 @@ public class AppDelegate extends SApplication {
         setMainTest(TestActivity.class);
         //是否调试模式
         setDebug(BuildConfig.DEBUG);
+
+        ContextUtil.setToastLayout(R.layout.toast_layout, Gravity.NO_GRAVITY);
     }
 
     /**
