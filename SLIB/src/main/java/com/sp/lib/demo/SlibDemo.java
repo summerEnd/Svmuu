@@ -53,7 +53,6 @@ public class SlibDemo extends Activity implements AdapterView.OnItemClickListene
             mTests.add(new AlbumTest(this));
             mTests.add(new DebugTest(this));
             mTests.add(new LockTest(this));
-            mTests.add(new GIFTest(this));
         }
         ListView listView = new ListView(this);
         setContentView(listView);
@@ -194,9 +193,6 @@ public class SlibDemo extends Activity implements AdapterView.OnItemClickListene
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (mStacks.size() != 0 && mStacks.peek().onPrepareOptionsMenu(menu)) {
-            return true;
-        }
-        return super.onPrepareOptionsMenu(menu);
+        return mStacks.size() != 0 && mStacks.peek().onPrepareOptionsMenu(menu) || super.onPrepareOptionsMenu(menu);
     }
 }
