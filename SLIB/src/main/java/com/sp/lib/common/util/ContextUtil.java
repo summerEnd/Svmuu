@@ -23,18 +23,21 @@ public class ContextUtil {
 
     private static int mToastLayoutId;
 
-    public static final void init(Context context) {
+    private static int TOAST_GRAVITY = Gravity.CENTER;
+
+    public static  void init(Context context) {
         ContextUtil.context = context;
     }
 
     /**
      * @param toastLayout 用于toast的布局,里面要包含一个id为R.id.slib_toast_text_1的TextView
      */
-    public static final void setToastLayout(int toastLayout) {
+    public static  void setToastLayout(int toastLayout, int gravity) {
         mToastLayoutId = toastLayout;
+        TOAST_GRAVITY = gravity;
     }
 
-    public static final String getString(int id) {
+    public static  String getString(int id) {
         return context.getString(id);
     }
 
@@ -49,15 +52,14 @@ public class ContextUtil {
 
     public static PackageInfo getPackageInfo() {
         try {
-            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            return info;
+            return context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static final void toast(Object o) {
+    public static  void toast(Object o) {
         if (null == o)
             return;
         //要toast的信息
@@ -68,7 +70,9 @@ public class ContextUtil {
             toast = new Toast(context);
             View v = View.inflate(context, mToastLayoutId, null);
             toast.setView(v);
-            toast.setGravity(Gravity.CENTER, 0, 0);
+            if (TOAST_GRAVITY != Gravity.NO_GRAVITY) {
+                toast.setGravity(TOAST_GRAVITY, 0, 0);
+            }
             TextView tv = (TextView) v.findViewById(R.id.slib_toast_text_1);
             if (tv != null) {
                 tv.setText(msg);
@@ -81,17 +85,17 @@ public class ContextUtil {
         toast.show();
     }
 
-    public static final void toast(int resId) {
+    public static  void toast(int resId) {
         toast(getString(resId));
     }
 
-    public static final void toast_debug(Object o) {
+    public static  void toast_debug(Object o) {
         if (SApplication.DEBUG) {
             toast(o);
         }
     }
 
-    public static final Context getContext() {
+    public static Context getContext() {
         return context;
     }
 
