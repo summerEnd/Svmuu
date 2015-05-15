@@ -210,6 +210,7 @@ public class GView extends View {
         }
         if (mOnPointTouchListener != null) {
             mOnPointTouchListener.onTouched(position);
+
         }
 
     }
@@ -304,11 +305,11 @@ public class GView extends View {
                 paint.setShader(null);
                 paint.setStyle(Paint.Style.STROKE);
 
-                canvas.drawPath(line.getRawPath(),paint);
+                canvas.drawPath(line.getRawPath(), paint);
 
                 paint.setStyle(Paint.Style.FILL);
                 paint.setShader(shader);
-            }else{
+            } else {
                 canvas.drawPath(line, paint);
             }
 
@@ -353,6 +354,9 @@ public class GView extends View {
             case MotionEvent.ACTION_UP: {
                 touchX = -1;
                 touchY = -1;
+                if (mOnPointTouchListener != null) {
+                    mOnPointTouchListener.onTouchCanceled();
+                }
                 invalidate();
                 break;
             }
@@ -363,5 +367,7 @@ public class GView extends View {
 
     public interface OnPointTouchListener {
         public void onTouched(int position);
+
+        public void onTouchCanceled();
     }
 }
