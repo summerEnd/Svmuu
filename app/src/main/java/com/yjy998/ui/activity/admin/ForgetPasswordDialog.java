@@ -48,7 +48,7 @@ public class ForgetPasswordDialog extends Dialog implements View.OnClickListener
         switch (v.getId()) {
             case R.id.confirmButton: {
                 if (adminManager == null) {
-                    adminManager = new AdminManager(getContext());
+                    adminManager = new AdminManager();
                     adminManager.addEmptyCheck(phoneEdit)
                             .addPatterCheck(phoneEdit, Constant.PATTERN_PHONE, context.getString(R.string.phone_not_correct))
                             .addEmptyCheck(passwordEdit)

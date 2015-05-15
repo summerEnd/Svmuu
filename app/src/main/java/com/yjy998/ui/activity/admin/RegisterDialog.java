@@ -51,11 +51,12 @@ public class RegisterDialog extends Dialog implements View.OnClickListener, RSAU
             case R.id.confirmButton: {
 
                 if (adminManager == null) {
-                    adminManager = new AdminManager(getContext());
-                    adminManager.addEmptyCheck(phoneEdit)
+                    adminManager = new AdminManager();
+                    adminManager
+                            .addEmptyCheck(phoneEdit)
                             .addPatterCheck(phoneEdit, Constant.PATTERN_PHONE, context.getString(R.string.phone_not_correct))
                             .addEmptyCheck(passwordEdit)
-                            .addLengthCheck(passwordEdit, 6, 20,context.getString(R.string.password_length_error))
+                            .addLengthCheck(passwordEdit, 6, 20, context.getString(R.string.password_length_error))
                             .addEmptyCheck(passwordRepeat)
                             .addEqualCheck(passwordRepeat, passwordEdit, context.getString(R.string.repeat_not_equal))
                             .addEmptyCheck(yzmEdit)
