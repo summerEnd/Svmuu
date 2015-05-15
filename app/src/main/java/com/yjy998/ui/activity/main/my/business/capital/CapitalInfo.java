@@ -15,7 +15,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.sp.lib.common.support.net.client.SRequest;
-import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.widget.list.LinearListView;
 import com.yjy998.R;

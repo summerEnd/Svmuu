@@ -2,12 +2,9 @@ package com.yjy998.ui.activity.main.my.business.capital;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
@@ -33,12 +30,10 @@ public class TimeLineFragment extends BaseFragment implements GView.OnPointTouch
 
 
     List<Trend> list = new ArrayList<Trend>();
-    Toast toast;
+    TrendInfoWindow trendInfoWindow;
     float[] newPrice;
     float[] average;
     GView gView;
-    private TextView newPriceText;
-    private TextView averagePriceText;
 
     @Nullable
     @Override
@@ -122,38 +117,45 @@ public class TimeLineFragment extends BaseFragment implements GView.OnPointTouch
         gView.setOnPointTouchListener(this);
     }
 
+    /**
+     * 9.30-11.30
+     * 13.00-15.00
+     *
+     * @param position
+     */
     @Override
     public void onTouched(int position) {
-        if (toast == null) {
-            toast = new Toast(getActivity());
-            View view = LayoutInflater.from(getActivity()).inflate(R.layout.toast_view, null);
-            newPriceText = (TextView) view.findViewById(R.id.newPriceText);
-            averagePriceText = (TextView) view.findViewById(R.id.averagePriceText);
-            toast.setView(view);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 30);
+        if (trendInfoWindow == null) {
+            trendInfoWindow = new TrendInfoWindow(getActivity());
         }
         if (newPrice != null && average != null) {
-
-            int gravity = Gravity.CENTER_VERTICAL;
-            if (position < 120) {
-                gravity |= Gravity.RIGHT;
+            String time;
+            int h;
+            int m;
+            if (position < 30) {
+                h = 9;
+                m = 30 + position;
+            } else if (position < 90) {
+                h = 10;
+                m = position - 30;
+            } else if (position < 120) {
+                h = 11;
+                m = position - 90;
             } else {
-                gravity |= Gravity.LEFT;
+                h = position / 60 + 11;
+                m=position%60;
             }
-
-            if (toast.getGravity() != gravity) {
-                toast.cancel();
-
-                toast.setGravity(gravity, 0, 0);
-            }
-
-            newPriceText.setText(getString(R.string.new_price_s, newPrice[position] + ""));
-            averagePriceText.setText(getString(R.string.average_price_s, average[position] + ""));
-
-            toast.show();
+            trendInfoWindow.setText(newPrice[position] + "", average[position] + "", String.format("%d:%02d",h,m));
+            trendInfoWindow.show(gView, position > 120);
         }
 
+    }
+
+    @Override
+    public void onTouchCanceled() {
+        if (trendInfoWindow != null) {
+            trendInfoWindow.dismiss();
+        }
     }
 
 
