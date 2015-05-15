@@ -205,6 +205,7 @@
     <string name="apply_date_s">申请日期：%s</string>
     <string name="entrustTime_s">委托时间：%s</string>
     <string name="dealTime_s">成交时间：%s</string>
+    <string name="time_s">时间：%s</string>
     <string name="dealPrice_s">成交金额：%s</string>
 
     <string name="contract_s1_s2">%1$s 编号：%2$s</string>

@@ -6,8 +6,17 @@
     android:background="@color/white"
     tools:context="com.yjy998.ui.activity.main.more.MoreFragment">
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:id="@+id/webProgress"
+        android:layout_gravity="center_horizontal" />
+
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/webView" />
+
+
 </LinearLayout>
