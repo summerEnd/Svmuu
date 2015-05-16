@@ -1,10 +1,10 @@
 package com.yjy998.ui.activity.main.my.business;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
@@ -21,6 +21,8 @@ import com.yjy998.ui.pop.CenterPopup;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
+
 import static com.yjy998.ui.activity.main.my.business.capital.BuySellFragment.ContractObserver;
 
 /**
@@ -28,12 +30,15 @@ import static com.yjy998.ui.activity.main.my.business.capital.BuySellFragment.Co
  */
 public class HoldingsFragment extends BusinessListFragment {
 
+    ArrayList<Holding> holdings = new ArrayList<Holding>();
 
     @Override
     public String getTitle() {
         return ContextUtil.getString(R.string.holdings);
     }
+
     Holding sel;
+
     @Override
     protected void onCreatePop(CenterPopup.PopWidget popWidget) {
         popWidget.add(new CenterPopup.PopItem(0, getString(R.string.buyIn), getResources().getColor(R.color.roundButtonBlue)));
@@ -46,21 +51,24 @@ public class HoldingsFragment extends BusinessListFragment {
         getHoldings();
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        super.onItemLongClick(parent, view, position, id);
-
-        return true;
-    }
 
     @Override
     protected void onPopItemClick(CenterPopup.PopItem item) {
         switch (item.id) {
             case 0: {
-
+                startActivity(new Intent(getActivity(), BusinessActivity.class)
+                                .putExtra(BusinessActivity.EXTRA_IS_BUY, true)
+                                .putExtra(BusinessActivity.EXTRA_CONTRACT_NO, getSharedContract().contractId)
+                                .putExtra(BusinessActivity.EXTRA_STOCK_CODE, holdings.get(getSelectedPosition()).stockCode)
+                );
                 break;
             }
             case 1: {
+                startActivity(new Intent(getActivity(), BusinessActivity.class)
+                                .putExtra(BusinessActivity.EXTRA_IS_BUY, false)
+                                .putExtra(BusinessActivity.EXTRA_CONTRACT_NO, getSharedContract().contractId)
+                                .putExtra(BusinessActivity.EXTRA_STOCK_CODE, holdings.get(getSelectedPosition()).stockCode)
+                );
                 break;
             }
         }
@@ -68,9 +76,10 @@ public class HoldingsFragment extends BusinessListFragment {
 
     public void getHoldings() {
         if (getActivity() instanceof ContractObserver) {
-            ContractDetail contract = ((ContractObserver) getActivity()).getContract();
+            ContractDetail contract = ((ContractObserver) getActivity()).getSharedContract();
             if (contract == null) {
                 //没有选择合约
+                ContextUtil.toast(R.string.contract_not_selected);
                 return;
             }
 
@@ -82,15 +91,21 @@ public class HoldingsFragment extends BusinessListFragment {
                 protected void onStatusCorrect(Response response) {
                     try {
                         JSONArray array = new JSONArray(response.data);
-                        HoldingsAdapter adapter = new HoldingsAdapter(getActivity(), JsonUtil.getArray(array, Holding.class));
-                        setAdapter(adapter);
+                        holdings.clear();
+                        JsonUtil.getArray(array, Holding.class, holdings);
+                        HoldingsAdapter adapter = (HoldingsAdapter) getAdapter();
+                        if (adapter == null) {
+                            adapter = new HoldingsAdapter(getActivity(), holdings);
+                            setAdapter(adapter);
+                        } else {
+                            adapter.notifyDataSetChanged();
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
             });
-
         }
     }
 

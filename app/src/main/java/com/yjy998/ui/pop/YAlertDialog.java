@@ -59,7 +59,12 @@ public class YAlertDialog extends Dialog implements View.OnClickListener {
         this.message.setText(message);
     }
 
-    public void setButton(String button) {
+    public void setButton(String button, View.OnClickListener listener) {
         this.button.setText(button);
+        if (listener != null) {
+            this.button.setOnClickListener(listener);
+        } else {
+            this.button.setOnClickListener(this);
+        }
     }
 }

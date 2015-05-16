@@ -1,85 +1,69 @@
 package com.yjy998.ui.activity.main.more;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
+import com.sp.lib.common.util.SLog;
 import com.yjy998.R;
 import com.yjy998.ui.activity.base.BaseFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MoreFragment extends BaseFragment {
 
     View layout;
-    ListView listView;
-    List<Problem> problems = new ArrayList<Problem>();
+    WebView webView;
+    ProgressBar webProgress;
+    private boolean initialLoad = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.fragment_more, container, false);
-        listView = (ListView) layout.findViewById(R.id.list);
-
+        webView = (WebView) layout.findViewById(R.id.webView);
+        webProgress = (ProgressBar) layout.findViewById(R.id.webProgress);
         return layout;
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        listView.setAdapter(new ProblemAdapter());
-    }
-
-    private class Problem {
-        String title;
-        String content;
-        boolean isRead;
-    }
-
-    private class ProblemAdapter extends BaseAdapter {
-
-        private int READ_COLOR = 0xffe42d42;
-        private int NORMAL_COLOR = 0xFF333333;
-
-        @Override
-        public int getCount() {
-            return 7;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return "";
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            TextView tv;
-            if (convertView == null) {
-                tv = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.textview,null);
-            } else {
-                tv = (TextView) convertView;
-            }
-            tv.setText("1、什么是易交易？");
-
-            if (position == 3) {
-                tv.setTextColor(READ_COLOR);
-            } else {
-                tv.setTextColor(NORMAL_COLOR);
+        webView.loadUrl("http://m.yjy998.com/faq.html");
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                initialLoad = newProgress < 100;
+                webProgress.setProgress(newProgress);
             }
 
-            return tv;
-        }
-    }
+        });
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                SLog.debug(url);
+                if (!initialLoad) {
+                    startActivity(new Intent(getActivity(), WebViewActivity.class)
+                            .putExtra(WebViewActivity.EXTRA_URL, url));
+                }
+                return true;
+            }
 
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                webProgress.setVisibility(View.GONE);
+            }
+        });
+
+    }
 }

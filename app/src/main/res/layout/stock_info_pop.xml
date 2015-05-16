@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:padding="@dimen/dimen_25px"
+    android:background="@drawable/corner_white"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/timeText"
+        android:textSize="@dimen/text_22px"
+        android:layout_width="wrap_content"
+        android:textColor="@color/newPriceLineColor"
+        android:layout_height="wrap_content"
+        android:text="@string/time_s" />
+    <TextView
+        android:id="@+id/newPriceText"
+        android:textSize="@dimen/text_22px"
+        android:layout_marginTop="@dimen/dimen_11px"
+
+        android:layout_width="wrap_content"
+        android:textColor="@color/newPriceLineColor"
+        android:layout_height="wrap_content"
+        android:text="@string/new_price_s" />
+
+    <TextView
+        android:id="@+id/averagePriceText"
+        android:textSize="@dimen/text_22px"
+        android:layout_marginTop="@dimen/dimen_11px"
+        android:textColor="@color/textColorRed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/average_price_s" />
+</LinearLayout>

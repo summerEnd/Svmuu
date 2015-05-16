@@ -9,9 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.sp.lib.common.admin.AdminManager;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.time.TimeTicker;
 import com.yjy998.R;
+import com.yjy998.common.Constant;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
@@ -28,7 +30,7 @@ public class ForgetPasswordDialog extends Dialog implements View.OnClickListener
     private Button confirmButton;
     TimeTicker countDownTime;
     private Context context;
-
+    AdminManager adminManager;
     public ForgetPasswordDialog(Context context) {
         super(context);
         this.context = context;
@@ -45,9 +47,21 @@ public class ForgetPasswordDialog extends Dialog implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirmButton: {
-                confirmButton.setText(R.string.op_ing);
-                confirmButton.requestFocus();
-                RSAUtil.sign(getContext(), passwordEdit.getText().toString(), this);
+                if (adminManager == null) {
+                    adminManager = new AdminManager();
+                    adminManager.addEmptyCheck(phoneEdit)
+                            .addPatterCheck(phoneEdit, Constant.PATTERN_PHONE, context.getString(R.string.phone_not_correct))
+                            .addEmptyCheck(passwordEdit)
+                            .addLengthCheck(passwordEdit, 6, 20, context.getString(R.string.password_length_error))
+                            .addEmptyCheck(yzmEdit)
+                    ;
+                }
+                if (adminManager.start()){
+                    confirmButton.setText(R.string.op_ing);
+                    confirmButton.requestFocus();
+                    RSAUtil.sign(getContext(), passwordEdit.getText().toString(), this);
+                }
+
                 break;
             }
             case R.id.closeButton: {

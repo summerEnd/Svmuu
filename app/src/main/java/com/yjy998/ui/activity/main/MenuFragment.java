@@ -11,13 +11,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.common.entity.Assent;
 import com.yjy998.common.entity.User;
 import com.yjy998.common.util.ImageOptions;
+import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.admin.About;
+import com.yjy998.ui.activity.base.MenuActivity;
 import com.yjy998.ui.activity.main.apply.ApplyActivity;
+import com.yjy998.ui.activity.main.my.ChangeDataActivity;
 import com.yjy998.ui.activity.main.my.business.BusinessActivity;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.pay.RechargeActivity;
@@ -42,8 +46,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.fragment_main_menu, null);
-        return inflate;
+        return inflater.inflate(R.layout.fragment_main_menu, null);
     }
 
     @Override
@@ -59,6 +62,8 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         remainMoneyText = (TextView) findViewById(R.id.remainMoneyText);
         goldIngotText = (TextView) findViewById(R.id.goldIngotText);
         caopanTickets = (TextView) findViewById(R.id.caopanTickets);
+        avatarImage.setOnClickListener(this);
+        phoneText.setOnClickListener(this);
         findViewById(R.id.buyIn).setOnClickListener(this);
         findViewById(R.id.sellOut).setOnClickListener(this);
         findViewById(R.id.recharge).setOnClickListener(this);
@@ -74,7 +79,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
 
     public void refresh() {
 
-        if (!isVisible()) {
+        if (getView() == null) {
             return;
         }
 
@@ -85,14 +90,14 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 return;
             }
             phoneText.setText(assent.name);
-            remainMoneyText.setText(getString(R.string.remain_money_s, assent.avalaible_amount));
+            remainMoneyText.setText(getString(R.string.remain_money_s, NumberUtil.formatStr(assent.avalaible_amount)));
             goldIngotText.setText(getString(R.string.GoldIngot_s, assent.yuanbao_total_amount));
             caopanTickets.setText(getString(R.string.caopan_s, assent.quan_total_amount));
 
-            ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance(getResources().getDimensionPixelOffset(R.dimen.avatarSize)));
+            ImageLoader.getInstance().displayImage(user.userInfo.uface, avatarImage, ImageOptions.getAvatarInstance(getResources().getDimensionPixelOffset(R.dimen.avatarSize)));
 
         } else {
-            phoneText.setText(getString(R.string.userName));
+            phoneText.setText(getString(R.string.userName_not_login));
             remainMoneyText.setText(getString(R.string.remain_money_s, 0));
             goldIngotText.setText(getString(R.string.GoldIngot_s, 0));
             caopanTickets.setText(getString(R.string.caopan_s, 0));
@@ -151,8 +156,25 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), About.class));
                 break;
             }
+            case R.id.phoneText:
+            case R.id.avatarImage: {
+                if (!AppDelegate.getInstance().isUserLogin()) {
+                    showLoginDialog();
+                    return;
+                }
+                startActivity(new Intent(getActivity(), ChangeDataActivity.class));
+                break;
+            }
         }
 //        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+
+    void showLoginDialog() {
+        if (getActivity() instanceof MenuActivity) {
+            ((MenuActivity) getActivity()).showLoginWindow();
+            ContextUtil.toast(getString(R.string.please_login_first));
+        }
     }
 
     public interface OnMenuClick {

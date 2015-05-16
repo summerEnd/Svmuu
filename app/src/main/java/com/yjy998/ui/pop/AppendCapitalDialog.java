@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.yjy998.R;
@@ -14,7 +13,6 @@ import com.yjy998.common.http.YHttpHandler;
 
 public class AppendCapitalDialog extends Dialog implements View.OnClickListener {
 
-    private TextView title;
     private EditText editPrice;
     private String contract_id;
 
@@ -27,7 +25,6 @@ public class AppendCapitalDialog extends Dialog implements View.OnClickListener 
 
     private void initialize() {
 
-        title = (TextView) findViewById(R.id.title);
         editPrice = (EditText) findViewById(R.id.editPrice);
         findViewById(R.id.buttonYes).setOnClickListener(this);
         findViewById(R.id.buttonNo).setOnClickListener(this);
@@ -45,13 +42,9 @@ public class AppendCapitalDialog extends Dialog implements View.OnClickListener 
         }
     }
 
-    public void setOnClickListener(View.OnClickListener listener) {
-    }
-
     /**
      * 获取追加的资金数量
      *
-     * @return
      */
     public String getAppendAmount() {
         String s = editPrice.getText().toString();

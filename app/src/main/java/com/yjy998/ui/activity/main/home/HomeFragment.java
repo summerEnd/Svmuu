@@ -14,9 +14,13 @@ import com.yjy998.R;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
+import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.base.BaseFragment;
+import com.yjy998.ui.activity.main.apply.ApplyActivity;
 
-
+/**
+ * 首页
+ */
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
@@ -91,9 +95,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
 
             case R.id.TN: {
+                startActivity(new Intent(getActivity(), ApplyActivity.class)
+                                .putExtra(ApplyActivity.EXTRA_APPLY, ApplyActivity._TN)
+                );
                 break;
             }
             case R.id.T9: {
+                startActivity(new Intent(getActivity(), ApplyActivity.class)
+                                .putExtra(ApplyActivity.EXTRA_APPLY, ApplyActivity._T9)
+                );
                 break;
             }
             default:
@@ -106,13 +116,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         public void onHomeFragmentClick(View v);
     }
 
+    /**
+     * 获取累计配资
+     */
     public void getCapital() {
         SRequest request = new SRequest();
         request.setUrl("http://mobile.yjy998.com/h5/index/loanamount");
         YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler(false) {
             @Override
             protected void onStatusCorrect(Response response) {
-                capitalText.setText("￥" + response.data);
+                capitalText.setText("￥" + NumberUtil.formatStr(response.data));
             }
         });
     }

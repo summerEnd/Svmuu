@@ -5,7 +5,7 @@ import android.test.AndroidTestCase;
 import com.sp.lib.common.admin.RSA;
 
 public class Test extends AndroidTestCase {
-    private static final String TAG = "rsa->";
+    private static final String TAG = "test->";
 
     public void testRsa() {
         try {
@@ -19,5 +19,24 @@ public class Test extends AndroidTestCase {
         }
     }
 
+    public void testStringCompare() {
+        String str1 = "1.0.0";
+        String str2 = "1.0.1";
+        String str3 = "1.2.0";
+        String str4 = "1.2";
+        String str5 = "2.0";
+        String str6 = "1.0.0.1";
+        String str7 = "1.0";
+        print(str1, str2);
+        print(str1, str3);
+        print(str1, str4);
+        print(str1, str5);
+        print(str1, str6);
+        print(str1, str7);
+    }
 
+    void print(String str1, String str2) {
+        System.out.println(String.format(TAG + "%s compare %s=%d", str1, str2, str1.compareTo(str2)));
+
+    }
 }

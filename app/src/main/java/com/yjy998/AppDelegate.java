@@ -1,8 +1,10 @@
 package com.yjy998;
 
 import android.content.Context;
+import android.view.Gravity;
 
 import com.sp.lib.SApplication;
+import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.common.entity.User;
 import com.yjy998.common.Constant;
 import com.yjy998.common.test.TestActivity;
@@ -21,9 +23,12 @@ public class AppDelegate extends SApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        //测试入口
         setMainTest(TestActivity.class);
+        //是否调试模式
         setDebug(BuildConfig.DEBUG);
-        //setEnterBackground(false);
+
+        ContextUtil.setToastLayout(R.layout.toast_layout, Gravity.NO_GRAVITY);
     }
 
     /**
@@ -36,10 +41,11 @@ public class AppDelegate extends SApplication {
     public void logout() {
         setLogined(false);
         setUser(null);
+        //清除登录参数
         getSharedPreferences(Constant.PRE_LOGIN, Context.MODE_PRIVATE)
                 .edit()
                 .putString(Constant.PRE_LOGIN_PASSWORD, null)
-                //.putString(Constant.PRE_LOGIN_PHONE, null) //先不清理登录账号
+                        //.putString(Constant.PRE_LOGIN_PHONE, null) //先不清理登录账号
                 .putString(Constant.PRE_LOGIN_PASSWORD_RSA, null)
                 .commit();
     }

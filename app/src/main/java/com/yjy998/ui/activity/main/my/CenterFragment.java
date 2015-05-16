@@ -18,15 +18,18 @@ import com.yjy998.common.entity.Assent;
 import com.yjy998.common.entity.User;
 import com.yjy998.common.adapter.ContractPagerAdapter;
 import com.yjy998.common.adapter.ContestPagerAdapter;
+import com.yjy998.common.entity.UserInfo;
 import com.yjy998.common.util.ImageOptions;
 import com.yjy998.common.entity.Contract;
 import com.yjy998.common.entity.Contest;
+import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.main.my.business.BusinessActivity;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.base.MenuActivity;
 import com.yjy998.ui.activity.pay.RechargeActivity;
 import com.yjy998.ui.view.TwoTextItem;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -60,6 +63,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.telText:
             case R.id.avatarImage: {
                 if (AppDelegate.getInstance().isUserLogin()) {
                     startActivity(new Intent(getActivity(), ChangeDataActivity.class));
@@ -103,6 +107,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
         caopanTicketsText = (TextView) findViewById(R.id.caopanTicketsText);
         contractAmount = (TextView) findViewById(R.id.contractAmount);
         contestAmount = (TextView) findViewById(R.id.contestAmount);
+        telText.setOnClickListener(this);
         findViewById(R.id.buyIn).setOnClickListener(this);
         findViewById(R.id.sellOut).setOnClickListener(this);
         findViewById(R.id.recharge).setOnClickListener(this);
@@ -126,33 +131,29 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             User user = AppDelegate.getInstance().getUser();
 
             Assent assent = user.assent;
-            telText.setText(assent.name);
-            moneyText.setText("￥" + assent.avalaible_amount);
+            UserInfo info = user.userInfo;
+            telText.setText(info.unick);
+
+            moneyText.setText("￥" + NumberUtil.formatStr(assent.avalaible_amount));
             goldIngotText.setText(getString(R.string.GoldIngot_s, assent.yuanbao_total_amount));
             caopanTicketsText.setText(getString(R.string.caopan_s, assent.quan_total_amount));
+            ImageLoader.getInstance().displayImage(user.userInfo.uface, avatarImage, ImageOptions.getAvatarInstance());
 
-            ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance());
-
-            ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
-            ArrayList<Contest> myContests = AppDelegate.getInstance().getUser().myContests;
-            contestAmount.setText(getString(R.string.myContest_d, myContests != null ? myContests.size() : 0));
-            contractAmount.setText(getString(R.string.myContract_d, myContracts != null ? myContracts.size() : 0));
-            contractPager.setVisibility(View.VISIBLE);
-            gamePager.setVisibility(View.VISIBLE);
-            contractPager.setAdapter(new ContractPagerAdapter(myContracts));
-            gamePager.setAdapter(new ContestPagerAdapter(myContests));
         } else {
-            telText.setText(R.string.userName);
+            telText.setText(R.string.userName_not_login);
             moneyText.setText("￥0");
             goldIngotText.setText(getString(R.string.GoldIngot_s, "0"));
             caopanTicketsText.setText(getString(R.string.caopan_s, "0"));
             ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance());
             contestAmount.setText(getString(R.string.myContest_d, 0));
             contractAmount.setText(getString(R.string.myContract_d, 0));
-            contractPager.setVisibility(View.GONE);
-            gamePager.setVisibility(View.GONE);
         }
-
+        ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
+        ArrayList<Contest> myContests = AppDelegate.getInstance().getUser().myContests;
+        contestAmount.setText(getString(R.string.myContest_d, myContests != null ? myContests.size() : 0));
+        contractAmount.setText(getString(R.string.myContract_d, myContracts != null ? myContracts.size() : 0));
+        contractPager.setAdapter(new ContractPagerAdapter(myContracts));
+        gamePager.setAdapter(new ContestPagerAdapter(myContests));
 
     }
 

@@ -20,6 +20,9 @@ import com.yjy998.ui.activity.main.my.business.capital.BuySellFragment;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.yjy998.ui.pop.CenterPopup.PopItem;
 import static com.yjy998.ui.pop.CenterPopup.PopWidget;
 
@@ -28,6 +31,7 @@ import static com.yjy998.ui.pop.CenterPopup.PopWidget;
  */
 public class CancellationEntrustFragment extends BusinessListFragment {
 
+    private List<Entrust> entrusts = new ArrayList<Entrust>();
 
     @Override
     public String getTitle() {
@@ -40,21 +44,31 @@ public class CancellationEntrustFragment extends BusinessListFragment {
         popWidget.add(new PopItem(2, getString(R.string.cancelAndRebuy), getResources().getColor(R.color.roundButtonRed)));
     }
 
+
     @Override
     protected void onPopItemClick(PopItem item) {
-        ContextUtil.toast_debug(item.text);
+        switch (item.id) {
+            case 1: {
+                cancel(entrusts.get(getSelectedPosition()));
+                break;
+            }
+            case 2: {
+                break;
+            }
+        }
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         refresh();
+
     }
 
     @Override
     public void refresh() {
         if (getActivity() instanceof BuySellFragment.ContractObserver) {
-            ContractDetail contract = ((BuySellFragment.ContractObserver) getActivity()).getContract();
+            ContractDetail contract = ((BuySellFragment.ContractObserver) getActivity()).getSharedContract();
             if (contract == null) {
                 //没有选择合约
                 return;
@@ -68,8 +82,16 @@ public class CancellationEntrustFragment extends BusinessListFragment {
                 protected void onStatusCorrect(Response response) {
                     try {
                         JSONArray array = new JSONArray(response.data);
-                        EntrustAdapter adapter = new EntrustAdapter(getActivity(), JsonUtil.getArray(array, Entrust.class));
-                        setAdapter(adapter);
+                        entrusts.clear();
+                        JsonUtil.getArray(array, Entrust.class, entrusts);
+
+                        EntrustAdapter adapter = (EntrustAdapter) getAdapter();
+                        if (adapter == null) {
+                            adapter = new EntrustAdapter(getActivity(), entrusts);
+                            setAdapter(adapter);
+                        } else {
+                            adapter.notifyDataSetChanged();
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -78,6 +100,29 @@ public class CancellationEntrustFragment extends BusinessListFragment {
             });
 
         }
+    }
+
+    /**
+     * 参数：contract_id（合约编号），entrust_no（委托接口中的entrustNo），stock_code（股票代码），stock_name（股票名），withdrawal_amount（撤单数量，委托接口中的entrustAmount数量）
+     */
+    public void cancel(Entrust entrust) {
+        ContractDetail detail = getSharedContract();
+        if (detail == null) {
+            ContextUtil.toast(R.string.contract_not_selected);
+            return;
+        }
+        SRequest request = new SRequest("http://www.yjy998.com/stock/withdrawal");
+        request.put("contract_id", detail.contractId);
+        request.put("entrust_no", entrust.entrustNo);
+        request.put("stock_code", entrust.stockCode);
+        request.put("stock_name", entrust.stockName);
+        request.put("withdrawal_amount", entrust.withdrawAmount);
+        YHttpClient.getInstance().post(request, new YHttpHandler() {
+            @Override
+            protected void onStatusCorrect(Response response) {
+
+            }
+        });
     }
 
 }

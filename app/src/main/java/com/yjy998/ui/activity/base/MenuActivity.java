@@ -64,7 +64,7 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
                 case R.id.titleImage: {
                     //登陆就打电话，没登录就跳到登陆。这是MenuActivity通用的。
                     if (AppDelegate.getInstance().isUserLogin()) {
-                        startActivity(IntentFactory.callPhone("138465688"));
+                        startActivity(IntentFactory.callPhone(getString(R.string.service_tel)));
                     } else {
                         showLoginWindow();
                     }
@@ -118,8 +118,11 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
     private void refreshTitle() {
         if (AppDelegate.getInstance().isUserLogin()) {
             setTitleImage(R.drawable.ic_call);
+            titleImage.setVisibility(View.VISIBLE);
+
         } else {
             setTitleImage(R.drawable.nav_center);
+            titleImage.setVisibility(View.INVISIBLE);
         }
     }
 

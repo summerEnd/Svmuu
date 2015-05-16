@@ -4,9 +4,12 @@ import com.yjy998.R;
 
 import java.io.Serializable;
 
-public class Contest implements Serializable{
-    public float profitRatio;
+public class Contest implements Serializable {
+    public String profitRatio;
+    //区域
     public String area;
+    //排名
+    public String rank;
     //比赛id
     public String id;
     //比赛名称
@@ -15,6 +18,9 @@ public class Contest implements Serializable{
     public String attenders;
     //比赛类型:1精英赛，2海选赛，3普通赛
     public int type;
+
+    public String contest_type;
+
     //老师圈号
     public String teachId;
     //开始时间
@@ -29,6 +35,11 @@ public class Contest implements Serializable{
      */
     public int getType() {
         switch (type) {
+
+            case 0: {
+                return R.string.not_race;
+            }
+
             case 1: {
                 return R.string.Elite;
             }
@@ -39,6 +50,14 @@ public class Contest implements Serializable{
                 return R.string.normal_race;
             }
         }
-        return R.string.unknow;
+        return R.string.normal_race;
+    }
+
+    public float getProfitRatio() {
+        try {
+            return Float.parseFloat(profitRatio);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }

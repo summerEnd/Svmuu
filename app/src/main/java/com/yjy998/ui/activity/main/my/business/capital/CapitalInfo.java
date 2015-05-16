@@ -15,7 +15,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.sp.lib.common.support.net.client.SRequest;
-import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.widget.list.LinearListView;
 import com.yjy998.R;
@@ -38,6 +37,8 @@ import java.util.List;
 import static com.yjy998.ui.activity.main.my.business.capital.BuySellFragment.ContractObserver;
 
 public class CapitalInfo extends BaseFragment implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+    public static final String IS_BUY = "isBuy";
+    public static final String STOCK_CODE = "stockCode";
     /**
      * 价格最小单元
      */
@@ -52,7 +53,6 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
     private EditText amountEdit;
     private SeekBar seeker;
     private LinearListView list;
-    private boolean isBuy;
     CapitalBuySellAdapter adapter;
     private Stock mStock;
     private ListPopupWindow stockListWindow;
@@ -62,19 +62,29 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
      * 最大买卖数量
      */
     private int maxAmount;
+    private TextWatcher mWatcher;
+    private View layout;
 
     /**
      * 根据字段创建买入或者卖出
      */
-    public static CapitalInfo newInstance(boolean isBuy) {
+    public static CapitalInfo newInstance(boolean isBuy, String stockCode) {
         CapitalInfo fragment = new CapitalInfo();
-        fragment.setBuy(isBuy);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(IS_BUY, isBuy);
+        bundle.putString(STOCK_CODE, stockCode);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.layout_capital_switch_info, null);
+        if (layout == null) {
+            layout = inflater.inflate(R.layout.layout_capital_switch_info, null);
+        } else {
+            ((ViewGroup) layout.getParent()).removeView(layout);
+        }
+        return layout;
     }
 
     @Override
@@ -85,24 +95,35 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
 
     private void initialize() {
 
-        codeEdit = (EditText) findViewById(R.id.codeEdit);
+        if (editPrice != null) {
+            return;
+        }
+
+        Bundle args = getArguments();
+        if (args == null) {
+            return;
+        }
+
         editPrice = (EditText) findViewById(R.id.editPrice);
         amountEdit = (EditText) findViewById(R.id.amountEdit);
         TextView seekerTitle = (TextView) findViewById(R.id.seekerTitle);
-        seeker = (SeekBar) findViewById(R.id.seeker);
-
-        list = (LinearListView) findViewById(R.id.list);
-        adapter = new CapitalBuySellAdapter(getActivity(), null);
-        adapter.setBuy(isBuy);
-        list.setAdapter(adapter);
 
         findViewById(R.id.addAmount).setOnClickListener(this);
         findViewById(R.id.reduceAmount).setOnClickListener(this);
         findViewById(R.id.addPrice).setOnClickListener(this);
         findViewById(R.id.reducePrice).setOnClickListener(this);
 
+        //进度条
+        seeker = (SeekBar) findViewById(R.id.seeker);
         seeker.setOnSeekBarChangeListener(this);
-        codeEdit.addTextChangedListener(new CodeEditTextWatcher());
+
+        //初始化持仓列表
+        boolean isBuy = args.getBoolean(IS_BUY);
+        list = (LinearListView) findViewById(R.id.list);
+        adapter = new CapitalBuySellAdapter(getActivity(), null);
+        adapter.setBuy(isBuy);
+        list.setAdapter(adapter);
+
         //买入卖出初始化
         if (isBuy) {
             editPrice.setHint(R.string.buyPrice);
@@ -114,6 +135,12 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
             seekerTitle.setText(R.string.canSellAmount);
         }
         stockListAdapter = new StockListAdapter(getActivity(), new ArrayList<Stock>());
+        //初始化股票代码
+        String stockCode = args.getString(STOCK_CODE);
+        codeEdit = (EditText) findViewById(R.id.codeEdit);
+        mWatcher = new CodeEditTextWatcher();
+        codeEdit.addTextChangedListener(mWatcher);
+        codeEdit.setText(stockCode);
     }
 
 
@@ -160,9 +187,6 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         amountEdit.setText("" + count);
     }
 
-    public void setBuy(boolean buy) {
-        this.isBuy = buy;
-    }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -185,7 +209,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
      */
     ContractDetail getSharedContract() {
         if (getActivity() instanceof ContractObserver) {
-            return ((ContractObserver) getActivity()).getContract();
+            return ((ContractObserver) getActivity()).getSharedContract();
         }
         return null;
     }
@@ -198,12 +222,12 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         Stock stock = getStock();
 
         if (contract == null) {
-            ContextUtil.toast(R.string.contract_not_selected);
+//            if (isVisible())ContextUtil.toast(R.string.contract_not_selected);
             return;
         }
 
         if (stock == null) {
-            ContextUtil.toast(R.string.stock_not_selected);
+//           if (isVisible())ContextUtil.toast(R.string.stock_not_selected);
             return;
         }
 
@@ -233,6 +257,13 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
             return null;
         }
         return codeEdit.getText().toString();
+    }
+
+    /**
+     * 获取数量
+     */
+    public String getQuantity() {
+        return amountEdit.getText().toString();
     }
 
     public Stock getStock() {
@@ -329,7 +360,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         } else {
             SRequest request = new SRequest("http://www.yjy998.com/stock/getstockinfo");
             request.put("code", code);
-            YHttpClient.getInstance().get(request, new YHttpHandler() {
+            YHttpClient.getInstance().get(request, new YHttpHandler(false) {
                 @Override
                 protected void onStatusCorrect(Response response) {
                     try {
@@ -351,7 +382,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         }
     }
 
-    public void reset(){
+    public void reset() {
         codeEdit.setText("");
         editPrice.setText("");
         amountEdit.setText("");
@@ -364,5 +395,22 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         buyQuantity();
     }
 
+    @Override
+    public void refresh() {
+        if (codeEdit == null) {
+            return;
+        }
+        String stockCode = ((ContractObserver) getActivity()).getStockCode();
+        if (mWatcher != null) {
+            codeEdit.removeTextChangedListener(mWatcher);
+        }
+        if (!TextUtils.isEmpty(stockCode)){
+            codeEdit.setText(stockCode);
+        }
+        codeEdit.addTextChangedListener(mWatcher);
+        if (!TextUtils.isEmpty(stockCode)) {
+            getStockPrice(stockCode);
+        }
 
+    }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yjy998.R;
@@ -22,7 +23,7 @@ public class ContractPagerAdapter extends PagerAdapter implements View.OnClickLi
     public ContractPagerAdapter(List<Contract> contracts) {
         this.contracts = contracts;
         if (contracts == null || contracts.isEmpty()) {
-            pageCount = 0;
+            pageCount = 1;
         } else {
             pageCount = (contracts.size() - 1) / 3 + 1;
         }
@@ -40,6 +41,15 @@ public class ContractPagerAdapter extends PagerAdapter implements View.OnClickLi
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+
+        if (contracts==null||contracts.size() == 0) {
+            LinearLayout empty = (LinearLayout) View.inflate(container.getContext(), R.layout.empty_layout, null);
+            empty.setOrientation(LinearLayout.HORIZONTAL);
+            TextView emptyText = (TextView) empty.findViewById(R.id.noDataText);
+            emptyText.setText(R.string.no_contract);
+            container.addView(empty);
+            return empty;
+        }
         ViewGroup convertView;
         ViewHolder holder;
         try {
@@ -75,13 +85,20 @@ public class ContractPagerAdapter extends PagerAdapter implements View.OnClickLi
             TextView typeText = (TextView) item.findViewById(R.id.typeText);
             contractNo.setText("NO." + contract.id);
             typeText.setText(contract.contract_type);
-            item.setVisibility(View.VISIBLE);
+            setVisibility((ViewGroup) item, View.VISIBLE);
             item.setTag(contract);
         } catch (IndexOutOfBoundsException e) {
-            item.setVisibility(View.INVISIBLE);
+            setVisibility((ViewGroup) item, View.INVISIBLE);
             item.setTag(null);
         }
+    }
 
+    public void setVisibility(ViewGroup item, int visibility) {
+
+        item.setEnabled(visibility == View.VISIBLE);
+        for (int i = 0; i < item.getChildCount(); i++) {
+            item.getChildAt(i).setVisibility(visibility);
+        }
     }
 
     @Override

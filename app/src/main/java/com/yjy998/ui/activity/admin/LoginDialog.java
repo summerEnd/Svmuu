@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.sp.lib.common.admin.*;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.yjy998.AppDelegate;
@@ -24,6 +25,7 @@ public class LoginDialog extends Dialog implements View.OnClickListener, RSAUtil
     private EditText passwordEdit;
     private Button confirmButton;
     private Context context;
+    AdminManager adminManager;
 
     public LoginDialog(Context context) {
         super(context);
@@ -42,9 +44,20 @@ public class LoginDialog extends Dialog implements View.OnClickListener, RSAUtil
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirmButton: {
-                confirmButton.setText(R.string.login_ing);
-                confirmButton.requestFocus();
-                RSAUtil.sign(getContext(), passwordEdit.getText().toString(), this);
+                if (adminManager == null) {
+                    adminManager = new AdminManager();
+                    adminManager.addEmptyCheck(phoneEdit)
+                            .addPatterCheck(phoneEdit, Constant.PATTERN_PHONE, context.getString(R.string.phone_not_correct))
+                            .addEmptyCheck(passwordEdit)
+                            .addLengthCheck(passwordEdit, 6, 20, context.getString(R.string.password_length_error))
+
+                    ;
+                }
+                if (adminManager.start()) {
+                    confirmButton.setText(R.string.login_ing);
+                    confirmButton.requestFocus();
+                    RSAUtil.sign(getContext(), passwordEdit.getText().toString(), this);
+                }
                 break;
             }
 
@@ -60,6 +73,7 @@ public class LoginDialog extends Dialog implements View.OnClickListener, RSAUtil
         }
 
     }
+
 
     void getUserInfo() {
         confirmButton.setText(R.string.re_login);

@@ -16,9 +16,10 @@ import com.yjy998.R;
 public class CircleItem extends FrameLayout {
     TextView boldText;
     TextView normalText;
-    final int CIRCLE_BLUE = 0;
-    final int CIRCLE_RED = 1;
+    public static final int CIRCLE_BLUE = 0;
+    public static final int CIRCLE_RED = 1;
     int layoutSquare;
+    View child;
 
     public CircleItem(Context context) {
         this(context, null);
@@ -30,7 +31,7 @@ public class CircleItem extends FrameLayout {
 
     public CircleItem(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        View child = inflate(context, R.layout.circle_item, null);
+        child = inflate(context, R.layout.circle_item, null);
         boldText = (TextView) child.findViewById(R.id.boldText);
         normalText = (TextView) child.findViewById(R.id.normalText);
 
@@ -66,5 +67,30 @@ public class CircleItem extends FrameLayout {
         int newSpec = LayoutSquare.apply(layoutSquare, widthMeasureSpec, heightMeasureSpec);
         super.onMeasure(newSpec, newSpec);
 
+    }
+
+    public void setBoldText(String text) {
+        boldText.setText(text);
+    }
+
+    public void setNormalText(String text) {
+        normalText.setText(text);
+    }
+
+    public void setCircle(int circle) {
+        switch (circle) {
+            case CIRCLE_BLUE: {
+                child.setBackgroundResource(R.drawable.blue_circle);
+                boldText.setTextColor(getResources().getColor(R.color.deepBlue));
+                normalText.setTextColor(getResources().getColor(R.color.deepBlue));
+                break;
+            }
+            case CIRCLE_RED: {
+                child.setBackgroundResource(R.drawable.red_circle);
+                boldText.setTextColor(getResources().getColor(R.color.red));
+                normalText.setTextColor(getResources().getColor(R.color.red));
+                break;
+            }
+        }
     }
 }

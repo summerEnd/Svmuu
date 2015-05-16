@@ -16,13 +16,11 @@ import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.main.my.business.capital.BuySellFragment;
-import com.yjy998.ui.pop.CenterPopup;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import static com.yjy998.ui.pop.CenterPopup.PopItem;
-import static com.yjy998.ui.pop.CenterPopup.PopWidget;
+import java.util.ArrayList;
 
 /**
  * 成交
@@ -35,17 +33,6 @@ public class DealFragment extends BusinessListFragment {
     }
 
     @Override
-    protected void onCreatePop(PopWidget popWidget) {
-        popWidget.add(new CenterPopup.PopItem(0, getString(R.string.buyIn), getResources().getColor(R.color.roundButtonBlue)));
-        popWidget.add(new CenterPopup.PopItem(1, getString(R.string.sellOut), getResources().getColor(R.color.roundButtonRed)));
-    }
-
-    @Override
-    protected void onPopItemClick(PopItem item) {
-        super.onPopItemClick(item);
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         refresh();
@@ -54,7 +41,7 @@ public class DealFragment extends BusinessListFragment {
     @Override
     public void refresh() {
         if (getActivity() instanceof BuySellFragment.ContractObserver) {
-            ContractDetail contract = ((BuySellFragment.ContractObserver) getActivity()).getContract();
+            ContractDetail contract = ((BuySellFragment.ContractObserver) getActivity()).getSharedContract();
             if (contract == null) {
                 //没有选择合约
                 return;
@@ -68,9 +55,13 @@ public class DealFragment extends BusinessListFragment {
                 protected void onStatusCorrect(Response response) {
                     try {
                         JSONArray array = new JSONArray(response.data);
-                        DealAdapter adapter = new DealAdapter(getActivity(), JsonUtil.getArray(array, Deal.class));
-                        setAdapter(adapter);
-
+                        DealAdapter adapter = (DealAdapter) getAdapter();
+                        if (adapter==null){
+                            adapter=new DealAdapter(getActivity(),new ArrayList<Deal>());
+                            setAdapter(adapter);
+                        }
+                        JsonUtil.getArray(array,Deal.class,adapter.getData());
+                        adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

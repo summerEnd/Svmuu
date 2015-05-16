@@ -71,21 +71,7 @@
             </TableRow>
         </TableLayout>
 
-        <FrameLayout
-            android:layout_width="@dimen/triangleLayoutSize"
-            android:layout_height="@dimen/triangleLayoutSize">
 
-            <ImageView
-                android:id="@+id/triangleImage"
-                android:contentDescription="@string/contentDescription_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/triangle_red" />
-
-            <TextView
-                style="@style/rotateText"
-                android:text="@string/__stop_fail_12_5" />
-        </FrameLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -144,6 +130,7 @@
 
         <FrameLayout
             android:layout_width="@dimen/triangleLayoutSize"
+            android:visibility="gone"
             android:layout_height="@dimen/triangleLayoutSize">
 
             <ImageView
@@ -195,13 +182,14 @@
 
                 <TextView
                     android:id="@+id/freshMemberText"
-                    android:text="@string/__test_data_3000_people"
+                    android:text="100人"
                     style="@style/applyFragmentTextStyle.big" />
             </TableRow>
         </TableLayout>
 
         <FrameLayout
             android:layout_width="@dimen/triangleLayoutSize"
+            android:visibility="gone"
             android:layout_height="@dimen/triangleLayoutSize">
 
             <ImageView

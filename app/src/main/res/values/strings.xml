@@ -9,6 +9,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_save">保存</string>
     <string name="contentDescription_image">Image</string>
     <string name="title_activity_chart">ChartActivity</string>
     <string name="average_price">均价</string>
@@ -21,11 +22,11 @@
     <string name="__testPhone">18761844602</string>
     <string name="__testNumber">15848.123</string>
     <string name="login">登录</string>
-    <string name="hint_phone">手机号码</string>
-    <string name="hint_password">密码</string>
-    <string name="hint_new_password">新密码</string>
-    <string name="hint_repeat_password">重复密码</string>
-    <string name="hint_yzm">验证码</string>
+    <string name="hint_phone">请输入手机号码</string>
+    <string name="hint_password">请输入密码</string>
+    <string name="hint_new_password">请输入新密码</string>
+    <string name="hint_repeat_password">请再次输入密码</string>
+    <string name="hint_yzm">请输入验证码</string>
     <string name="protocolText">注册代表您同意《网上申请用户协议》</string>
     <string name="resend_d">重新发送（%d）</string>
     <string name="resend">重新发送</string>
@@ -88,12 +89,12 @@
     <string name="yuan">元</string>
     <string name="manageFee">账户管理费</string>
     <string name="pingCang">平仓线</string>
-    <string name="pingCangSummary">(平仓线=操盘保证金*0.4)</string>
+    <string name="pingCangSummary_f">(平仓线=操盘保证金*%.2f)</string>
     <string name="tradersMargins">操盘保证金</string>
     <string name="payNow">立即支付</string>
     <string name="introduce">玩法介绍</string>
     <string name="change_group">换组金额</string>
-    <string name="countCapital__">累计配资：</string>
+    <string name="countCapital__">平台累计配资：</string>
     <string name="myContest_d">我的大赛(%d)</string>
     <string name="myContract_d">当前合约(%d)</string>
     <string name="help_info">常见问题</string>
@@ -106,7 +107,7 @@
     <string name="education_lvl">教育程度</string>
     <string name="handPassword">手势密码</string>
     <string name="setAlready">已设置</string>
-    <string name="notSet">已设置</string>
+    <string name="notSet">未设置</string>
     <string name="investment_exp">投资经验</string>
     <string name="hint_investment_lvl">请输入投资经验</string>
     <string name="avatar">头像</string>
@@ -126,6 +127,7 @@
     <string name="rankList">排行榜</string>
     <string name="gameList">大赛列表</string>
     <string name="my_game">我参加的比赛</string>
+    <string name="contest">大赛</string>
 
     <string-array name="genders">
         <item>男</item>
@@ -144,6 +146,7 @@
     <string name="onlinePay_yb">网银支付（易宝）</string>
     <string name="bankPay">银行转账</string>
     <string name="YB">易宝</string>
+    <string name="YB_day">易宝/天</string>
     <string name="confirmPay">确认支付</string>
     <string name="accountInfo">帐号：11014718678007 \n户名：南京融证通网络科技有限公司 \n开户行：平安银行南京奥体支行</string>
     <string name="transferMoneyNotice">1、转账时金额最好有些零头（如1000.85），这样我们好确认是您的汇款 \n2、用户网银转账之后，请务必保留网银转账成功时的截图，并在 资金或者转账用途中 备注清自己要转入的XX用户名 ，将回单发到QQ客服，以便尽快到账！</string>
@@ -151,12 +154,12 @@
     <string name="dial_service">一键客服</string>
     <string name="tn_notice">提醒：申请当日必须买入股票，T+N日14:40分之前必须卖出股票，14:40分之后系统自动平仓</string>
     <string name="notice2">盈利全归您，亏损我们来承担！</string>
-    <string name="register_ing">注册中...</string>
+    <string name="register_ing">注册中…</string>
     <string name="re_register">重新注册</string>
-    <string name="login_ing">登录中...</string>
-    <string name="op_ing">操作中...</string>
+    <string name="login_ing">登录中…</string>
+    <string name="op_ing">操作中…</string>
     <string name="re_login">重新登录</string>
-    <string name="get_info">获取用户信息...</string>
+    <string name="get_info">获取用户信息…</string>
     <string name="remain_money_s">账户余额：￥%s</string>
     <string name="login_fail">登录失败</string>
     <string name="register_fail">注册失败</string>
@@ -164,6 +167,7 @@
     <string name="Elite">精英赛</string>
     <string name="sea_race">海选赛</string>
     <string name="normal_race">普通赛</string>
+    <string name="not_race">非比赛</string>
     <string name="unknow">未知</string>
     <string name="rate_f">%.2f%%</string>
     <string name="new_price_s">最新价：%s</string>
@@ -188,6 +192,7 @@
     <string name="title_activity_contract_info">ContractInfo</string>
     <string name="confirm_logout">确定退出？</string>
     <string name="userName">用户名</string>
+    <string name="userName_not_login">登录 | 注册</string>
     <string name="apply_date">申请日期：%s</string>
     <string name="s_day">%s元/天</string>
     <string name="dealing">处理中…</string>
@@ -200,14 +205,15 @@
     <string name="apply_date_s">申请日期：%s</string>
     <string name="entrustTime_s">委托时间：%s</string>
     <string name="dealTime_s">成交时间：%s</string>
+    <string name="time_s">时间：%s</string>
     <string name="dealPrice_s">成交金额：%s</string>
 
     <string name="contract_s1_s2">%1$s 编号：%2$s</string>
     <string name="entrusting">委托中</string>
     <string name="canceledOrder">已撤单</string>
     <string name="deal_done">已成交</string>
-    <string name="contract_not_selected">还没选择合约！</string>
-    <string name="stock_not_selected">没有选择股票！</string>
+    <string name="contract_not_selected">请选择合约</string>
+    <string name="stock_not_selected">请选择股票</string>
     <string name="draw_gesture_psw">请绘制手势密码</string>
     <string name="draw_open_gesture_psw">绘制解锁密码</string>
     <string name="open_lock_failed_d">密码错了，还可输入%d次</string>
@@ -215,4 +221,25 @@
     <string name="re_draw_gesture">与上次绘制不一样，请重新绘制</string>
     <string name="password_failed">手势密码已失效，请重新登录！</string>
     <string name="please_login_first">请先登录或注册！</string>
+    <string name="load_amount">加载账户资产…</string>
+    <string name="toast_no_stock">没有选择股票</string>
+    <string name="toast_no_price">请输入价格</string>
+    <string name="toast_no_amout">请输入数量</string>
+    <string name="get_contract_info_ing">获取合约详情…</string>
+    <string name="close_psw">关闭手势密码</string>
+    <string name="change_hand_psw">修改手势密码</string>
+    <string name="open_psw">开启手势密码</string>
+    <string name="forget_hand_psw_msg">忘记手势密码，需要重新登录,手势密码将自动失效</string>
+    <string name="update_now">立即升级</string>
+    <string name="download_ok">下载完成！</string>
+    <string name="install_now">立即安装</string>
+    <string name="no_data">没有数据</string>
+    <string name="no_contest">没有大赛</string>
+    <string name="no_contract">没有合约</string>
+    <string name="no_my_contest">你还没有参加大赛</string>
+    <string name="no_entrust_data">没有委托撤单信息</string>
+    <string name="no_s_data">没有%s数据</string>
+    <string name="repeat_not_equal">两次密码输入不一致</string>
+    <string name="phone_not_correct">手机号格式不正确</string>
+    <string name="password_length_error">密码长度介于6-20位</string>
 </resources>

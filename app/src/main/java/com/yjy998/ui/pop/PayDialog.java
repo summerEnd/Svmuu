@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.sp.lib.widget.input.PasswordEdit;
@@ -16,7 +17,7 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
     private TextView remainMoneyText;
     private TextView confirmBtn;
 
-    private PasswordEdit passwordEdit;
+    private EditText passwordEdit;
     Callback callback;
 
     public PayDialog(Context context) {
@@ -35,7 +36,7 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
         accountText = (TextView) findViewById(R.id.accountText);
         moneyText = (TextView) findViewById(R.id.moneyText);
         remainMoneyText = (TextView) findViewById(R.id.remainMoneyText);
-        passwordEdit = (PasswordEdit) findViewById(R.id.passwordEdit);
+        passwordEdit = (EditText) findViewById(R.id.passwordEdit);
         confirmBtn = (TextView) findViewById(R.id.confirmBtn);
         findViewById(R.id.cancelBtn).setOnClickListener(this);
         confirmBtn.setOnClickListener(this);

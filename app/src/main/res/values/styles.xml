@@ -323,8 +323,8 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/text_20px</item>
         <item name="android:background">#508FD4</item>
-        <item name="android:layout_width">@dimen/dimen_50px</item>
-        <item name="android:layout_height">@dimen/dimen_50px</item>
+        <item name="android:layout_width">@dimen/dimen_55px</item>
+        <item name="android:layout_height">@dimen/dimen_55px</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">3dp</item>
     </style>
@@ -444,5 +444,12 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/textColorDeepGray</item>
         <item name="android:textSize">@dimen/text_22px</item>
+    </style>
+
+    <style name="pageTitleStyle.game2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:paddingLeft">@dimen/dimen_40px</item>
+        <item name="android:paddingRight">@dimen/dimen_40px</item>
     </style>
 </resources>

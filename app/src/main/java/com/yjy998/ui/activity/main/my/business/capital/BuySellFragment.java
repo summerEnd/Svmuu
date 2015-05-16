@@ -2,9 +2,12 @@ package com.yjy998.ui.activity.main.my.business.capital;
 
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +15,31 @@ import android.widget.AdapterView;
 import android.widget.ListPopupWindow;
 import android.widget.TextView;
 
+import com.sp.lib.common.support.cache.CacheManager;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.JsonUtil;
+import com.sp.lib.widget.list.LinearListView;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.common.adapter.ContractListAdapter;
+import com.yjy998.common.adapter.ContractStockListAdapter;
 import com.yjy998.common.entity.Contract;
 import com.yjy998.common.entity.ContractDetail;
+import com.yjy998.common.entity.Holding;
+import com.yjy998.common.entity.Stock;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
+import com.yjy998.ui.activity.admin.LoginDialog;
 import com.yjy998.ui.activity.base.BaseFragment;
+import com.yjy998.ui.pop.PayDialog;
+import com.yjy998.ui.pop.YAlertDialog;
+import com.yjy998.ui.pop.YProgressDialog;
 import com.yjy998.ui.view.RoundButton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -32,6 +47,7 @@ import java.util.ArrayList;
  * 买入&卖出
  */
 public class BuySellFragment extends BaseFragment implements View.OnClickListener {
+    public static final String CONTRACT_DETAIL = "contract_detail";
     View layout;
     ListPopupWindow contractListWindow;
     TimeLineFragment mTimeLineFragment = new TimeLineFragment();
@@ -40,13 +56,9 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
     private TextView balanceText;
     private TextView stockValueText;
     private TextView totalText;
-    private RoundButton buySellButton;
-    private RoundButton resetButton;
-    private TextView stockName;
-    private TextView floatBalance;
-    private TextView holdNumber;
-    private TextView holdValue;
+
     private TextView contractText;
+    private LinearListView list;
     private boolean isBuy;
     private ContractObserver observer;
 
@@ -65,9 +77,8 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (activity instanceof ContractObserver) {
-            observer = (ContractObserver) activity;
-        }
+        //Activity必须实现这个接口
+        observer = (ContractObserver) activity;
     }
 
     public void setBuy(boolean isBuy) {
@@ -81,7 +92,7 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
             ((ViewGroup) layout.getParent()).removeView(layout);
         } else {
             layout = inflater.inflate(R.layout.fragment_capital, null);
-            mCapitalInfo = CapitalInfo.newInstance(isBuy);
+            mCapitalInfo = CapitalInfo.newInstance(isBuy, observer.getStockCode());
         }
 
         return layout;
@@ -100,10 +111,6 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
                     .commit();
     }
 
-    @Override
-    public String getTitle() {
-        return ContextUtil.getString(R.string.capital);
-    }
 
     /**
      * 初始化
@@ -117,13 +124,10 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         balanceText = (TextView) findViewById(R.id.balanceText);
         stockValueText = (TextView) findViewById(R.id.stockValueText);
         totalText = (TextView) findViewById(R.id.totalText);
-        buySellButton = (RoundButton) findViewById(R.id.buySellButton);
-        resetButton = (RoundButton) findViewById(R.id.resetButton);
-        stockName = (TextView) findViewById(R.id.stockName);
-        floatBalance = (TextView) findViewById(R.id.floatBalance);
-        holdNumber = (TextView) findViewById(R.id.holdNumber);
-        holdValue = (TextView) findViewById(R.id.holdValue);
+        RoundButton buySellButton = (RoundButton) findViewById(R.id.buySellButton);
+        RoundButton resetButton = (RoundButton) findViewById(R.id.resetButton);
         contractText = (TextView) findViewById(R.id.contractText);
+        list = (LinearListView) findViewById(R.id.list);
         findViewById(R.id.switchButton).setOnClickListener(this);
         findViewById(R.id.chooseContract).setOnClickListener(this);
         buySellButton.setOnClickListener(this);
@@ -134,19 +138,9 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
             buySellButton.setText(R.string.sellOut);
         }
 
-        setContract(getSharedContract());
 
     }
 
-    /**
-     * 获取共享的合约
-     */
-    ContractDetail getSharedContract() {
-        if (getActivity() instanceof ContractObserver) {
-            return ((ContractObserver) getActivity()).getContract();
-        }
-        return null;
-    }
 
     @Override
     public void onClick(View v) {
@@ -169,14 +163,21 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
                 break;
             }
             case R.id.buySellButton: {
-                if (isBuy) {
-
-                } else {
-
-                }
+                beginTrade();
                 break;
             }
             case R.id.chooseContract: {
+
+                if (!AppDelegate.getInstance().isUserLogin()) {
+                    YAlertDialog.show(getActivity(), getString(R.string.please_login_first)).setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            new LoginDialog(getActivity()).show();
+                        }
+                    });
+                    return;
+                }
+
                 if (contractListWindow == null) {
                     contractListWindow = new ListPopupWindow(getActivity());
                     contractListWindow.setAnchorView(v);
@@ -188,7 +189,9 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
                             contractListWindow.dismiss();
                             ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
                             Contract contract = myContracts.get(position);
-                            getContractInfo(contract.id);
+                            contractText.setText(getString(R.string.contract_s1_s2, contract.contract_type, contract.id));
+                            setData(null);
+                            refreshInternal(contract.id);
                         }
                     });
                 }
@@ -198,19 +201,34 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
-    public void getContractInfo(String contract_id) {
-        SRequest request = new SRequest("");
-        YHttpClient.getInstance().get(request, new YHttpHandler() {
+    public void getContractInfo(final String contract_id) {
+        SRequest request = new SRequest("http://mobile.yjy998.com/h5/account/contractinfo");
+        request.put("contract_no", contract_id);
+        YHttpClient.getInstance().get(request, new YHttpHandler(true) {
             @Override
             protected void onStatusCorrect(Response response) {
                 ContractDetail detail = JsonUtil.get(response.data, ContractDetail.class);
-                setContract(detail);
+                observer.saveContract(detail);
                 notifyContractChange(detail);
             }
+
+            @Override
+            public Dialog onCreateDialog() {
+                ContractDetail detail = (ContractDetail) observer.readContractFromCache(contract_id);
+                if (detail == null) {
+                    YProgressDialog yProgressDialog = new YProgressDialog(getActivity());
+                    yProgressDialog.setMessage(getString(R.string.load_amount));
+                    return yProgressDialog;
+                } else {
+                    setData(detail);
+                }
+                return null;
+            }
+
         });
     }
 
-    public void setContract(ContractDetail contract) {
+    public void setData(ContractDetail contract) {
         if (contract != null) {
             usableText.setText(contract.currentCash);
             balanceText.setText(contract.totalProfit);
@@ -218,16 +236,17 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
             totalText.setText(contract.totalAsset);
             contractText.setText(getString(R.string.contract_s1_s2, contract.contract_type, contract.contractId));
         } else {
-            usableText.setText("0");
-            balanceText.setText("0");
-            stockValueText.setText("0");
-            totalText.setText("0");
+            usableText.setText("");
+            balanceText.setText("");
+            stockValueText.setText("");
+            totalText.setText("");
             contractText.setText(R.string.chooseContract);
         }
 
     }
 
     public void notifyContractChange(ContractDetail contract) {
+        setData(contract);
         if (observer != null) {
             observer.setContract(contract);
         }
@@ -236,28 +255,109 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
 
     /**
      * 买入
+     * 参数：contract_no（合约id），raw_pwd（未加密支付密码），pay_pwd，stock_code（股票代码），stock_name（股票名），buy_price（买入价格），buy_quantity（买入数量），exchange_type（交易所类型：1，2）
      */
-    public void buy() {
-        SRequest request = new SRequest("http://www.yjy998.com/stock/buystock");
-        request.put("contract_no", "");
-        YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler() {
+    public void beginTrade() {
+        final Stock stock = mCapitalInfo.getStock();
+        if (stock == null || TextUtils.isEmpty(stock.stockCode)) {
+            //没有选择股票
+            ContextUtil.toast(getString(R.string.toast_no_stock));
+            return;
+        }
+
+        if (TextUtils.isEmpty(stock.entrust_price)) {
+            //没有选择价格
+            ContextUtil.toast(getString(R.string.toast_no_price));
+            return;
+        }
+
+        if (TextUtils.isEmpty(mCapitalInfo.getQuantity())) {
+            //没有输入数量
+            ContextUtil.toast(getString(R.string.toast_no_amout));
+            return;
+        }
+
+        PayDialog payDialog = new PayDialog(getActivity());
+        payDialog.setCallback(new PayDialog.Callback() {
+            @Override
+            public void onPay(String password, String rsa_password) {
+                String url = isBuy ? "http://www.yjy998.com/stock/buystock" : "http://www.yjy998.com/stock/sellstock";
+                SRequest request = new SRequest(url);
+                ContractDetail detail = observer.getSharedContract();
+                request.put("contract_no", detail.contractId);
+                request.put("contract_id", detail.contractId);
+                request.put("raw_pwd", password);
+                request.put("pay_pwd", rsa_password);
+                request.put("stock_code", stock.stockCode);
+                request.put("stock_name", stock.stockName);
+                request.put("buy_price", stock.entrust_price);
+                request.put("buy_quantity", mCapitalInfo.getQuantity());
+                request.put("exchange_type", stock.exchangeType);
+                YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler() {
+                    @Override
+                    protected void onStatusCorrect(Response response) {
+
+                    }
+                });
+            }
+        });
+        payDialog.show();
+    }
+
+    @Override
+    public void refresh() {
+        if (observer == null) {
+            return;
+        }
+        if (!isVisible()) {
+            return;
+        }
+
+        setData(observer.getSharedContract());
+        refreshInternal(observer.getContractId());
+    }
+
+    private void refreshInternal(String contractId) {
+        if (!TextUtils.isEmpty(contractId)) {
+            getContractInfo(contractId);
+        }
+        getHoldings(contractId);
+
+        if (mCapitalInfo != null) {
+            mCapitalInfo.refresh();
+        }
+    }
+
+    public void getHoldings(String contract_no) {
+
+        SRequest request = new SRequest("http://www.yjy998.com/stock/hold");
+        request.put("contract_no", contract_no);
+        YHttpClient.getInstance().get(getActivity(), request, new YHttpHandler(false) {
             @Override
             protected void onStatusCorrect(Response response) {
+                try {
+                    JSONArray array = new JSONArray(response.data);
+                    ContractStockListAdapter adapter = new ContractStockListAdapter(getActivity(), JsonUtil.getArray(array, Holding.class));
+                    list.setAdapter(adapter);
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
-    /**
-     * 卖出
-     */
-    public void sell() {
-    }
-
     public static interface ContractObserver {
-        public ContractDetail getContract();
+        public ContractDetail getSharedContract();
 
         public void setContract(ContractDetail contract);
 
+        public String getStockCode();
+
+        public String getContractId();
+
+        public Object readContractFromCache(String contract_id);
+
+        public Object saveContract(ContractDetail detail);
     }
 }

@@ -13,8 +13,8 @@ import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.widget.pager.title.PageStrip;
 import com.yjy998.R;
-import com.yjy998.common.adapter.FragmentPagerAdapter;
 import com.yjy998.common.adapter.ContestListAdapter;
+import com.yjy998.common.adapter.FragmentPagerAdapter;
 import com.yjy998.common.entity.Contest;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
@@ -26,18 +26,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link android.app.Fragment} subclass.
  */
-public class ContestFragment extends BaseFragment implements ViewPager.OnPageChangeListener{
+public class ContestFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
 
 
-    private PageStrip pageStrip;
-    private ViewPager pager;
-    private BaseListFragment mGameListFragment;
-    private BaseListFragment mMyGameList;
     private ContestListAdapter allGameAdapter;
     private ContestListAdapter myGameAdapter;
 
@@ -53,21 +48,19 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
     }
 
     private void initialize() {
-        pageStrip = (PageStrip) getActivity().findViewById(R.id.pageStrip);
-        pager = (ViewPager) getActivity().findViewById(R.id.pager);
+        PageStrip pageStrip = (PageStrip) getActivity().findViewById(R.id.pageStrip);
+        ViewPager pager = (ViewPager) getActivity().findViewById(R.id.pager);
 
         allGameAdapter = getAdapter();
         myGameAdapter = getAdapter();
 
-        mGameListFragment = new BaseListFragment();
-        mGameListFragment.setTitle(getString(R.string.gameList));
+        BaseListFragment mGameListFragment = new BaseListFragment();
+        mGameListFragment.setTitle(getString(R.string.contest));
         mGameListFragment.setAdapter(allGameAdapter);
-        mGameListFragment.setOnItemClickListener(new OnGameListClick());
 
-        mMyGameList = new BaseListFragment();
-        mMyGameList.setTitle(getString(R.string.my_game));
+        BaseListFragment mMyGameList = new BaseListFragment();
+        mMyGameList.setTitle(getString(R.string.contest));
         mMyGameList.setAdapter(myGameAdapter);
-        mMyGameList.setOnItemClickListener(new OnMyGameListClick());
 
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getChildFragmentManager());
         adapter.add(mGameListFragment);
@@ -79,10 +72,8 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
     }
 
     ContestListAdapter getAdapter() {
-        List<Contest> data = new ArrayList<Contest>();
-        ContestListAdapter contestListAdapter = new ContestListAdapter(getActivity(), data);
 
-        return contestListAdapter;
+        return new ContestListAdapter(getActivity(), new ArrayList<Contest>());
     }
 
     @Override
@@ -92,8 +83,8 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
 
     @Override
     public void onPageSelected(int i) {
-        if (i==1){
-            if (myGameAdapter.getData().size()==0){
+        if (i == 1) {
+            if (myGameAdapter.getData().size() == 0) {
                 getMyContestList();
             }
         }
@@ -104,19 +95,19 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
 
     }
 
-    private class OnGameListClick implements AdapterView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            startActivity(new Intent(view.getContext(), ContestInfoActivity.class));
-        }
-    }
-
-    private class OnMyGameListClick implements AdapterView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            startActivity(new Intent(view.getContext(), ContestInfoActivity.class));
-        }
-    }
+//    private class OnGameListClick implements AdapterView.OnItemClickListener {
+//        @Override
+//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//            startActivity(new Intent(view.getContext(), ContestInfoActivity.class));
+//        }
+//    }
+//
+//    private class OnMyGameListClick implements AdapterView.OnItemClickListener {
+//        @Override
+//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//            startActivity(new Intent(view.getContext(), ContestInfoActivity.class));
+//        }
+//    }
 
     /**
      * 获取大赛列表

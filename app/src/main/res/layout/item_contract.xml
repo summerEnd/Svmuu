@@ -27,6 +27,7 @@
 
     <LinearLayout
         android:layout_marginLeft="1px"
+        android:layout_marginStart="1px"
         style="@style/center_pager_item"
         android:id="@+id/item2">
 
