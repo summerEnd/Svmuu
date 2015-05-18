@@ -1,22 +1,39 @@
 package com.sp.lib.widget.parallax.guide;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.view.View;
 
-public class ViewSprite implements ISprite {
+public abstract class ViewSprite implements ISprite {
 
-    private View contentView;
-
-    ObjectAnimator animator;
-
-    public ViewSprite(View contentView, ObjectAnimator animator) {
+    protected int DURATION = 1000;
+    protected View contentView;
+    protected ObjectAnimator[] animators;
+    private boolean repeat=false;
+    public ViewSprite(View contentView) {
         this.contentView = contentView;
-        this.animator = animator;
+        animators = createAnimators(contentView);
     }
 
     @Override
     public void run(float delta) {
-        long time = (long) (animator.getDuration() * delta);
-        animator.setCurrentPlayTime(time);
+
+        for (Animator anim : animators) {
+            long time = (long) (DURATION * delta);
+
+            ObjectAnimator animator = (ObjectAnimator) anim;
+            long duration = animator.getDuration();
+            if (duration >= time){
+                animator.setCurrentPlayTime(time);
+            }else if (repeat){
+                animator.setCurrentPlayTime(time%duration);
+            }
+        }
+    }
+
+    public abstract ObjectAnimator[] createAnimators(View v);
+
+    public void setRepeat(boolean repeat) {
+        this.repeat = repeat;
     }
 }

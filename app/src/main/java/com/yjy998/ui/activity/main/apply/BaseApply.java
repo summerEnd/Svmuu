@@ -111,6 +111,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                 }).show();
                 break;
             }
+            case R.id.questionImage:
             case R.id.introduce: {
                 startActivity(new Intent(getActivity(), WebViewActivity.class)
                         .putExtra(WebViewActivity.EXTRA_URL, "http://m.yjy998.com/rules.html"));
@@ -153,7 +154,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
         manageFeeText.setText(fee + "");
         keepText.setText(keep + "");
         pingCangText.setText(pingCang + "");
-        payAmount.setText("￥"+pay );
+        payAmount.setText("￥" + pay);
         pingCangSummary.setText(getString(R.string.pingCangSummary_f, rate));
     }
 

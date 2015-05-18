@@ -21,6 +21,7 @@ import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.base.BaseListFragment;
+import com.yjy998.ui.activity.main.apply.ApplyActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +58,7 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
         BaseListFragment mGameListFragment = new BaseListFragment();
         mGameListFragment.setTitle(getString(R.string.contest));
         mGameListFragment.setAdapter(allGameAdapter);
+        mGameListFragment.setOnItemClickListener(new OnGameListClick());
 
         BaseListFragment mMyGameList = new BaseListFragment();
         mMyGameList.setTitle(getString(R.string.contest));
@@ -95,19 +97,19 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
 
     }
 
-//    private class OnGameListClick implements AdapterView.OnItemClickListener {
-//        @Override
-//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            startActivity(new Intent(view.getContext(), ContestInfoActivity.class));
-//        }
-//    }
-//
-//    private class OnMyGameListClick implements AdapterView.OnItemClickListener {
-//        @Override
-//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            startActivity(new Intent(view.getContext(), ContestInfoActivity.class));
-//        }
-//    }
+    private class OnGameListClick implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            startActivity(new Intent(view.getContext(), ApplyActivity.class));
+        }
+    }
+
+    private class OnMyGameListClick implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            startActivity(new Intent(view.getContext(), ApplyActivity.class));
+        }
+    }
 
     /**
      * 获取大赛列表
