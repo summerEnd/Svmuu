@@ -3,8 +3,8 @@
     package="com.svmuu.slibdemo" >
 
     <application
-        android:allowBackup="true"
         android:name="com.slib.demo.AppDelegate"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -28,6 +28,10 @@
         <activity android:name="com.sp.lib.activity.DEBUGActivity"/>
         <activity android:name="com.sp.lib.activity.album.PhotoAlbumActivity"/>
         <activity android:name="com.slib.demo.AnimTest"/>
+        <activity
+            android:name="com.slib.demo.AutoLayoutTest"
+            android:label="@string/title_activity_auto_layout_test" >
+        </activity>
     </application>
 
 </manifest>

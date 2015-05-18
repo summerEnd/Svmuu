@@ -20,5 +20,6 @@ public class MainActivity extends STestActivity {
         activities.add(HttpTest.class);
         activities.add(DEBUGActivity.class);
         activities.add(AnimTest.class);
+        activities.add(AutoLayoutTest.class);
     }
 }
