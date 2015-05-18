@@ -19,5 +19,6 @@ public class MainActivity extends STestActivity {
         activities.add(PagerTitle.class);
         activities.add(HttpTest.class);
         activities.add(DEBUGActivity.class);
+        activities.add(AnimTest.class);
     }
 }

@@ -1,4 +1,4 @@
-package com.sp.lib.common.copy;
+package com.sp.lib.common;
 
 import android.support.v4.app.ShareCompat;
 

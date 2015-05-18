@@ -27,6 +27,7 @@
         </activity>
         <activity android:name="com.sp.lib.activity.DEBUGActivity"/>
         <activity android:name="com.sp.lib.activity.album.PhotoAlbumActivity"/>
+        <activity android:name="com.slib.demo.AnimTest"/>
     </application>
 
 </manifest>
