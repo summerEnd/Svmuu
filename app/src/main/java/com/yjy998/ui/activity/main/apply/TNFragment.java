@@ -26,5 +26,15 @@ public class TNFragment extends BaseApply implements View.OnClickListener {
         return 2;
     }
 
+    @Override
+    public String getType() {
+        return "TN";
+    }
+
+    @Override
+    public String getPro_id() {
+        return "2";
+    }
+
 
 }

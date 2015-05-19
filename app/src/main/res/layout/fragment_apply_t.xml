@@ -323,7 +323,7 @@
 
             <Button
                 android:id="@+id/payNow"
-                android:text="@string/payNow"
+                android:text="@string/i_want_op"
                 style="@style/blueButton.mid" />
         </LinearLayout>
 

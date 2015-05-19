@@ -242,4 +242,6 @@
     <string name="repeat_not_equal">两次密码输入不一致</string>
     <string name="phone_not_correct">手机号格式不正确</string>
     <string name="password_length_error">密码长度介于6-20位</string>
+    <string name="title_activity_contest_apply">ContestApplyActivity</string>
+    <string name="i_want_op">我要操盘</string>
 </resources>

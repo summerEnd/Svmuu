@@ -17,4 +17,14 @@ public class T9Fragment extends BaseApply {
     public int getFeeDays() {
         return 10;
     }
+
+    @Override
+    public String getType() {
+        return "T9";
+    }
+
+    @Override
+    public String getPro_id() {
+        return "3";
+    }
 }

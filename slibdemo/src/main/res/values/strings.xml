@@ -5,4 +5,5 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_pager_title">PagerTitle</string>
     <string name="title_activity_auto_layout_test">AutoLayoutTest</string>
+    <string name="title_activity_ji_huan_song_test">JiHuanSongTest</string>
 </resources>

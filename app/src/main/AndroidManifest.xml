@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yjy998">
+    package="com.yjy998" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -10,22 +10,21 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
-
     <supports-screens
-        android:smallScreens="true"
         android:largeScreens="true"
         android:normalScreens="true"
-        android:xlargeScreens="true"
-        />
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <application
         android:name=".AppDelegate"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.EnterActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".ui.activity.EnterActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,8 +41,9 @@
         <activity
             android:name="com.sp.lib.activity.DEBUGActivity"
             android:label="@string/app_name" />
-        <!--todo-->
-     <!--   <activity
+        <!-- todo -->
+        <!--
+        <activity
             android:name="com.sp.lib.demo.SlibDemo"
             android:icon="@drawable/ic_lincoln"
             android:label="SLIB">
@@ -52,7 +52,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>-->
+        </activity>
+        -->
         <activity
             android:name=".common.test.ChartActivity"
             android:label="@string/title_activity_chart" />
@@ -85,7 +86,6 @@
         <activity
             android:name=".ui.activity.pay.RechargeActivity"
             android:label="@string/title_activity_recharge" />
-
         <activity
             android:name=".ui.activity.main.home.MessageActivity"
             android:label="@string/title_activity_message" />
@@ -97,6 +97,10 @@
             android:label="@string/title_activity_contract_info" />
         <activity android:name=".ui.activity.main.my.SetGesturePassword" />
         <activity android:name=".ui.activity.main.more.WebViewActivity" />
+        <activity
+            android:name=".ui.activity.main.apply.ContestApplyActivity"
+            android:label="@string/title_activity_contest_apply" >
+        </activity>
     </application>
 
 </manifest>

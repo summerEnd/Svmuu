@@ -22,6 +22,7 @@ import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.base.BaseListFragment;
 import com.yjy998.ui.activity.main.apply.ApplyActivity;
+import com.yjy998.ui.activity.main.apply.ContestApplyActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,6 +64,7 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
         BaseListFragment mMyGameList = new BaseListFragment();
         mMyGameList.setTitle(getString(R.string.contest));
         mMyGameList.setAdapter(myGameAdapter);
+        mMyGameList.setOnItemClickListener(new OnMyGameListClick());
 
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getChildFragmentManager());
         adapter.add(mGameListFragment);
@@ -100,14 +102,16 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
     private class OnGameListClick implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            startActivity(new Intent(view.getContext(), ApplyActivity.class));
+            startActivity(new Intent(view.getContext(), ContestApplyActivity.class)
+                    .putExtra(ContestApplyActivity.EXTRA_CONTEST, allGameAdapter.getData().get(position)));
         }
     }
 
     private class OnMyGameListClick implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            startActivity(new Intent(view.getContext(), ApplyActivity.class));
+            startActivity(new Intent(view.getContext(), ApplyActivity.class)
+                    .putExtra(ContestApplyActivity.EXTRA_CONTEST, myGameAdapter.getData().get(position)));
         }
     }
 

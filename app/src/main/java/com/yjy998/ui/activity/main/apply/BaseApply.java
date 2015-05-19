@@ -101,6 +101,15 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                     @Override
                     public void onPay(String password, String rsa_password) {
                         SRequest request = new SRequest("http://www.yjy998.com/contract/apply");
+                        request.put("apply_type", getType());//TN或T9
+                        Object tag = payAmount.getTag();
+                        request.put("deposit_amount", tag);//总金额
+                        request.put("pay_pwd", password);//支付密码
+                        request.put("prev_store", 1);
+                        request.put("pro_id", getPro_id());
+                        request.put("pro_term", "2");
+                        request.put("trade_pwd", rsa_password);//交易密码
+
                         YHttpClient.getInstance().post(request, new YHttpHandler() {
                             @Override
                             protected void onStatusCorrect(Response response) {
@@ -155,7 +164,9 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
         keepText.setText(keep + "");
         pingCangText.setText(pingCang + "");
         payAmount.setText("￥" + pay);
+        payAmount.setTag(total);
         pingCangSummary.setText(getString(R.string.pingCangSummary_f, rate));
+
     }
 
     /**
@@ -172,6 +183,16 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
      * 获取初始账户管理费需要交的天数
      */
     public abstract int getFeeDays();
+
+    /**
+     * @return TN或T9
+     */
+    public abstract String getType();
+
+    /**
+     * 获取产品id
+     */
+    public abstract String getPro_id();
 
     public class Item {
         private String normalText;

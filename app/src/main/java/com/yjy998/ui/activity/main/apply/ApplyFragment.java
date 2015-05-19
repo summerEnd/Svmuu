@@ -40,7 +40,7 @@ public class ApplyFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_apply, container, false);
+        View layout = inflater.inflate(R.layout.fragment_apply, null, false);
         return layout;
     }
 
