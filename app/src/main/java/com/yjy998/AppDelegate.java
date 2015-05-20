@@ -4,9 +4,14 @@ import android.content.Context;
 import android.view.Gravity;
 
 import com.sp.lib.SApplication;
+import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
+import com.sp.lib.common.util.JsonUtil;
 import com.yjy998.common.entity.User;
 import com.yjy998.common.Constant;
+import com.yjy998.common.http.Response;
+import com.yjy998.common.http.YHttpClient;
+import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.common.test.TestActivity;
 
 /**
@@ -55,6 +60,20 @@ public class AppDelegate extends SApplication {
             mSharedUser = new User();
         }
         return mSharedUser;
+    }
+
+    /**
+     * 重新调取接口，刷新用户信息
+     */
+    public void refreshUserInfo() {
+        SRequest request = new SRequest();
+
+        YHttpClient.getInstance().getByMethod("/h5/account/assentinfo", request, new YHttpHandler() {
+            @Override
+            protected void onStatusCorrect(Response response) {
+                AppDelegate.getInstance().setUser(JsonUtil.get(response.data, User.class));
+            }
+        });
     }
 
     public void setUser(User user) {

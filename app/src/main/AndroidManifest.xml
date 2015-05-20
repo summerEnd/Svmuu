@@ -34,7 +34,7 @@
         <activity
             android:name=".ui.activity.main.MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name="com.sp.lib.activity.album.PhotoAlbumActivity"
             android:label="@string/app_name" />
@@ -55,23 +55,29 @@
         </activity>
         -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".common.test.ChartActivity"
             android:label="@string/title_activity_chart" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.admin.LockActivity"
             android:label="@string/title_activity_lock"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".common.test.TestActivity"
             android:label="@string/title_activity_test" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.main.apply.ApplyActivity"
             android:label="@string/title_activity_t9_tn" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.activity.main.my.ChangeDataActivity"
             android:label="@string/title_activity_change_data" />
         <activity
             android:name=".ui.activity.main.home.NewMemberActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_fresh" />
         <activity
             android:name=".ui.activity.main.my.business.BusinessActivity"
@@ -91,7 +97,7 @@
             android:label="@string/title_activity_message" />
         <activity
             android:name=".ui.activity.admin.About"
-            android:label="@string/title_activity_abount" />
+            android:label="@string/title_activity_about" />
         <activity
             android:name=".ui.activity.main.my.ContractInfoActivity"
             android:label="@string/title_activity_contract_info" />

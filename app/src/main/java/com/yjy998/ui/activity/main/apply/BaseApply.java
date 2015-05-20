@@ -14,6 +14,7 @@ import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.base.BaseFragment;
+import com.yjy998.ui.activity.base.YJYActivity;
 import com.yjy998.ui.activity.main.more.WebViewActivity;
 import com.yjy998.ui.pop.PayDialog;
 import com.yjy998.ui.view.CircleItem;
@@ -97,6 +98,11 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                 break;
             }
             case R.id.payNow: {
+                if (getActivity() instanceof YJYActivity) {
+                    if (((YJYActivity) getActivity()).showLoginDialogIfNeed()) {
+                        return;
+                    }
+                }
                 new PayDialog(getActivity()).setCallback(new PayDialog.Callback() {
                     @Override
                     public void onPay(String password, String rsa_password) {

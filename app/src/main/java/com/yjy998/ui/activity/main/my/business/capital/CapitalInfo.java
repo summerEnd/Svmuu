@@ -26,6 +26,7 @@ import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.base.BaseFragment;
+import com.yjy998.ui.activity.base.YJYActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -218,6 +219,11 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
      * 获取可买数量
      */
     public void buyQuantity() {
+        if (getActivity() instanceof YJYActivity) {
+            if (((YJYActivity) getActivity()).showLoginDialogIfNeed()) {
+                return;
+            }
+        }
         ContractDetail contract = getSharedContract();
         Stock stock = getStock();
 
@@ -404,7 +410,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         if (mWatcher != null) {
             codeEdit.removeTextChangedListener(mWatcher);
         }
-        if (!TextUtils.isEmpty(stockCode)){
+        if (!TextUtils.isEmpty(stockCode)) {
             codeEdit.setText(stockCode);
         }
         codeEdit.addTextChangedListener(mWatcher);

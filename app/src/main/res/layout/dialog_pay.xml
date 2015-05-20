@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:drawableRight="@drawable/ic_right_arrow"
         android:layout_height="wrap_content"
-        android:text="账户可用余额：8888.0易宝" />
+        android:text="@string/usable_s_money" />
 
     <View style="@style/horizontalLine" />
 

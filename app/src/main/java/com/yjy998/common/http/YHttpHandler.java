@@ -1,10 +1,15 @@
 package com.yjy998.common.http;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.sp.lib.common.support.net.client.SHttpProgressHandler;
+import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
+import com.yjy998.AppDelegate;
+import com.yjy998.common.Constant;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -57,27 +62,61 @@ public abstract class YHttpHandler extends SHttpProgressHandler {
     public final void onSuccess(int statusCode, Header[] headers, JSONObject response) {
         super.onSuccess(statusCode, headers, response);
 
-//        for (Header header : headers) {
-//            SLog.debug("head:" + header);
-//            if (CookiePreference.COOKIE.equals(header.getName())) {
-//                //把cookie存起来
-//                CookiePreference.get().setCookie(header.getValue());
-//                SLog.debug("save Cookie:" + header.getValue());
-//            }
-//        }
-
         Response responseObject = parseResponse(response);
+
         if (responseObject.status) {
             onStatusCorrect(responseObject);
+            toast(responseObject);
+
+        } else if ("1090".equals(responseObject.code)) {
+            //需要重新登录
+            loginBackground();
         } else {
             onStatusFailed(responseObject);
+            toast(responseObject);
         }
+    }
+
+    private void toast(Response responseObject) {
         if (showToast) {
             String message = responseObject.message;
             if (!TextUtils.isEmpty(message) && !"null".equals(message)) {
                 ContextUtil.toast_debug(message);
             }
         }
+    }
+
+
+    /**
+     * 后台自动登录
+     */
+    void loginBackground() {
+        SharedPreferences sp = AppDelegate.getInstance().getSharedPreferences(Constant.PRE_LOGIN, Context.MODE_PRIVATE);
+        String phone = sp.getString(Constant.PRE_LOGIN_PHONE, null);
+        String password = sp.getString(Constant.PRE_LOGIN_PASSWORD, null);
+        String rsa = sp.getString(Constant.PRE_LOGIN_PASSWORD_RSA, null);
+
+        if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(password) || TextUtils.isEmpty(rsa)) {
+            return;
+        }
+
+        SRequest request = new SRequest();
+        request.put("login_name", phone);
+        request.put("login_passwd", password);
+        request.put("login_rsapwd", rsa);
+
+        //登录
+        YHttpClient.getInstance().login(AppDelegate.getInstance(), request, new YHttpHandler(false) {
+            @Override
+            protected void onStatusFailed(Response response) {
+                super.onStatusFailed(response);
+            }
+
+            @Override
+            protected void onStatusCorrect(Response response) {
+                //继续请求,暂时不做
+            }
+        });
     }
 
     /**

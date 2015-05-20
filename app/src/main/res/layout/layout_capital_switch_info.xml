@@ -3,6 +3,7 @@
     android:orientation="horizontal"
     android:id="@+id/switchLayoutInfo"
     android:paddingTop="@dimen/dimen_36px"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 

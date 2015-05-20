@@ -3,6 +3,9 @@ package com.sp.lib.widget.pager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+/**
+ *
+ */
 public class TransformerA implements ViewPager.PageTransformer {
     @Override
     public void transformPage(View view, float position) {

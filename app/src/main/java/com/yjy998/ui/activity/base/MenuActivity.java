@@ -126,12 +126,7 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
         }
     }
 
-    /**
-     * 登陆状态发生改变时要刷新一下布局
-     */
-    protected void refreshLayout() {
 
-    }
 
     /**
      * 设置右上角图标

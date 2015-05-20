@@ -34,7 +34,5 @@ public class ContestApplyActivity extends SecondActivity {
 
     public static class ContestApply extends TNFragment {
 
-
-
     }
 }

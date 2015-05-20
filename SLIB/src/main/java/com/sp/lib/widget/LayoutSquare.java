@@ -1,12 +1,8 @@
 package com.sp.lib.widget;
 
-import android.view.View;
-
 import static android.view.View.MeasureSpec;
 
-/**
- * Created by user1 on 2015/4/17.
- */
+
 public class LayoutSquare {
     public static final int NONE = 0;
     public static final int WIDTH = 1;
@@ -14,7 +10,7 @@ public class LayoutSquare {
     public static final int SHORTER = 3;
     public static final int LONGER = 4;
 
-    public static final int apply(int squareBy, int widthMeasureSpec, int heightMeasureSpec) {
+    public static  int apply(int squareBy, int widthMeasureSpec, int heightMeasureSpec) {
         int squareSpec;
         switch (squareBy) {
             case WIDTH:

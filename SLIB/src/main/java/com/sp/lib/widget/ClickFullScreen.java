@@ -1,10 +1,8 @@
 package com.sp.lib.widget;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -28,7 +26,6 @@ import com.sp.lib.R;
 import com.sp.lib.common.util.DisplayUtil;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-@SuppressWarnings("unused")
 public class ClickFullScreen extends PopupWindow {
     ImageView mImageView;
     View container;

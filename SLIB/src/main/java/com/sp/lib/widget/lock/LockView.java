@@ -61,7 +61,6 @@ public class LockView extends View {
 
     public LockView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LockView);
         verticalSpacing = a.getDimensionPixelOffset(R.styleable.LockView_verticalSpacing, 0);
         horizontalSpacing = a.getDimensionPixelOffset(R.styleable.LockView_horizontalSpacing, 0);

@@ -73,6 +73,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         findViewById(R.id.center).setOnClickListener(this);
         findViewById(R.id.help).setOnClickListener(this);
         findViewById(R.id.about).setOnClickListener(this);
+        findViewById(R.id.popularize).setOnClickListener(this);
         refresh();
 
     }
@@ -163,6 +164,10 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                     return;
                 }
                 startActivity(new Intent(getActivity(), ChangeDataActivity.class));
+                break;
+            }
+            case R.id.popularize: {
+
                 break;
             }
         }

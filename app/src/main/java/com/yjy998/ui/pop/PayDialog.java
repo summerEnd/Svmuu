@@ -8,7 +8,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.sp.lib.widget.input.PasswordEdit;
+import com.yjy998.AppDelegate;
 import com.yjy998.R;
+import com.yjy998.common.entity.Assent;
 import com.yjy998.common.util.RSAUtil;
 
 public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.Callback {
@@ -40,6 +42,12 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
         confirmBtn = (TextView) findViewById(R.id.confirmBtn);
         findViewById(R.id.cancelBtn).setOnClickListener(this);
         confirmBtn.setOnClickListener(this);
+        Assent assent = AppDelegate.getInstance().getUser().assent;
+        if (assent == null) {
+            remainMoneyText.setText(getContext().getString(R.string.usable_s_money, "0"));
+        } else {
+            remainMoneyText.setText(getContext().getString(R.string.usable_s_money, assent.avalaible_amount));
+        }
     }
 
     @Override

@@ -17,7 +17,6 @@ public class TransformerB implements ViewPager.PageTransformer {
 
         } else if (position <= 1) { // [-1,1]
 
-            float factor = Math.abs(position);
             float rotation = degree * position;
 
             if (position > 0) {

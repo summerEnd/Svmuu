@@ -28,11 +28,13 @@ import com.yjy998.common.entity.Contract;
 import com.yjy998.common.entity.ContractDetail;
 import com.yjy998.common.entity.Holding;
 import com.yjy998.common.entity.Stock;
+import com.yjy998.common.entity.User;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.admin.LoginDialog;
 import com.yjy998.ui.activity.base.BaseFragment;
+import com.yjy998.ui.activity.base.YJYActivity;
 import com.yjy998.ui.pop.PayDialog;
 import com.yjy998.ui.pop.YAlertDialog;
 import com.yjy998.ui.pop.YProgressDialog;
@@ -254,10 +256,13 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
 
 
     /**
-     * 买入
+     * 买入卖出
      * 参数：contract_no（合约id），raw_pwd（未加密支付密码），pay_pwd，stock_code（股票代码），stock_name（股票名），buy_price（买入价格），buy_quantity（买入数量），exchange_type（交易所类型：1，2）
      */
     public void beginTrade() {
+        if (observer.showLoginDialogIfNeed()) {
+            return;
+        }
         final Stock stock = mCapitalInfo.getStock();
         if (stock == null || TextUtils.isEmpty(stock.stockCode)) {
             //没有选择股票
@@ -296,13 +301,14 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
                 YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler() {
                     @Override
                     protected void onStatusCorrect(Response response) {
-
+                        AppDelegate.getInstance().refreshUserInfo();
                     }
                 });
             }
         });
         payDialog.show();
     }
+
 
     @Override
     public void refresh() {
@@ -359,5 +365,7 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         public Object readContractFromCache(String contract_id);
 
         public Object saveContract(ContractDetail detail);
+
+        public boolean showLoginDialogIfNeed();
     }
 }

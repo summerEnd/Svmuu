@@ -1,5 +1,6 @@
 package com.sp.lib.common;
 
+import android.app.ActivityManager;
 import android.support.v4.app.ShareCompat;
 
 class SlibCopy {
@@ -8,6 +9,7 @@ class SlibCopy {
      */
     private SlibCopy() {
         ShareCompat.IntentBuilder builder;
+        ActivityManager manager;
     }
 
 }

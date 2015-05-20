@@ -5,6 +5,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * 自动换行布局
+ */
 public class AutoLayout extends ViewGroup {
 
     public AutoLayout(Context context) {
@@ -17,15 +20,6 @@ public class AutoLayout extends ViewGroup {
 
     public AutoLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-    }
-
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-        int count = getChildCount();
-        for (int index = 0; index < count; index++) {
-            View child = getChildAt(index);
-        }
     }
 
     @Override
