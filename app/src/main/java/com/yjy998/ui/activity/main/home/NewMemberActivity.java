@@ -31,17 +31,16 @@ public class NewMemberActivity extends SecondActivity {
                 if (showLoginDialogIfNeed()) {
                     break;
                 }
-
-                new PayDialog(this).setCallback(new PayDialog.Callback() {
+                final String price = "2000";
+                new PayDialog(this, price).setCallback(new PayDialog.Callback() {
                     @Override
                     public void onPay(String password, String rsa_password) {
                         SRequest request = new SRequest("http://www.yjy998.com/contract/apply");
                         request.put("apply_type", "TN");//TN或T9
-
-                        request.put("deposit_amount", 2000);//总金额
+                        request.put("deposit_amount", price);//总金额
                         request.put("pay_pwd", password);//支付密码
                         request.put("prev_store", 1);
-                        request.put("pro_id", 4);
+                        request.put("pro_id", 1);
                         request.put("pro_term", "2");
                         request.put("trade_pwd", rsa_password);//交易密码
 

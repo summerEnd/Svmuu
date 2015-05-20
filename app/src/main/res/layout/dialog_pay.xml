@@ -37,9 +37,9 @@
         android:layout_margin="@dimen/dimen_25px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="500.0元" />
+        android:text="@string/s_yuan" />
 
-    <View style="@style/horizontalLine" />
+    <View style="@style/horizontalLine" android:id="@+id/remainLine"/>
 
     <TextView
         android:id="@+id/remainMoneyText"

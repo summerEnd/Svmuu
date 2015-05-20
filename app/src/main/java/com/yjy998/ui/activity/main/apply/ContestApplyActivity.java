@@ -33,6 +33,13 @@ public class ContestApplyActivity extends SecondActivity {
 
 
     public static class ContestApply extends TNFragment {
-
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            DATA = new int[]{
+                    5 * W, 10 * W, 20 * W, 30 * W, 50 * W, 80 * W,
+                    100 * W, 150 * W, 200 * W
+            };
+        }
     }
 }

@@ -18,18 +18,25 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
     private TextView moneyText;
     private TextView remainMoneyText;
     private TextView confirmBtn;
-
+    private String price;
     private EditText passwordEdit;
     Callback callback;
+    View cancel;
 
-    public PayDialog(Context context) {
+    public PayDialog(Context context, String price) {
         super(context);
+        if (null == price) {
+            price = "";
+        }
+        this.price = price;
+
+        setContentView(R.layout.dialog_pay);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_pay);
+
         initialize();
     }
 
@@ -40,9 +47,14 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
         remainMoneyText = (TextView) findViewById(R.id.remainMoneyText);
         passwordEdit = (EditText) findViewById(R.id.passwordEdit);
         confirmBtn = (TextView) findViewById(R.id.confirmBtn);
-        findViewById(R.id.cancelBtn).setOnClickListener(this);
+        cancel = findViewById(R.id.cancelBtn);
+        cancel.setOnClickListener(this);
         confirmBtn.setOnClickListener(this);
         Assent assent = AppDelegate.getInstance().getUser().assent;
+
+        accountText.setText(assent.name);
+
+        moneyText.setText(getContext().getString(R.string.s_yuan, price));
         if (assent == null) {
             remainMoneyText.setText(getContext().getString(R.string.usable_s_money, "0"));
         } else {
@@ -54,6 +66,7 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirmBtn: {
+                cancel.setEnabled(false);
                 confirmBtn.setText(R.string.dealing);
                 RSAUtil.sign(getContext(), passwordEdit.getText().toString(), this);
                 break;
@@ -84,6 +97,8 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
 
     @Override
     public void onRSAEncodeFailed() {
+
+        cancel.setEnabled(true);
         confirmBtn.setText(R.string.retry);
     }
 

@@ -60,14 +60,12 @@
 
                 <TextView
                     android:id="@+id/tnCapitalText"
-                    android:text="@string/__test_money_450_000_000_000"
                     android:layout_marginLeft="@dimen/applyItemMarginLeft"
                     android:layout_marginRight="@dimen/applyItemMarginLeft"
                     style="@style/applyFragmentTextStyle.big" />
 
                 <TextView
                     android:id="@+id/tnMemberText"
-                    android:text="@string/__test_data_3000_people"
                     style="@style/applyFragmentTextStyle.big" />
             </TableRow>
         </TableLayout>
@@ -119,12 +117,10 @@
                     android:layout_marginLeft="@dimen/applyItemMarginLeft"
                     android:layout_marginRight="@dimen/applyItemMarginLeft"
                     android:id="@+id/t9CapitalText"
-                    android:text="@string/__test_money_450_000_000_000"
                     style="@style/applyFragmentTextStyle.big" />
 
                 <TextView
                     android:id="@+id/t9MemberText"
-                    android:text="@string/__test_data_3000_people"
                     style="@style/applyFragmentTextStyle.big" />
             </TableRow>
         </TableLayout>

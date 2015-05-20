@@ -34,7 +34,7 @@
         <activity
             android:name=".ui.activity.main.MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name="com.sp.lib.activity.album.PhotoAlbumActivity"
             android:label="@string/app_name" />
@@ -55,30 +55,30 @@
         </activity>
         -->
         <activity
-            android:screenOrientation="portrait"
             android:name=".common.test.ChartActivity"
-            android:label="@string/title_activity_chart" />
+            android:label="@string/title_activity_chart"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
             android:name=".ui.activity.admin.LockActivity"
             android:label="@string/title_activity_lock"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
             android:name=".common.test.TestActivity"
-            android:label="@string/title_activity_test" />
+            android:label="@string/title_activity_test"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
             android:name=".ui.activity.main.apply.ApplyActivity"
-            android:label="@string/title_activity_t9_tn" />
+            android:label="@string/title_activity_t9_tn"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
             android:name=".ui.activity.main.my.ChangeDataActivity"
-            android:label="@string/title_activity_change_data" />
+            android:label="@string/title_activity_change_data"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.main.home.NewMemberActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_fresh" />
+            android:label="@string/title_activity_fresh"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.main.my.business.BusinessActivity"
             android:launchMode="singleTop" />
@@ -106,6 +106,10 @@
         <activity
             android:name=".ui.activity.main.apply.ContestApplyActivity"
             android:label="@string/title_activity_contest_apply" >
+        </activity>
+        <activity
+            android:name=".ui.activity.main.popularize.PopularizeActivity"
+            android:label="@string/title_activity_popularize" >
         </activity>
     </application>
 

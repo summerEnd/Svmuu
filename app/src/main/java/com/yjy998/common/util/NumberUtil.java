@@ -21,4 +21,11 @@ public class NumberUtil {
         }
         return money;
     }
+    public static float getFloat(String number){
+        try {
+            return Float.parseFloat(number);
+        } catch (NumberFormatException e) {
+            return 0f;
+        }
+    }
 }

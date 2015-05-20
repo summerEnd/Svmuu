@@ -27,7 +27,7 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
     ContractDetail contract;
 
     BaseFragment[] fragments = new BaseFragment[5];
-    private ViewPager pager;
+    public ViewPager pager;
     FileObjectCache cache;
 
     @Override
@@ -171,5 +171,10 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
         if (cache != null) {
             cache.clear();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -246,4 +246,6 @@
     <string name="title_activity_contest_apply">ContestApplyActivity</string>
     <string name="i_want_op">我要操盘</string>
     <string name="usable_s_money">账户可用余额：%s易宝</string>
+    <string name="title_activity_popularize">PopularizeActivity</string>
+    <string name="s_yuan">%s元</string>
 </resources>

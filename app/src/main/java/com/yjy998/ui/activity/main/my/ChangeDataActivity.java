@@ -78,7 +78,6 @@ public class ChangeDataActivity extends SecondActivity {
         handPasswordText.setOnClickListener(this);
         avatarImage.setOnClickListener(this);
         refresh();
-
     }
 
     void refresh() {

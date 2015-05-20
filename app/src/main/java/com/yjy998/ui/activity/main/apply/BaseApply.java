@@ -24,7 +24,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
 
 
     protected final int W = 10000;
-    private int[] DATA = new int[]{
+    protected int[] DATA = new int[]{
             5000, W, 3 * W, 5 * W, 10 * W, 20 * W,
             30 * W, 50 * W, 80 * W, 100 * W, 150 * W, 200 * W
     };
@@ -37,6 +37,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
     private TextView keepText;
     private TextView payAmount;
     private TextView pingCangSummary;
+    int total = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,7 +76,12 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
         payAmount = (TextView) findViewById(R.id.payAmount);
 
         //初始化数据
+        int dataLength = DATA.length;
         for (int i = 0; i < items.length; i++) {
+
+            if (i >= dataLength) {
+                break;
+            }
             items[i] = new Item();
             items[i].amount = DATA[i];
             if (DATA[i] < W) {
@@ -103,13 +109,13 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                         return;
                     }
                 }
-                new PayDialog(getActivity()).setCallback(new PayDialog.Callback() {
+
+                new PayDialog(getActivity(), payAmount.getTag() + "").setCallback(new PayDialog.Callback() {
                     @Override
                     public void onPay(String password, String rsa_password) {
                         SRequest request = new SRequest("http://www.yjy998.com/contract/apply");
                         request.put("apply_type", getType());//TN或T9
-                        Object tag = payAmount.getTag();
-                        request.put("deposit_amount", tag);//总金额
+                        request.put("deposit_amount", total);//总金额
                         request.put("pay_pwd", password);//支付密码
                         request.put("prev_store", 1);
                         request.put("pro_id", getPro_id());
@@ -147,6 +153,12 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
         int index = group * 6;
         for (int i = 0; i < circle.length; i++) {
             Item item = items[i + index];
+            if (item == null) {
+                circle[i].setVisibility(View.INVISIBLE);
+                continue;
+            }
+            circle[i].setVisibility(View.VISIBLE);
+
             circle[i].setBoldText(item.boldText);
             circle[i].setNormalText(item.normalText);
             if (item.isSelected) {
@@ -158,7 +170,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
     }
 
     void setData(int total) {
-
+        this.total = total;
         float fee = total * 0.098f / 100f;//管理费：按天收取，周末节假日免费
         float keep = getKeep(total);
         float rate = getRate(total);
@@ -170,10 +182,11 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
         keepText.setText(keep + "");
         pingCangText.setText(pingCang + "");
         payAmount.setText("￥" + pay);
-        payAmount.setTag(total);
+        payAmount.setTag(pay);
         pingCangSummary.setText(getString(R.string.pingCangSummary_f, rate));
 
     }
+
 
     /**
      * 平仓线 = 操盘保证金 * rate+ 配资金额
@@ -213,6 +226,9 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
             int index = currentGroup * 6;
             for (int i = 0; i < circle.length; i++) {
                 Item item = items[i + index];
+                if (item == null) {
+                    continue;
+                }
                 if (circle[i] == v) {
                     item.isSelected = true;
                     setData(item.amount);

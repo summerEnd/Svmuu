@@ -16,6 +16,7 @@ import com.yjy998.R;
 import com.yjy998.common.adapter.ContestListAdapter;
 import com.yjy998.common.adapter.FragmentPagerAdapter;
 import com.yjy998.common.entity.Contest;
+import com.yjy998.common.entity.ContractDetail;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
@@ -23,6 +24,7 @@ import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.base.BaseListFragment;
 import com.yjy998.ui.activity.main.apply.ApplyActivity;
 import com.yjy998.ui.activity.main.apply.ContestApplyActivity;
+import com.yjy998.ui.activity.main.my.ContractInfoActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -110,8 +112,8 @@ public class ContestFragment extends BaseFragment implements ViewPager.OnPageCha
     private class OnMyGameListClick implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            startActivity(new Intent(view.getContext(), ApplyActivity.class)
-                    .putExtra(ContestApplyActivity.EXTRA_CONTEST, myGameAdapter.getData().get(position)));
+            startActivity(new Intent(view.getContext(), ContractInfoActivity.class)
+                    .putExtra(ContractInfoActivity.EXTRA_CONTRACT_NO,myGameAdapter.getData().get(position).id));
         }
     }
 

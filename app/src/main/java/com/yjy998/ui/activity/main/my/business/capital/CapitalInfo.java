@@ -268,8 +268,12 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
     /**
      * 获取数量
      */
-    public String getQuantity() {
-        return amountEdit.getText().toString();
+    public int getQuantity() {
+        try {
+            return Integer.parseInt(amountEdit.getText().toString());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 
     public Stock getStock() {

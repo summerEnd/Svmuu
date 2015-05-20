@@ -20,6 +20,7 @@ public class Contest implements Serializable {
     public int type;
 
     public String contest_type;
+    public String prodId;
 
     //老师圈号
     public String teachId;
