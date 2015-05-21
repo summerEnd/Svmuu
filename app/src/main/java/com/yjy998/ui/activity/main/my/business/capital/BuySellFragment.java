@@ -33,7 +33,7 @@ import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.admin.LoginDialog;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.main.my.business.BusinessActivity;
-import com.yjy998.ui.pop.PayDialog;
+import com.yjy998.ui.activity.pay.PayDialog;
 import com.yjy998.ui.pop.YAlertDialog;
 import com.yjy998.ui.pop.YProgressDialog;
 import com.yjy998.ui.view.RoundButton;
@@ -211,6 +211,11 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
      */
     private void showContractInfo(int position) {
         ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
+
+        if (myContracts == null || position >= myContracts.size()) {
+            return;
+        }
+
         Contract contract = myContracts.get(position);
         contractText.setText(getString(R.string.contract_s1_s2, contract.contract_type, contract.id));
         setContractLocal(null);
@@ -374,7 +379,9 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
     }
 
     public void getHoldings(String contract_no) {
-
+        if (getActivity() == null) {
+            return;
+        }
         SRequest request = new SRequest("http://www.yjy998.com/stock/hold");
         request.put("contract_no", contract_no);
         YHttpClient.getInstance().get(getActivity(), request, new YHttpHandler(false) {

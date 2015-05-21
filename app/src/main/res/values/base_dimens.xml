@@ -14,6 +14,7 @@
     <dimen name="text_28px">17.5sp</dimen>
     <dimen name="text_30px">20sp</dimen>
     <dimen name="text_34px">21sp</dimen>
+    <dimen name="text_45px">30sp</dimen>
 
 
     <dimen name="dimen_pop_btnHeight">@dimen/dimen_72px</dimen>
@@ -22,6 +23,7 @@
     <!--确定的-->
     <dimen name="dimen_540px">300dp</dimen>
     <dimen name="dimen_414px">230dp</dimen>
+    <dimen name="dimen_360px">200dp</dimen>
     <dimen name="dimen_270px">150dp</dimen>
     <dimen name="dimen_210px">116.7dp</dimen>
     <dimen name="dimen_180px">100dp</dimen>
@@ -49,4 +51,5 @@
     <dimen name="dimen_11px">6.1dp</dimen>
     <dimen name="dimen_10px">5.5dp</dimen>
     <dimen name="dimen_8px">4dp</dimen>
+    <dimen name="_dimen_180px">-100dp</dimen>
 </resources>

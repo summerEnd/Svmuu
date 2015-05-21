@@ -232,7 +232,7 @@
 
             <ImageView
                 style="@style/mainMenuClickItemIconStyle"
-                android:src="@drawable/s_left_about" />
+                android:src="@drawable/s_left_popularize" />
 
             <TextView
                 style="@style/mainMenuClickItemTextStyle"

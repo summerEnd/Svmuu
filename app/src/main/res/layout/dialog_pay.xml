@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/dialog_padding_vertical"
     android:paddingBottom="@dimen/dialog_padding_vertical"
-    tools:context="com.yjy998.ui.pop.PayDialog">
+    tools:context="com.yjy998.ui.activity.pay.PayDialog">
 
     <TextView
         android:textColor="@color/textColorGray"

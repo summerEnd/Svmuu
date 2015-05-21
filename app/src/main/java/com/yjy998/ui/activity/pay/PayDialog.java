@@ -1,4 +1,4 @@
-package com.yjy998.ui.pop;
+package com.yjy998.ui.activity.pay;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -7,10 +7,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.sp.lib.widget.input.PasswordEdit;
+import com.sp.lib.common.support.net.client.SRequest;
+import com.sp.lib.common.util.JsonUtil;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.common.entity.Assent;
+import com.yjy998.common.entity.User;
+import com.yjy998.common.entity.UserInfo;
+import com.yjy998.common.http.Response;
+import com.yjy998.common.http.YHttpClient;
+import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.common.util.RSAUtil;
 
 public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.Callback {
@@ -50,9 +56,14 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
         cancel = findViewById(R.id.cancelBtn);
         cancel.setOnClickListener(this);
         confirmBtn.setOnClickListener(this);
-        Assent assent = AppDelegate.getInstance().getUser().assent;
+        refresh();
+        getUserInfo();
+    }
 
-        accountText.setText(assent.name);
+    void refresh() {
+        Assent assent = AppDelegate.getInstance().getUser().assent;
+        UserInfo userInfo = AppDelegate.getInstance().getUser().userInfo;
+        accountText.setText(userInfo.phone);
 
         moneyText.setText(getContext().getString(R.string.s_yuan, price));
         if (assent == null) {
@@ -105,4 +116,22 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
     public interface Callback {
         public void onPay(String password, String rsa_password);
     }
+
+    void getUserInfo() {
+        SRequest request = new SRequest();
+
+        YHttpClient.getInstance().getByMethod(getContext(), "/h5/account/assentinfo", request, new YHttpHandler() {
+            @Override
+            protected void onStatusCorrect(Response response) {
+                AppDelegate.getInstance().setUser(JsonUtil.get(response.data, User.class));
+                refresh();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+            }
+        });
+    }
+
 }

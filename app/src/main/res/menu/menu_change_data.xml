@@ -1,8 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.yjy998.ui.activity.main.my.ChangeDataActivity">
+    <!--todo 如果发布要隐藏debug-->
+    <item
+        android:id="@+id/debug"
+        android:title="@string/diary"
+        android:visible="true"
+        android:showAsAction="ifRoom"/>
+
     <item
         android:id="@+id/action_done"
         android:title="@string/action_save"
         android:showAsAction="always" />
+
 </menu>

@@ -27,8 +27,8 @@ public class ApplyActivity extends SecondActivity {
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
 
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager());
-        adapter.add(new TNFragment());
-        adapter.add(new T9Fragment());
+        adapter.add(new TNApplyFragment());
+        adapter.add(new T9ApplyFragment());
         pager.setAdapter(adapter);
         tabStrip.setViewPager(pager);
 

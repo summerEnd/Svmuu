@@ -95,8 +95,9 @@
     <string name="introduce">玩法介绍</string>
     <string name="change_group">换组金额</string>
     <string name="countCapital__">平台累计配资：</string>
-    <string name="myContest_d">我的大赛(%d)</string>
-    <string name="myContract_d">当前合约(%d)</string>
+    <string name="myContest_d">我的大赛（%d）</string>
+    <string name="myPopularize_d">我的推广（%d）</string>
+    <string name="myContract_d">当前合约（%d）</string>
     <string name="help_info">常见问题</string>
     <string name="title_activity_change_data">ChangeData</string>
     <string name="gender">性别</string>
@@ -248,4 +249,12 @@
     <string name="usable_s_money">账户可用余额：%s易宝</string>
     <string name="title_activity_popularize">PopularizeActivity</string>
     <string name="s_yuan">%s元</string>
+    <string name="diary">日志</string>
+    <string name="invite_friend">邀请好友</string>
+    <string name="act_introduce">活动说明</string>
+    <string name="income_flow">收益流水</string>
+    <string name="total_s_people">累计邀请：%s人</string>
+    <string name="title_activity_invite_friends">InviteFriends</string>
+    <string name="my_zx_code">我的二维码</string>
+    <string name="invite_friends">邀请好友</string>
 </resources>

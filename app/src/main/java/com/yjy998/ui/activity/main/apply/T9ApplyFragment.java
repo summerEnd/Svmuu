@@ -1,7 +1,7 @@
 package com.yjy998.ui.activity.main.apply;
 
 
-public class T9Fragment extends BaseApply {
+public class T9ApplyFragment extends BaseApply {
 
     @Override
     public float getRate(int total) {

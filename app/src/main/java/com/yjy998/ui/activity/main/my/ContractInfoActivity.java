@@ -17,7 +17,7 @@ import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.main.my.business.BusinessActivity;
 import com.yjy998.ui.activity.base.SecondActivity;
 import com.yjy998.ui.pop.AppendCapitalDialog;
-import com.yjy998.ui.pop.PayDialog;
+import com.yjy998.ui.activity.pay.PayDialog;
 import com.yjy998.ui.pop.YProgressDialog;
 
 public class ContractInfoActivity extends SecondActivity implements DialogInterface.OnDismissListener, PayDialog.Callback {

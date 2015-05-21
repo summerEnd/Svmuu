@@ -3,7 +3,7 @@ package com.yjy998.ui.activity.main.apply;
 
 import android.view.View;
 
-public class TNFragment extends BaseApply implements View.OnClickListener {
+public class TNApplyFragment extends BaseApply implements View.OnClickListener {
 
 
     public float getRate(int total) {

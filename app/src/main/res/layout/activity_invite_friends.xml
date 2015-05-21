@@ -1,0 +1,120 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="com.yjy998.ui.activity.main.popularize.InviteFriends">
+
+        <ImageView
+            android:id="@+id/topImage"
+            android:src="@drawable/popularize_bg"
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            android:layout_height="@dimen/dimen_270px" />
+        <!--todo 给下面这个加上   android:translationY="@dimen/_dimen_180px"
+        -->
+        <LinearLayout
+            android:layout_below="@+id/topImage"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:translationY="@dimen/_dimen_180px"
+
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="@dimen/dimen_30px"
+            android:paddingRight="@dimen/dimen_30px"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/codeImage"
+                android:layout_width="@dimen/dimen_270px"
+                android:src="@drawable/test_code"
+                android:layout_height="@dimen/dimen_270px" />
+
+            <TextView
+                android:layout_marginTop="@dimen/dimen_11px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_30px"
+                android:textColor="@color/textColorBlack"
+                android:text="@string/my_zx_code" />
+
+            <TextView
+                android:textColor="@color/textColorDeepGray"
+                android:textSize="@dimen/text_20px"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/dimen_30px"
+                android:layout_height="wrap_content"
+                android:text="推荐好友扫描二维码注册易交易" />
+
+            <TextView
+                android:textColor="@color/textColorDeepGray"
+                android:textSize="@dimen/text_20px"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/dimen_11px"
+                android:layout_height="wrap_content"
+                android:text="与好友建立持久推荐关系获取推荐收益" />
+
+            <TextView
+                android:layout_marginTop="@dimen/dimen_30px"
+                android:textSize="@dimen/text_28px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textColorBlack"
+                android:text="我的邀请链接：" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/url"
+                    android:layout_width="@dimen/dimen_360px"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:padding="@dimen/dimen_15px"
+                    android:text="http://www.baidu.com"
+                    android:textColor="@color/textColorDeepGray"
+                    android:background="@drawable/gray_frame" />
+
+                <TextView
+                    android:id="@+id/copy"
+                    android:layout_marginLeft="@dimen/dimen_36px"
+                    android:textColor="@color/textColorDeepGray"
+                    android:textSize="@dimen/text_20px"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:drawableTop="@drawable/ic_copy"
+                    android:layout_height="wrap_content"
+                    android:text="复制" />
+
+                <TextView
+                    android:id="@+id/share"
+                    android:drawableTop="@drawable/ic_share"
+                    android:textColor="@color/textColorDeepGray"
+                    android:textSize="@dimen/text_20px"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/dimen_36px"
+                    android:layout_height="wrap_content"
+                    android:text="分享" />
+            </LinearLayout>
+
+            <TextView
+                android:textColor="@color/textColorDeepGray"
+                android:textSize="@dimen/text_20px"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dimen_11px"
+                android:layout_height="wrap_content"
+                android:text="赶紧邀请朋友加入易交易吧，易友！" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>

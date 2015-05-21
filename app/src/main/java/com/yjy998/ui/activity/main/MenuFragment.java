@@ -24,6 +24,7 @@ import com.yjy998.ui.activity.main.apply.ApplyActivity;
 import com.yjy998.ui.activity.main.my.ChangeDataActivity;
 import com.yjy998.ui.activity.main.my.business.BusinessActivity;
 import com.yjy998.ui.activity.base.BaseFragment;
+import com.yjy998.ui.activity.main.popularize.PopularizeActivity;
 import com.yjy998.ui.activity.pay.RechargeActivity;
 
 public class MenuFragment extends BaseFragment implements View.OnClickListener {
@@ -167,7 +168,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 break;
             }
             case R.id.popularize: {
-
+                startActivity(new Intent(getActivity(), PopularizeActivity.class));
                 break;
             }
         }

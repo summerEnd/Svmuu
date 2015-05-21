@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         style="@style/verticalMargin"
         android:orientation="vertical"
-        tools:context="com.yjy998.ui.activity.main.apply.TNFragment">
+        tools:context="com.yjy998.ui.activity.main.apply.TNApplyFragment">
         <!--圆形-->
         <LinearLayout
             style="@style/horizontalMargin"

@@ -1,18 +1,15 @@
 package com.yjy998.ui.activity.main.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.yjy998.R;
-import com.yjy998.common.entity.Contest;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.base.SecondActivity;
-import com.yjy998.ui.activity.main.apply.ContestApplyActivity;
-import com.yjy998.ui.pop.PayDialog;
+import com.yjy998.ui.activity.pay.PayDialog;
 
 public class NewMemberActivity extends SecondActivity {
 

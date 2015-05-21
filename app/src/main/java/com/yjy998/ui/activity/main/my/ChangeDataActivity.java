@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.sp.lib.activity.DEBUGActivity;
 import com.sp.lib.activity.dialog.ListDialog;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ImageUtil;
@@ -123,6 +124,10 @@ public class ChangeDataActivity extends SecondActivity {
         switch (item.getItemId()) {
             case R.id.action_done: {
                 updateInfo();
+                return true;
+            }
+            case R.id.debug: {
+                startActivity(new Intent(this, DEBUGActivity.class));
                 return true;
             }
             default:

@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="vertical"
-       >
+        android:orientation="vertical">
 
         <include layout="@layout/layout_msg" />
 
@@ -168,5 +167,23 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/center_item_height" />
 
+        <TextView
+            android:id="@+id/popularizeAmount"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/homeLogined_pd_horizontal"
+            android:paddingRight="@dimen/homeLogined_pd_horizontal"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:text="我的推广（%d）"
+            android:background="#EEEEEE"
+            android:textColor="@color/textColorBlack"
+            android:textSize="@dimen/text_24px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/popImage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_270px"
+            android:src="@drawable/center_popularize_image"/>
     </LinearLayout>
 </ScrollView>

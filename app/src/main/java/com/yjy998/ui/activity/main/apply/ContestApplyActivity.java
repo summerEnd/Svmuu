@@ -1,8 +1,6 @@
 package com.yjy998.ui.activity.main.apply;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.yjy998.R;
@@ -32,7 +30,7 @@ public class ContestApplyActivity extends SecondActivity {
     }
 
 
-    public static class ContestApply extends TNFragment {
+    public static class ContestApply extends TNApplyFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);

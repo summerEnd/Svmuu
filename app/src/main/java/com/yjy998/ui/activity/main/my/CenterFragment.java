@@ -26,6 +26,7 @@ import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.main.my.business.BusinessActivity;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.base.MenuActivity;
+import com.yjy998.ui.activity.main.popularize.PopularizeActivity;
 import com.yjy998.ui.activity.pay.RechargeActivity;
 import com.yjy998.ui.view.TwoTextItem;
 
@@ -43,6 +44,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
     private TextView caopanTicketsText;
     private TextView contractAmount;
     private TextView contestAmount;
+    private TextView popularizeAmount;
     private ViewPager contractPager;
     private ViewPager gamePager;
 
@@ -86,6 +88,10 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
                 startActivity(new Intent(getActivity(), RechargeActivity.class));
                 break;
             }
+            case R.id.popImage: {
+                startActivity(new Intent(getActivity(), PopularizeActivity.class));
+                break;
+            }
         }
     }
 
@@ -107,10 +113,12 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
         caopanTicketsText = (TextView) findViewById(R.id.caopanTicketsText);
         contractAmount = (TextView) findViewById(R.id.contractAmount);
         contestAmount = (TextView) findViewById(R.id.contestAmount);
+        popularizeAmount = (TextView) findViewById(R.id.popularizeAmount);
         telText.setOnClickListener(this);
         findViewById(R.id.buyIn).setOnClickListener(this);
         findViewById(R.id.sellOut).setOnClickListener(this);
         findViewById(R.id.recharge).setOnClickListener(this);
+        findViewById(R.id.popImage).setOnClickListener(this);
         contractPager = (ViewPager) findViewById(R.id.contractPager);
         gamePager = (ViewPager) findViewById(R.id.gamePager);
         refresh();
@@ -118,7 +126,9 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-        refresh();
+        if (!hidden) {
+            refresh();
+        }
     }
 
     public void refresh() {
@@ -152,6 +162,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
         ArrayList<Contest> myContests = AppDelegate.getInstance().getUser().myContests;
         contestAmount.setText(getString(R.string.myContest_d, myContests != null ? myContests.size() : 0));
         contractAmount.setText(getString(R.string.myContract_d, myContracts != null ? myContracts.size() : 0));
+        popularizeAmount.setText(getString(R.string.myPopularize_d, myContracts != null ? myContracts.size() : 0));
         contractPager.setAdapter(new ContractPagerAdapter(myContracts));
         gamePager.setAdapter(new ContestPagerAdapter(myContests));
 

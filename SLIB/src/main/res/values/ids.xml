@@ -22,4 +22,6 @@
 
     <item name="NotifyCationId_1" type="id"/>
     <item name="NotifyCationId_2" type="id"/>
+
+    <item name="slib_position" type="id"/>
 </resources>

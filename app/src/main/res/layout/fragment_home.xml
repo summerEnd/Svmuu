@@ -13,6 +13,7 @@
 
         <include layout="@layout/layout_msg" />
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:padding="@dimen/activity_horizontal_margin"
@@ -35,8 +36,14 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
+        <com.sp.lib.widget.pager.BannerPager
+            android:id="@+id/bannerPager"
+            android:layout_width="match_parent"
+            android:layout_height="120dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dimen_15px"
             android:layout_height="@dimen/dimen_414px"
             android:orientation="vertical"
             android:weightSum="2">

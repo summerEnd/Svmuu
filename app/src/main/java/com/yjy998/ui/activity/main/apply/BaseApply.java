@@ -16,7 +16,7 @@ import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.base.YJYActivity;
 import com.yjy998.ui.activity.main.more.WebViewActivity;
-import com.yjy998.ui.pop.PayDialog;
+import com.yjy998.ui.activity.pay.PayDialog;
 import com.yjy998.ui.view.CircleItem;
 
 
@@ -121,6 +121,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                         request.put("pro_id", getPro_id());
                         request.put("pro_term", "2");
                         request.put("trade_pwd", rsa_password);//交易密码
+                        request.put("source_param", "android");//交易密码
 
                         YHttpClient.getInstance().post(request, new YHttpHandler() {
                             @Override

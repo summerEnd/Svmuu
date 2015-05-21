@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="1dp"
+    android:layout_width="match_parent"
+    android:background="@drawable/clicked_white"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/dimen_8px"
+    android:paddingBottom="@dimen/dimen_8px"
+    android:orientation="horizontal">
+
+    <TextView
+        style="@style/popularizeText1.weight.listStyle"
+        android:text="老王" />
+
+    <TextView
+        style="@style/popularizeText1.weight.listStyle"
+        android:text="12-31" />
+
+    <TextView
+        style="@style/popularizeText1.weight.listStyle"
+        android:layout_weight="1.2"
+        android:singleLine="true"
+        android:text="到隔壁参加比赛隔壁参加比赛隔壁参加比赛" />
+
+    <TextView
+        style="@style/popularizeText1.weight.listStyle"
+        android:text="100,000,000" />
+
+    <TextView
+        style="@style/popularizeText1.weight.listStyle"
+        android:text="100,000,000" />
+</LinearLayout>

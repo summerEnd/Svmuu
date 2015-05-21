@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sp.lib.common.support.net.client.SRequest;
+import com.sp.lib.widget.pager.BannerPager;
+import com.sp.lib.widget.pager.TransformerB;
+import com.sp.lib.widget.pager.TransformerC;
 import com.yjy998.R;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
@@ -18,15 +21,28 @@ import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.main.apply.ApplyActivity;
 
+import java.util.ArrayList;
+
 /**
  * 首页
  */
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
+    private ArrayList<String> images = new ArrayList<String>();
+
+    {
+        //todo 换成真实图片
+        images.add("http://www.yjy998.com/img/index/slider1.jpg");
+        images.add("http://www.yjy998.com/img/index/slider2.jpg");
+        images.add("http://www.yjy998.com/img/index/slider3.jpg");
+        images.add("http://a.hiphotos.baidu.com/image/pic/item/eaf81a4c510fd9f9f7604cfb272dd42a2834a428.jpg");
+        images.add("http://e.hiphotos.baidu.com/image/pic/item/1b4c510fd9f9d72abcb25402d62a2834359bbbdf.jpg");
+    }
 
     private TextView capitalText;
     private View layout;
     private HomeListener mCallback;
+    private BannerPager bannerPager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +60,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void initialize() {
 
         capitalText = (TextView) findViewById(R.id.capitalText);
-
+        bannerPager = (BannerPager) findViewById(R.id.bannerPager);
+        bannerPager.setImageUrls(images);
+        bannerPager.setTransformer(new TransformerB(images.size()));
+        bannerPager.start();
         findViewById(R.id.realGame).setOnClickListener(this);
         findViewById(R.id.newMember).setOnClickListener(this);
         findViewById(R.id.myGame).setOnClickListener(this);
