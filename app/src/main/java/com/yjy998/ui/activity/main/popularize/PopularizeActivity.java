@@ -1,40 +1,34 @@
 package com.yjy998.ui.activity.main.popularize;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.yjy998.R;
+import com.yjy998.common.adapter.PopularizeAdapter;
+import com.yjy998.common.entity.Popularize;
+import com.yjy998.ui.activity.base.SecondActivity;
 
-public class PopularizeActivity extends Activity {
+import java.util.ArrayList;
+
+public class PopularizeActivity extends SecondActivity {
+
+    private PopularizeView content;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popularize);
+        initialize();
+    }
+
+    private void initialize() {
+        content = (PopularizeView) findViewById(R.id.content);
+        listView = content.getListView();
+        PopularizeAdapter adapter = new PopularizeAdapter(this, new ArrayList<Popularize>());
+        adapter.setTestCount(30);
+        listView.setAdapter(adapter);
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_popularize, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
