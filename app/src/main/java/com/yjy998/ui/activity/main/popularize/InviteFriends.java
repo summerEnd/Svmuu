@@ -8,15 +8,19 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sp.lib.common.support.IntentFactory;
+import com.sp.lib.common.support.net.client.SRequest;
+import com.sp.lib.common.util.BarCodeUtil;
 import com.yjy998.R;
+import com.yjy998.common.http.Response;
+import com.yjy998.common.http.YHttpClient;
+import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.base.SecondActivity;
 
 public class InviteFriends extends SecondActivity {
 
     private ImageView topImage;
     private ImageView codeImage;
-    private TextView url;
+    private TextView urlText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +33,10 @@ public class InviteFriends extends SecondActivity {
 
         topImage = (ImageView) findViewById(R.id.topImage);
         codeImage = (ImageView) findViewById(R.id.codeImage);
-        url = (TextView) findViewById(R.id.url);
+        urlText = (TextView) findViewById(R.id.url);
         findViewById(R.id.copy).setOnClickListener(this);
         findViewById(R.id.share).setOnClickListener(this);
+        getInviteUrl();
     }
 
     @Override
@@ -39,7 +44,7 @@ public class InviteFriends extends SecondActivity {
         switch (v.getId()) {
             case R.id.copy: {
                 ClipboardManager manager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                ClipData data = ClipData.newPlainText("label", url.getText().toString());
+                ClipData data = ClipData.newPlainText("label", urlText.getText().toString());
                 manager.setPrimaryClip(data);
                 break;
             }
@@ -48,10 +53,22 @@ public class InviteFriends extends SecondActivity {
                 intent.setType("text/plain"); // 分享发送的数据类型
                 //        intent.setPackage(context.getPackageName());
                 intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.invite_friends)); // 分享的主题
-                intent.putExtra(Intent.EXTRA_TEXT, url.getText().toString()); // 分享的内容
+                intent.putExtra(Intent.EXTRA_TEXT, urlText.getText().toString()); // 分享的内容
                 startActivity(Intent.createChooser(intent, getString(R.string.invite_friends)));
                 break;
             }
         }
+    }
+
+    void getInviteUrl() {
+        SRequest request = new SRequest("http://mobile.yjy998.com/h5/account/getinvitedurl");
+        YHttpClient.getInstance().post(request, new YHttpHandler() {
+            @Override
+            protected void onStatusCorrect(Response response) {
+                String url = response.data;
+                codeImage.setImageBitmap(new BarCodeUtil().create(url, 400, 400));
+                urlText.setText(url);
+            }
+        });
     }
 }

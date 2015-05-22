@@ -12,8 +12,12 @@ public class SLog {
     }
 
     public static final void debug(Object value) {
+        log(TAG, String.valueOf(value));
+    }
+
+    public static void log(String tag, String value) {
         if (SApplication.DEBUG) {
-            Log.d(TAG, String.valueOf(value));
+            Log.d(tag, String.valueOf(value));
         }
     }
 }

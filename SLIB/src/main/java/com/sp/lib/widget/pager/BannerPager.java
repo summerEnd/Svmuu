@@ -1,7 +1,6 @@
 package com.sp.lib.widget.pager;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.os.Message;
@@ -25,13 +24,12 @@ import com.sp.lib.widget.slide.transform.Transformer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class BannerPager extends FrameLayout implements RadioGroup.OnCheckedChangeListener {
     private ViewPager pager;
     private RadioGroup dotRadioGroup;
     private List<String> imageUrls;
-    private int dotDrawable = R.drawable.banner_dot;
+    private int dotDrawable = R.drawable.indicator_dot;
     private BannerClickListener mBannerClickListener;
     private Timer timer;
     private Transformer transformer;

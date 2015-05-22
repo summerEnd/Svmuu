@@ -90,7 +90,7 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (layout != null) {
-            //ViewPager会摧毁View
+            //ViewPager会摧毁View,导致重复调用这个方法
             ((ViewGroup) layout.getParent()).removeView(layout);
         } else {
             layout = inflater.inflate(R.layout.fragment_capital, null);
@@ -177,13 +177,7 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
             }
             case R.id.chooseContract: {
 
-                if (!AppDelegate.getInstance().isUserLogin()) {
-                    YAlertDialog.show(getActivity(), getString(R.string.please_login_first)).setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            new LoginDialog(getActivity()).show();
-                        }
-                    });
+                if (observer.showLoginDialogIfNeed()) {
                     return;
                 }
 
@@ -213,12 +207,13 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
 
         if (myContracts == null || position >= myContracts.size()) {
+            contractText.setText(R.string.no_contract_);
             return;
         }
 
         Contract contract = myContracts.get(position);
+        setContractLocal(null);//清空之前的数据
         contractText.setText(getString(R.string.contract_s1_s2, contract.contract_type, contract.id));
-        setContractLocal(null);
         refreshInternal(contract.id);
     }
 
@@ -245,13 +240,14 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
             return;
         }
 
+        //获取合约详情
         SRequest request = new SRequest("http://mobile.yjy998.com/h5/account/contractinfo");
         request.put("contract_no", contract_id);
         YHttpClient.getInstance().get(request, new YHttpHandler(true) {
             @Override
             protected void onStatusCorrect(Response response) {
                 ContractDetail detail = JsonUtil.get(response.data, ContractDetail.class);
-                observer.saveContract(detail);
+                observer.saveContract(detail);//保存到缓存
                 notifyContractChange(detail);
                 getHoldings(contract_id);
             }
@@ -298,7 +294,6 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
 
     /**
      * 买入卖出
-     * 参数：contract_no（合约id），raw_pwd（未加密支付密码），pay_pwd，stock_code（股票代码），stock_name（股票名），buy_price（买入价格），buy_quantity（买入数量），exchange_type（交易所类型：1，2）
      */
     public void beginTrade() {
         if (observer.showLoginDialogIfNeed()) {
@@ -331,6 +326,7 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         payDialog.setCallback(new PayDialog.Callback() {
             @Override
             public void onPay(String password, String rsa_password) {
+                //根据是否为买入来设置请求的url
                 String url = isBuy ? "http://www.yjy998.com/stock/buystock" : "http://www.yjy998.com/stock/sellstock";
                 SRequest request = new SRequest(url);
                 ContractDetail detail = observer.getSharedContract();
@@ -342,7 +338,7 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
                 request.put("stock_name", stock.stockName);
                 request.put("buy_price", stock.entrust_price);
                 request.put("buy_quantity", quantity);
-                request.put("exchange_type", stock.exchangeType);
+                request.put("exchange_type", stock.exchangeType);//交易所类型：1，2
                 YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler() {
                     @Override
                     protected void onStatusCorrect(Response response) {
@@ -368,6 +364,11 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         refreshInternal(observer.getContractId());
     }
 
+    /**
+     * 调用网络接口获取数据
+     *
+     * @param contractId
+     */
     private void refreshInternal(String contractId) {
         if (!TextUtils.isEmpty(contractId)) {
             getContractInfo(contractId);
@@ -378,6 +379,9 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
+    /**
+     * 获取持仓列表
+     */
     public void getHoldings(String contract_no) {
         if (getActivity() == null) {
             return;
@@ -407,18 +411,39 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
     }
 
     public static interface ContractObserver {
+        /**
+         * 获取五个fragment共享的合约
+         */
         public ContractDetail getSharedContract();
 
+        /**
+         * 将合约设置到共享里，主要是为了五个fragment共享
+         */
         public void setContract(ContractDetail contract);
 
+        /**
+         * 共享的股票代码
+         */
         public String getStockCode();
 
+        /**
+         * 当前共享的合约的Id
+         */
         public String getContractId();
 
+        /**
+         * 根据合约id从缓存中读取合约
+         */
         public Object readContractFromCache(String contract_id);
 
+        /**
+         * 将合约详情缓存到本地
+         */
         public Object saveContract(ContractDetail detail);
 
+        /**
+         * 如果没登录，就会弹出登录
+         */
         public boolean showLoginDialogIfNeed();
     }
 }

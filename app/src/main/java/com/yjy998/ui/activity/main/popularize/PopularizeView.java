@@ -14,17 +14,22 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sp.lib.widget.list.refresh.PullToRefreshBase;
+import com.sp.lib.widget.list.refresh.PullToRefreshListView;
 import com.yjy998.R;
 import com.yjy998.ui.activity.main.more.WebViewActivity;
+
+import static com.sp.lib.widget.list.refresh.PullToRefreshBase.OnRefreshListener;
 
 public class PopularizeView extends LinearLayout implements ListView.OnScrollListener {
     private ListView mListView;//列表
     private View floatLayout;//漂浮的标题
     private View headView;//listView的Head
     private View headBar;//headView中的标题栏
-    private TextView integerText;//整数部分
-    private TextView floatText;//小数部分
-    private TextView invitePeople;//累计邀请人数
+    public TextView integerText;//整数部分
+    public TextView floatText;//小数部分
+    public TextView invitePeople;//累计邀请人数
+    public PullToRefreshListView refreshListView;
 
     public PopularizeView(Context context) {
         this(context, null);
@@ -71,12 +76,18 @@ public class PopularizeView extends LinearLayout implements ListView.OnScrollLis
 
         //漂浮title先隐藏起来
         floatLayout.setVisibility(INVISIBLE);
-        mListView = new ListView(getContext());
+        refreshListView = new PullToRefreshListView(getContext());
+        refreshListView.setPullLoadEnabled(true);
+        mListView = refreshListView.getRefreshableView();
         mListView.addHeaderView(headView);
         mListView.setOnScrollListener(this);
         mListView.setDividerHeight(2);
         mListView.setDivider(new ColorDrawable(Color.LTGRAY));
-        addView(mListView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        addView(refreshListView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+    }
+
+    public void setOnRefreshListener(OnRefreshListener listener) {
+        refreshListView.setOnRefreshListener(listener);
     }
 
     public ListView getListView() {

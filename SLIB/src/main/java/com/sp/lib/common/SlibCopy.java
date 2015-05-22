@@ -12,4 +12,10 @@ class SlibCopy {
         ActivityManager manager;
     }
 
+    /**
+     * 用来测试正则替换的，只要打开control+r就可以玩了
+     */
+    private String test =
+            "asfasdfniuasd123498z12";
+
 }

@@ -1,8 +1,12 @@
 package com.yjy998.common.test;
 
 import android.test.AndroidTestCase;
+import android.util.Log;
 
 import com.sp.lib.common.admin.RSA;
+import com.sp.lib.common.util.SLog;
+
+import java.math.BigDecimal;
 
 public class Test extends AndroidTestCase {
     private static final String TAG = "test->";
@@ -35,8 +39,39 @@ public class Test extends AndroidTestCase {
         print(str1, str7);
     }
 
+    public void testFormat() {
+        //测试用例
+        printFormat("null");
+        printFormat("");
+        printFormat("33");
+        printFormat("33.0");
+        printFormat("33.00");
+        printFormat("33.44");
+        printFormat("33.412314");
+        printFormat("33.419314");
+
+
+    }
+
+    //测试方法
+    void printFormat(String profit) {
+        int floatPart;//小数部分
+        int intPart;//整数部分
+        try {
+            BigDecimal decimal = new BigDecimal(profit);
+            intPart = decimal.intValue();
+            floatPart = (int) ((decimal.floatValue() - intPart) * 100);
+        } catch (NumberFormatException e) {
+            Log.e("FORMAT_", "Exception:" + profit);
+            intPart = 0;
+            floatPart = 0;
+        }
+        String floatStr = floatPart + "";
+
+        SLog.log("FORMAT_", String.format("before:%s after:%d.%02d", profit, intPart, floatPart));
+    }
+
     void print(String str1, String str2) {
         System.out.println(String.format(TAG + "%s compare %s=%d", str1, str2, str1.compareTo(str2)));
-
     }
 }

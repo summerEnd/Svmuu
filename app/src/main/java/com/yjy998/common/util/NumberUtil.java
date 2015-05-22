@@ -21,7 +21,11 @@ public class NumberUtil {
         }
         return money;
     }
-    public static float getFloat(String number){
+
+    /**
+     * 从字符串中解析数字，如果解析失败返回0f
+     */
+    public static float getFloat(String number) {
         try {
             return Float.parseFloat(number);
         } catch (NumberFormatException e) {

@@ -18,11 +18,10 @@
         <!--todo 给下面这个加上   android:translationY="@dimen/_dimen_180px"
         -->
         <LinearLayout
+            android:translationY="@dimen/_dimen_180px"
             android:layout_below="@+id/topImage"
             android:layout_width="match_parent"
             android:gravity="center_horizontal"
-            android:translationY="@dimen/_dimen_180px"
-
             android:layout_centerHorizontal="true"
             android:paddingLeft="@dimen/dimen_30px"
             android:paddingRight="@dimen/dimen_30px"
@@ -32,7 +31,9 @@
             <ImageView
                 android:id="@+id/codeImage"
                 android:layout_width="@dimen/dimen_270px"
+                android:background="@drawable/bar_code_bg"
                 android:src="@drawable/test_code"
+                android:padding="4dp"
                 android:layout_height="@dimen/dimen_270px" />
 
             <TextView
@@ -78,9 +79,9 @@
                     android:layout_width="@dimen/dimen_360px"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:padding="@dimen/dimen_15px"
-                    android:text="http://www.baidu.com"
                     android:textColor="@color/textColorDeepGray"
                     android:background="@drawable/gray_frame" />
 
