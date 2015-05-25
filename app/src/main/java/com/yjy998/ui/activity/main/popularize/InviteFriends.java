@@ -4,12 +4,14 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.BarCodeUtil;
+import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
@@ -44,8 +46,13 @@ public class InviteFriends extends SecondActivity {
         switch (v.getId()) {
             case R.id.copy: {
                 ClipboardManager manager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                ClipData data = ClipData.newPlainText("label", urlText.getText().toString());
-                manager.setPrimaryClip(data);
+                String text = urlText.getText().toString();
+                if (!TextUtils.isEmpty(text)){
+                    ClipData data = ClipData.newPlainText("label", text);
+                    manager.setPrimaryClip(data);
+                    ContextUtil.toast(getString(R.string.copy_ok));
+                }
+
                 break;
             }
             case R.id.share: {
@@ -62,12 +69,17 @@ public class InviteFriends extends SecondActivity {
 
     void getInviteUrl() {
         SRequest request = new SRequest("http://mobile.yjy998.com/h5/account/getinvitedurl");
-        YHttpClient.getInstance().post(request, new YHttpHandler() {
+        YHttpClient.getInstance().post(request, new YHttpHandler(false) {
             @Override
             protected void onStatusCorrect(Response response) {
                 String url = response.data;
                 codeImage.setImageBitmap(new BarCodeUtil().create(url, 400, 400));
                 urlText.setText(url);
+            }
+
+            @Override
+            protected void onStatusFailed(Response response) {
+                ContextUtil.toast(R.string.request_is_failed);
             }
         });
     }

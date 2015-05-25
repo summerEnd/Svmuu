@@ -68,7 +68,7 @@ public class PopularizeView extends LinearLayout implements ListView.OnScrollLis
                 //活动说明
                 Context context = v.getContext();
                 context.startActivity(new Intent(context, WebViewActivity.class)
-                                .putExtra(WebViewActivity.EXTRA_URL, "http://www.apple.com/cn/")
+                                .putExtra(WebViewActivity.EXTRA_URL, "http://m.yjy998.com/explain.html")
                 );
             }
         });

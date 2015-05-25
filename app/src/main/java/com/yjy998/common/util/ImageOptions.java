@@ -15,8 +15,8 @@ public class ImageOptions {
         return new DisplayImageOptions.Builder()
                 .displayer(new RoundDisplayer(radius))
                 .showImageOnFail(R.drawable.avatar)
-                .showImageForEmptyUri(new RoundDrawable(Color.BLUE, radius))
-                .showImageOnLoading(new RoundDrawable(Color.BLUE, radius))
+                .showImageForEmptyUri(R.drawable.avatar)
+                .showImageOnLoading(R.drawable.avatar)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .build();

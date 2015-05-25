@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sp.lib.R;
 import com.sp.lib.common.util.DisplayUtil;
@@ -59,7 +60,7 @@ public class BannerPager extends FrameLayout implements RadioGroup.OnCheckedChan
     }
 
     public void setTransformer(ViewPager.PageTransformer transformer) {
-        pager.setPageTransformer(false, transformer);
+        pager.setPageTransformer(true, transformer);
     }
 
 
@@ -100,6 +101,7 @@ public class BannerPager extends FrameLayout implements RadioGroup.OnCheckedChan
         dotRadioGroup.setOnCheckedChangeListener(this);
         pager.setOnPageChangeListener(new BannerPagerListener());
         ArrayList<View> views = new ArrayList<View>();
+        DisplayImageOptions imageOptions = new DisplayImageOptions.Builder().cacheOnDisk(true).build();
         for (int i = 0; i < imageUrls.size(); i++) {
             //添加RadioButton
             Context context = getContext();
@@ -122,7 +124,7 @@ public class BannerPager extends FrameLayout implements RadioGroup.OnCheckedChan
             ImageView imageView = new ImageView(getContext());
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setOnClickListener(mBannerClickListener);
-            ImageLoader.getInstance().displayImage(imageUrls.get(i), imageView);
+            ImageLoader.getInstance().displayImage(imageUrls.get(i), imageView,imageOptions);
             views.add(imageView);
         }
         dotRadioGroup.check(0);

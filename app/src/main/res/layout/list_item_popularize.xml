@@ -5,28 +5,33 @@
     android:background="@drawable/clicked_white"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/dimen_8px"
+    android:gravity="center_vertical"
     android:paddingBottom="@dimen/dimen_8px"
     android:orientation="horizontal">
 
     <TextView
+        android:id="@+id/nameText"
         style="@style/popularizeText1.weight.listStyle"
         android:text="老王" />
 
     <TextView
+        android:id="@+id/dateText"
         style="@style/popularizeText1.weight.listStyle"
         android:text="12-31" />
 
     <TextView
+        android:id="@+id/actionText"
         style="@style/popularizeText1.weight.listStyle"
         android:layout_weight="1.2"
-        android:singleLine="true"
         android:text="到隔壁参加比赛隔壁参加比赛隔壁参加比赛" />
 
     <TextView
+        android:id="@+id/tradeAmount"
         style="@style/popularizeText1.weight.listStyle"
         android:text="100,000,000" />
 
     <TextView
+        android:id="@+id/profitText"
         style="@style/popularizeText1.weight.listStyle"
         android:text="100,000,000" />
 </LinearLayout>

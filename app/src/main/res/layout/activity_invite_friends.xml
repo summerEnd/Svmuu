@@ -32,7 +32,6 @@
                 android:id="@+id/codeImage"
                 android:layout_width="@dimen/dimen_270px"
                 android:background="@drawable/bar_code_bg"
-                android:src="@drawable/test_code"
                 android:padding="4dp"
                 android:layout_height="@dimen/dimen_270px" />
 

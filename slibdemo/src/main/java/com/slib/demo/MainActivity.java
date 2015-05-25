@@ -18,5 +18,6 @@ public class MainActivity extends STestActivity {
         activities.add(AnimTest.class);
         activities.add(AutoLayoutTest.class);
         activities.add(JiHuanSongTest.class);
+        activities.add(WaveTest.class);
     }
 }

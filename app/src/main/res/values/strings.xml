@@ -254,9 +254,12 @@
     <string name="act_introduce">活动说明</string>
     <string name="income_flow">收益流水</string>
     <string name="total_s_people">累计邀请：%s人</string>
+    <string name="total_invite_people">累计邀请：0人</string>
     <string name="title_activity_invite_friends">InviteFriends</string>
     <string name="my_zx_code">我的二维码</string>
     <string name="invite_friends">邀请好友</string>
     <string name="no_contract_">没有合约</string>
     <string name="not_invite_any">还没有邀请人呦！</string>
+    <string name="manage_fee_introduce">按天收取，周末节假日免费</string>
+    <string name="copy_ok">复制成功！</string>
 </resources>

@@ -3,8 +3,6 @@ package com.sp.lib.widget.pager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.sp.lib.common.util.SLog;
-
 /**
  * 直角切换
  */
@@ -19,15 +17,9 @@ public class TransformerB implements ViewPager.PageTransformer {
      * @param degree 两张页面的夹角
      */
     public TransformerB(float degree) {
-        this.degree = 180 - degree;
+        this.degree = degree;
     }
 
-    /**
-     * 根据页数来自动计算两个页面之间的夹角
-     */
-    public TransformerB(int page) {
-        degree = 360 / page;
-    }
 
     public TransformerB() {
         degree = 90;

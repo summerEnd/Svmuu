@@ -36,5 +36,10 @@ public class TNApplyFragment extends BaseApply implements View.OnClickListener {
         return "2";
     }
 
+    @Override
+    public String getIntroduceUrl() {
+        return "http://m.yjy998.com/rules.html";
+    }
+
 
 }

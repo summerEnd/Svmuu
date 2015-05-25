@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sp.lib.common.support.net.client.SRequest;
+import com.sp.lib.common.util.ContextUtil;
 import com.yjy998.R;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
@@ -133,10 +134,14 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                 }).show();
                 break;
             }
-            case R.id.questionImage:
+            case R.id.questionImage: {
+                ContextUtil.toast(R.string.manage_fee_introduce);
+                break;
+            }
+
             case R.id.introduce: {
                 startActivity(new Intent(getActivity(), WebViewActivity.class)
-                        .putExtra(WebViewActivity.EXTRA_URL, "http://m.yjy998.com/rules.html"));
+                        .putExtra(WebViewActivity.EXTRA_URL, getIntroduceUrl()));
                 break;
             }
         }
@@ -213,6 +218,12 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
      * 获取产品id
      */
     public abstract String getPro_id();
+
+    /**
+     * 玩法介绍链接
+     * @return
+     */
+    public abstract String getIntroduceUrl();
 
     public class Item {
         private String normalText;

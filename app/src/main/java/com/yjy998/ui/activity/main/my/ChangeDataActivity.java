@@ -83,13 +83,19 @@ public class ChangeDataActivity extends SecondActivity {
 
     void refresh() {
         UserInfo assent = AppDelegate.getInstance().getUser().userInfo;
-        if (TextUtils.isEmpty(assent.r_location)) {
+        String r_location = assent.r_location;
+        if (TextUtils.isEmpty(r_location)) {
             mProvince = "";
             mCity = "";
         } else {
-            String location[] = assent.r_location.split(",");
+            String location[] = r_location.split(",");
+            if (location.length == 0) {
+                mProvince = r_location;
+                mCity = "";
+                return;
+            }
             mProvince = location[0];
-            if (location.length >= 2) {
+            if (location.length > 1) {
                 mCity = location[1];
             } else {
                 mCity = "";
@@ -97,8 +103,10 @@ public class ChangeDataActivity extends SecondActivity {
         }
 
         String genders[] = getResources().getStringArray(R.array.genders);
-        liveText.setText(mProvince + "," + mCity);
-
+        liveText.setText(mProvince);
+        if (!TextUtils.isEmpty(mCity)) {
+            liveText.append("," + mCity);
+        }
         nickText.setText(assent.unick);
         genderText.setText("0".equals(assent.gender) ? genders[0] : genders[1]);
         birthDayText.setText(assent.birthday);

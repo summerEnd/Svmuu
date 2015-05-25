@@ -1,7 +1,8 @@
 package com.yjy998.ui.activity.main.home;
 
-import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.sp.lib.common.support.cache.CacheManager;
 import com.sp.lib.common.support.net.client.SRequest;
-import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.widget.pager.BannerPager;
 import com.sp.lib.widget.pager.TransformerB;
 import com.yjy998.R;
@@ -22,13 +23,15 @@ import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.main.apply.ApplyActivity;
-import com.yjy998.ui.view.GrowNumber;
+import com.yjy998.ui.view.number.GrowNumber;
+import com.yjy998.ui.view.number.MoneyGrow;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 首页
@@ -47,6 +50,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private View layout;
     private HomeListener mCallback;
     private BannerPager bannerPager;
+    private MoneyGrow capitalGrow;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,7 +78,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         findViewById(R.id.safeLayout).setOnClickListener(this);
         findViewById(R.id.speedLayout).setOnClickListener(this);
         findViewById(R.id.proLayout).setOnClickListener(this);
-
+        capitalGrow = new MoneyGrow(capitalText);
         getCapital();
     }
 
@@ -143,45 +147,42 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void getCapital() {
         SRequest request = new SRequest();
         request.setUrl("http://mobile.yjy998.com/h5/index/loanamount");
+        images.clear();
         YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler(false) {
             @Override
             protected void onStatusCorrect(Response response) {
                 try {
                     JSONObject object = new JSONObject(response.data);
-                    capitalText.setText("￥" + NumberUtil.formatStr(object.getString("loanamount")));
                     JSONArray imagesArray = object.getJSONArray("banners");
-
                     if (imagesArray != null && imagesArray.length() != 0) {
-
                         for (int i = 0; i < imagesArray.length(); i++) {
                             images.add(imagesArray.getString(i));
                         }
-                        bannerPager.setImageUrls(images);
-                        bannerPager.setTransformer(new TransformerB(90));
-                        bannerPager.start();
                     }
-
-                    String loanamount = object.getString("loanamount");
-                    growNumber(Float.parseFloat(loanamount));
+                    CacheManager.getInstance().write("banners", images);
+                    setData(object.getString("loanamount"), images);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             }
+
+            @Override
+            protected void onStatusFailed(Response response) {
+                List<String> temp = (List<String>) CacheManager.getInstance().read("banners");
+                images.addAll(temp);
+                setData("0", images);
+            }
         });
     }
 
-    void growNumber(float max) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(new LoanAmountText(), "Value", 0, max);
-        animator.setDuration(1300);
-        animator.start();
+    void setData(String loanAmount, List<String> images) {
+        capitalGrow.setMax(NumberUtil.getFloat(loanAmount));
+        capitalGrow.start();
+        bannerPager.setImageUrls(images);
+        bannerPager.setTransformer(new TransformerB(90));
+        bannerPager.start();
     }
 
-    private class LoanAmountText extends GrowNumber {
-        @Override
-        public void setValue(float number) {
-            capitalText.setText("￥" + NumberUtil.format(number));
-        }
-    }
 }

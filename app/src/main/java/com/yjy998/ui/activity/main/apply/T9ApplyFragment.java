@@ -27,4 +27,9 @@ public class T9ApplyFragment extends BaseApply {
     public String getPro_id() {
         return "3";
     }
+
+    @Override
+    public String getIntroduceUrl() {
+        return "http://m.yjy998.com/rulesT9.html";
+    }
 }

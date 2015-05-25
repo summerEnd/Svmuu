@@ -1,7 +1,9 @@
 package com.yjy998.common.entity;
 
-/**
- * Created by user1 on 2015/5/21.
- */
 public class Popularize {
+    public String amount;
+    public String action;
+    public String inviteTime;
+    public String inviterName;
+    public String tradeAmount;
 }
