@@ -14,9 +14,6 @@ public class LineTransformer extends ShapeTransformer<SLine> {
         outputShape.endY = getValue(ratio, start.endY, end.endY);
     }
 
-
-
-
     @Override
     protected SLine generateShape() {
         return new SLine();
