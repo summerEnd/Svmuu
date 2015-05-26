@@ -1,5 +1,9 @@
 package com.yjy998.ui.view;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.animation.AccelerateInterpolator;
@@ -11,7 +15,7 @@ import com.sp.lib.widget.pager.title.TextPageTab;
 import com.yjy998.R;
 
 public class ViewPagerTabItem extends TextPageTab {
-    Animation animation;
+    ObjectAnimator animation;
 
     public ViewPagerTabItem(Context context) {
         this(context, null);
@@ -30,39 +34,26 @@ public class ViewPagerTabItem extends TextPageTab {
         if (animation == null) {
             animation = createAnim();
         } else {
-            clearAnimation();
+            animation.setCurrentPlayTime(0);
         }
 
         if (selected) {
             setTextColor(getResources().getColor(R.color.deepBlue));
-            startAnimation(animation);
+            animation.start();
         } else {
             setTextColor(getResources().getColor(R.color.textColorDeepGray));
         }
     }
 
-    Animation createAnim() {
-        AnimationSet set = new AnimationSet(true);
-        set.setDuration(200);
-        set.setInterpolator(new AccelerateInterpolator());
-        set.addAnimation(new ScaleAnimation(1, 1.2f, 1, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f));
-        set.setFillAfter(true);
-        set.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
+    ObjectAnimator createAnim() {
 
-            }
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                invalidate();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        return set;
+        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(this,
+                PropertyValuesHolder.ofFloat("ScaleX", 1, 1.2f),
+                PropertyValuesHolder.ofFloat("ScaleY", 1, 1.2f)
+        );
+        animator.setDuration(200);
+        animator.setInterpolator(new AccelerateInterpolator());
+        return animator;
     }
 }

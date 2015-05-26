@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:scaleType="fitXY"
             android:layout_height="@dimen/dimen_270px" />
-        <!--todo 给下面这个加上   android:translationY="@dimen/_dimen_180px"
+        <!-- 给下面这个加上   android:translationY="@dimen/_dimen_180px"
         -->
         <LinearLayout
             android:translationY="@dimen/_dimen_180px"

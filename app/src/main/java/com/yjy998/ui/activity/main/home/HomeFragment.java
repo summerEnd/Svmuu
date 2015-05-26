@@ -41,7 +41,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private ArrayList<String> images = new ArrayList<String>();
 
     {
-        //todo 下方仅用于测试，发布请注释
+        // 下方仅用于测试，发布请注释
 //        images.add("http://a.hiphotos.baidu.com/image/pic/item/eaf81a4c510fd9f9f7604cfb272dd42a2834a428.jpg");
 //        images.add("http://e.hiphotos.baidu.com/image/pic/item/1b4c510fd9f9d72abcb25402d62a2834359bbbdf.jpg");
     }

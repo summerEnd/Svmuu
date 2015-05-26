@@ -4,11 +4,11 @@
     android:background="@drawable/actionBarBackground"
     android:layout_height="@dimen/dimen_99px">
 
-    <com.sp.lib.ToggleView
+    <com.sp.lib.widget.slide.toggle.ArrowToggle
         android:paddingTop="@dimen/dimen_36px"
         android:paddingBottom="@dimen/dimen_36px"
-        android:paddingLeft="@dimen/dimen_24px"
-        android:paddingRight="@dimen/dimen_24px"
+        android:paddingLeft="@dimen/dimen_30px"
+        android:paddingRight="@dimen/dimen_30px"
         android:layout_gravity="left|center_vertical"
         android:src="@drawable/nav_menu"
         android:layout_width="@dimen/actionBarHeight"

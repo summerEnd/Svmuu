@@ -1,9 +1,7 @@
 package com.slib.demo;
 
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -12,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.sp.lib.ToggleView;
 import com.sp.lib.common.support.adapter.GuidePagerAdapter;
 import com.sp.lib.common.util.DisplayUtil;
 import com.sp.lib.widget.parallax.guide.ViewSprite;
+import com.sp.lib.widget.slide.toggle.ArrowToggle;
 import com.svmuu.slibdemo.R;
 
 import java.util.ArrayList;
@@ -58,7 +56,7 @@ public class AnimTest extends SLIBTest implements ViewPager.OnPageChangeListener
     }
 
     ArrayList<ViewSprite> sprites = new ArrayList<ViewSprite>();
-    ToggleView toggleView;
+    ArrowToggle toggleView;
     private void intAbove(ViewGroup above) {
         infoLayout = (ViewGroup) above.findViewById(R.id.infoLayout);
         cloudLayout = (ViewGroup) above.findViewById(R.id.cloudLayout);
@@ -75,7 +73,7 @@ public class AnimTest extends SLIBTest implements ViewPager.OnPageChangeListener
             sprites.add(new CloudSprite(childAt));
         }
 
-        toggleView= (ToggleView) above.findViewById(R.id.toggle);
+        toggleView= (ArrowToggle) above.findViewById(R.id.toggle);
 
     }
 

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.sp.lib.ToggleView
+    <com.sp.lib.widget.slide.toggle.ArrowToggle
         android:id="@+id/toggle"
         android:layout_width="50dp"
         android:gravity="center"
