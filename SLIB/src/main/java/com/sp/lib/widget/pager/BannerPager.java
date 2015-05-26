@@ -25,6 +25,7 @@ import com.sp.lib.widget.slide.transform.Transformer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class BannerPager extends FrameLayout implements RadioGroup.OnCheckedChangeListener {
     private ViewPager pager;
@@ -131,23 +132,22 @@ public class BannerPager extends FrameLayout implements RadioGroup.OnCheckedChan
         pager.setAdapter(new BannerAdapter(views));
     }
 
-    public void start() {
+    public void start(int duration) {
 
         initBanner();
-        //todo 发布时要取消注释
-//        if (timer != null) {
-//            try {
-//                timer.cancel();
-//            } catch (Exception e) {
-//            }
-//        }
-//        timer = new Timer();
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                mHandler.sendEmptyMessage(1);
-//            }
-//        }, 0, 3000);
+        if (timer != null) {
+            try {
+                timer.cancel();
+            } catch (Exception ignored) {
+            }
+        }
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                mHandler.sendEmptyMessage(1);
+            }
+        }, 0, duration);
     }
 
     @Override

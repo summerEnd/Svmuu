@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.sp.lib.common.support.adapter.GuidePagerAdapter;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
+import com.sp.lib.common.util.ShortCut;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.common.entity.User;
@@ -34,6 +35,7 @@ public class EnterActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         if (AppDelegate.getInstance().isFirstStartApplication()) {
+            ShortCut.addShortcut(this, getString(R.string.app_name), EnterActivity.class);
             startGuide();
         } else {
             startLoading();

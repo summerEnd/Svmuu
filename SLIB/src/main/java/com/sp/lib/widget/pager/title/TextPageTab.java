@@ -30,7 +30,7 @@ public class TextPageTab extends TextView implements IPagerTab {
         return this;
     }
 
-    protected void onTabSelected(boolean selected) {
+    public void onTabSelected(boolean selected) {
         if (selected) {
             setTextColor(Color.BLACK);
         } else {

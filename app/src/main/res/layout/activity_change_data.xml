@@ -44,8 +44,7 @@
             <EditText
                 android:background="#0000"
                 android:id="@+id/nickText"
-                style="@style/changeDataTabValue"
-                />
+                style="@style/changeDataTabValue" />
 
             <ImageView
                 style="@style/changeDataTabImage"
@@ -64,8 +63,7 @@
 
             <TextView
                 android:id="@+id/genderText"
-                style="@style/changeDataTabValue"
-               />
+                style="@style/changeDataTabValue" />
 
             <ImageView style="@style/changeDataTabImage" />
         </RelativeLayout>
@@ -82,8 +80,7 @@
 
             <TextView
                 android:id="@+id/birthDayText"
-                style="@style/changeDataTabValue"
-                />
+                style="@style/changeDataTabValue" />
 
             <ImageView style="@style/changeDataTabImage" />
         </RelativeLayout>
@@ -100,8 +97,7 @@
 
             <TextView
                 android:id="@+id/liveText"
-                style="@style/changeDataTabValue"
-                />
+                style="@style/changeDataTabValue" />
 
             <ImageView style="@style/changeDataTabImage" />
         </RelativeLayout>
@@ -113,14 +109,20 @@
             android:layout_marginTop="@dimen/changeData_margin_top">
 
             <TextView
+                android:id="@+id/edulvl"
                 style="@style/changeDataTabName"
                 android:text="@string/education_lvl" />
 
             <EditText
+                android:layout_toRightOf="@id/edulvl"
+                android:hint="@string/please_input"
                 android:background="#0000"
+                android:scrollHorizontally="true"
+
+                android:singleLine="true"
+                android:gravity="center_vertical|right"
                 android:id="@+id/educationText"
-                style="@style/changeDataTabValue"
-                />
+                style="@style/changeDataTabValue" />
 
             <ImageView
                 android:visibility="invisible"
@@ -153,6 +155,8 @@
                 android:id="@+id/expEdit"
                 android:background="#0000"
                 android:layout_below="@+id/test"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 style="@style/changeDataTabValue"
                 android:hint="@string/hint_investment_lvl" />
 

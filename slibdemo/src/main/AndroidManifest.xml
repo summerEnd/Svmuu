@@ -32,9 +32,9 @@
         <activity
             android:name="com.slib.demo.JiHuanSongTest"
             android:label="@string/title_activity_ji_huan_song_test"></activity>
-        <activity
-            android:name="com.slib.demo.WaveTest"
-            android:label="@string/title_activity_ji_huan_song_test"></activity>
+        <activity android:name="com.slib.demo.WaveTest" />
+        <activity android:name="com.slib.demo.DreamTest" />
+        <activity android:name="com.slib.demo.ToggleTest" />
     </application>
 
 </manifest>

@@ -5,5 +5,6 @@ public class Popularize {
     public String action;
     public String inviteTime;
     public String inviterName;
+    public String unick;
     public String tradeAmount;
 }

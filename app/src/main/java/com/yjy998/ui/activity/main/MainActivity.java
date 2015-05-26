@@ -86,7 +86,7 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
         tabCenter.setCheckListener(listener);
 
         tabHome.performClick();
-        VersionUtil.start(this, false);
+        VersionUtil.start(this, false,false);
     }
 
 

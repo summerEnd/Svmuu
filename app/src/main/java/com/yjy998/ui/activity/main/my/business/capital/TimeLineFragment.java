@@ -80,20 +80,15 @@ public class TimeLineFragment extends BaseFragment implements GView.OnPointTouch
 
         Trend firstTrend = JsonUtil.get(array.get(0).toString(), Trend.class);
 
-        float max = Math.max(firstTrend.newPrice, firstTrend.averagePrice);
-        float min = Math.min(firstTrend.newPrice, firstTrend.averagePrice);
-
+        float max =0;
+        float firstPrice=firstTrend.newPrice;
         for (int i = 0; i < length; i++) {
             Trend trend = JsonUtil.get(array.getString(i), Trend.class);
             list.add(trend);
             newPrice[i] = trend.newPrice;
             average[i] = trend.averagePrice;
 
-            max = Math.max(newPrice[i], max);
-            max = Math.max(average[i], max);
-
-            min = Math.min(newPrice[i], min);
-            min = Math.min(average[i], min);
+            max = Math.max(newPrice[i]-firstPrice, max);
         }
 
 
@@ -112,8 +107,7 @@ public class TimeLineFragment extends BaseFragment implements GView.OnPointTouch
         avLine.setLineColor(getResources().getColor(R.color.textColorRed));
         gView.addLine(avLine);
 
-        float delta = (max - min) * 0.3f;
-        gView.setRangeY(min - delta, max + delta);
+        gView.setRangeY(firstPrice - max, firstPrice + max);
         gView.setOnPointTouchListener(this);
     }
 
@@ -128,7 +122,7 @@ public class TimeLineFragment extends BaseFragment implements GView.OnPointTouch
         if (trendInfoWindow == null) {
             trendInfoWindow = new TrendInfoWindow(getActivity());
         }
-        if (newPrice != null && average != null) {
+        if (newPrice != null&&newPrice.length>position && average != null&&average.length>position) {
             String time;
             int h;
             int m;
@@ -145,6 +139,7 @@ public class TimeLineFragment extends BaseFragment implements GView.OnPointTouch
                 h = position / 60 + 11;
                 m=position%60;
             }
+
             trendInfoWindow.setText(newPrice[position] + "", average[position] + "", String.format("%d:%02d",h,m));
             trendInfoWindow.show(gView, position > 120);
         }

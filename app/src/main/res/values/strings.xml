@@ -243,7 +243,7 @@
     <string name="no_s_data">没有%s数据</string>
     <string name="repeat_not_equal">两次密码输入不一致</string>
     <string name="phone_not_correct">手机号格式不正确</string>
-    <string name="password_length_error">密码长度介于6-20位</string>
+    <string name="password_length_error">密码长度介于6–20位</string>
     <string name="title_activity_contest_apply">ContestApplyActivity</string>
     <string name="i_want_op">我要操盘</string>
     <string name="usable_s_money">账户可用余额：%s易宝</string>
@@ -252,7 +252,7 @@
     <string name="diary">日志</string>
     <string name="invite_friend">邀请好友</string>
     <string name="act_introduce">活动说明</string>
-    <string name="income_flow">收益流水</string>
+    <string name="income_flow">返利流水</string>
     <string name="total_s_people">累计邀请：%s人</string>
     <string name="total_invite_people">累计邀请：0人</string>
     <string name="title_activity_invite_friends">InviteFriends</string>
@@ -262,4 +262,9 @@
     <string name="not_invite_any">还没有邀请人呦！</string>
     <string name="manage_fee_introduce">按天收取，周末节假日免费</string>
     <string name="copy_ok">复制成功！</string>
+    <string name="invited_people">邀请的人</string>
+    <string name="my_invited">我邀请的人</string>
+    <string name="please_input">请输入</string>
+    <string name="saving">正在保存…</string>
+    <string name="loading">加载中…</string>
 </resources>

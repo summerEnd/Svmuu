@@ -4,35 +4,41 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.BaseAdapter;
+import android.widget.HeaderViewListAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.widget.list.refresh.PullToRefreshBase;
 import com.yjy998.R;
 import com.yjy998.common.adapter.PopularizeAdapter;
+import com.yjy998.common.adapter.PopularizeFriendsAdapter;
 import com.yjy998.common.entity.Popularize;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.base.SecondActivity;
 import com.yjy998.ui.view.number.GrowNumber;
-import com.yjy998.ui.view.number.MoneyGrow;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
-public class PopularizeActivity extends SecondActivity implements PullToRefreshBase.OnRefreshListener {
+public class PopularizeActivity extends SecondActivity implements PullToRefreshBase.OnRefreshListener, PopularizeView.OnSelectedListener {
 
     private PopularizeView content;
     private ListView listView;
-    PopularizeAdapter adapter;
+    PopularizeAdapter adapterFlow;
+    PopularizeFriendsAdapter adapterInvite;
     private boolean doRefresh = false;
-    private int page = 0;
+    private int flowPage = 0;
+    private int invitePage = 0;
+    private boolean isFlow = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,65 +50,130 @@ public class PopularizeActivity extends SecondActivity implements PullToRefreshB
     private void initialize() {
         content = (PopularizeView) findViewById(R.id.content);
         listView = content.getListView();
-        adapter = new PopularizeAdapter(this, new ArrayList<Popularize>());
-        listView.setAdapter(adapter);
+        adapterFlow = new PopularizeAdapter(this, new ArrayList<Popularize>());
+        adapterInvite = new PopularizeFriendsAdapter(this, new ArrayList<Popularize>());
+        listView.setAdapter(adapterFlow);
         content.setOnRefreshListener(this);
-        getPopularizeList(0);
+        content.listener = this;
+        getFlowList(0);
+
     }
 
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-        getPopularizeList(page + 1);
+        if (isFlow) {
+            getFlowList(0);
+        } else {
+            getInviteList(0);
+        }
+        doRefresh = true;
+
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-        doRefresh = true;
-        getPopularizeList(0);
+        if (isFlow) {
+            getFlowList(flowPage + 1);
+        } else {
+            getInviteList(invitePage + 1);
+        }
     }
 
-    public void getPopularizeList(int pn) {
-        SRequest request = new SRequest("http://mobile.yjy998.com/h5/plan/myinviters");
+    public void getInviteList(int pn) {
+        SRequest request = new SRequest("http://mobile.yjy998.com/h5/plan/queryInvited");
         request.put("pn", pn);
         YHttpClient.getInstance().post(request, new YHttpHandler(false) {
             @Override
             protected void onStatusCorrect(Response response) {
                 try {
-                    if (doRefresh) {
-                        adapter.getData().clear();
-                        page = 0;
-                    } else {
-                        page++;
-                    }
-                    JSONObject data = new JSONObject(response.data);
-                    JsonUtil.getArray(data.getJSONArray("inviterList"), Popularize.class, adapter.getData());
-                    adapter.notifyDataSetChanged();
-                    content.invitePeople.setText(getString(R.string.total_s_people, data.getString("inviterNumber")));
-                    startAnim(data.getString("profitAmount"));
-                } catch (NumberFormatException | JSONException e) {
+
+                    confirmAdapter(adapterInvite, adapterInvite.getData(), response.data);
+                } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
             }
 
             @Override
             public void onFinish() {
+                if (doRefresh) {
+                    adapterInvite.getData().clear();
+                    invitePage = 0;
+                } else {
+                    invitePage++;
+                }
                 doRefresh = false;
                 content.refreshListView.onPullDownRefreshComplete();
-                content.refreshListView.onPullDownRefreshComplete();
+                content.refreshListView.onPullUpRefreshComplete();
             }
         });
     }
 
+    /**
+     * 获取返利流水列表
+     */
+    public void getFlowList(int pn) {
+        SRequest request = new SRequest("http://mobile.yjy998.com/h5/plan/queryFortune");
+        request.put("pn", pn);
+        YHttpClient.getInstance().post(request, new YHttpHandler(false) {
+            @Override
+            protected void onStatusCorrect(Response response) {
+                try {
+
+                    confirmAdapter(adapterFlow, adapterFlow.getData(), response.data);
+
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                if (doRefresh) {
+                    adapterFlow.getData().clear();
+                    flowPage = 0;
+                } else {
+                    flowPage++;
+                }
+
+                doRefresh = false;
+                content.refreshListView.onPullDownRefreshComplete();
+                content.refreshListView.onPullUpRefreshComplete();
+            }
+        });
+    }
+
+    void confirmAdapter(BaseAdapter adapter, List<Popularize> dataList, String jsonStr) {
+        try {
+            JSONObject data = new JSONObject(jsonStr);
+            JsonUtil.getArray(data.getJSONArray("inviterList"), Popularize.class, dataList);
+            content.invitePeople.setText(getString(R.string.total_s_people, data.getString("inviterNumber")));
+            startAnim(data.getString("profitAmount"));
+        } catch (JSONException e) {
+        }
+
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter instanceof HeaderViewListAdapter) {
+            listAdapter = ((HeaderViewListAdapter) listAdapter).getWrappedAdapter();
+        }
+        if (listAdapter != adapter) {
+            listView.setAdapter(adapter);
+        } else {
+            adapter.notifyDataSetChanged();
+        }
+
+
+    }
+
     void startAnim(String profit) {
-        AnimatorSet set=new AnimatorSet();
+        AnimatorSet set = new AnimatorSet();
         GrowText target = new GrowText();
         ObjectAnimator animator = ObjectAnimator.ofFloat(target, "Value", 0, Float.parseFloat(profit));
         animator.setDuration(700);
 
-        ObjectAnimator scale=ObjectAnimator.ofFloat(target,"Scale",1,1.4f,1);
+        ObjectAnimator scale = ObjectAnimator.ofFloat(target, "Scale", 1, 1.4f, 1);
         scale.setDuration(300);
-        set.playSequentially(animator,scale);
+        set.playSequentially(animator, scale);
 
         set.start();
     }
@@ -123,6 +194,28 @@ public class PopularizeActivity extends SecondActivity implements PullToRefreshB
         }
         content.integerText.setText("" + intPart);
         content.floatText.setText(String.format(".%02d", floatPart));
+    }
+
+    @Override
+    public void onSelected(int i) {
+        doRefresh = false;
+        isFlow = i == 0;
+        if (isFlow) {//返利流水
+
+            if (adapterFlow.getData().size() == 0) {
+                getFlowList(0);
+            } else {
+                confirmAdapter(adapterFlow, adapterFlow.getData(), "");
+            }
+        } else {//邀请好友
+
+            if (adapterInvite.getData().size() == 0) {
+                getInviteList(0);
+            } else {
+                confirmAdapter(adapterInvite, adapterInvite.getData(), "");
+            }
+        }
+
     }
 
     private class GrowText extends GrowNumber {

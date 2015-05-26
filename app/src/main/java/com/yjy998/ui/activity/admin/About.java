@@ -31,7 +31,7 @@ public class About extends SecondActivity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        VersionUtil.start(this,true);
+        VersionUtil.start(this,true,true);
     }
 
 

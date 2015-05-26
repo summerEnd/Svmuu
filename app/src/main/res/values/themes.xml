@@ -18,12 +18,12 @@
 
     <style name="window_animation">
         <!--打开新的activity 用的动画-->
-        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
-        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityOpenEnterAnimation">@anim/window_open_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/window_open_exit</item>
 
         <!--关闭activity时的动画-->
-        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
-        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+        <item name="android:activityCloseEnterAnimation">@anim/window_close_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/window_close_exit</item>
     </style>
 
     <style name="mActionBarStyle" parent="android:Widget.Holo.Light.ActionBar">

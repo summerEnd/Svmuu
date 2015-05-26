@@ -12,13 +12,13 @@ import com.yjy998.common.entity.Popularize;
 
 import java.util.List;
 
-public class PopularizeAdapter extends BaseAdapter {
+public class PopularizeFriendsAdapter extends BaseAdapter {
     LayoutInflater inflater;
     List<Popularize> data;
     View emptyView;
 
 
-    public PopularizeAdapter(Context context, List<Popularize> data) {
+    public PopularizeFriendsAdapter(Context context, List<Popularize> data) {
         inflater = LayoutInflater.from(context);
         this.data = data;
         emptyView = inflater.inflate(R.layout.empty_layout, null);
@@ -58,36 +58,28 @@ public class PopularizeAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (data == null || data.size() == 0) {
+
             return emptyView;
         }
         ViewHolder viewHolder;
         Popularize item = data.get(position);
         if (convertView == null || convertView == emptyView) {
-            convertView = inflater.inflate(R.layout.list_item_popularize, null);
+            convertView = inflater.inflate(R.layout.list_item_popularize_friend, null);
             viewHolder = new ViewHolder();
             viewHolder.nameText = (TextView) convertView.findViewById(R.id.nameText);
             viewHolder.dateText = (TextView) convertView.findViewById(R.id.dateText);
-            viewHolder.actionText = (TextView) convertView.findViewById(R.id.actionText);
-            viewHolder.tradeAmount = (TextView) convertView.findViewById(R.id.tradeAmount);
-            viewHolder.profitText = (TextView) convertView.findViewById(R.id.profitText);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.nameText.setText(item.inviterName);
+        viewHolder.nameText.setText(item.unick);
         viewHolder.dateText.setText(item.inviteTime);
-        viewHolder.actionText.setText(item.action);
-        viewHolder.tradeAmount.setText(item.tradeAmount);
-        viewHolder.profitText.setText(item.amount);
         return convertView;
     }
 
     private class ViewHolder {
         private TextView nameText;
         private TextView dateText;
-        private TextView actionText;
-        private TextView tradeAmount;
-        private TextView profitText;
     }
 }
 

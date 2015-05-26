@@ -2,15 +2,18 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@drawable/actionBarBackground"
-    android:layout_height="@dimen/dimen_99px"
-  >
+    android:layout_height="@dimen/dimen_99px">
 
-    <ImageView
+    <com.sp.lib.ToggleView
+        android:paddingTop="@dimen/dimen_36px"
+        android:paddingBottom="@dimen/dimen_36px"
+        android:paddingLeft="@dimen/dimen_24px"
+        android:paddingRight="@dimen/dimen_24px"
         android:layout_gravity="left|center_vertical"
         android:src="@drawable/nav_menu"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/actionBarHeight"
         android:id="@+id/toggle"
-        android:layout_height="wrap_content" />
+        android:layout_height="@dimen/actionBarHeight" />
 
     <ImageView
         android:layout_width="wrap_content"

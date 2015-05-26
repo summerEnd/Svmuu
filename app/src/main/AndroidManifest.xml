@@ -9,7 +9,12 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
+    <!-- 添加快捷方式 -->
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <!-- 移除快捷方式 -->
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <!-- 查询快捷方式 -->
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <supports-screens
         android:largeScreens="true"
         android:normalScreens="true"
@@ -22,6 +27,10 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="Hello"
+            android:value="${TestValue}"/>
+
         <activity
             android:name=".ui.activity.EnterActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -31,6 +40,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.activity.main.MainActivity"
             android:label="@string/app_name"
@@ -41,10 +51,17 @@
         <activity
             android:name="com.sp.lib.activity.DEBUGActivity"
             android:label="@string/app_name" />
-        <!-- todo -->
-        <!--
+
+        <!--  todo      -->
         <activity
             android:name="com.sp.lib.demo.SlibDemo"
+            android:icon="@drawable/ic_lincoln"
+            android:label="SLIB">
+
+        </activity>
+        <activity-alias
+            android:targetActivity="com.sp.lib.demo.SlibDemo"
+            android:name="slib"
             android:icon="@drawable/ic_lincoln"
             android:label="SLIB">
             <intent-filter>
@@ -52,8 +69,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        -->
+        </activity-alias>
+
         <activity
             android:name=".common.test.ChartActivity"
             android:label="@string/title_activity_chart"
@@ -74,6 +91,7 @@
         <activity
             android:name=".ui.activity.main.my.ChangeDataActivity"
             android:label="@string/title_activity_change_data"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.main.home.NewMemberActivity"
@@ -81,7 +99,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.main.my.business.BusinessActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".common.test.MenuDrawerActivity" />
         <activity
             android:name=".ui.activity.main.contest.ContestInfoActivity"
@@ -105,16 +124,16 @@
         <activity android:name=".ui.activity.main.more.WebViewActivity" />
         <activity
             android:name=".ui.activity.main.apply.ContestApplyActivity"
-            android:label="@string/title_activity_contest_apply"></activity>
+            android:label="@string/title_activity_contest_apply"/>
         <activity
             android:name=".ui.activity.main.popularize.PopularizeActivity"
-            android:label="@string/title_activity_popularize"></activity>
+            android:label="@string/title_activity_popularize"/>
         <activity
             android:name=".ui.activity.main.popularize.InviteFriends"
-            android:label="@string/title_activity_invite_friends"></activity>
+            android:label="@string/title_activity_invite_friends"/>
         <activity
             android:name=".ui.activity.main.popularize.Introduce"
-            android:label="@string/title_activity_invite_friends"></activity>
+            android:label="@string/title_activity_invite_friends"/>
     </application>
 
 </manifest>

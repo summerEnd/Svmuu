@@ -1,5 +1,6 @@
 package com.yjy998.ui.activity.main.my;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -33,6 +34,7 @@ import com.yjy998.ui.activity.base.SecondActivity;
 import com.yjy998.ui.pop.DatePickDialog;
 import com.yjy998.ui.pop.PickCity;
 import com.yjy998.ui.pop.YAlertDialogTwoButton;
+import com.yjy998.ui.pop.YProgressDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -297,6 +299,13 @@ public class ChangeDataActivity extends SecondActivity {
             @Override
             protected void onStatusCorrect(Response response) {
                 getUserInfo();
+            }
+
+            @Override
+            public Dialog onCreateDialog() {
+                YProgressDialog dialog=new YProgressDialog(ChangeDataActivity.this);
+                dialog.setMessage(getString(R.string.saving));
+                return dialog;
             }
         });
     }

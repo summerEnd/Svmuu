@@ -28,7 +28,7 @@ public class CustomTab extends TextPageTab {
     }
 
     @Override
-    protected void onTabSelected(boolean selected) {
+    public void onTabSelected(boolean selected) {
         clearAnimation();
         if (selected) {
             setTextColor(Color.RED);

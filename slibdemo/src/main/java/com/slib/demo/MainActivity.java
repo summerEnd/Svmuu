@@ -19,5 +19,7 @@ public class MainActivity extends STestActivity {
         activities.add(AutoLayoutTest.class);
         activities.add(JiHuanSongTest.class);
         activities.add(WaveTest.class);
+        activities.add(DreamTest.class);
+        activities.add(ToggleTest.class);
     }
 }

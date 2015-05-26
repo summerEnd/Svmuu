@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:id="@+id/popularizeTitleLayout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:animateLayoutChanges="true"
+        android:orientation="horizontal">
+
+        <com.yjy998.ui.view.ViewPagerTabItem
+            android:id="@+id/incomeFlow"
+            style="@style/popularizeText1.weight.Tab"
+            android:text="@string/income_flow" />
+
+        <com.yjy998.ui.view.ViewPagerTabItem
+            android:id="@+id/invitedPeople"
+            style="@style/popularizeText1.weight.Tab"
+            android:text="@string/my_invited" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:id="@+id/headBarFlow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/popularizeText1.weight"
+            android:text="邀请人" />
+
+        <TextView
+            style="@style/popularizeText1.weight"
+            android:text="时间" />
+
+        <TextView
+            style="@style/popularizeText1.weight"
+            android:layout_weight="1.2"
+            android:text="行为" />
+
+        <TextView
+            style="@style/popularizeText1.weight"
+            android:text="交易量" />
+
+        <TextView
+            style="@style/popularizeText1.weight"
+            android:text="收益" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/headBarInvited"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/popularizeText1.weight"
+            android:text="邀请人" />
+
+        <TextView
+            style="@style/popularizeText1.weight"
+            android:text="时间" />
+
+    </LinearLayout>
+</LinearLayout>

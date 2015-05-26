@@ -13,10 +13,29 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    signingConfigs {
+        myConfigs {
+            storeFile file("D:\\workspace\\Svmuu\\rongzhengtong.jks");
+            keyAlias "yjy"
+            keyPassword "yjy998"
+            storePassword "rzt2014"
+        }
+    }
+
+    productFlavors {
+        wandojia {
+            manifestPlaceholders = [TestValue: "wandojia"];
+        }
+        baidu {
+            manifestPlaceholders = [TestValue: "baidu"];
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7

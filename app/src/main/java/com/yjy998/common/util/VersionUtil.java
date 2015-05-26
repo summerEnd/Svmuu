@@ -1,5 +1,6 @@
 package com.yjy998.common.util;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,12 +23,13 @@ import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.pop.YAlertDialog;
 import com.yjy998.ui.pop.YAlertDialogTwoButton;
 import com.yjy998.ui.pop.YDownloadDialog;
+import com.yjy998.ui.pop.YProgressDialog;
 
 import java.io.File;
 
 public class VersionUtil {
 
-    public static void start(final Context context, final boolean noticeNewest) {
+    public static void start(final Context context, final boolean noticeNewest,final  boolean showProgress) {
 
         YHttpClient.getInstance().get(context, new SRequest("http://mobile.yjy998.com/h5/version/check"), new YHttpHandler(false) {
             @Override
@@ -36,6 +38,17 @@ public class VersionUtil {
                 if (info != null) {
                     UpdateManager.start(new VersionCallback(context, info, noticeNewest));
                 }
+            }
+
+            @Override
+            public Dialog onCreateDialog() {
+
+                if (showProgress){
+                    return new YProgressDialog(context);
+                }else{
+                    return super.onCreateDialog();
+                }
+
             }
         });
 
@@ -61,7 +74,6 @@ public class VersionUtil {
 
         @Override
         public boolean forceUpdate() {
-            //todo return info.force;
             return info.force;
         }
 

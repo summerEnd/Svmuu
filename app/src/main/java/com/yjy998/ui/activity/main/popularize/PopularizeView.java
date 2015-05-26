@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -14,22 +17,27 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.sp.lib.widget.list.refresh.PullToRefreshBase;
 import com.sp.lib.widget.list.refresh.PullToRefreshListView;
 import com.yjy998.R;
 import com.yjy998.ui.activity.main.more.WebViewActivity;
+import com.yjy998.ui.view.ViewPagerTabItem;
 
 import static com.sp.lib.widget.list.refresh.PullToRefreshBase.OnRefreshListener;
 
-public class PopularizeView extends LinearLayout implements ListView.OnScrollListener {
+public class PopularizeView extends LinearLayout implements ListView.OnScrollListener, View.OnClickListener {
     private ListView mListView;//列表
-    private View floatLayout;//漂浮的标题
+
+    private ViewGroup floatTitle;//漂浮的title
+    private ViewGroup fixedTitle;//固定的title
+
     private View headView;//listView的Head
-    private View headBar;//headView中的标题栏
+    private View headBarFlow;//headView中的流水标题栏
+    private View headBarInvited;//headView中邀请人的标题栏
     public TextView integerText;//整数部分
     public TextView floatText;//小数部分
     public TextView invitePeople;//累计邀请人数
     public PullToRefreshListView refreshListView;
+    public OnSelectedListener listener;
 
     public PopularizeView(Context context) {
         this(context, null);
@@ -45,37 +53,35 @@ public class PopularizeView extends LinearLayout implements ListView.OnScrollLis
         setOrientation(VERTICAL);
         LayoutInflater inflater = LayoutInflater.from(getContext());
         headView = inflater.inflate(R.layout.popularize_head_view, null);
-        headBar = headView.findViewById(R.id.headBar);
-        floatLayout = inflater.inflate(R.layout.popularize_float, null);
+        //初始化固定的Title
+        fixedTitle = (ViewGroup) headView.findViewById(R.id.popularizeTitleLayout);
+        headBarFlow = headView.findViewById(R.id.headBarFlow);
+        headBarInvited = headView.findViewById(R.id.headBarInvited);
+
+        //创建漂浮的title
+        floatTitle = (ViewGroup) inflater.inflate(R.layout.popularize_title, null);
 
         //find ids
         integerText = (TextView) headView.findViewById(R.id.integerText);
         floatText = (TextView) headView.findViewById(R.id.floatText);
         invitePeople = (TextView) headView.findViewById(R.id.invitePeople);
 
-        headView.findViewById(R.id.invite).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //邀请好友点击事件
-                Context context = v.getContext();
-                context.startActivity(new Intent(context, InviteFriends.class));
-            }
-        });
+        //title栏中的 我邀请的人点击
+        fixedTitle.findViewById(R.id.invitedPeople).setOnClickListener(this);
+        floatTitle.findViewById(R.id.invitedPeople).setOnClickListener(this);
+        //title栏中的 收益流水点击
+        fixedTitle.findViewById(R.id.incomeFlow).setOnClickListener(this);
+        floatTitle.findViewById(R.id.incomeFlow).setOnClickListener(this);
+        //邀请好友点击事件
+        headView.findViewById(R.id.invite).setOnClickListener(this);
 
-        headView.findViewById(R.id.introduce).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //活动说明
-                Context context = v.getContext();
-                context.startActivity(new Intent(context, WebViewActivity.class)
-                                .putExtra(WebViewActivity.EXTRA_URL, "http://m.yjy998.com/explain.html")
-                );
-            }
-        });
-
+        //活动说明
+        headView.findViewById(R.id.introduce).setOnClickListener(this);
 
         //漂浮title先隐藏起来
-        floatLayout.setVisibility(INVISIBLE);
+        floatTitle.setVisibility(INVISIBLE);
+
+        //初始化列表
         refreshListView = new PullToRefreshListView(getContext());
         refreshListView.setPullLoadEnabled(true);
         mListView = refreshListView.getRefreshableView();
@@ -84,6 +90,7 @@ public class PopularizeView extends LinearLayout implements ListView.OnScrollLis
         mListView.setDividerHeight(2);
         mListView.setDivider(new ColorDrawable(Color.LTGRAY));
         addView(refreshListView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        toggle(false);
     }
 
     public void setOnRefreshListener(OnRefreshListener listener) {
@@ -102,36 +109,106 @@ public class PopularizeView extends LinearLayout implements ListView.OnScrollLis
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        floatLayout.layout(l, 0, r, floatLayout.getMeasuredHeight());
+        floatTitle.layout(l, 0, r, fixedTitle.getHeight());
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        floatLayout.measure(widthMeasureSpec,
-                floatLayout.getMeasuredHeight());
+        floatTitle.measure(widthMeasureSpec,
+                floatTitle.getMeasuredHeight());
     }
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
-        if (floatLayout.getVisibility() == VISIBLE) {
-            drawChild(canvas, floatLayout, getDrawingTime());
+        if (floatTitle.getVisibility() == VISIBLE) {
+            drawChild(canvas, floatTitle, getDrawingTime());
         }
     }
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        int headBarTop = headBar.getTop() + headView.getTop();
+        int headBarTop = fixedTitle.getTop() + headView.getTop();
         int visibility;
         if (headBarTop < 0) {
             visibility = VISIBLE;
         } else {
             visibility = INVISIBLE;
         }
-        if (visibility != floatLayout.getVisibility()) {
-            floatLayout.setVisibility(visibility);
+        if (visibility != floatTitle.getVisibility()) {
+            floatTitle.setVisibility(visibility);
             invalidate();
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.invite: {
+                Context context = v.getContext();
+                context.startActivity(new Intent(context, InviteFriends.class));
+                break;
+            }
+            case R.id.introduce: {
+                Context context = v.getContext();
+                context.startActivity(new Intent(context, WebViewActivity.class)
+                                .putExtra(WebViewActivity.EXTRA_URL, "http://m.yjy998.com/explain.html")
+                );
+                break;
+            }
+            case R.id.incomeFlow: {
+                toggle(false);
+                break;
+            }
+            case R.id.invitedPeople: {
+                toggle(true);
+                break;
+            }
+        }
+    }
+
+    void toggle(boolean isInvitedLayout) {
+
+        toggleLayout(floatTitle, isInvitedLayout);
+        toggleLayout(fixedTitle, isInvitedLayout);
+
+        requestLayout();
+        invalidate();
+
+        if (listener != null) {
+            listener.onSelected(isInvitedLayout ? 1 : 0);
+        }
+    }
+
+    void toggleLayout(ViewGroup layout, boolean isInvited) {
+
+        ViewGroup tabChild = (ViewGroup) layout.getChildAt(0);
+
+        ViewPagerTabItem flow = (ViewPagerTabItem) tabChild.getChildAt(0);
+        ViewPagerTabItem invited = (ViewPagerTabItem) tabChild.getChildAt(1);
+        invited.onTabSelected(isInvited);
+        flow.onTabSelected(!isInvited);
+
+        View flowLayout = layout.getChildAt(1);
+        View inviteLayout = layout.getChildAt(2);
+        flowLayout.setVisibility(isInvited ? GONE : VISIBLE);
+        inviteLayout.setVisibility(isInvited ? VISIBLE : GONE);
+
+    }
+
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        floatTitle.dispatchTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
+    }
+
+
+    public interface OnSelectedListener {
+        /**
+         * @param i 0：返利流水 1：邀请好友
+         */
+        public void onSelected(int i);
     }
 }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.sp.lib.ToggleView;
 import com.sp.lib.common.support.adapter.GuidePagerAdapter;
 import com.sp.lib.common.util.DisplayUtil;
 import com.sp.lib.widget.parallax.guide.ViewSprite;
@@ -57,7 +58,7 @@ public class AnimTest extends SLIBTest implements ViewPager.OnPageChangeListener
     }
 
     ArrayList<ViewSprite> sprites = new ArrayList<ViewSprite>();
-
+    ToggleView toggleView;
     private void intAbove(ViewGroup above) {
         infoLayout = (ViewGroup) above.findViewById(R.id.infoLayout);
         cloudLayout = (ViewGroup) above.findViewById(R.id.cloudLayout);
@@ -73,6 +74,9 @@ public class AnimTest extends SLIBTest implements ViewPager.OnPageChangeListener
             View childAt = cloudLayout.getChildAt(i);
             sprites.add(new CloudSprite(childAt));
         }
+
+        toggleView= (ToggleView) above.findViewById(R.id.toggle);
+
     }
 
     private class CloudSprite extends ViewSprite {
@@ -119,6 +123,7 @@ public class AnimTest extends SLIBTest implements ViewPager.OnPageChangeListener
         for (ViewSprite sprite : sprites) {
             sprite.run(i + v);
         }
+        toggleView.setRatio(v);
     }
 
     @Override

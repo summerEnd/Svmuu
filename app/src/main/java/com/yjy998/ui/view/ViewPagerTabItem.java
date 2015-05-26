@@ -26,7 +26,7 @@ public class ViewPagerTabItem extends TextPageTab {
     }
 
     @Override
-    protected void onTabSelected(boolean selected) {
+    public void onTabSelected(boolean selected) {
         if (animation == null) {
             animation = createAnim();
         } else {
@@ -47,6 +47,22 @@ public class ViewPagerTabItem extends TextPageTab {
         set.setInterpolator(new AccelerateInterpolator());
         set.addAnimation(new ScaleAnimation(1, 1.2f, 1, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f));
         set.setFillAfter(true);
+        set.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                invalidate();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
         return set;
     }
 }

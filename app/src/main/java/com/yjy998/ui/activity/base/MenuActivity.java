@@ -8,7 +8,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 
+import com.sp.lib.ToggleView;
 import com.sp.lib.common.support.IntentFactory;
+import com.sp.lib.common.util.SLog;
 import com.sp.lib.widget.slide.menu.MenuDrawer;
 import com.sp.lib.widget.slide.menu.Position;
 import com.yjy998.AppDelegate;
@@ -26,7 +28,7 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
      * 标志登录注册窗口是否为第一次弹出
      */
     private static boolean isFirstShow = true;
-
+    ToggleView toggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +45,24 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
         mMenuDrawer.setMenuView(frameLayout);
         mMenuDrawer.setMenuSize(getResources().getDimensionPixelSize(R.dimen.menuWidth));
         mMenuDrawer.setContentView(contentView);
-
         getSupportFragmentManager().beginTransaction().add(R.id.menuContainer, mMenuFragment).commit();
         titleImage = (ImageView) findViewById(R.id.titleImage);
+
         titleImage.setOnClickListener(titleClickListener);
-        findViewById(R.id.toggle).setOnClickListener(titleClickListener);
+        toggle = (ToggleView) findViewById(R.id.toggle);
+        toggle.setOnClickListener(titleClickListener);
+
+        mMenuDrawer.setOnDrawerStateChangeListener(new MenuDrawer.OnDrawerStateChangeListener() {
+            @Override
+            public void onDrawerStateChange(int oldState, int newState) {
+
+            }
+
+            @Override
+            public void onDrawerSlide(float openRatio, int offsetPixels) {
+                toggle.setRatio(openRatio);
+            }
+        });
     }
 
     /**

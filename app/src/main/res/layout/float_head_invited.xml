@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/headBarInvited"
     android:layout_marginTop="1dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,16 +16,4 @@
         style="@style/popularizeText1.weight"
         android:text="时间" />
 
-    <TextView
-        style="@style/popularizeText1.weight"
-        android:layout_weight="1.2"
-        android:text="行为" />
-
-    <TextView
-        style="@style/popularizeText1.weight"
-        android:text="交易量" />
-
-    <TextView
-        style="@style/popularizeText1.weight"
-        android:text="收益" />
 </LinearLayout>
