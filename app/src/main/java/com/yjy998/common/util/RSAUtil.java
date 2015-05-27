@@ -88,47 +88,10 @@ public class RSAUtil {
         @Override
         public boolean handleMessage(Message msg) {
             callback.onRSAEncodeSuccess((String) msg.obj);
+
             return false;
         }
     });
 
-    /**
-     * JS接口
-     */
-    private class I {
 
-        private String exp;
-        private String mod;
-        private String psw;
-        private Handler mHandler;
-
-        private I(Handler handler, String exp, String mod, String psw) {
-            this.exp = exp;
-            this.mod = mod;
-            this.psw = psw;
-            this.mHandler = handler;
-        }
-
-        @JavascriptInterface
-        public String getExp() {
-            return exp;
-        }
-
-        @JavascriptInterface
-        public String getMod() {
-            return mod;
-        }
-
-        @JavascriptInterface
-        public void setResult(String rsa) {
-            Message message = mHandler.obtainMessage();
-            message.obj = rsa;
-            mHandler.sendMessage(message);
-        }
-
-        @JavascriptInterface
-        public String getPsw() {
-            return psw;
-        }
-    }
 }
