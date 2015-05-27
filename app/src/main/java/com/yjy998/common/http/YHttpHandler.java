@@ -68,9 +68,11 @@ public abstract class YHttpHandler extends SHttpProgressHandler {
             onStatusCorrect(responseObject);
             toast(responseObject);
 
-        } else if ("1090".equals(responseObject.code)) {
+        } else if ("1079".equals(responseObject.code)) {
             //需要重新登录
-            loginBackground();
+            if (AppDelegate.getInstance().isUserLogin()) {
+                loginBackground();
+            }
         } else {
             onStatusFailed(responseObject);
             toast(responseObject);

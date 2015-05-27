@@ -142,6 +142,7 @@ public final class YHttpClient {
     public void getContractInfo(Context context, String contract_id, YHttpHandler handler) {
         SRequest request = new SRequest();
         request.put("contract_no", contract_id);
+        //http://mobile.yjy998.com/h5/account/contractinfo
         YHttpClient.getInstance().getByMethod(context, "/h5/account/contractinfo", request, handler);
     }
 }
