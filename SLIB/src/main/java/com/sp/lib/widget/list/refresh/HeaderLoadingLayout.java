@@ -146,6 +146,13 @@ public class HeaderLoadingLayout extends LoadingLayout {
         mArrowImageView.clearAnimation();
         mArrowImageView.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
-        mHintTextView.setText(R.string.pull_to_refresh_header_hint_loading);
+        if (refreshingLabel!=null){
+            mHintTextView.setText(refreshingLabel);
+        }else{
+            mHintTextView.setText(R.string.pull_to_refresh_header_hint_loading);
+
+        }
     }
+
+
 }

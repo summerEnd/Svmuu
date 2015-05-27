@@ -21,6 +21,7 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
     private State mCurState = State.NONE;
     /**前一个状态*/
     private State mPreState = State.NONE;
+    protected CharSequence refreshingLabel;
 
     /**
      * 构造方法
@@ -127,7 +128,7 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
      * @param refreshingLabel 刷新文本
      */
     public void setRefreshingLabel(CharSequence refreshingLabel) {
-        
+        this.refreshingLabel=refreshingLabel;
     }
 
     /**
