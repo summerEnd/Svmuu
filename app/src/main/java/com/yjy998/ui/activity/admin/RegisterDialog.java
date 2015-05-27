@@ -33,6 +33,7 @@ public class RegisterDialog extends Dialog implements View.OnClickListener, RSAU
     TimeTicker countDownTime;
     private Context context;
     private AdminManager adminManager;
+    private AdminManager codeCheck;
 
     public RegisterDialog(Context context) {
         super(context);
@@ -73,7 +74,14 @@ public class RegisterDialog extends Dialog implements View.OnClickListener, RSAU
                 break;
             }
             case R.id.resendText: {
-                getCode();
+                if (codeCheck == null) {
+                    codeCheck = new AdminManager();
+                    codeCheck.addEmptyCheck(phoneEdit)
+                            .addPatterCheck(phoneEdit, Constant.PATTERN_PHONE, context.getString(R.string.phone_not_correct));
+                }
+                if (codeCheck.start()) {
+                    getCode();
+                }
                 break;
             }
         }

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.sp.lib.common.admin.AdminManager;
+import com.sp.lib.common.admin.check.PatternCheck;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.time.TimeTicker;
 import com.yjy998.R;
@@ -31,6 +32,8 @@ public class ForgetPasswordDialog extends Dialog implements View.OnClickListener
     TimeTicker countDownTime;
     private Context context;
     AdminManager adminManager;
+    AdminManager codeCheck;
+
     public ForgetPasswordDialog(Context context) {
         super(context);
         this.context = context;
@@ -56,7 +59,7 @@ public class ForgetPasswordDialog extends Dialog implements View.OnClickListener
                             .addEmptyCheck(yzmEdit)
                     ;
                 }
-                if (adminManager.start()){
+                if (adminManager.start()) {
                     confirmButton.setText(R.string.op_ing);
                     confirmButton.requestFocus();
                     RSAUtil.sign(getContext(), passwordEdit.getText().toString(), this);
@@ -70,7 +73,14 @@ public class ForgetPasswordDialog extends Dialog implements View.OnClickListener
             }
 
             case R.id.resendText: {
-                getCode();
+                if (codeCheck == null) {
+                    codeCheck = new AdminManager();
+                    codeCheck.addEmptyCheck(phoneEdit)
+                            .addPatterCheck(phoneEdit, Constant.PATTERN_PHONE, context.getString(R.string.phone_not_correct));
+                }
+                if (codeCheck.start()){
+                    getCode();
+                }
                 break;
             }
 
