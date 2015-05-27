@@ -60,6 +60,7 @@
         android:id="@+id/list"
         android:divider="#dddddd"
         android:dividerHeight="1px"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

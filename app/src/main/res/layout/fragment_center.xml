@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/scroll"
+    android:scrollbars="none"
     android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -180,10 +181,11 @@
             android:textSize="@dimen/text_24px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <ImageView
             android:id="@+id/popImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_270px"
-            android:src="@drawable/center_popularize_image"/>
+            android:src="@drawable/center_popularize_image" />
     </LinearLayout>
 </ScrollView>
