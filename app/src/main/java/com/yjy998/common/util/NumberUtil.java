@@ -1,5 +1,6 @@
 package com.yjy998.common.util;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 public class NumberUtil {
@@ -15,7 +16,8 @@ public class NumberUtil {
     public static String formatStr(String number) {
         String money;
         try {
-            money = format(Float.parseFloat(number));
+            BigDecimal decimal=new BigDecimal(number);
+            money = format(decimal.floatValue());
         } catch (NumberFormatException e) {
             money = number;
         }

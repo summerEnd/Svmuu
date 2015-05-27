@@ -108,7 +108,7 @@ public class GView extends View {
         float base = (yMax + yMin) / 2;
         for (int i = 0; i < rightLabels.length; i++) {
             float value = Float.valueOf(leftLabels[i]);
-            rightLabels[i] = String.format("%.2f%%", (value - base)*100 / base);
+            rightLabels[i] = String.format("%.2f%%", (value - base) * 100 / base);
         }
 
     }
@@ -118,8 +118,12 @@ public class GView extends View {
         if (line.isCreated()) {
             return;
         }
+        line.getRawPath().reset();
+        line.reset();
         float[] values = line.getValues();
-
+        if (values == null || values.length == 0) {
+            return;
+        }
         //单位1的长度
         float cellWidth = frame.width() / (xMax - xMin);
         float cellHeight = frame.height() / (yMax - yMin);

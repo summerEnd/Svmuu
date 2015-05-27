@@ -45,9 +45,9 @@ public class TabItem extends LinearLayout implements Checkable, View.OnClickList
         textView = new TextView(context, attrs);
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER_HORIZONTAL;
-        textView.setLayoutParams(params);
+        params.topMargin=-5;
         addView(imageView);
-        addView(textView);
+        addView(textView,params);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TabItem);
         mChecked = a.getBoolean(R.styleable.TabItem_checked, false);

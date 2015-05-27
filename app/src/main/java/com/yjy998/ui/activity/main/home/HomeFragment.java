@@ -171,7 +171,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             @Override
             protected void onStatusFailed(Response response) {
                 List<String> temp = (List<String>) CacheManager.getInstance().read("banners");
-                if (temp!=null){
+                if (temp != null) {
                     images.addAll(temp);
                 }
                 setData("0", images);
@@ -183,7 +183,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         capitalGrow.setMax(NumberUtil.getFloat(loanAmount));
         capitalGrow.start();
         bannerPager.setImageUrls(images);
-        bannerPager.setTransformer(new TransformerB(90));
+        //bannerPager.setTransformer(new TransformerB(90));
         bannerPager.start(5000);
     }
 

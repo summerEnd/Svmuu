@@ -85,36 +85,36 @@ public class CapitalBuySellAdapter extends BaseAdapter {
 
             switch (fixedPosition) {
                 case 0:
-                    item = new Item(title, stock.buyCount1, stock.buyPrice1);
+                    item = new Item(title, stock.buyCount5, stock.buyPrice1);
                     break;
                 case 1:
-                    item = new Item(title, stock.buyCount2, stock.buyPrice2);
+                    item = new Item(title, stock.buyCount4, stock.buyPrice2);
                     break;
                 case 2:
                     item = new Item(title, stock.buyCount3, stock.buyPrice3);
                     break;
                 case 3:
-                    item = new Item(title, stock.buyCount4, stock.buyPrice4);
+                    item = new Item(title, stock.buyCount2, stock.buyPrice4);
                     break;
                 case 4:
-                    item = new Item(title, stock.buyCount5, stock.buyPrice5);
+                    item = new Item(title, stock.buyCount1, stock.buyPrice5);
                     break;
 
                 //分割
                 case 6:
-                    item = new Item(title, stock.sellCount5, stock.sellPrice5);
+                    item = new Item(title, stock.sellCount1, stock.sellPrice5);
                     break;
                 case 7:
-                    item = new Item(title, stock.sellCount4, stock.sellPrice4);
+                    item = new Item(title, stock.sellCount2, stock.sellPrice4);
                     break;
                 case 8:
                     item = new Item(title, stock.sellCount3, stock.sellPrice3);
                     break;
                 case 9:
-                    item = new Item(title, stock.sellCount2, stock.sellPrice2);
+                    item = new Item(title, stock.sellCount4, stock.sellPrice2);
                     break;
                 case 10:
-                    item = new Item(title, stock.sellCount1, stock.sellPrice1);
+                    item = new Item(title, stock.sellCount5, stock.sellPrice1);
                     break;
                 default:
                     item = null;

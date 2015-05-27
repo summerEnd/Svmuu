@@ -1,11 +1,11 @@
 package com.slib.demo;
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -17,7 +17,7 @@ import com.sp.lib.widget.slide.toggle.FlexibleToggle;
 import com.sp.lib.widget.slide.toggle.ToggleRatio;
 import com.sp.lib.widget.slide.toggle.shape.SLine;
 
-public class ToggleTest extends SLIBTest implements View.OnClickListener {
+public class ToggleTest extends SLIBTest implements View.OnClickListener, MenuDrawer.OnDrawerStateChangeListener {
     MenuDrawer mMenuDrawer;
     LinearLayout container;
 
@@ -29,125 +29,31 @@ public class ToggleTest extends SLIBTest implements View.OnClickListener {
         container = new LinearLayout(this);
         container.setOrientation(LinearLayout.VERTICAL);
         addToggle(new ArrowToggle(this));
+
         ArcToggle toggle = new ArcToggle(this);
         toggle.setUseCenter(true);
         toggle.getPaint().setStyle(Paint.Style.STROKE);
         addToggle(toggle);
+
         ArcToggle toggle1 = new ArcToggle(this);
         toggle1.setUseCenter(false);
         toggle1.getPaint().setStyle(Paint.Style.STROKE);
-
         addToggle(toggle1);
 
+        addCustom(new CrossToggle(this), true);
+        addCustom(new CrossToggle(this), false);
         FrameLayout frameLayout = new FrameLayout(this);
         frameLayout.setBackgroundColor(Color.GRAY);
         mMenuDrawer.setMenuView(frameLayout);
         mMenuDrawer.setMenuSize(300);
         mMenuDrawer.setContentView(container);
 
-        mMenuDrawer.setOnDrawerStateChangeListener(new MenuDrawer.OnDrawerStateChangeListener() {
-            @Override
-            public void onDrawerStateChange(int oldState, int newState) {
-
-            }
-
-            @Override
-            public void onDrawerSlide(float openRatio, int offsetPixels) {
-                int count = container.getChildCount();
-                for (int j = 0; j < count; j++) {
-                    ((ToggleRatio) container.getChildAt(j)).setRatio(openRatio);
-                }
-            }
-        });
-        add(container);
-        add2(container);
+        mMenuDrawer.setOnDrawerStateChangeListener(this);
     }
 
-    void add(ViewGroup container) {
-        final FlexibleToggle toggle = new FlexibleToggle(this);
+    void addCustom(BaseToggle toggle, boolean rotate) {
         toggle.setPadding(20, 20, 20, 20);
-        toggle.setRotate(true);
-        toggle.setOnClickListener(new View.OnClickListener() {
-            private boolean is;
-
-            @Override
-            public void onClick(View v) {
-                cross();
-            }
-
-            void cross() {
-                int width = toggle.getWidth();
-                int height = toggle.getHeight();
-                int l = toggle.getPaddingLeft();
-                int r = toggle.getPaddingRight();
-                int b = toggle.getPaddingBottom();
-                int t = toggle.getPaddingTop();
-                toggle.setFinalLine(
-                        new SLine(l, height - b, width - r, t),
-                        new SLine(width / 2, height / 2, width / 2, height / 2),
-                        new SLine(l, t, width - r, height - b)
-                );
-                if (is) {
-                    reverse();
-                } else {
-                    start();
-                }
-            }
-
-            void start() {
-                is = true;
-                ObjectAnimator.ofFloat(toggle, "Ratio", 0, 1).setDuration(500).start();
-            }
-
-            void reverse() {
-                is = false;
-                ObjectAnimator.ofFloat(toggle, "Ratio", 1, 0).setDuration(500).start();
-            }
-        });
-        container.addView(toggle, new LinearLayout.LayoutParams(80, 80));
-    }
-
-    void add2(ViewGroup container) {
-        final FlexibleToggle toggle = new FlexibleToggle(this);
-        toggle.setPadding(20, 20, 20, 20);
-        toggle.setRotate(false);
-        toggle.setOnClickListener(new View.OnClickListener() {
-            private boolean is;
-
-            @Override
-            public void onClick(View v) {
-                cross();
-            }
-
-            void cross() {
-                int width = toggle.getWidth();
-                int height = toggle.getHeight();
-                int l = toggle.getPaddingLeft();
-                int r = toggle.getPaddingRight();
-                int b = toggle.getPaddingBottom();
-                int t = toggle.getPaddingTop();
-                toggle.setFinalLine(
-                        new SLine(width - r, t, l, height - b),
-                        new SLine(width / 2, height / 2, width / 2, height / 2),
-                        new SLine(width - r, height - b, l, t)
-                );
-                if (is) {
-                    reverse();
-                } else {
-                    start();
-                }
-            }
-
-            void start() {
-                is = true;
-                ObjectAnimator.ofFloat(toggle, "Ratio", 0, 1).setDuration(250).start();
-            }
-
-            void reverse() {
-                is = false;
-                ObjectAnimator.ofFloat(toggle, "Ratio", 1, 0).setDuration(250).start();
-            }
-        });
+        toggle.setRotate(rotate);
         container.addView(toggle, new LinearLayout.LayoutParams(80, 80));
     }
 
@@ -164,6 +70,63 @@ public class ToggleTest extends SLIBTest implements View.OnClickListener {
             mMenuDrawer.closeMenu();
         } else {
             mMenuDrawer.openMenu();
+        }
+    }
+
+    @Override
+    public void onDrawerStateChange(int oldState, int newState) {
+
+    }
+
+    @Override
+    public void onDrawerSlide(float openRatio, int offsetPixels) {
+        int count = container.getChildCount();
+        for (int j = 0; j < count; j++) {
+            ((ToggleRatio) container.getChildAt(j)).setRatio(openRatio);
+        }
+    }
+
+    private abstract class BaseToggle extends FlexibleToggle {
+        ObjectAnimator run;
+        ObjectAnimator reverse;
+        boolean isRun;
+
+        public BaseToggle(Context context) {
+            super(context);
+            run = ObjectAnimator.ofFloat(this, "Ratio", 0, 1).setDuration(250);
+            reverse = ObjectAnimator.ofFloat(this, "Ratio", 1, 0).setDuration(250);
+            setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isRun) {
+                        run.start();
+                    } else {
+                        reverse.start();
+                    }
+                    isRun = !isRun;
+                }
+            });
+        }
+    }
+
+    private class CrossToggle extends BaseToggle {
+        public CrossToggle(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void onCreateFinalGraphic() {
+            int width = getMeasuredWidth();
+            int height = getMeasuredHeight();
+            int l = getPaddingLeft();
+            int r = getPaddingRight();
+            int b = getPaddingBottom();
+            int t = getPaddingTop();
+            setFinalLine(
+                    new SLine(width - r, t, l, height - b),
+                    new SLine(width / 2, height / 2, width / 2, height / 2),
+                    new SLine(width - r, height - b, l, t)
+            );
         }
     }
 }
