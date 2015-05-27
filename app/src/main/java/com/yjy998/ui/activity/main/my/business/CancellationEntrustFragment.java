@@ -1,10 +1,6 @@
 package com.yjy998.ui.activity.main.my.business;
 
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.View;
-
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.JsonUtil;
@@ -15,7 +11,7 @@ import com.yjy998.common.entity.Entrust;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
-import com.yjy998.ui.activity.main.my.business.capital.BuySellFragment;
+import com.yjy998.ui.activity.main.my.business.capital.TradeFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,17 +54,12 @@ public class CancellationEntrustFragment extends BusinessListFragment {
         }
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        refresh();
 
-    }
 
     @Override
     public void refresh() {
-        if (getActivity() instanceof BuySellFragment.ContractObserver) {
-            ContractDetail contract = ((BuySellFragment.ContractObserver) getActivity()).getSharedContract();
+        if (getActivity() instanceof TradeFragment.ContractObserver) {
+            ContractDetail contract = ((TradeFragment.ContractObserver) getActivity()).getSharedContract();
             if (contract == null) {
                 //没有选择合约
                 return;

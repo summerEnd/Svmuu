@@ -7,18 +7,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
-import com.sp.lib.common.support.cache.CacheManager;
 import com.sp.lib.common.support.cache.FileObjectCache;
 import com.sp.lib.widget.pager.title.PageStrip;
 import com.yjy998.R;
 import com.yjy998.common.entity.ContractDetail;
-import com.yjy998.ui.activity.main.my.business.capital.BuySellFragment;
+import com.yjy998.ui.activity.main.my.business.capital.BuyFragment;
+import com.yjy998.ui.activity.main.my.business.capital.TradeFragment;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.base.SecondActivity;
+import com.yjy998.ui.activity.main.my.business.capital.SellFragment;
 
 import java.io.File;
 
-public class BusinessActivity extends SecondActivity implements BuySellFragment.ContractObserver, ViewPager.OnPageChangeListener {
+public class BusinessActivity extends SecondActivity implements TradeFragment.ContractObserver, ViewPager.OnPageChangeListener {
     public static final String EXTRA_IS_BUY = "extra_buy";
     //要展示的合约的id
     public static final String EXTRA_CONTRACT_NO = "extra_contract";
@@ -41,6 +42,13 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
     private void initialize() {
         PageStrip pageStrip = (PageStrip) findViewById(R.id.pageStrip);
         pager = (ViewPager) findViewById(R.id.pager);
+        fragments = new BaseFragment[]{
+                new BuyFragment(),
+                new SellFragment(),
+                new HoldingsFragment(),
+                new CancellationEntrustFragment(),
+                new DealFragment()
+        };
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         pageStrip.setViewPager(pager);
         pageStrip.setPageChangeListener(this);
@@ -58,10 +66,20 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
         //显示那一页
         Intent intent = getIntent();
         boolean isBuy = intent.getBooleanExtra(EXTRA_IS_BUY, false);
+        contract = null;
         if (!isBuy) {
-            pager.setCurrentItem(1);
+
+            if (pager.getCurrentItem() != 1) {
+                pager.setCurrentItem(1);
+            } else {
+                fragments[1].refresh();
+            }
         } else {
-            pager.setCurrentItem(0);
+            if (pager.getCurrentItem() != 0) {
+                pager.setCurrentItem(0);
+            } else {
+                ((TradeFragment) fragments[0]).getContractInfo( getContractId());
+            }
         }
     }
 
@@ -82,6 +100,11 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
 
     @Override
     public String getContractId() {
+
+        if (contract!=null){
+            return contract.contractId;
+        }
+
         return getIntent().getStringExtra(EXTRA_CONTRACT_NO);
     }
 
@@ -89,7 +112,9 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
     public ContractDetail readContractFromCache(String contract_id) {
         if (cache == null) {
             File dir = new File(getCacheDir(), "contract");
-            dir.mkdirs();
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
             cache = new FileObjectCache(dir);
         }
         return (ContractDetail) cache.read(contract_id);
@@ -99,10 +124,19 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
     public Object saveContract(ContractDetail detail) {
         if (cache == null) {
             File dir = new File(getCacheDir(), "contract");
-            dir.mkdirs();
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
             cache = new FileObjectCache(dir);
         }
         return cache.write(detail.contractId, detail);
+    }
+
+    @Override
+    public void clearCache() {
+        if (cache != null) {
+            cache.clear();
+        }
     }
 
     @Override
@@ -111,14 +145,13 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
 
     @Override
     public void onPageSelected(int i) {
-        if (fragments[i] != null && fragments[i].isVisible()) {
+        if (fragments[i].isVisible()) {
             fragments[i].refresh();
         }
     }
 
     @Override
     public void onPageScrollStateChanged(int i) {
-
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
@@ -129,34 +162,8 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
 
         @Override
         public Fragment getItem(int position) {
-            BaseFragment fragment = fragments[position];
-            if (fragment == null) {
-                switch (position) {
-                    case 0: {
-                        fragment = BuySellFragment.newInstance(true);
-                    }
 
-                    break;
-                    case 1: {
-                        fragment = BuySellFragment.newInstance(false);
-                    }
-                    break;
-                    case 2:
-                        fragment = new HoldingsFragment();
-                        break;
-                    case 3:
-                        fragment = new CancellationEntrustFragment();
-                        break;
-
-                    case 4:
-                        fragment = new DealFragment();
-                        break;
-                }
-                fragments[position] = fragment;
-            }
-
-
-            return fragment;
+            return fragments[position];
         }
 
         @Override
@@ -168,13 +175,7 @@ public class BusinessActivity extends SecondActivity implements BuySellFragment.
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (cache != null) {
-            cache.clear();
-        }
+       clearCache();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 }

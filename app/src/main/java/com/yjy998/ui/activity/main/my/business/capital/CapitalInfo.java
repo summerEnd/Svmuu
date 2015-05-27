@@ -1,5 +1,6 @@
 package com.yjy998.ui.activity.main.my.business.capital;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.widget.list.LinearListView;
+import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.common.adapter.CapitalBuySellAdapter;
 import com.yjy998.common.adapter.StockListAdapter;
@@ -35,7 +37,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.yjy998.ui.activity.main.my.business.capital.BuySellFragment.ContractObserver;
+import static com.yjy998.ui.activity.main.my.business.capital.TradeFragment.ContractObserver;
 
 public class CapitalInfo extends BaseFragment implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     public static final String IS_BUY = "isBuy";
@@ -289,7 +291,6 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
     private class CodeEditTextWatcher implements TextWatcher {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            YHttpClient.getInstance().cancel(getActivity());
         }
 
         @Override
@@ -370,7 +371,11 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         } else {
             SRequest request = new SRequest("http://www.yjy998.com/stock/getstockinfo");
             request.put("code", code);
-            YHttpClient.getInstance().get(request, new YHttpHandler(false) {
+            Context context=getActivity();
+            if (context==null){
+                context= AppDelegate.getInstance();
+            }
+            YHttpClient.getInstance().get(context,request, new YHttpHandler(false) {
                 @Override
                 protected void onStatusCorrect(Response response) {
                     try {
@@ -383,7 +388,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
                         initStockListWindow();
                         stockListWindow.show();
 
-                    } catch (JSONException e1) {
+                    } catch (JSONException ignored) {
 
                     }
 

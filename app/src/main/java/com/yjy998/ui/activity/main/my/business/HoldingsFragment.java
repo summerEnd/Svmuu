@@ -2,9 +2,6 @@ package com.yjy998.ui.activity.main.my.business;
 
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.View;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
@@ -23,7 +20,7 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-import static com.yjy998.ui.activity.main.my.business.capital.BuySellFragment.ContractObserver;
+import static com.yjy998.ui.activity.main.my.business.capital.TradeFragment.ContractObserver;
 
 /**
  * 持仓
@@ -37,18 +34,11 @@ public class HoldingsFragment extends BusinessListFragment {
         return ContextUtil.getString(R.string.holdings);
     }
 
-    Holding sel;
 
     @Override
     protected void onCreatePop(CenterPopup.PopWidget popWidget) {
         popWidget.add(new CenterPopup.PopItem(0, getString(R.string.buyIn), getResources().getColor(R.color.roundButtonBlue)));
         popWidget.add(new CenterPopup.PopItem(1, getString(R.string.sellOut), getResources().getColor(R.color.roundButtonRed)));
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        getHoldings();
     }
 
 

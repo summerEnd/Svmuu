@@ -34,12 +34,26 @@ public class TimeLineFragment extends BaseFragment implements GView.OnPointTouch
     float[] newPrice;
     float[] average;
     GView gView;
+    GLine newLine = new GLine();
+    GLine avLine = new GLine();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_chart, null);
         gView = (GView) v.findViewById(R.id.gView);
+        newLine.setDrawBelowColor(true);
+        newLine.setStartColor(0xffB28B59);
+        newLine.setEndColor(0xffEAE9E9);
+        newLine.setLineColor(getResources().getColor(R.color.newPriceLineColor));
+        newLine.setDrawToucheLine(true);
+        gView.addLine(newLine);
+
+        avLine.setDrawBelowColor(false);
+        avLine.setLineColor(getResources().getColor(R.color.textColorRed));
+        gView.addLine(avLine);
+
+        gView.setOnPointTouchListener(this);
         return v;
     }
 
@@ -75,40 +89,31 @@ public class TimeLineFragment extends BaseFragment implements GView.OnPointTouch
      */
     private void addTrendListToChart(JSONArray array) throws JSONException {
         int length = array.length();
+        if (length == 0) {
+            length = 1;
+        }
         newPrice = new float[length];
         average = new float[length];
 
         Trend firstTrend = JsonUtil.get(array.get(0).toString(), Trend.class);
 
-        float max =0;
-        float firstPrice=firstTrend.newPrice;
+        float max = 0;
+        float firstPrice = firstTrend.newPrice;
         for (int i = 0; i < length; i++) {
             Trend trend = JsonUtil.get(array.getString(i), Trend.class);
             list.add(trend);
             newPrice[i] = trend.newPrice;
             average[i] = trend.averagePrice;
 
-            max = Math.max(newPrice[i]-firstPrice, max);
+            max = Math.max(Math.abs(newPrice[i] - firstPrice), max);
         }
-
-
-        GLine newLine = new GLine();
+        newLine.setCreated(false);
+        avLine.setCreated(false);
         newLine.setValues(newPrice);
-        newLine.setDrawBelowColor(true);
-        newLine.setStartColor(0xffB28B59);
-        newLine.setEndColor(0xffEAE9E9);
-        newLine.setLineColor(getResources().getColor(R.color.newPriceLineColor));
-        newLine.setDrawToucheLine(true);
-        gView.addLine(newLine);
-
-        GLine avLine = new GLine();
         avLine.setValues(average);
-        avLine.setDrawBelowColor(false);
-        avLine.setLineColor(getResources().getColor(R.color.textColorRed));
-        gView.addLine(avLine);
 
         gView.setRangeY(firstPrice - max, firstPrice + max);
-        gView.setOnPointTouchListener(this);
+        gView.invalidate();
     }
 
     /**
@@ -122,7 +127,7 @@ public class TimeLineFragment extends BaseFragment implements GView.OnPointTouch
         if (trendInfoWindow == null) {
             trendInfoWindow = new TrendInfoWindow(getActivity());
         }
-        if (newPrice != null&&newPrice.length>position && average != null&&average.length>position) {
+        if (newPrice != null && newPrice.length > position && average != null && average.length > position) {
             String time;
             int h;
             int m;
@@ -137,10 +142,10 @@ public class TimeLineFragment extends BaseFragment implements GView.OnPointTouch
                 m = position - 90;
             } else {
                 h = position / 60 + 11;
-                m=position%60;
+                m = position % 60;
             }
 
-            trendInfoWindow.setText(newPrice[position] + "", average[position] + "", String.format("%d:%02d",h,m));
+            trendInfoWindow.setText(newPrice[position] + "", average[position] + "", String.format("%d:%02d", h, m));
             trendInfoWindow.show(gView, position > 120);
         }
 

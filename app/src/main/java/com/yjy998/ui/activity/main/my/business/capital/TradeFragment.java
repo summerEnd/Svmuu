@@ -2,7 +2,8 @@ package com.yjy998.ui.activity.main.my.business.capital;
 
 
 import android.app.Activity;
-import android.content.DialogInterface;
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -12,12 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListPopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.widget.list.LinearListView;
+import com.sp.lib.widget.list.refresh.PullToRefreshBase;
+import com.sp.lib.widget.list.refresh.PullToRefreshScrollView;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.common.adapter.ContractListAdapter;
@@ -30,12 +34,9 @@ import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.common.util.NumberUtil;
-import com.yjy998.ui.activity.admin.LoginDialog;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.main.my.business.BusinessActivity;
 import com.yjy998.ui.activity.pay.PayDialog;
-import com.yjy998.ui.pop.YAlertDialog;
-import com.yjy998.ui.pop.YProgressDialog;
 import com.yjy998.ui.view.RoundButton;
 
 import org.json.JSONArray;
@@ -47,12 +48,11 @@ import java.util.ArrayList;
  * 买入&卖出
  * 这个页面灰常复杂。。。
  */
-public class BuySellFragment extends BaseFragment implements View.OnClickListener {
-    public static final String CONTRACT_DETAIL = "contract_detail";
-    View layout;
+public abstract class TradeFragment extends BaseFragment implements View.OnClickListener, PullToRefreshBase.OnRefreshListener<ScrollView> {
+    PullToRefreshScrollView layout;
     ListPopupWindow contractListWindow;
     TimeLineFragment mTimeLineFragment = new TimeLineFragment();
-    CapitalInfo mCapitalInfo;
+    protected CapitalInfo mCapitalInfo;
     private TextView usableText;
     private TextView balanceText;
     private TextView stockValueText;
@@ -60,21 +60,8 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
 
     private TextView contractText;
     private LinearListView list;
-    private boolean isBuy;
-    private ContractObserver observer;
-    YProgressDialog yProgressDialog;
+    protected ContractObserver observer;
 
-    /**
-     * 根据isBuy来执行不同的逻辑
-     *
-     * @param isBuy true 买入,false 卖出
-     * @return CapitalFragment实例
-     */
-    public static BuySellFragment newInstance(boolean isBuy) {
-        BuySellFragment fragment = new BuySellFragment();
-        fragment.setBuy(isBuy);
-        return fragment;
-    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -83,9 +70,6 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         observer = (ContractObserver) activity;
     }
 
-    public void setBuy(boolean isBuy) {
-        this.isBuy = isBuy;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -93,24 +77,34 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
             //ViewPager会摧毁View,导致重复调用这个方法
             ((ViewGroup) layout.getParent()).removeView(layout);
         } else {
-            layout = inflater.inflate(R.layout.fragment_capital, null);
-            mCapitalInfo = CapitalInfo.newInstance(isBuy, observer.getStockCode());
+            layout = new PullToRefreshScrollView(getActivity());
+            inflater.inflate(R.layout.refreshable_capital, layout.getRefreshableView());
+            layout.setBackgroundColor(Color.WHITE);
+            layout.setOnRefreshListener(this);
+            layout.setVerticalScrollBarEnabled(false);
+            layout.getHeaderLoadingLayout().setRefreshingLabel(getString(R.string.load_amount));
+            mCapitalInfo = createCapitalFragment();
         }
-
         return layout;
     }
+
+    @Override
+    public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+        observer.clearCache();
+        refresh();
+    }
+
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+
+    }
+
+    protected abstract CapitalInfo createCapitalFragment();
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize();
-        if (!mCapitalInfo.isAdded())
-            getChildFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.fragmentContainer, mCapitalInfo)
-                    .add(R.id.fragmentContainer, mTimeLineFragment)
-                    .hide(mTimeLineFragment)
-                    .commit();
     }
 
 
@@ -126,7 +120,6 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         balanceText = (TextView) findViewById(R.id.balanceText);
         stockValueText = (TextView) findViewById(R.id.stockValueText);
         totalText = (TextView) findViewById(R.id.totalText);
-        RoundButton buySellButton = (RoundButton) findViewById(R.id.buySellButton);
         RoundButton resetButton = (RoundButton) findViewById(R.id.resetButton);
         contractText = (TextView) findViewById(R.id.contractText);
         list = (LinearListView) findViewById(R.id.list);
@@ -140,14 +133,16 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         });
         findViewById(R.id.switchButton).setOnClickListener(this);
         findViewById(R.id.chooseContract).setOnClickListener(this);
-        buySellButton.setOnClickListener(this);
         resetButton.setOnClickListener(this);
-        if (isBuy) {
-            buySellButton.setText(R.string.buyIn);
-        } else {
-            buySellButton.setText(R.string.sellOut);
+
+        if (!mCapitalInfo.isAdded()) {
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fragmentContainer, mCapitalInfo)
+                    .add(R.id.fragmentContainer, mTimeLineFragment)
+                    .hide(mTimeLineFragment)
+                    .commit();
         }
-        showContractInfo(0);
     }
 
 
@@ -186,13 +181,7 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
                     contractListWindow.setAnchorView(v);
                     ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
                     contractListWindow.setAdapter(new ContractListAdapter(getActivity(), myContracts));
-                    contractListWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            contractListWindow.dismiss();
-                            showContractInfo(position);
-                        }
-                    });
+                    contractListWindow.setOnItemClickListener(new OnContractClick());
                 }
                 contractListWindow.show();
                 break;
@@ -201,53 +190,59 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
     }
 
     /**
-     * 展示合约信息
+     * 合约列表点击事件
      */
-    private void showContractInfo(int position) {
-        ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
+    private class OnContractClick implements AdapterView.OnItemClickListener {
 
-        if (myContracts == null || position >= myContracts.size()) {
-            contractText.setText(R.string.no_contract_);
-            return;
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            contractListWindow.dismiss();
+            ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
+
+            if (myContracts == null || position >= myContracts.size()) {
+                contractText.setText(R.string.no_contract_);
+                return;
+            }
+
+            Contract contract = myContracts.get(position);
+            setContractLocal(null);//清空之前的数据
+            contractText.setText(getString(R.string.contract_s1_s2, contract.contract_type, contract.id));
+            refreshInternal(contract.id);
         }
-
-        Contract contract = myContracts.get(position);
-        setContractLocal(null);//清空之前的数据
-        contractText.setText(getString(R.string.contract_s1_s2, contract.contract_type, contract.id));
-        refreshInternal(contract.id);
     }
 
     /**
-     * 获取合约信息
+     * 获取合约信息,这个接口很慢
      */
     public void getContractInfo(final String contract_id) {
 
-        if (yProgressDialog == null) {
-            yProgressDialog = new YProgressDialog(getActivity());
-            yProgressDialog.setMessage(getString(R.string.load_amount));
-        }
+
         //弹出进度框，将会在getHoldings()结束时自动关闭。或者获取合约详情失败时关闭
-        yProgressDialog.show();
+       if(layout!=null)
+        layout.doPullRefreshing(true, 0);
 
         //由于这个接口很慢，引入缓存机制，从缓存中读取
-        ContractDetail detail = (ContractDetail) observer.readContractFromCache(contract_id);
+        if (observer != null) {
+            ContractDetail detail = (ContractDetail) observer.readContractFromCache(contract_id);
 
-        if (detail != null) {
-            //详情页面使用缓存
-            setContractLocal(detail);
-            notifyContractChange(detail);
-            getHoldings(contract_id);
-            return;
+            if (detail != null) {
+                //详情页面使用缓存
+                setContractLocal(detail);
+                notifyContractChange(detail);
+                getHoldings(contract_id);
+                return;
+            }
         }
 
         //获取合约详情
         SRequest request = new SRequest("http://mobile.yjy998.com/h5/account/contractinfo");
         request.put("contract_no", contract_id);
-        YHttpClient.getInstance().get(request, new YHttpHandler(true) {
+        YHttpClient.getInstance().get(request, new YHttpHandler(false) {
             @Override
             protected void onStatusCorrect(Response response) {
                 ContractDetail detail = JsonUtil.get(response.data, ContractDetail.class);
-                observer.saveContract(detail);//保存到缓存
+                setContractLocal(detail);
                 notifyContractChange(detail);
                 getHoldings(contract_id);
             }
@@ -256,16 +251,25 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
             protected void onStatusFailed(Response response) {
                 super.onStatusFailed(response);
                 ContextUtil.toast(R.string.request_is_failed);
-                yProgressDialog.dismiss();
+                if(layout!=null)
+                layout.onPullDownRefreshComplete();
+
+
             }
 
         });
     }
 
+
     /**
      * 用Contract初始化本地页面
      */
     public void setContractLocal(ContractDetail contract) {
+
+        if (getView() == null) {
+            return;
+        }
+
         if (contract != null) {
             usableText.setText(contract.currentCash);
             balanceText.setText(contract.totalProfit);
@@ -285,9 +289,10 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
      * 把合约放到Activity中，供其他fragment获取，实现联动。
      */
     public void notifyContractChange(ContractDetail contract) {
-        setContractLocal(contract);
         if (observer != null) {
             observer.setContract(contract);
+            observer.saveContract(contract);//保存到缓存
+
         }
     }
 
@@ -326,9 +331,8 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         payDialog.setCallback(new PayDialog.Callback() {
             @Override
             public void onPay(String password, String rsa_password) {
-                //根据是否为买入来设置请求的url
-                String url = isBuy ? "http://www.yjy998.com/stock/buystock" : "http://www.yjy998.com/stock/sellstock";
-                SRequest request = new SRequest(url);
+
+                SRequest request = new SRequest(getTradeUrl());
                 ContractDetail detail = observer.getSharedContract();
                 request.put("contract_no", detail.contractId);
                 request.put("contract_id", detail.contractId);
@@ -350,6 +354,7 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
         payDialog.show();
     }
 
+    protected abstract String getTradeUrl();
 
     @Override
     public void refresh() {
@@ -369,8 +374,8 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
      *
      * @param contractId
      */
-    private void refreshInternal(String contractId) {
-        if (!TextUtils.isEmpty(contractId)) {
+    public void refreshInternal(String contractId) {
+        if (!TextUtils.isEmpty(contractId) && getActivity() != null) {
             getContractInfo(contractId);
         }
 
@@ -384,6 +389,8 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
      */
     public void getHoldings(String contract_no) {
         if (getActivity() == null) {
+            if(layout!=null)
+            layout.onPullDownRefreshComplete();
             return;
         }
         SRequest request = new SRequest("http://www.yjy998.com/stock/hold");
@@ -403,9 +410,8 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
 
             @Override
             public void onFinish() {
-                if (yProgressDialog != null) {
-                    yProgressDialog.dismiss();
-                }
+                if(layout!=null)
+                layout.onPullDownRefreshComplete();
             }
         });
     }
@@ -445,5 +451,7 @@ public class BuySellFragment extends BaseFragment implements View.OnClickListene
          * 如果没登录，就会弹出登录
          */
         public boolean showLoginDialogIfNeed();
+
+        public void clearCache();
     }
 }
