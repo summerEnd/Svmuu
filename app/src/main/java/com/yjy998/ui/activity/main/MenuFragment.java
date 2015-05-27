@@ -92,7 +92,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 return;
             }
             phoneText.setText(assent.name);
-            remainMoneyText.setText(getString(R.string.remain_money_s, NumberUtil.formatStr(assent.avalaible_amount)));
+            remainMoneyText.setText(getString(R.string.remain_money_s, assent.avalaible_amount));
             goldIngotText.setText(getString(R.string.GoldIngot_s, assent.yuanbao_total_amount));
             caopanTickets.setText(getString(R.string.caopan_s, assent.quan_total_amount));
 

@@ -144,7 +144,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             UserInfo info = user.userInfo;
             telText.setText(info.unick);
 
-            moneyText.setText("￥" + NumberUtil.formatStr(assent.avalaible_amount));
+            moneyText.setText("￥" + assent.avalaible_amount);
             goldIngotText.setText(getString(R.string.GoldIngot_s, assent.yuanbao_total_amount));
             caopanTicketsText.setText(getString(R.string.caopan_s, assent.quan_total_amount));
             ImageLoader.getInstance().displayImage(user.userInfo.uface, avatarImage, ImageOptions.getAvatarInstance());
