@@ -7,11 +7,12 @@ import android.util.AttributeSet;
 import com.sp.lib.widget.slide.toggle.shape.LineTransformer;
 import com.sp.lib.widget.slide.toggle.shape.SLine;
 
-public class FlexibleToggle extends ToggleView {
+public abstract class FlexibleToggle extends ToggleView {
     LineTransformer line1;
     LineTransformer line2;
     LineTransformer line3;
     private boolean rotate = false;
+    private boolean INIT = false;
 
     public FlexibleToggle(Context context) {
         this(context, null);
@@ -78,5 +79,11 @@ public class FlexibleToggle extends ToggleView {
         line2.getShapeStart().set(pLeft, midHeight, width - pRight, midHeight);
 
         line3.getShapeStart().set(pLeft, height - pBottom, width - pRight, height - pBottom);
+        if (!INIT) {
+            INIT = true;
+            onCreateFinalGraphic();
+        }
     }
+
+    protected abstract void onCreateFinalGraphic();
 }

@@ -23,6 +23,7 @@ public class ToggleView extends View implements ToggleRatio{
         mPaint.setColor(Color.WHITE);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setStrokeWidth(4f);
+        mPaint.setAntiAlias(true);
     }
 
 
