@@ -29,7 +29,7 @@ public class NumberUtil {
      */
     public static float getFloat(String number) {
         try {
-            return Float.parseFloat(number);
+            return new BigDecimal(number).floatValue();
         } catch (NumberFormatException e) {
             return 0f;
         }

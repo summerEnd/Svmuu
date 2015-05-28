@@ -100,6 +100,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
                 startActivity(new Intent(getActivity(), RechargeActivity.class));
                 break;
             }
+            case R.id.popularizeAmount:
             case R.id.popImage: {
                 startActivity(new Intent(getActivity(), PopularizeActivity.class));
                 break;
@@ -122,6 +123,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
         popularizeAmount = (TextView) findViewById(R.id.popularizeAmount);
         registerText = findViewById(R.id.registerText);
         line = findViewById(R.id.line);
+        popularizeAmount.setOnClickListener(this);
         telText.setOnClickListener(this);
         registerText.setOnClickListener(this);
 
@@ -158,6 +160,8 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             moneyText.setText("￥" + assent.avalaible_amount);
             goldIngotText.setText(getString(R.string.GoldIngot_s, assent.yuanbao_total_amount));
             caopanTicketsText.setText(getString(R.string.caopan_s, assent.quan_total_amount));
+            popularizeAmount.setText(getString(R.string.myPopularize_d, user.popularizeAmount));
+
             ImageLoader.getInstance().displayImage(user.userInfo.uface, avatarImage, ImageOptions.getAvatarInstance());
 
         } else {
@@ -170,12 +174,12 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance());
             contestAmount.setText(getString(R.string.myContest_d, 0));
             contractAmount.setText(getString(R.string.myContract_d, 0));
+            popularizeAmount.setText(getString(R.string.myPopularize_d, 0));
         }
         ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
         ArrayList<Contest> myContests = AppDelegate.getInstance().getUser().myContests;
         contestAmount.setText(getString(R.string.myContest_d, myContests != null ? myContests.size() : 0));
         contractAmount.setText(getString(R.string.myContract_d, myContracts != null ? myContracts.size() : 0));
-        popularizeAmount.setText(getString(R.string.myPopularize_d, myContracts != null ? myContracts.size() : 0));
         contractPager.setAdapter(new ContractPagerAdapter(myContracts));
         gamePager.setAdapter(new ContestPagerAdapter(myContests));
 

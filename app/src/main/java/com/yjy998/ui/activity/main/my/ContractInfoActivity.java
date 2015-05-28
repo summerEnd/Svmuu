@@ -18,6 +18,8 @@ import com.yjy998.ui.activity.main.my.business.BusinessActivity;
 import com.yjy998.ui.activity.base.SecondActivity;
 import com.yjy998.ui.pop.AppendCapitalDialog;
 import com.yjy998.ui.activity.pay.PayDialog;
+import com.yjy998.ui.pop.YAlertDialog;
+import com.yjy998.ui.pop.YAlertDialogTwoButton;
 import com.yjy998.ui.pop.YProgressDialog;
 
 public class ContractInfoActivity extends SecondActivity implements DialogInterface.OnDismissListener, PayDialog.Callback {
@@ -79,6 +81,26 @@ public class ContractInfoActivity extends SecondActivity implements DialogInterf
             }
 
             @Override
+            protected void onStatusFailed(Response response) {
+                super.onStatusFailed(response);
+                YAlertDialogTwoButton dialog = new YAlertDialogTwoButton(ContractInfoActivity.this);
+                dialog.setMessage(getString(R.string.request_is_failed));
+                dialog.setButton1(R.string.retry, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getContractInfo();
+                    }
+                });
+                dialog.setButton2(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                dialog.show();
+            }
+
+            @Override
             public Dialog onCreateDialog() {
                 YProgressDialog dialog = new YProgressDialog(ContractInfoActivity.this);
                 dialog.setMessage(getString(R.string.get_contract_info_ing));
@@ -103,7 +125,7 @@ public class ContractInfoActivity extends SecondActivity implements DialogInterf
 
             contractNo.setText(getString(R.string.contract_no_s, detail.contractId));
             contractType.setText(getString(R.string.contractType_s, detail.contract_type));
-            totalText.setText(getString(R.string.total_capital_s,  NumberUtil.formatStr(detail.totalAsset)));
+            totalText.setText(getString(R.string.total_capital_s, NumberUtil.formatStr(detail.totalAsset)));
             manageFeeText.setText(getString(R.string.s_day, detail.accountFee));
             areaText.setText(getString(R.string.relative_area_s, detail.relatedContest));
             applyDate.setText(getString(R.string.apply_date_s, detail.applyTime));

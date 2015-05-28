@@ -70,7 +70,7 @@
 
             <com.yjy998.ui.view.TwoTextItem
                 style="@style/BusinessTwoTextItem.Red"
-                app:prefix="当前价:"
+                app:prefix="成本价:"
                 android:id="@+id/priceText"
                 app:prefixTextColor="@color/textColorDeepGray"
                 android:text="8.26"
@@ -97,7 +97,7 @@
             <com.yjy998.ui.view.TwoTextItem
                 android:id="@+id/costPrice"
                 style="@style/BusinessTwoTextItem.Gray"
-                app:prefix="成本价:"
+                app:prefix="成本:"
                 app:prefixTextColor="@color/textColorDeepGray"
                 android:text="2.55"
                 app:prefixTextSize="@dimen/text_22px" />

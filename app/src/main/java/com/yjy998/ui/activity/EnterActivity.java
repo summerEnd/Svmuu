@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.sp.lib.common.support.adapter.GuidePagerAdapter;
+import com.sp.lib.common.support.cache.FileObjectCache;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.common.util.ShortCut;
@@ -21,6 +22,8 @@ import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.main.MainActivity;
+
+import java.io.File;
 
 /**
  * 这个activity不要继承{@link com.yjy998.ui.activity.base.YJYActivity YJYActivity},因为这个页面不应该锁屏
@@ -83,6 +86,13 @@ public class EnterActivity extends Activity {
      */
 
     void startLoading() {
+
+        File dir = new File(getCacheDir(), "contract");
+        if (!dir.exists()) {
+            if (dir.mkdirs())
+                new FileObjectCache(dir).clear();//重新进入app清空合约缓存
+        }
+
         //设置下次不再启动引导页
         AppDelegate.getInstance().setIsFirstStartApplication(false);
         //显示loading图片

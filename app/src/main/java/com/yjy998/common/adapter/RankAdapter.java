@@ -55,7 +55,10 @@ public class RankAdapter extends ViewHolderAdapter<Rank, Object> {
                 vHolder.rankText.setText(String.valueOf(position + 1));
             }
         }
-        vHolder.profitText.setText(convertView.getContext().getString(R.string.rate_f, (float)rank.rate * 100));
+
+
+
+        vHolder.profitText.setText(convertView.getContext().getString(R.string.rate_f, (float)rank.rate * 1000));
         vHolder.nameText.setText(rank.nick);
     }
 

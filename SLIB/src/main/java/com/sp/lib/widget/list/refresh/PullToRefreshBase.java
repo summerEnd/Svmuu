@@ -689,7 +689,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
      * 
      * @return true正在刷新，否则false
      */
-    protected boolean isPullRefreshing() {
+    public boolean isPullRefreshing() {
         return (mPullDownState == State.REFRESHING);
     }
     

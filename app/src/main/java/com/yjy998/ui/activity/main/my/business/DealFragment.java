@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 成交
@@ -50,7 +51,9 @@ public class DealFragment extends BusinessListFragment {
                             adapter=new DealAdapter(getActivity(),new ArrayList<Deal>());
                             setAdapter(adapter);
                         }
-                        JsonUtil.getArray(array,Deal.class,adapter.getData());
+                        List<Deal> dealList = adapter.getData();
+                        dealList.clear();
+                        JsonUtil.getArray(array,Deal.class, dealList);
                         adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -87,9 +87,8 @@ public class HoldingsFragment extends BusinessListFragment {
                         if (adapter == null) {
                             adapter = new HoldingsAdapter(getActivity(), holdings);
                             setAdapter(adapter);
-                        } else {
-                            adapter.notifyDataSetChanged();
                         }
+                        adapter.notifyDataSetChanged();
 
                     } catch (JSONException e) {
                         e.printStackTrace();

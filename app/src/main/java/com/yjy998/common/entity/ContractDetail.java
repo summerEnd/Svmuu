@@ -2,6 +2,7 @@ package com.yjy998.common.entity;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class ContractDetail implements Serializable{
     public String contract_type;
@@ -16,4 +17,7 @@ public class ContractDetail implements Serializable{
     public String accountFee;
     public String contractId;
     public String totalAsset;
+
+    public ArrayList<Holding> holdings;
+    public Contract contract;
 }

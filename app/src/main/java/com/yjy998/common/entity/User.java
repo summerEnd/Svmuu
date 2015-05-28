@@ -7,6 +7,7 @@ public class User {
 
     public UserInfo userInfo;
     public Assent assent;
+    public int popularizeAmount;
     public ArrayList<Contest> myContests;
     public ArrayList<Contract> myContracts;
 }

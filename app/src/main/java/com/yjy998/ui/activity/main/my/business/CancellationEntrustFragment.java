@@ -55,7 +55,6 @@ public class CancellationEntrustFragment extends BusinessListFragment {
     }
 
 
-
     @Override
     public void refresh() {
         if (getActivity() instanceof TradeFragment.ContractObserver) {
@@ -80,9 +79,8 @@ public class CancellationEntrustFragment extends BusinessListFragment {
                         if (adapter == null) {
                             adapter = new EntrustAdapter(getActivity(), entrusts);
                             setAdapter(adapter);
-                        } else {
-                            adapter.notifyDataSetChanged();
                         }
+                        adapter.notifyDataSetChanged();
 
                     } catch (JSONException e) {
                         e.printStackTrace();

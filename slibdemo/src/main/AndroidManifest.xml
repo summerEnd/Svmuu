@@ -19,22 +19,32 @@
         </activity>
         <activity
             android:name="com.slib.demo.PagerTitle"
-            android:label="@string/title_activity_pager_title"></activity>
+            android:label="@string/title_activity_pager_title" />
         <activity
             android:name="com.slib.demo.HttpTest"
-            android:label="@string/title_activity_pager_title"></activity>
+            android:label="@string/title_activity_pager_title" />
         <activity android:name="com.sp.lib.activity.DEBUGActivity" />
         <activity android:name="com.sp.lib.activity.album.PhotoAlbumActivity" />
         <activity android:name="com.slib.demo.AnimTest" />
         <activity
             android:name="com.slib.demo.AutoLayoutTest"
-            android:label="@string/title_activity_auto_layout_test"></activity>
+            android:label="@string/title_activity_auto_layout_test" />
         <activity
             android:name="com.slib.demo.JiHuanSongTest"
-            android:label="@string/title_activity_ji_huan_song_test"></activity>
+            android:label="@string/title_activity_ji_huan_song_test" />
         <activity android:name="com.slib.demo.WaveTest" />
         <activity android:name="com.slib.demo.DreamTest" />
         <activity android:name="com.slib.demo.ToggleTest" />
+        <activity android:name="com.slib.demo.WidgetHost" />
+
+        <receiver android:name="com.slib.demo.WidgetHost$MyWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/provider" />
+        </receiver>
     </application>
 
 </manifest>

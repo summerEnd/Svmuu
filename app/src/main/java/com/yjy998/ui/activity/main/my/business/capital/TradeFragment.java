@@ -2,10 +2,11 @@ package com.yjy998.ui.activity.main.my.business.capital;
 
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -38,15 +39,15 @@ import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.main.my.business.BusinessActivity;
 import com.yjy998.ui.activity.pay.PayDialog;
 import com.yjy998.ui.pop.YAlertDialog;
+import com.yjy998.ui.pop.YProgressDialog;
 import com.yjy998.ui.view.RoundButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.text.SimpleDateFormat;
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
 /**
  * 买入&卖出
@@ -54,7 +55,7 @@ import java.util.Locale;
  */
 public abstract class TradeFragment extends BaseFragment implements View.OnClickListener, PullToRefreshBase.OnRefreshListener<ScrollView> {
     PullToRefreshScrollView layout;
-    ListPopupWindow contractListWindow;
+    ListPopupWindow contractsWindow;
     TimeLineFragment mTimeLineFragment = new TimeLineFragment();
     protected CapitalInfo mCapitalInfo;
     private TextView usableText;
@@ -65,7 +66,7 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
     private TextView contractText;
     private LinearListView list;
     protected ContractObserver observer;
-
+    ContractStockListAdapter contractStockListAdapter;
 
     @Override
     public void onAttach(Activity activity) {
@@ -93,24 +94,17 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
     }
 
     @Override
-    public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-        observer.clearCache();
-        refresh();
-    }
-
-    @Override
-    public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-
-    }
-
-    protected abstract CapitalInfo createCapitalFragment();
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize();
-    }
+        ContractDetail sharedContract = observer.getSharedContract();
+        String sharedId = sharedContract == null ? null : sharedContract.contractId;
 
+        if (isDoRefreshWhenCreated()) {
+            setDataWithId(sharedId);
+            setDoRefreshWhenCreated(false);
+        }
+    }
 
     /**
      * 初始化
@@ -120,6 +114,8 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
             //防止重复初始化
             return;
         }
+
+
         usableText = (TextView) findViewById(R.id.usableText);
         balanceText = (TextView) findViewById(R.id.balanceText);
         stockValueText = (TextView) findViewById(R.id.stockValueText);
@@ -127,6 +123,8 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
         RoundButton resetButton = (RoundButton) findViewById(R.id.resetButton);
         contractText = (TextView) findViewById(R.id.contractText);
         list = (LinearListView) findViewById(R.id.list);
+        contractStockListAdapter = new ContractStockListAdapter(getActivity(), new ArrayList<Holding>());
+        list.setAdapter(contractStockListAdapter);
         list.setOnItemClick(new LinearListView.OnItemClick() {
             @Override
             public void onItemClick(LinearListView parent, View view, int position, long id) {
@@ -148,6 +146,19 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
                     .commit();
         }
     }
+
+    @Override
+    public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+        observer.clearCache();
+        refresh();
+    }
+
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+
+    }
+
+    protected abstract CapitalInfo createCapitalFragment();
 
 
     @Override
@@ -180,14 +191,14 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
                     return;
                 }
 
-                if (contractListWindow == null) {
-                    contractListWindow = new ListPopupWindow(getActivity());
-                    contractListWindow.setAnchorView(v);
+                if (contractsWindow == null) {
+                    contractsWindow = new ListPopupWindow(getActivity());
+                    contractsWindow.setAnchorView(v);
                     ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
-                    contractListWindow.setAdapter(new ContractListAdapter(getActivity(), myContracts));
-                    contractListWindow.setOnItemClickListener(new OnContractClick());
+                    contractsWindow.setAdapter(new ContractListAdapter(getActivity(), myContracts));
+                    contractsWindow.setOnItemClickListener(new OnContractClick());
                 }
-                contractListWindow.show();
+                contractsWindow.show();
                 break;
             }
         }
@@ -201,67 +212,24 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            contractListWindow.dismiss();
-            ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
-
+            contractsWindow.dismiss();
+            List<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
             if (myContracts == null || position >= myContracts.size()) {
                 contractText.setText(R.string.no_contract_);
                 return;
             }
-
             Contract contract = myContracts.get(position);
             setContractLocal(null);//清空之前的数据
-            contractText.setText(getString(R.string.contract_s1_s2, contract.contract_type, contract.id));
-            refreshInternal(contract.id);
+            contractText.setText(getString(R.string.contract_s1_s2, contract.contract_name, contract.id));
+            ContractDetail sharedContract = new ContractDetail();
+            sharedContract.contract = contract;
+            sharedContract.contractId = contract.contract_no;
+            sharedContract.contract_type = contract.contract_type;
+            observer.setContract(sharedContract);
+
+            setDataWithId(contract.id);
+
         }
-    }
-
-    /**
-     * 获取合约信息,这个接口很慢
-     */
-    public void getContractInfo(final String contract_id) {
-
-        if (TextUtils.isEmpty(contract_id)) {
-            return;
-        }
-        //由于这个接口很慢，引入缓存机制，从缓存中读取
-        if (observer != null) {
-            ContractDetail detail = (ContractDetail) observer.readContractFromCache(contract_id);
-
-            if (detail != null) {
-                //详情页面使用缓存
-                setContractLocal(detail);
-                notifyContractChange(detail);
-                getHoldings(contract_id);
-                return;
-            }
-        }
-        //弹出进度框，将会在getHoldings()结束时自动关闭。或者获取合约详情失败时关闭
-        if (layout != null)
-            layout.doPullRefreshing(true, 0);
-        //获取合约详情
-        SRequest request = new SRequest("http://mobile.yjy998.com/h5/account/contractinfo");
-        request.put("contract_no", contract_id);
-        YHttpClient.getInstance().get(request, new YHttpHandler(false) {
-            @Override
-            protected void onStatusCorrect(Response response) {
-                ContractDetail detail = JsonUtil.get(response.data, ContractDetail.class);
-                setContractLocal(detail);
-                notifyContractChange(detail);
-                getHoldings(contract_id);
-            }
-
-            @Override
-            protected void onStatusFailed(Response response) {
-                super.onStatusFailed(response);
-                ContextUtil.toast(R.string.request_is_failed);
-                if (layout != null)
-                    layout.onPullDownRefreshComplete();
-
-
-            }
-
-        });
     }
 
 
@@ -279,7 +247,7 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
             balanceText.setText(contract.totalProfit);
             stockValueText.setText(contract.totalMarketValue);
             totalText.setText(contract.totalAsset);
-            contractText.setText(AppDelegate.getInstance().getString(R.string.contract_s1_s2, contract.contract_type, contract.contractId));
+            contractText.setText(getString(R.string.contract_s1_s2, contract.contract_type, contract.contractId));
         } else {
             usableText.setText("");
             balanceText.setText("");
@@ -296,13 +264,12 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
         if (observer != null) {
             observer.setContract(contract);
             observer.saveContract(contract);//保存到缓存
-
         }
     }
 
 
     /**
-     * 买入卖出
+     * 开始交易
      */
     public void beginTrade() {
         if (observer.showLoginDialogIfNeed()) {
@@ -329,13 +296,12 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
         }
         final ContractDetail detail = observer.getSharedContract();
 
-        if (detail==null){
+        if (detail == null) {
             ContextUtil.toast(getString(R.string.contract_not_selected));
             return;
         }
 
-        float price = NumberUtil.getFloat(stock.entrust_price);
-        String totalAmount = price * quantity + "";
+        String totalAmount =new BigDecimal(stock.entrust_price).multiply(new BigDecimal(quantity)).toString();
         final PayDialog payDialog = new PayDialog(getActivity(), totalAmount);
         payDialog.findViewById(R.id.remainLine).setVisibility(View.GONE);
         payDialog.findViewById(R.id.remainMoneyText).setVisibility(View.GONE);
@@ -351,19 +317,22 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
                 request.put("stock_code", stock.stockCode);
                 request.put("stock_name", stock.stockName);
                 request.put("buy_price", stock.entrust_price);
+                request.put("sell_price", stock.entrust_price);
                 request.put("buy_quantity", quantity);
+                request.put("sell_quantity", quantity);
                 request.put("exchange_type", stock.exchangeType);//交易所类型：1，2
                 YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler() {
                     @Override
                     protected void onStatusCorrect(Response response) {
                         payDialog.dismiss();
                         AppDelegate.getInstance().refreshUserInfo();
+                        ContextUtil.toast(getString(R.string.trade_ok));
                     }
 
                     @Override
                     protected void onStatusFailed(Response response) {
                         super.onStatusFailed(response);
-                        YAlertDialog.show(getActivity(),response.message);
+                        YAlertDialog.show(getActivity(), response.message);
                     }
                 });
             }
@@ -375,25 +344,47 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
 
     @Override
     public void refresh() {
-        if (observer == null) {
-            return;
-        }
-        if (!isVisible()) {
+        if (getView() == null) {
+            //视图还没创建好，延迟刷新
+            setDoRefreshWhenCreated(true);
             return;
         }
 
-        setContractLocal(observer.getSharedContract());
-        refreshInternal(observer.getContractId());
+        ContractDetail sharedContract = observer.getSharedContract();
+        setContractLocal(sharedContract);
+        setDataWithId(sharedContract == null ? null : sharedContract.contractId);
     }
 
     /**
-     * 调用网络接口获取数据
-     *
-     * @param contractId
+     * 利用合约id刷新界面，优先使用缓存
      */
-    public void refreshInternal(String contractId) {
-        if (!TextUtils.isEmpty(contractId) && getActivity() != null) {
-            getContractInfo(contractId);
+    public void setDataWithId(String contractId) {
+
+        if (TextUtils.isEmpty(contractId)) {
+            //不允许为空
+            return;
+        }
+
+        if (getActivity() != null) {
+            //由于这个接口很慢，引入缓存机制，从缓存中读取
+            ContractDetail detail = (ContractDetail) observer.readContractFromCache(contractId);
+
+            if (detail != null) {
+                //详情页面使用缓存
+                setContractLocal(detail);
+                notifyContractChange(detail);
+
+                ArrayList<Holding> holdingArrayList = detail.holdings;
+                if (holdingArrayList == null || holdingArrayList.size() == 0) {
+                    getHoldings(detail.contractId);
+                } else {
+                    contractStockListAdapter.getData().clear();
+                    contractStockListAdapter.getData().addAll(holdingArrayList);
+                    contractStockListAdapter.notifyDataSetChanged();
+                }
+            } else {
+                getContractInfo(contractId);
+            }
         }
 
         if (mCapitalInfo != null) {
@@ -402,7 +393,54 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
     }
 
     /**
-     * 获取持仓列表
+     * 获取合约信息,这个接口很慢.
+     */
+    public void getContractInfo(final String contract_id) {
+
+        if (TextUtils.isEmpty(contract_id)) {
+            //合约id不能为空
+            return;
+        }
+
+        //获取合约详情
+        SRequest request = new SRequest("http://mobile.yjy998.com/h5/account/contractinfo");
+        request.put("contract_no", contract_id);
+        YHttpClient.getInstance().get(request, new YHttpHandler(false) {
+            @Override
+            protected void onStatusCorrect(Response response) {
+                ContractDetail detail = JsonUtil.get(response.data, ContractDetail.class);
+                detail.contract=observer.getSharedContract().contract;
+                setContractLocal(detail);
+                notifyContractChange(detail);
+                getHoldings(contract_id);
+            }
+
+            @Override
+            protected void onStatusFailed(Response response) {
+                super.onStatusFailed(response);
+                ContextUtil.toast(R.string.request_is_failed);
+
+
+                if (layout != null)
+                    layout.onPullDownRefreshComplete();
+            }
+
+            @Override
+            public Dialog onCreateDialog() {
+                FragmentActivity activity = getActivity();
+                if (activity != null) {
+                    YProgressDialog dialog = new YProgressDialog(activity);
+                    dialog.setMessage(getString(R.string.load_amount));
+                    return dialog;
+                }
+                return super.onCreateDialog();
+            }
+        });
+    }
+
+    /**
+     * 获取持仓列表：
+     * 获取持仓列表，并把其放入ContractDetail缓存起来
      */
     public void getHoldings(String contract_no) {
         if (getActivity() == null) {
@@ -417,9 +455,14 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
             protected void onStatusCorrect(Response response) {
                 try {
                     JSONArray array = new JSONArray(response.data);
-                    ContractStockListAdapter adapter = new ContractStockListAdapter(getActivity(), JsonUtil.getArray(array, Holding.class));
-                    list.setAdapter(adapter);
 
+                    ArrayList<Holding> holdingList = (ArrayList<Holding>) contractStockListAdapter.getData();
+                    holdingList.clear();
+                    JsonUtil.getArray(array, Holding.class, holdingList);
+                    contractStockListAdapter.notifyDataSetChanged();
+                    ContractDetail sharedContract = observer.getSharedContract();
+                    sharedContract.holdings = holdingList;
+                    notifyContractChange(sharedContract);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -429,7 +472,6 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
             public void onFinish() {
                 if (layout != null) {
                     layout.onPullDownRefreshComplete();
-                    layout.setLastUpdatedLabel(new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).format(new Date()));
                 }
             }
         });
@@ -451,10 +493,6 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
          */
         public String getStockCode();
 
-        /**
-         * 当前共享的合约的Id
-         */
-        public String getContractId();
 
         /**
          * 根据合约id从缓存中读取合约

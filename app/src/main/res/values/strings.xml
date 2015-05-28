@@ -269,4 +269,5 @@
     <string name="loading">加载中…</string>
     <string name="call_service">拨打客服电话？</string>
     <string name="call">拨打</string>
+    <string name="trade_ok">交易成功！</string>
 </resources>

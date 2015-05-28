@@ -5,7 +5,7 @@ import android.view.View;
 
 public class BaseFragment extends Fragment {
     private String title;
-
+    private boolean doRefreshWhenCreated;
     public String getTitle() {
         return title;
     }
@@ -25,5 +25,13 @@ public class BaseFragment extends Fragment {
      * 刷新
      */
     public void refresh() {
+    }
+
+    public boolean isDoRefreshWhenCreated() {
+        return doRefreshWhenCreated;
+    }
+
+    public void setDoRefreshWhenCreated(boolean doRefreshWhenCreated) {
+        this.doRefreshWhenCreated = doRefreshWhenCreated;
     }
 }

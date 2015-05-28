@@ -89,7 +89,7 @@
                     android:layout_marginLeft="@dimen/dimen_36px"
                     android:textColor="#0a3e75"
                     android:textSize="@dimen/text_20px"
-
+                    android:drawablePadding="-4dp"
                     android:layout_width="wrap_content"
                     android:gravity="center"
                     android:drawableTop="@drawable/ic_copy"
@@ -103,6 +103,7 @@
                     android:textSize="@dimen/text_20px"
                     android:layout_width="wrap_content"
                     android:gravity="center"
+                    android:drawablePadding="-4dp"
                     android:layout_marginLeft="@dimen/dimen_36px"
                     android:layout_height="wrap_content"
                     android:text="分享" />

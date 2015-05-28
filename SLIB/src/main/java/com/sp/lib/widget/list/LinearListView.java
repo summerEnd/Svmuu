@@ -55,9 +55,24 @@ public class LinearListView extends LinearLayout implements View.OnClickListener
 
         this.mAdapter = adapter;
 
-        adapter.registerDataSetObserver(mObserver);
+        registerDataSetObserverSafe();
         refreshLayout();
 
+    }
+
+    void registerDataSetObserverSafe(){
+        if (mAdapter != null) {
+            try {
+                mAdapter.registerDataSetObserver(mObserver);
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        registerDataSetObserverSafe();
     }
 
     public void setOnItemClick(OnItemClick onItemClick) {

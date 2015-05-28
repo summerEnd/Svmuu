@@ -21,11 +21,13 @@
                 android:id="@+id/pull_to_refresh_header_hint_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_alignParentTop="true"
                 android:text="@string/pull_to_refresh_header_hint_normal"
                 android:textSize="14sp" 
                 android:textColor="#999999"/>
             <TextView
+                android:visibility="gone"
                 android:id="@+id/pull_to_refresh_last_update_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,6 +37,7 @@
                 android:textSize="@dimen/picture_pull_to_refresh_last_update_time_text_size" 
                 android:textColor="#999999"/>
             <TextView
+                android:visibility="gone"
                 android:id="@+id/pull_to_refresh_header_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

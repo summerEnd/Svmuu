@@ -3,7 +3,9 @@ package com.yjy998.ui.activity.pay;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -77,9 +79,13 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirmBtn: {
-                cancel.setEnabled(false);
-                confirmBtn.setText(R.string.dealing);
-                RSAUtil.sign(getContext(), passwordEdit.getText().toString(), this);
+
+                if (check()) {
+                    cancel.setEnabled(false);
+                    confirmBtn.setText(R.string.dealing);
+                    RSAUtil.sign(getContext(), passwordEdit.getText().toString(), this);
+                }
+
                 break;
             }
             case R.id.cancelBtn: {
@@ -87,6 +93,16 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
                 break;
             }
         }
+    }
+
+    private boolean check() {
+        if (TextUtils.isEmpty(passwordEdit.getText().toString())) {
+            passwordEdit.requestFocus();
+            passwordEdit.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.shake));
+            return false;
+        }
+
+        return true;
     }
 
     public Callback getCallback() {
@@ -100,9 +116,9 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
 
     @Override
     public void onRSAEncodeSuccess(String rsa) {
+        dismiss();
         if (callback != null) {
             callback.onPay(passwordEdit.getText().toString(), rsa);
-            cancel.setEnabled(true);
         }
     }
 

@@ -1,6 +1,8 @@
 package com.yjy998.common.entity;
 
-public class Holding {
+import java.io.Serializable;
+
+public class Holding implements Serializable{
     public int enableAmount;
     public float costBalance;
     public String stockCode;

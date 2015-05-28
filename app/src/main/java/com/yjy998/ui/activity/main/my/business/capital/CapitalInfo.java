@@ -313,7 +313,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
             }
 
             if (!isStockSelected) {
-                getStockInfo(code);
+                queryStockInfo(code);
             }
         }
     }
@@ -364,7 +364,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
      *
      * @param code 小于等于六位
      */
-    private void getStockInfo(String code) {
+    private void queryStockInfo(String code) {
 
         if (code == null || code.length() >= 6) {
 

@@ -56,14 +56,19 @@ public class HoldingsAdapter extends ViewHolderAdapter<Holding, Object> {
         Holding holding = getItem(position);
         //当前价
         String price = "";
-        if (holding.buyAmount != 0) {
-            price = String.format("%.2f", holding.costBalance / 100 / holding.buyAmount);
+        //后台来的数据被放大了100倍，在这里进行处理
+        float realCost = holding.costBalance / 100;
+        float realMarketValue = holding.marketValue / 100;
+
+        if (holding.currentAmount != 0) {
+            price = String.format("%.2f", realCost / holding.currentAmount);
         }
 
         //浮动盈亏
         String rateStr = "";
-        if (holding.costBalance != 0) {
-            float rateValue = (holding.marketValue - holding.costBalance) / holding.costBalance * 100;
+
+        if (realCost != 0) {
+            float rateValue = (realMarketValue -realCost) / realCost * 100;
             rateStr = String.format("%.2f%%", rateValue);
             int color = convertView.getResources().getColor(rateValue > 0 ? R.color.textColorRed : R.color.textColorGreen);
             viewHolder.balanceRate.setTextColor(color);
@@ -81,9 +86,9 @@ public class HoldingsAdapter extends ViewHolderAdapter<Holding, Object> {
         viewHolder.balanceRate.setText(rateStr);
 
         //第二行
-        viewHolder.marketValue.setText(holding.marketValue + "");
+        viewHolder.marketValue.setText(realMarketValue + "");
         viewHolder.buyAmount.setText(holding.buyAmount + "");
-        viewHolder.costPrice.setText(holding.costBalance + "");
+        viewHolder.costPrice.setText(realCost + "");
 
         //第三行
     }
