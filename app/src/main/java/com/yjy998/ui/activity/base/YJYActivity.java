@@ -93,7 +93,7 @@ public class YJYActivity extends SlibActivity implements View.OnClickListener {
     /**
      * 登陆状态发生改变时要刷新一下布局
      */
-    protected void refreshLayout() {
+    public void refreshLayout() {
 
     }
 

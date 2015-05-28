@@ -37,12 +37,16 @@ import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.main.my.business.BusinessActivity;
 import com.yjy998.ui.activity.pay.PayDialog;
+import com.yjy998.ui.pop.YAlertDialog;
 import com.yjy998.ui.view.RoundButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * 买入&卖出
@@ -217,11 +221,9 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
      */
     public void getContractInfo(final String contract_id) {
 
-
-        //弹出进度框，将会在getHoldings()结束时自动关闭。或者获取合约详情失败时关闭
-       if(layout!=null)
-        layout.doPullRefreshing(true, 0);
-
+        if (TextUtils.isEmpty(contract_id)) {
+            return;
+        }
         //由于这个接口很慢，引入缓存机制，从缓存中读取
         if (observer != null) {
             ContractDetail detail = (ContractDetail) observer.readContractFromCache(contract_id);
@@ -234,7 +236,9 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
                 return;
             }
         }
-
+        //弹出进度框，将会在getHoldings()结束时自动关闭。或者获取合约详情失败时关闭
+        if (layout != null)
+            layout.doPullRefreshing(true, 0);
         //获取合约详情
         SRequest request = new SRequest("http://mobile.yjy998.com/h5/account/contractinfo");
         request.put("contract_no", contract_id);
@@ -251,8 +255,8 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
             protected void onStatusFailed(Response response) {
                 super.onStatusFailed(response);
                 ContextUtil.toast(R.string.request_is_failed);
-                if(layout!=null)
-                layout.onPullDownRefreshComplete();
+                if (layout != null)
+                    layout.onPullDownRefreshComplete();
 
 
             }
@@ -323,9 +327,16 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
             ContextUtil.toast(getString(R.string.toast_no_amout));
             return;
         }
+        final ContractDetail detail = observer.getSharedContract();
+
+        if (detail==null){
+            ContextUtil.toast(getString(R.string.contract_not_selected));
+            return;
+        }
+
         float price = NumberUtil.getFloat(stock.entrust_price);
         String totalAmount = price * quantity + "";
-        PayDialog payDialog = new PayDialog(getActivity(), totalAmount);
+        final PayDialog payDialog = new PayDialog(getActivity(), totalAmount);
         payDialog.findViewById(R.id.remainLine).setVisibility(View.GONE);
         payDialog.findViewById(R.id.remainMoneyText).setVisibility(View.GONE);
         payDialog.setCallback(new PayDialog.Callback() {
@@ -333,7 +344,6 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
             public void onPay(String password, String rsa_password) {
 
                 SRequest request = new SRequest(getTradeUrl());
-                ContractDetail detail = observer.getSharedContract();
                 request.put("contract_no", detail.contractId);
                 request.put("contract_id", detail.contractId);
                 request.put("raw_pwd", password);
@@ -346,7 +356,14 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
                 YHttpClient.getInstance().post(getActivity(), request, new YHttpHandler() {
                     @Override
                     protected void onStatusCorrect(Response response) {
+                        payDialog.dismiss();
                         AppDelegate.getInstance().refreshUserInfo();
+                    }
+
+                    @Override
+                    protected void onStatusFailed(Response response) {
+                        super.onStatusFailed(response);
+                        YAlertDialog.show(getActivity(),response.message);
                     }
                 });
             }
@@ -389,8 +406,8 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
      */
     public void getHoldings(String contract_no) {
         if (getActivity() == null) {
-            if(layout!=null)
-            layout.onPullDownRefreshComplete();
+            if (layout != null)
+                layout.onPullDownRefreshComplete();
             return;
         }
         SRequest request = new SRequest("http://www.yjy998.com/stock/hold");
@@ -410,8 +427,10 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
 
             @Override
             public void onFinish() {
-                if(layout!=null)
-                layout.onPullDownRefreshComplete();
+                if (layout != null) {
+                    layout.onPullDownRefreshComplete();
+                    layout.setLastUpdatedLabel(new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).format(new Date()));
+                }
             }
         });
     }

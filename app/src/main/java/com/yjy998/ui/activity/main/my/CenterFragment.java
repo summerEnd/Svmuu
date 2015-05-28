@@ -1,5 +1,6 @@
 package com.yjy998.ui.activity.main.my;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +24,8 @@ import com.yjy998.common.util.ImageOptions;
 import com.yjy998.common.entity.Contract;
 import com.yjy998.common.entity.Contest;
 import com.yjy998.common.util.NumberUtil;
+import com.yjy998.ui.activity.admin.LoginDialog;
+import com.yjy998.ui.activity.admin.RegisterDialog;
 import com.yjy998.ui.activity.main.my.business.BusinessActivity;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.base.MenuActivity;
@@ -47,7 +50,10 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
     private TextView popularizeAmount;
     private ViewPager contractPager;
     private ViewPager gamePager;
-
+    LoginDialog loginDialog;
+    RegisterDialog registerDialog;
+    View registerText;
+    View line;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,12 +71,18 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.registerText: {
+                createRegisterDialogIfNeed();
+                registerDialog.show();
+                break;
+            }
             case R.id.telText:
             case R.id.avatarImage: {
                 if (AppDelegate.getInstance().isUserLogin()) {
                     startActivity(new Intent(getActivity(), ChangeDataActivity.class));
                 } else {
-                    showLoginDialog();
+                    createLoginDialogIfNeed();
+                    loginDialog.show();
                 }
                 break;
             }
@@ -95,12 +107,6 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
         }
     }
 
-    void showLoginDialog() {
-        if (getActivity() instanceof MenuActivity) {
-            ((MenuActivity) getActivity()).showLoginWindow();
-            ContextUtil.toast(getString(R.string.please_login_first));
-        }
-    }
 
     private void initialize() {
         avatarImage = (ImageView) findViewById(R.id.avatarImage);
@@ -114,7 +120,11 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
         contractAmount = (TextView) findViewById(R.id.contractAmount);
         contestAmount = (TextView) findViewById(R.id.contestAmount);
         popularizeAmount = (TextView) findViewById(R.id.popularizeAmount);
+        registerText = findViewById(R.id.registerText);
+        line = findViewById(R.id.line);
         telText.setOnClickListener(this);
+        registerText.setOnClickListener(this);
+
         findViewById(R.id.buyIn).setOnClickListener(this);
         findViewById(R.id.sellOut).setOnClickListener(this);
         findViewById(R.id.recharge).setOnClickListener(this);
@@ -143,14 +153,17 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             Assent assent = user.assent;
             UserInfo info = user.userInfo;
             telText.setText(info.unick);
-
+            registerText.setVisibility(View.GONE);
+            line.setVisibility(View.GONE);
             moneyText.setText("￥" + assent.avalaible_amount);
             goldIngotText.setText(getString(R.string.GoldIngot_s, assent.yuanbao_total_amount));
             caopanTicketsText.setText(getString(R.string.caopan_s, assent.quan_total_amount));
             ImageLoader.getInstance().displayImage(user.userInfo.uface, avatarImage, ImageOptions.getAvatarInstance());
 
         } else {
-            telText.setText(R.string.userName_not_login);
+            registerText.setVisibility(View.VISIBLE);
+            line.setVisibility(View.VISIBLE);
+            telText.setText(R.string.login);
             moneyText.setText("￥0");
             goldIngotText.setText(getString(R.string.GoldIngot_s, "0"));
             caopanTicketsText.setText(getString(R.string.caopan_s, "0"));
@@ -168,4 +181,29 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
 
     }
 
+    private void createLoginDialogIfNeed() {
+
+        if (loginDialog != null) {
+            return;
+        }
+
+        loginDialog = new LoginDialog(getActivity());
+        loginDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                ((MenuActivity) getActivity()).refreshTitle();
+                ((MenuActivity) getActivity()).refreshLayout();
+            }
+        });
+    }
+
+    private void createRegisterDialogIfNeed() {
+
+        if (registerDialog != null) {
+            return;
+        }
+
+        registerDialog = new RegisterDialog(getActivity());
+
+    }
 }

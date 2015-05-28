@@ -34,7 +34,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_height="@dimen/avatarSize" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,9 +46,32 @@
                     android:textSize="@dimen/text_24px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/__testPhone" />
+                    android:text="@string/login" />
+
+                <TextView
+                    android:id="@+id/line"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="|"
+                    android:textSize="@dimen/text_24px"
+                    android:textColor="@color/textColorBlack"
+                    android:layout_alignBaseline="@id/telText"
+                    android:layout_toRightOf="@id/telText"
+                    android:layout_toEndOf="@id/telText" />
+
+                <TextView
+                    android:id="@+id/registerText"
+                    android:textColor="@color/textColorBlack"
+                    android:textSize="@dimen/text_24px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/line"
+                    android:text="@string/register" />
 
                 <com.yjy998.ui.view.TwoTextItem
+                    android:layout_below="@id/telText"
                     android:id="@+id/moneyText"
                     android:layout_marginTop="6dp"
                     android:layout_width="wrap_content"
@@ -60,7 +83,7 @@
                     app:prefixTextSize="@dimen/text_28px"
                     app:prefixTextColor="@color/textColorBlack"
                     android:layout_height="wrap_content" />
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
 
         <View style="@style/horizontalLine" />

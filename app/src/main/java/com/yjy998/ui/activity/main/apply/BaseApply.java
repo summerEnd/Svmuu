@@ -18,6 +18,7 @@ import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.base.YJYActivity;
 import com.yjy998.ui.activity.main.more.WebViewActivity;
 import com.yjy998.ui.activity.pay.PayDialog;
+import com.yjy998.ui.pop.YAlertDialog;
 import com.yjy998.ui.view.CircleItem;
 
 
@@ -111,7 +112,8 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                     }
                 }
 
-                new PayDialog(getActivity(), payAmount.getTag() + "").setCallback(new PayDialog.Callback() {
+                final PayDialog payDialog = new PayDialog(getActivity(), payAmount.getTag() + "");
+                payDialog.setCallback(new PayDialog.Callback() {
                     @Override
                     public void onPay(String password, String rsa_password) {
                         SRequest request = new SRequest("http://www.yjy998.com/contract/apply");
@@ -127,7 +129,13 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                         YHttpClient.getInstance().post(request, new YHttpHandler() {
                             @Override
                             protected void onStatusCorrect(Response response) {
+                                payDialog.dismiss();
+                            }
 
+                            @Override
+                            protected void onStatusFailed(Response response) {
+                                super.onStatusFailed(response);
+                                YAlertDialog.show(getActivity(), response.message);
                             }
                         });
                     }
@@ -221,6 +229,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
 
     /**
      * 玩法介绍链接
+     *
      * @return
      */
     public abstract String getIntroduceUrl();

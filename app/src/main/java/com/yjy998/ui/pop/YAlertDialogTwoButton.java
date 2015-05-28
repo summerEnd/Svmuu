@@ -59,23 +59,25 @@ public class YAlertDialogTwoButton extends Dialog implements View.OnClickListene
         this.message.setText(message);
     }
 
-    public void setButton1(int res, OnClickListener listener) {
-        setButton1(getContext().getResources().getString(res), listener);
+    public YAlertDialogTwoButton setButton1(int res, OnClickListener listener) {
+        return setButton1(getContext().getResources().getString(res), listener);
     }
 
-    public void setButton1(String button, OnClickListener listener) {
+    public YAlertDialogTwoButton setButton1(String button, OnClickListener listener) {
         this.button1.setText(button);
         this.button1.setTag(R.id.button1, listener);
+        return this;
     }
 
-    public void setButton2(int res, OnClickListener listener) {
-        setButton2(getContext().getResources().getString(res), listener);
+    public YAlertDialogTwoButton setButton2(int res, OnClickListener listener) {
+        return setButton2(getContext().getResources().getString(res), listener);
     }
 
-    public void setButton2(String button, OnClickListener listener) {
+    public YAlertDialogTwoButton setButton2(String button, OnClickListener listener) {
         this.button2.setText(button);
         this.button1.setTag(R.id.button2, listener);
-
+        return this;
     }
+
 
 }

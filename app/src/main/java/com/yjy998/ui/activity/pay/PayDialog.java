@@ -102,7 +102,7 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
     public void onRSAEncodeSuccess(String rsa) {
         if (callback != null) {
             callback.onPay(passwordEdit.getText().toString(), rsa);
-            dismiss();
+            cancel.setEnabled(true);
         }
     }
 

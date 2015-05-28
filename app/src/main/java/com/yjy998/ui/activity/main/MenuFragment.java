@@ -1,6 +1,7 @@
 package com.yjy998.ui.activity.main;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +20,8 @@ import com.yjy998.common.entity.User;
 import com.yjy998.common.util.ImageOptions;
 import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.admin.About;
+import com.yjy998.ui.activity.admin.LoginDialog;
+import com.yjy998.ui.activity.admin.RegisterDialog;
 import com.yjy998.ui.activity.base.MenuActivity;
 import com.yjy998.ui.activity.main.apply.ApplyActivity;
 import com.yjy998.ui.activity.main.my.ChangeDataActivity;
@@ -35,6 +38,10 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
     private TextView goldIngotText;
     private TextView caopanTickets;
     private OnMenuClick menuClick;
+    LoginDialog loginDialog;
+    RegisterDialog registerDialog;
+    View registerText;
+    View line;
 
     @Override
     public void onAttach(Activity activity) {
@@ -75,6 +82,10 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         findViewById(R.id.help).setOnClickListener(this);
         findViewById(R.id.about).setOnClickListener(this);
         findViewById(R.id.popularize).setOnClickListener(this);
+        registerText = findViewById(R.id.registerText);
+        registerText.setOnClickListener(this);
+        line = findViewById(R.id.line);
+        line.setOnClickListener(this);
         refresh();
 
     }
@@ -88,6 +99,8 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         if (AppDelegate.getInstance().isUserLogin()) {
             User user = AppDelegate.getInstance().getUser();
             Assent assent = user.assent;
+            line.setVisibility(View.GONE);
+            registerText.setVisibility(View.GONE);
             if (assent == null) {
                 return;
             }
@@ -99,7 +112,9 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
             ImageLoader.getInstance().displayImage(user.userInfo.uface, avatarImage, ImageOptions.getAvatarInstance(getResources().getDimensionPixelOffset(R.dimen.avatarSize)));
 
         } else {
-            phoneText.setText(getString(R.string.userName_not_login));
+            line.setVisibility(View.VISIBLE);
+            registerText.setVisibility(View.VISIBLE);
+            phoneText.setText(getString(R.string.login));
             remainMoneyText.setText(getString(R.string.remain_money_s, 0));
             goldIngotText.setText(getString(R.string.GoldIngot_s, 0));
             caopanTickets.setText(getString(R.string.caopan_s, 0));
@@ -158,7 +173,24 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), About.class));
                 break;
             }
-            case R.id.phoneText:
+            case R.id.phoneText: {
+                if (!AppDelegate.getInstance().isUserLogin()) {
+
+                    createLoginDialogIfNeed();
+                    loginDialog.show();
+                } else {
+                    startActivity(new Intent(getActivity(), ChangeDataActivity.class));
+                }
+                break;
+            }
+            case R.id.registerText: {
+                if (!AppDelegate.getInstance().isUserLogin()) {
+
+                    createRegisterDialogIfNeed();
+                    registerDialog.show();
+                }
+                break;
+            }
             case R.id.avatarImage: {
                 if (!AppDelegate.getInstance().isUserLogin()) {
                     showLoginDialog();
@@ -175,6 +207,31 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
 //        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
+    private void createLoginDialogIfNeed() {
+
+        if (loginDialog != null) {
+            return;
+        }
+
+        loginDialog = new LoginDialog(getActivity());
+        loginDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                ((MenuActivity) getActivity()).refreshTitle();
+                ((MenuActivity) getActivity()).refreshLayout();
+            }
+        });
+    }
+
+    private void createRegisterDialogIfNeed() {
+
+        if (registerDialog != null) {
+            return;
+        }
+
+        registerDialog = new RegisterDialog(getActivity());
+
+    }
 
     void showLoginDialog() {
         if (getActivity() instanceof MenuActivity) {

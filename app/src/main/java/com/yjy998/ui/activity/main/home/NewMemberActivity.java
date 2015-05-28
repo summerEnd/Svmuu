@@ -29,7 +29,8 @@ public class NewMemberActivity extends SecondActivity {
                     break;
                 }
                 final String price = "2000";
-                new PayDialog(this, price).setCallback(new PayDialog.Callback() {
+                final PayDialog payDialog = new PayDialog(this, price);
+                payDialog.setCallback(new PayDialog.Callback() {
                     @Override
                     public void onPay(String password, String rsa_password) {
                         SRequest request = new SRequest("http://www.yjy998.com/contract/apply");

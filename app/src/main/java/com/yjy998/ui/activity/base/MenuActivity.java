@@ -1,5 +1,6 @@
 package com.yjy998.ui.activity.base;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.ui.activity.admin.LoginRegisterWindow;
 import com.yjy998.ui.activity.main.MenuFragment;
+import com.yjy998.ui.pop.YAlertDialogTwoButton;
 
 public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClick {
     private ViewGroup layoutContainer;
@@ -28,6 +30,7 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
      */
     private static boolean isFirstShow = true;
     ArrowToggle toggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +81,21 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
                 case R.id.titleImage: {
                     //登陆就打电话，没登录就跳到登陆。这是MenuActivity通用的。
                     if (AppDelegate.getInstance().isUserLogin()) {
-                        startActivity(IntentFactory.callPhone(getString(R.string.service_tel)));
+                        YAlertDialogTwoButton.show(MenuActivity.this, R.string.warn, R.string.call_service)
+                                .setButton1(R.string.call, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startActivity(IntentFactory.callPhone(getString(R.string.service_tel)));
+
+                                    }
+                                })
+                                .setButton2(R.string.cancel, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                        ;
                     } else {
                         showLoginWindow();
                     }
@@ -129,7 +146,7 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
     /**
      * 刷新右上角图标状态
      */
-    private void refreshTitle() {
+    public void refreshTitle() {
         if (AppDelegate.getInstance().isUserLogin()) {
             setTitleImage(R.drawable.ic_call);
             titleImage.setVisibility(View.VISIBLE);
@@ -139,7 +156,6 @@ public class MenuActivity extends YJYActivity implements MenuFragment.OnMenuClic
             titleImage.setVisibility(View.INVISIBLE);
         }
     }
-
 
 
     /**

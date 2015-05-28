@@ -75,7 +75,7 @@ public abstract class YHttpHandler extends SHttpProgressHandler {
             }
         } else {
             onStatusFailed(responseObject);
-            toast(responseObject);
+          toast(responseObject);
         }
     }
 

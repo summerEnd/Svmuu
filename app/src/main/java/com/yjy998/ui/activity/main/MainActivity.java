@@ -207,7 +207,7 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
      * 刷新页面
      */
     @Override
-    protected void refreshLayout() {
+    public void refreshLayout() {
         mMenuFragment.refresh();
         if (mCenterFragment != null && mCenterFragment.getView() != null) {
             mCenterFragment.refresh();

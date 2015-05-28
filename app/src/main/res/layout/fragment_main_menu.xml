@@ -30,11 +30,11 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_height="@dimen/avatarSize" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_marginLeft="@dimen/dimen_20px"
+                android:layout_marginStart="@dimen/dimen_20px"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/phoneText"
@@ -42,9 +42,31 @@
                     android:textSize="@dimen/text_24px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/__testPhone" />
+                    android:text="@string/login" />
 
                 <TextView
+                    android:id="@+id/line"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="|"
+                    android:textSize="@dimen/text_24px"
+                    android:textColor="@color/white"
+                    android:layout_alignBaseline="@id/phoneText"
+                    android:layout_toRightOf="@id/phoneText" />
+
+                <TextView
+                    android:id="@+id/registerText"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_24px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/line"
+                    android:text="@string/register" />
+
+                <TextView
+                    android:layout_below="@id/phoneText"
                     android:layout_marginTop="4dp"
                     android:id="@+id/remainMoneyText"
                     android:textColor="@color/white"
@@ -52,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/remain_money_s" />
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
