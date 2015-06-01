@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class ContractDetail implements Serializable{
     public String contract_type;
+    public String contractName;
 
     public String currentCash;
     public String profitRatio;

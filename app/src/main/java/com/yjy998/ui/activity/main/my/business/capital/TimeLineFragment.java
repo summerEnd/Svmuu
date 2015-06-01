@@ -83,6 +83,15 @@ public class TimeLineFragment extends BaseFragment implements GView.OnPointTouch
         });
     }
 
+    public void reset() {
+        newPrice = new float[0];
+        average = new float[0];
+        newLine.setCreated(false);
+        avLine.setCreated(false);
+        newLine.setValues(newPrice);
+        avLine.setValues(average);
+        gView.invalidate();
+    }
 
     /**
      * 将数据解析，并添加到图表中

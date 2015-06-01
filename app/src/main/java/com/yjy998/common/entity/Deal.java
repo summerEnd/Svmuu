@@ -15,7 +15,7 @@ public class Deal {
     public String ghFare;
     public String totalFare;
     public String batchNo;
-    public float businessPrice;
+    public String businessPrice;
     public String businessNo;
     public String businessAmount;
     public String entrustNo;

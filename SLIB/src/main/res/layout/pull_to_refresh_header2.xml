@@ -32,6 +32,7 @@
                 android:textSize="14dp" 
                 android:textColor="#999999"/>
             <TextView
+                android:visibility="gone"
                 android:id="@+id/pull_to_refresh_last_update_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,9 +43,11 @@
                 android:textColor="#999999"/>
             <TextView
                 android:id="@+id/pull_to_refresh_header_time"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="50dp"
+                android:visibility="gone"
                 android:layout_below="@id/pull_to_refresh_header_hint_textview"
                 android:layout_toRightOf="@id/pull_to_refresh_last_update_time_text"
                 android:layout_marginTop="@dimen/picture_pull_to_refresh_last_update_time_top_margin"

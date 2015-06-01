@@ -23,6 +23,7 @@ import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.main.apply.ApplyActivity;
+import com.yjy998.ui.activity.main.more.WebViewActivity;
 import com.yjy998.ui.view.number.GrowNumber;
 import com.yjy998.ui.view.number.MoneyGrow;
 
@@ -30,8 +31,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * 首页
@@ -66,7 +70,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initialize() {
-
+        TextView noticeText= (TextView) findViewById(R.id.noticeText);
+        noticeText.setText(new SimpleDateFormat(getString(R.string.forbidon_format), Locale.getDefault()).format(new Date()));
+        noticeText.setOnClickListener(this);
         capitalText = (TextView) findViewById(R.id.capitalText);
         bannerPager = (BannerPager) findViewById(R.id.bannerPager);
         bannerPager.setDotDrawable(R.drawable.home_dot);
@@ -104,6 +110,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
         switch (v.getId()) {
+            case R.id.noticeText:{
+                startActivity(new Intent(getActivity(), WebViewActivity.class)
+                .putExtra(WebViewActivity.EXTRA_URL,"http://www.yjy998.com/notice/item/73"));
+                break;
+            }
+
             case R.id.safeLayout: {
                 break;
             }

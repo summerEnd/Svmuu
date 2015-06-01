@@ -26,6 +26,7 @@ import com.yjy998.common.entity.Contest;
 import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.admin.LoginDialog;
 import com.yjy998.ui.activity.admin.RegisterDialog;
+import com.yjy998.ui.activity.main.more.WebViewActivity;
 import com.yjy998.ui.activity.main.my.business.BusinessActivity;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.base.MenuActivity;
@@ -34,7 +35,10 @@ import com.yjy998.ui.activity.pay.RechargeActivity;
 import com.yjy998.ui.view.TwoTextItem;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class CenterFragment extends BaseFragment implements View.OnClickListener {
@@ -50,6 +54,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
     private TextView popularizeAmount;
     private ViewPager contractPager;
     private ViewPager gamePager;
+    private TextView noticeText;
     LoginDialog loginDialog;
     RegisterDialog registerDialog;
     View registerText;
@@ -105,28 +110,33 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
                 startActivity(new Intent(getActivity(), PopularizeActivity.class));
                 break;
             }
+            case R.id.noticeText: {
+                startActivity(new Intent(getActivity(), WebViewActivity.class)
+                        .putExtra(WebViewActivity.EXTRA_URL, "http://www.yjy998.com/notice/item/73"));
+                break;
+            }
+
         }
     }
 
 
     private void initialize() {
-        avatarImage = (ImageView) findViewById(R.id.avatarImage);
-        avatarImage.setOnClickListener(this);
-
-
-        telText = (TextView) findViewById(R.id.telText);
-        moneyText = (TwoTextItem) findViewById(R.id.moneyText);
-        goldIngotText = (TextView) findViewById(R.id.goldIngotText);
         caopanTicketsText = (TextView) findViewById(R.id.caopanTicketsText);
-        contractAmount = (TextView) findViewById(R.id.contractAmount);
-        contestAmount = (TextView) findViewById(R.id.contestAmount);
         popularizeAmount = (TextView) findViewById(R.id.popularizeAmount);
+        contractAmount = (TextView) findViewById(R.id.contractAmount);
+        goldIngotText = (TextView) findViewById(R.id.goldIngotText);
+        contestAmount = (TextView) findViewById(R.id.contestAmount);
+        avatarImage = (ImageView) findViewById(R.id.avatarImage);
+        moneyText = (TwoTextItem) findViewById(R.id.moneyText);
+        noticeText = (TextView) findViewById(R.id.noticeText);
         registerText = findViewById(R.id.registerText);
+        telText = (TextView) findViewById(R.id.telText);
         line = findViewById(R.id.line);
-        popularizeAmount.setOnClickListener(this);
         telText.setOnClickListener(this);
+        noticeText.setOnClickListener(this);
+        avatarImage.setOnClickListener(this);
         registerText.setOnClickListener(this);
-
+        popularizeAmount.setOnClickListener(this);
         findViewById(R.id.buyIn).setOnClickListener(this);
         findViewById(R.id.sellOut).setOnClickListener(this);
         findViewById(R.id.recharge).setOnClickListener(this);
@@ -147,6 +157,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
         if (getView() == null) {
             return;
         }
+        noticeText.setText(new SimpleDateFormat(getString(R.string.forbidon_format), Locale.getDefault()).format(new Date()));
 
         if (AppDelegate.getInstance().isUserLogin()) {
 
@@ -161,7 +172,6 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             goldIngotText.setText(getString(R.string.GoldIngot_s, assent.yuanbao_total_amount));
             caopanTicketsText.setText(getString(R.string.caopan_s, assent.quan_total_amount));
             popularizeAmount.setText(getString(R.string.myPopularize_d, user.popularizeAmount));
-
             ImageLoader.getInstance().displayImage(user.userInfo.uface, avatarImage, ImageOptions.getAvatarInstance());
 
         } else {

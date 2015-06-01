@@ -26,6 +26,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
 
 
     protected final int W = 10000;
+    //金额
     protected int[] DATA = new int[]{
             5000, W, 3 * W, 5 * W, 10 * W, 20 * W,
             30 * W, 50 * W, 80 * W, 100 * W, 150 * W, 200 * W
@@ -55,16 +56,15 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
 
     private void initialize() {
 
-        circle[0] = (CircleItem) findViewById(R.id.circle0);
-        circle[1] = (CircleItem) findViewById(R.id.circle1);
-        circle[2] = (CircleItem) findViewById(R.id.circle2);
-        circle[3] = (CircleItem) findViewById(R.id.circle3);
-        circle[4] = (CircleItem) findViewById(R.id.circle4);
-        circle[5] = (CircleItem) findViewById(R.id.circle5);
+
+        int[] ids = new int[]{R.id.circle0, R.id.circle1, R.id.circle2, R.id.circle3, R.id.circle4, R.id.circle5};
         OnCircleClickListener listener = new OnCircleClickListener();
-        for (CircleItem item : circle) {
-            item.setOnClickListener(listener);
+
+        for (int i = 0; i < ids.length; i++) {
+            circle[i] = (CircleItem) findViewById(ids[i]);
+            circle[i].setOnClickListener(listener);//为每一个圈圈增加监听
         }
+
 
         findViewById(R.id.changeGroup).setOnClickListener(this);
         findViewById(R.id.introduce).setOnClickListener(this);
@@ -94,7 +94,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                 items[i].normalText = getString(R.string.ten_thousand);
             }
         }
-        setCircleGroup(currentGroup);
+        invalidateCircleText(currentGroup);
         setData(0);
     }
 
@@ -160,21 +160,28 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
      */
     public void changeGroup() {
         currentGroup = (currentGroup + 1) % 2;
-        setCircleGroup(currentGroup);
+        invalidateCircleText(currentGroup);
     }
 
-    void setCircleGroup(int group) {
-        int index = group * 6;
+    /**
+     * 刷新圆圈的颜色和文本
+     *
+     * @param group 0或者1
+     */
+    void invalidateCircleText(int group) {
+        int startIndex = group * 6;
         for (int i = 0; i < circle.length; i++) {
-            Item item = items[i + index];
+            Item item = items[i + startIndex];
             if (item == null) {
                 circle[i].setVisibility(View.INVISIBLE);
                 continue;
             }
             circle[i].setVisibility(View.VISIBLE);
+            circle[i].setTag(item);
 
             circle[i].setBoldText(item.boldText);
             circle[i].setNormalText(item.normalText);
+
             if (item.isSelected) {
                 circle[i].setCircle(CircleItem.CIRCLE_RED);
             } else {
@@ -183,6 +190,11 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
         }
     }
 
+    /**
+     * 在这里计算各种金额
+     *
+     * @param total 所选金额
+     */
     void setData(int total) {
         this.total = total;
         float fee = total * 0.098f / 100f;//管理费：按天收取，周末节假日免费
@@ -244,20 +256,21 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
     private class OnCircleClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            int index = currentGroup * 6;
-            for (int i = 0; i < circle.length; i++) {
-                Item item = items[i + index];
-                if (item == null) {
-                    continue;
-                }
-                if (circle[i] == v) {
-                    item.isSelected = true;
-                    setData(item.amount);
-                } else {
+            //清除选中状态
+            for (Item item : items) {
+                if (item != null) {
                     item.isSelected = false;
                 }
             }
-            setCircleGroup(currentGroup);
+
+            //设置选中效果
+            Item selected = (Item) v.getTag();
+            if (selected != null) {
+                selected.isSelected = true;
+                setData(selected.amount);
+            }
+
+            invalidateCircleText(currentGroup);
 
         }
     }

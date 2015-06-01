@@ -179,6 +179,7 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
             }
             case R.id.resetButton: {
                 mCapitalInfo.reset();
+                mTimeLineFragment.reset();
                 break;
             }
             case R.id.buySellButton: {
@@ -247,19 +248,27 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
             balanceText.setText(contract.totalProfit);
             stockValueText.setText(contract.totalMarketValue);
             totalText.setText(contract.totalAsset);
-            contractText.setText(getString(R.string.contract_s1_s2, contract.contract_type, contract.contractId));
+            if (!TextUtils.isEmpty(contract.contractName) && !TextUtils.isEmpty(contract.contractId))
+                contractText.setText(getString(R.string.contract_s1_s2, contract.contractName, contract.contractId));
         } else {
             usableText.setText("");
             balanceText.setText("");
             stockValueText.setText("");
             totalText.setText("");
-            contractText.setText(R.string.chooseContract);
+
+            ArrayList<Contract> myContracts = AppDelegate.getInstance().getUser().myContracts;
+            if (myContracts == null || myContracts.size() == 0) {
+                contractText.setText(R.string.no_contract);
+            } else {
+                contractText.setText(R.string.chooseContract);
+            }
         }
     }
 
     /**
      * 把合约放到Activity中，供其他fragment获取，实现联动。
      */
+
     public void notifyContractChange(ContractDetail contract) {
         if (observer != null) {
             observer.setContract(contract);
@@ -301,7 +310,7 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
             return;
         }
 
-        String totalAmount =new BigDecimal(stock.entrust_price).multiply(new BigDecimal(quantity)).toString();
+        String totalAmount = new BigDecimal(stock.entrust_price).multiply(new BigDecimal(quantity)).toString();
         final PayDialog payDialog = new PayDialog(getActivity(), totalAmount);
         payDialog.findViewById(R.id.remainLine).setVisibility(View.GONE);
         payDialog.findViewById(R.id.remainMoneyText).setVisibility(View.GONE);
@@ -409,7 +418,7 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
             @Override
             protected void onStatusCorrect(Response response) {
                 ContractDetail detail = JsonUtil.get(response.data, ContractDetail.class);
-                detail.contract=observer.getSharedContract().contract;
+                detail.contract = observer.getSharedContract().contract;
                 setContractLocal(detail);
                 notifyContractChange(detail);
                 getHoldings(contract_id);

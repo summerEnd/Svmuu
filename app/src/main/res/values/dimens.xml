@@ -26,7 +26,7 @@
     <dimen name="applyItemMarginLeft">@dimen/dimen_36px</dimen>
     <dimen name="circleItemSize">65dp</dimen>
     <dimen name="apply_activity_circle_margin_top">12dp</dimen>
-    <dimen name="apply_activity_white_layout_padding">@dimen/dimen_27px</dimen>
+    <dimen name="apply_activity_white_layout_padding">@dimen/dimen_20px</dimen>
 
     <dimen name="question_margin">7dp</dimen>
     <dimen name="payLayoutPaddingVertical">10dp</dimen>

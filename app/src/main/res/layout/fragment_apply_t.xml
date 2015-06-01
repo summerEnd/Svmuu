@@ -135,6 +135,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:gravity="center_vertical"
             style="@style/horizontalMargin"
             android:padding="@dimen/apply_activity_white_layout_padding"
             android:layout_marginTop="@dimen/dimen_15px"
@@ -172,6 +173,7 @@
 
         <LinearLayout
             style="@style/horizontalMargin"
+            android:gravity="center_vertical"
             android:padding="@dimen/apply_activity_white_layout_padding"
             android:layout_marginTop="@dimen/dimen_15px"
             android:layout_width="match_parent"
@@ -207,6 +209,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:gravity="center_vertical"
             style="@style/horizontalMargin"
             android:padding="@dimen/apply_activity_white_layout_padding"
             android:layout_marginTop="@dimen/dimen_15px"
@@ -221,7 +224,7 @@
 
             <TextView
                 android:id="@+id/pingCangSummary"
-                android:textSize="@dimen/text_19px"
+                android:textSize="@dimen/text_18px"
                 style="@style/applyActivityTextStyle1"
                 android:text="@string/pingCangSummary_f" />
             <!--占位控件-->
@@ -249,6 +252,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:gravity="center_vertical"
             style="@style/horizontalMargin"
             android:padding="@dimen/apply_activity_white_layout_padding"
             android:layout_marginTop="@dimen/dimen_15px"

@@ -199,6 +199,9 @@ public class GView extends View {
         //确定触摸的点
         int position = (int) ((touchX - frame.left) / frame.width() * (xMax - xMin));
         float[] values = lines.get(0).getValues();
+        if (values==null){
+            return;
+        }
         position = Math.min(position, values.length - 1);
 
         float x = frame.left + position * cellWidth;

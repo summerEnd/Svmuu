@@ -20,8 +20,6 @@ public class CapitalBuySellAdapter extends BaseAdapter {
     private boolean isBuy = true;
     private Stock stock;
     String[] numbers;
-    private String titlePrefix1;
-    private String titlePrefix2;
 
     public CapitalBuySellAdapter(Context context, Stock stock) {
         inflater = LayoutInflater.from(context);
@@ -37,8 +35,6 @@ public class CapitalBuySellAdapter extends BaseAdapter {
 
     public void setBuy(boolean isBuy) {
         this.isBuy = isBuy;
-        titlePrefix1 = isBuy ? "买" : "卖";
-        titlePrefix2 = isBuy ? "卖" : "买";
     }
 
     @Override
@@ -71,9 +67,9 @@ public class CapitalBuySellAdapter extends BaseAdapter {
         }
         String title = "";
         if (position < 5) {
-            title = titlePrefix1 + numbers[position];
+            title = "卖" + numbers[position];
         } else if (position > 5) {
-            title = titlePrefix2 + numbers[10 - position];
+            title = "买" + numbers[10 - position];
         }
         Item item;
 
@@ -81,41 +77,43 @@ public class CapitalBuySellAdapter extends BaseAdapter {
             item = new Item(title, "-----", "-----");
         } else {
 
-            int fixedPosition = isBuy ? position : 10 - position;
 
-            switch (fixedPosition) {
+            switch (position) {
+
                 case 0:
-                    item = new Item(title, stock.buyCount5, stock.buyPrice1);
+                    item = new Item(title, stock.sellCount1, stock.sellPrice5);
                     break;
                 case 1:
-                    item = new Item(title, stock.buyCount4, stock.buyPrice2);
+                    item = new Item(title, stock.sellCount2, stock.sellPrice4);
                     break;
                 case 2:
-                    item = new Item(title, stock.buyCount3, stock.buyPrice3);
+                    item = new Item(title, stock.sellCount3, stock.sellPrice3);
                     break;
                 case 3:
-                    item = new Item(title, stock.buyCount2, stock.buyPrice4);
+                    item = new Item(title, stock.sellCount4, stock.sellPrice2);
                     break;
                 case 4:
-                    item = new Item(title, stock.buyCount1, stock.buyPrice5);
+                    item = new Item(title, stock.sellCount5, stock.sellPrice1);
                     break;
 
                 //分割
                 case 6:
-                    item = new Item(title, stock.sellCount1, stock.sellPrice5);
+                    item = new Item(title, stock.buyCount5, stock.buyPrice1);
                     break;
                 case 7:
-                    item = new Item(title, stock.sellCount2, stock.sellPrice4);
+                    item = new Item(title, stock.buyCount4, stock.buyPrice2);
                     break;
                 case 8:
-                    item = new Item(title, stock.sellCount3, stock.sellPrice3);
+                    item = new Item(title, stock.buyCount3, stock.buyPrice3);
                     break;
                 case 9:
-                    item = new Item(title, stock.sellCount4, stock.sellPrice2);
+                    item = new Item(title, stock.buyCount2, stock.buyPrice4);
                     break;
                 case 10:
-                    item = new Item(title, stock.sellCount5, stock.sellPrice1);
+                    item = new Item(title, stock.buyCount1, stock.buyPrice5);
                     break;
+
+
                 default:
                     item = null;
             }

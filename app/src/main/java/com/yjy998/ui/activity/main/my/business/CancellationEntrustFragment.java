@@ -1,6 +1,8 @@
 package com.yjy998.ui.activity.main.my.business;
 
 
+import android.content.Intent;
+
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.JsonUtil;
@@ -28,7 +30,8 @@ import static com.yjy998.ui.pop.CenterPopup.PopWidget;
 public class CancellationEntrustFragment extends BusinessListFragment {
 
     private List<Entrust> entrusts = new ArrayList<Entrust>();
-
+    EntrustAdapter adapter;
+    private boolean jumpToBuy=false;
     @Override
     public String getTitle() {
         return ContextUtil.getString(R.string.cancellationEntrust);
@@ -45,10 +48,13 @@ public class CancellationEntrustFragment extends BusinessListFragment {
     protected void onPopItemClick(PopItem item) {
         switch (item.id) {
             case 1: {
+                jumpToBuy=false;
                 cancel(entrusts.get(getSelectedPosition()));
                 break;
             }
             case 2: {
+                jumpToBuy=true;
+                cancel(entrusts.get(getSelectedPosition()));
                 break;
             }
         }
@@ -63,7 +69,12 @@ public class CancellationEntrustFragment extends BusinessListFragment {
                 //没有选择合约
                 return;
             }
-
+            entrusts.clear();
+            if (adapter == null) {
+                adapter = new EntrustAdapter(getActivity(), entrusts);
+                setAdapter(adapter);
+            }
+            adapter.notifyDataSetChanged();
             String contract_no = contract.contractId;
             SRequest request = new SRequest("http://www.yjy998.com/stock/entrust");
             request.put("contract_no", contract_no);
@@ -72,14 +83,8 @@ public class CancellationEntrustFragment extends BusinessListFragment {
                 protected void onStatusCorrect(Response response) {
                     try {
                         JSONArray array = new JSONArray(response.data);
-                        entrusts.clear();
                         JsonUtil.getArray(array, Entrust.class, entrusts);
 
-                        EntrustAdapter adapter = (EntrustAdapter) getAdapter();
-                        if (adapter == null) {
-                            adapter = new EntrustAdapter(getActivity(), entrusts);
-                            setAdapter(adapter);
-                        }
                         adapter.notifyDataSetChanged();
 
                     } catch (JSONException e) {
@@ -94,7 +99,7 @@ public class CancellationEntrustFragment extends BusinessListFragment {
     /**
      * 参数：contract_id（合约编号），entrust_no（委托接口中的entrustNo），stock_code（股票代码），stock_name（股票名），withdrawal_amount（撤单数量，委托接口中的entrustAmount数量）
      */
-    public void cancel(Entrust entrust) {
+    public void cancel(final Entrust entrust) {
         ContractDetail detail = getSharedContract();
         if (detail == null) {
             ContextUtil.toast(R.string.contract_not_selected);
@@ -109,7 +114,12 @@ public class CancellationEntrustFragment extends BusinessListFragment {
         YHttpClient.getInstance().post(request, new YHttpHandler() {
             @Override
             protected void onStatusCorrect(Response response) {
-
+                if (jumpToBuy){
+                    startActivity(new Intent(getActivity(),BusinessActivity.class)
+                        .putExtra(BusinessActivity.EXTRA_STOCK_CODE,entrust.stockCode)
+                        .putExtra(BusinessActivity.EXTRA_CONTRACT_NO, getSharedContract().contractId)
+                    );
+                }
             }
         });
     }

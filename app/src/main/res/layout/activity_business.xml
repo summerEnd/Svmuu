@@ -57,7 +57,7 @@
 
         <com.yjy998.ui.view.ViewPagerTabItem
             style="@style/pageTitleStyle"
-            android:text="@string/trade" />
+            android:text="@string/deal" />
     </com.sp.lib.widget.pager.title.PageStrip>
 
     <android.support.v4.view.ViewPager

@@ -13,18 +13,20 @@ import com.yjy998.R;
 import com.yjy998.common.entity.Deal;
 import com.yjy998.ui.view.TwoTextItem;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class DealAdapter extends ViewHolderAdapter<Deal, Object> {
 
     private final int COLORS[] = new int[]{0XFFF7941D, 0XFF2DCBE4, 0XFFE0483D, 0XFF1452E3};
 
-    SimpleDateFormat parser = new SimpleDateFormat("hhMMss");
-    SimpleDateFormat format = new SimpleDateFormat("hh:MM:ss");
+    SimpleDateFormat parser = new SimpleDateFormat("hhmmss", Locale.getDefault());
+    SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss", Locale.getDefault());
 
 
     public DealAdapter(Context context, List<Deal> data) {
@@ -61,7 +63,7 @@ public class DealAdapter extends ViewHolderAdapter<Deal, Object> {
         viewHolder.indicator.setImageDrawable(d);
         Deal deal = getItem(position);
 
-        viewHolder.priceText.setText(deal.businessPrice + "");
+        viewHolder.priceText.setText(deal.businessPrice );
 
         viewHolder.stockName.setText(deal.stockName);
         viewHolder.stockCode.setText(deal.stockCode);
@@ -75,7 +77,7 @@ public class DealAdapter extends ViewHolderAdapter<Deal, Object> {
             time = "";
         }
         viewHolder.dealTime.setText(convertView.getResources().getString(R.string.dealTime_s, time));
-        viewHolder.dealPrice.setText(convertView.getResources().getString(R.string.dealPrice_s, deal.businessPrice * 100 + ""));
+        viewHolder.dealPrice.setText(convertView.getResources().getString(R.string.dealPrice_s, new BigDecimal(deal.businessPrice).multiply(new BigDecimal("100")).floatValue() + ""));
 
     }
 

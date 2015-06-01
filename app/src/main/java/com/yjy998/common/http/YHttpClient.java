@@ -22,7 +22,7 @@ public final class YHttpClient {
             //做一些初始化操作
             instance = new YHttpClient();
             AsyncHttpClient client = instance.getClient();
-            client.setTimeout(10000);
+            client.setTimeout(30000);
             //client.setCookieStore(new PersistentCookieStore(AppDelegate.getInstance()));
         }
         return instance;

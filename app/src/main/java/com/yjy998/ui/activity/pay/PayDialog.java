@@ -20,22 +20,24 @@ import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.common.util.RSAUtil;
+import com.yjy998.ui.pop.YProgressDialog;
 
 public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.Callback {
     private TextView accountText;
     private TextView moneyText;
     private TextView remainMoneyText;
-    private TextView confirmBtn;
     private String price;
     private EditText passwordEdit;
     Callback callback;
     View cancel;
+    private Context context;
 
     public PayDialog(Context context, String price) {
         super(context);
         if (null == price) {
             price = "";
         }
+        this.context = context;
         this.price = price;
 
         setContentView(R.layout.dialog_pay);
@@ -54,10 +56,9 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
         moneyText = (TextView) findViewById(R.id.moneyText);
         remainMoneyText = (TextView) findViewById(R.id.remainMoneyText);
         passwordEdit = (EditText) findViewById(R.id.passwordEdit);
-        confirmBtn = (TextView) findViewById(R.id.confirmBtn);
         cancel = findViewById(R.id.cancelBtn);
         cancel.setOnClickListener(this);
-        confirmBtn.setOnClickListener(this);
+        findViewById(R.id.confirmBtn).setOnClickListener(this);
         refresh();
         getUserInfo();
     }
@@ -82,7 +83,6 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
 
                 if (check()) {
                     cancel.setEnabled(false);
-                    confirmBtn.setText(R.string.dealing);
                     RSAUtil.sign(getContext(), passwordEdit.getText().toString(), this);
                 }
 
@@ -126,7 +126,6 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
     public void onRSAEncodeFailed() {
 
         cancel.setEnabled(true);
-        confirmBtn.setText(R.string.retry);
     }
 
     public interface Callback {
@@ -141,6 +140,13 @@ public class PayDialog extends Dialog implements View.OnClickListener, RSAUtil.C
             protected void onStatusCorrect(Response response) {
                 AppDelegate.getInstance().setUser(JsonUtil.get(response.data, User.class));
                 refresh();
+            }
+
+            @Override
+            public Dialog onCreateDialog() {
+                YProgressDialog dialog = new YProgressDialog(context);
+                dialog.setMessage(getContext().getString(R.string.get_info));
+                return dialog;
             }
 
             @Override

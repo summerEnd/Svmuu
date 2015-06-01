@@ -29,6 +29,8 @@ public class DealFragment extends BusinessListFragment {
         return ContextUtil.getString(R.string.deal);
     }
 
+    DealAdapter adapter;
+
     @Override
     public void refresh() {
         if (getActivity() instanceof TradeFragment.ContractObserver) {
@@ -37,7 +39,12 @@ public class DealFragment extends BusinessListFragment {
                 //没有选择合约
                 return;
             }
-
+            if (adapter == null) {
+                adapter = new DealAdapter(getActivity(), new ArrayList<Deal>());
+                setAdapter(adapter);
+            }
+            adapter.getData().clear();
+            adapter.notifyDataSetChanged();
             String contract_no = contract.contractId;
             SRequest request = new SRequest("http://www.yjy998.com/stock/deal");
             request.put("contract_no", contract_no);
@@ -46,14 +53,8 @@ public class DealFragment extends BusinessListFragment {
                 protected void onStatusCorrect(Response response) {
                     try {
                         JSONArray array = new JSONArray(response.data);
-                        DealAdapter adapter = (DealAdapter) getAdapter();
-                        if (adapter==null){
-                            adapter=new DealAdapter(getActivity(),new ArrayList<Deal>());
-                            setAdapter(adapter);
-                        }
                         List<Deal> dealList = adapter.getData();
-                        dealList.clear();
-                        JsonUtil.getArray(array,Deal.class, dealList);
+                        JsonUtil.getArray(array, Deal.class, dealList);
                         adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();

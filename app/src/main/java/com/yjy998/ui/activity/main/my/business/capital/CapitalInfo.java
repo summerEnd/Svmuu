@@ -1,5 +1,6 @@
 package com.yjy998.ui.activity.main.my.business.capital;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.base.YJYActivity;
+import com.yjy998.ui.pop.YProgressDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,6 +69,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
     private int maxAmount;
     private TextWatcher mWatcher;
     private View layout;
+    boolean isBuy;
 
     /**
      * 根据字段创建买入或者卖出
@@ -121,7 +124,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         seeker.setOnSeekBarChangeListener(this);
 
         //初始化持仓列表
-        boolean isBuy = args.getBoolean(IS_BUY);
+        isBuy = args.getBoolean(IS_BUY);
         list = (LinearListView) findViewById(R.id.list);
         adapter = new CapitalBuySellAdapter(getActivity(), null);
         adapter.setBuy(isBuy);
@@ -185,7 +188,10 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
 
     //加数量
     public void addCount(int dAmount) {
-        count += dAmount;
+
+        if (count + dAmount <= maxAmount) {
+            count += dAmount;
+        }
         count = Math.max(0, count);
         amountEdit.setText("" + count);
     }
@@ -239,7 +245,14 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
             return;
         }
 
-        SRequest request = new SRequest("http://www.yjy998.com/stock/buyquantity");
+        SRequest request;
+        if (isBuy) {
+            request = new SRequest("http://www.yjy998.com/stock/buyquantity");
+        } else {
+            request = new SRequest("http://www.yjy998.com/stock/sellquantity");
+
+        }
+
         request.put("entrust_price", stock.entrust_price);
         request.put("contract_id", contract.contractId);
         request.put("exchange_type", stock.exchangeType);
@@ -254,8 +267,15 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
                     e.printStackTrace();
                 }
             }
+
+            @Override
+            public Dialog onCreateDialog() {
+                YProgressDialog dialog = new YProgressDialog(getActivity());
+                return dialog;
+            }
         });
     }
+
 
     /**
      * 获取股票代码
@@ -371,11 +391,11 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         } else {
             SRequest request = new SRequest("http://www.yjy998.com/stock/getstockinfo");
             request.put("code", code);
-            Context context=getActivity();
-            if (context==null){
-                context= AppDelegate.getInstance();
+            Context context = getActivity();
+            if (context == null) {
+                context = AppDelegate.getInstance();
             }
-            YHttpClient.getInstance().get(context,request, new YHttpHandler(false) {
+            YHttpClient.getInstance().get(context, request, new YHttpHandler(false) {
                 @Override
                 protected void onStatusCorrect(Response response) {
                     try {
@@ -401,6 +421,9 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         codeEdit.setText("");
         editPrice.setText("");
         amountEdit.setText("");
+        mStock = null;
+        adapter.setStock(null);
+        count = 0;
     }
 
     private void setStock(Stock stock) {

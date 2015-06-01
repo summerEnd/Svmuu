@@ -28,6 +28,7 @@ import static com.yjy998.ui.activity.main.my.business.capital.TradeFragment.Cont
 public class HoldingsFragment extends BusinessListFragment {
 
     ArrayList<Holding> holdings = new ArrayList<Holding>();
+    HoldingsAdapter adapter;
 
     @Override
     public String getTitle() {
@@ -72,7 +73,12 @@ public class HoldingsFragment extends BusinessListFragment {
                 ContextUtil.toast(R.string.contract_not_selected);
                 return;
             }
-
+            if (adapter == null) {
+                adapter = new HoldingsAdapter(getActivity(), holdings);
+                setAdapter(adapter);
+            }
+            adapter.getData().clear();
+            adapter.notifyDataSetChanged();
             String contract_no = contract.contractId;
             SRequest request = new SRequest("http://www.yjy998.com/stock/hold");
             request.put("contract_no", contract_no);
@@ -81,13 +87,7 @@ public class HoldingsFragment extends BusinessListFragment {
                 protected void onStatusCorrect(Response response) {
                     try {
                         JSONArray array = new JSONArray(response.data);
-                        holdings.clear();
                         JsonUtil.getArray(array, Holding.class, holdings);
-                        HoldingsAdapter adapter = (HoldingsAdapter) getAdapter();
-                        if (adapter == null) {
-                            adapter = new HoldingsAdapter(getActivity(), holdings);
-                            setAdapter(adapter);
-                        }
                         adapter.notifyDataSetChanged();
 
                     } catch (JSONException e) {

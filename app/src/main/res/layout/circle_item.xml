@@ -10,7 +10,7 @@
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_32px"
+        android:textSize="@dimen/text_28px"
         android:text="20" />
 
     <TextView
@@ -20,6 +20,6 @@
         android:layout_alignBaseline="@id/boldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_22px"
+        android:textSize="@dimen/text_20px"
         android:text="万元" />
 </RelativeLayout>

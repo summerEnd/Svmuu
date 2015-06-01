@@ -236,18 +236,18 @@
 
     <style name="applyActivityTextStyle1">
         <item name="android:textColor">@color/textColorDeepGray</item>
-        <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:textSize">@dimen/text_20px</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="applyActivityTextStyle2" parent="wrapLayout">
         <item name="android:textColor">@color/textColorBlack</item>
-        <item name="android:textSize">@dimen/text_30px</item>
+        <item name="android:textSize">@dimen/text_24px</item>
     </style>
 
     <style name="applyActivityTextStyle2.yuan">
-        <item name="android:textSize">@dimen/text_26px</item>
+        <item name="android:textSize">@dimen/text_24px</item>
     </style>
 
     <style name="circleStyle">
