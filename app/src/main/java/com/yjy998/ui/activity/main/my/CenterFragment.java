@@ -112,7 +112,7 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
             }
             case R.id.noticeText: {
                 startActivity(new Intent(getActivity(), WebViewActivity.class)
-                        .putExtra(WebViewActivity.EXTRA_URL, "http://www.yjy998.com/notice/item/73"));
+                        .putExtra(WebViewActivity.EXTRA_URL, "http://m.yjy998.com/forbid.html"));
                 break;
             }
 

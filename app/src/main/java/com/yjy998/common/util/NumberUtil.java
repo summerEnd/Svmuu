@@ -2,10 +2,11 @@ package com.yjy998.common.util;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class NumberUtil {
-    public static String format(float number) {
-        DecimalFormat format = new DecimalFormat();
+    public static String format(double number) {
+        DecimalFormat format = (DecimalFormat) NumberFormat.getInstance();
         format.setGroupingSize(3);
         return format.format(number);
     }
@@ -17,7 +18,7 @@ public class NumberUtil {
         String money;
         try {
             BigDecimal decimal=new BigDecimal(number);
-            money = format(decimal.floatValue());
+            money = format(decimal.doubleValue());
         } catch (NumberFormatException e) {
             money = number;
         }
@@ -27,9 +28,9 @@ public class NumberUtil {
     /**
      * 从字符串中解析数字，如果解析失败返回0f
      */
-    public static float getFloat(String number) {
+    public static double getDouble(String number) {
         try {
-            return new BigDecimal(number).floatValue();
+            return new BigDecimal(number).doubleValue();
         } catch (NumberFormatException e) {
             return 0f;
         }

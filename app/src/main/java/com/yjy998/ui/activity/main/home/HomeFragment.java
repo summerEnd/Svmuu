@@ -1,8 +1,5 @@
 package com.yjy998.ui.activity.main.home;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +12,6 @@ import android.widget.TextView;
 import com.sp.lib.common.support.cache.CacheManager;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.widget.pager.BannerPager;
-import com.sp.lib.widget.pager.TransformerB;
 import com.yjy998.R;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
@@ -24,7 +20,6 @@ import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.main.apply.ApplyActivity;
 import com.yjy998.ui.activity.main.more.WebViewActivity;
-import com.yjy998.ui.view.number.GrowNumber;
 import com.yjy998.ui.view.number.MoneyGrow;
 
 import org.json.JSONArray;
@@ -112,7 +107,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.noticeText:{
                 startActivity(new Intent(getActivity(), WebViewActivity.class)
-                .putExtra(WebViewActivity.EXTRA_URL,"http://www.yjy998.com/notice/item/73"));
+                .putExtra(WebViewActivity.EXTRA_URL,"http://m.yjy998.com/forbid.html"));
                 break;
             }
 
@@ -192,7 +187,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     void setData(String loanAmount, List<String> images) {
-        capitalGrow.setMax(NumberUtil.getFloat(loanAmount));
+        capitalGrow.setMax(NumberUtil.getDouble(loanAmount));
         capitalGrow.start();
         bannerPager.setImageUrls(images);
         //bannerPager.setTransformer(new TransformerB(90));
