@@ -15,6 +15,7 @@
     <dimen name="text_30px">20sp</dimen>
     <dimen name="text_34px">21sp</dimen>
     <dimen name="text_45px">30sp</dimen>
+    <dimen name="text_60px">36sp</dimen>
 
 
     <dimen name="dimen_pop_btnHeight">@dimen/dimen_72px</dimen>
