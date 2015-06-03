@@ -2,6 +2,7 @@ package com.yjy998.common.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import com.sp.lib.common.image.drawable.RoundDrawable;
 import com.sp.lib.common.support.adapter.ViewHolderAdapter;
 import com.yjy998.R;
 import com.yjy998.common.entity.Deal;
+import com.yjy998.common.util.DateUtil;
 import com.yjy998.ui.view.TwoTextItem;
 
 import java.math.BigDecimal;
@@ -25,8 +27,6 @@ public class DealAdapter extends ViewHolderAdapter<Deal, Object> {
 
     private final int COLORS[] = new int[]{0XFFF7941D, 0XFF2DCBE4, 0XFFE0483D, 0XFF1452E3};
 
-    SimpleDateFormat parser = new SimpleDateFormat("hhmmss", Locale.getDefault());
-    SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss", Locale.getDefault());
 
 
     public DealAdapter(Context context, List<Deal> data) {
@@ -69,14 +69,8 @@ public class DealAdapter extends ViewHolderAdapter<Deal, Object> {
         viewHolder.stockCode.setText(deal.stockCode);
         viewHolder.tradeType.setText(deal.entrustDirection.equals("1") ? R.string.buyIn : R.string.sellOut);
         viewHolder.countText.setText(deal.businessAmount);
-        String time;
-        try {
-            Date date = parser.parse(deal.businessTime);
-            time = format.format(date);
-        } catch (ParseException e) {
-            time = "";
-        }
-        viewHolder.dealTime.setText(convertView.getResources().getString(R.string.dealTime_s, time));
+
+        viewHolder.dealTime.setText(convertView.getResources().getString(R.string.dealTime_s, DateUtil.formatDate(deal.businessTime)));
         viewHolder.dealPrice.setText(convertView.getResources().getString(R.string.dealPrice_s, new BigDecimal(deal.businessPrice).multiply(new BigDecimal("100")).floatValue() + ""));
 
     }

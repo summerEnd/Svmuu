@@ -55,7 +55,7 @@ public class HoldingsAdapter extends ViewHolderAdapter<Holding, Object> {
         viewHolder.indicator.setImageDrawable(d);
         Holding holding = getItem(position);
         //当前价
-        String price = "";
+        String price = "0";
         //后台来的数据被放大了100倍，在这里进行处理
         float realCost = holding.costBalance / 100;
         float realMarketValue = holding.marketValue / 100;
