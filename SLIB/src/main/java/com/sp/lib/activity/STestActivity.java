@@ -3,6 +3,7 @@ package com.sp.lib.activity;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,13 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sp.lib.widget.material.MaterialLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class STestActivity extends ListActivity {
-   private List<Class<? extends Activity>> activities = new ArrayList<Class<? extends Activity>>();
+    private List<Class<? extends Activity>> activities = new ArrayList<Class<? extends Activity>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,16 +28,12 @@ public abstract class STestActivity extends ListActivity {
 
     /**
      * add your test Here
+     *
      * @param activities
      */
     protected abstract void addTest(List<Class<? extends Activity>> activities);
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        startActivity(new Intent(this, activities.get(position)));
-    }
-
-    private class MyAdapter extends BaseAdapter {
+    private class MyAdapter extends BaseAdapter implements View.OnClickListener{
         @Override
         public int getCount() {
             return activities.size();
@@ -52,13 +51,30 @@ public abstract class STestActivity extends ListActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
+            MaterialLayout layout;
             if (convertView == null) {
-                convertView = getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
-            }
-            ((TextView) convertView).setText(activities.get(position).getSimpleName());
+                layout = new MaterialLayout(STestActivity.this);
+                layout.setMaterialBackground(Color.WHITE);
+                layout.setMaterialWave(Color.LTGRAY);
 
-            return convertView;
+                TextView textView = new TextView(STestActivity.this);
+                textView.setTextColor(Color.BLACK);
+                textView.setTextSize(17);
+                textView.setPadding(10,15,10,15);
+                layout.addView(textView);
+                layout.setOnClickListener(this);
+            } else {
+                layout = (MaterialLayout) convertView;
+            }
+            ((TextView) layout.getChildAt(1)).setText(activities.get(position).getSimpleName());
+            layout.setTag(position);
+            return layout;
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position= (int) v.getTag();
+            startActivity(new Intent(STestActivity.this, activities.get(position)));
         }
     }
 }
