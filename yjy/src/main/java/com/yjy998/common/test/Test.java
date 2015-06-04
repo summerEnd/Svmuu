@@ -111,7 +111,7 @@ public class Test extends AndroidTestCase {
         }
         try {
             return new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(sdf.parse(src));
-        } catch (ParseException e) {
+        } catch (ParseException ignored) {
 
         }
         return "";
@@ -119,5 +119,20 @@ public class Test extends AndroidTestCase {
 
     void log(String msg) {
         System.out.println(TAG + msg);
+    }
+
+    public void testHello(){
+
+        if(_print("Hello ")){
+            System.out.println("Hello ");
+        }else{
+            System.out.println("World");
+        }
+
+    }
+
+    boolean _print(String s){
+        System.out.print(s);
+        return false;
     }
 }
