@@ -1,1 +1,1 @@
-include ':app', ':SLIB',':slibdemo'
+include ':yjy', ':SLIB',':slibdemo', ':svmuu'
