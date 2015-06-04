@@ -42,4 +42,11 @@
             <enum name="longer" value="4" />
         </attr>
     </declare-styleable>
+
+    <attr name="_src" format="reference"/>
+    <attr name="_textSize" format="dimension"/>
+    <attr name="_checked" format="boolean"/>
+    <attr name="_textColor" format="color|reference"/>
+    <attr name="_drawablePadding" format="dimension"/>
+    <attr name="_text" format="string"/>
 </resources>

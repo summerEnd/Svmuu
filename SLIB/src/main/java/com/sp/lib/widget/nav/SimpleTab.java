@@ -1,6 +1,7 @@
 package com.sp.lib.widget.nav;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -12,16 +13,19 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.sp.lib.R;
 import com.sp.lib.widget.nav.title.ITab;
 
 public class SimpleTab extends View implements ITab {
 
-    Drawable mDrawable;
-    String text;
-    Paint mPaint;
-    int drawablePadding;
-    int textHeight;
-    boolean selected;
+    private Drawable mDrawable;
+    private String text;
+    private Paint mPaint;
+    private int drawablePadding;
+    private int textHeight;
+    private boolean selected;
+    private int color;
+    private int selectedColor;
 
     public SimpleTab(Context context) {
         this(context, null);
@@ -33,19 +37,37 @@ public class SimpleTab extends View implements ITab {
 
     public SimpleTab(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        int[] attrArray = new int[]{android.R.attr.src, android.R.attr.checked, android.R.attr.text, android.R.attr.textSize, android.R.attr.textColor, android.R.attr.drawablePadding};
         mPaint = new Paint();
+
+        int[] attrArray = new int[]
+                {
+                        R.attr._src,
+                        R.attr._checked,
+                        R.attr._text,
+                        R.attr._textSize,
+                        R.attr._textColor,
+                        R.attr._drawablePadding,
+                };
         TypedArray a = context.obtainStyledAttributes(attrs, attrArray);
+
         mDrawable = a.getDrawable(0);
         selected = a.getBoolean(1, false);
         text = a.getString(2);
         mPaint.setTextSize(a.getDimensionPixelSize(3, 20));
-        mPaint.setColor(a.getColor(4, Color.BLACK));
+        ColorStateList colorList = a.getColorStateList(4);
         drawablePadding = a.getDimensionPixelSize(5, 10);
+        a.recycle();
+
+        if (colorList != null) {
+            color = colorList.getColorForState(new int[]{-android.R.attr.state_checked}, Color.BLACK);
+            selectedColor = colorList.getColorForState(new int[]{android.R.attr.state_checked}, Color.BLACK);
+        } else {
+            color = Color.BLACK;
+            selectedColor = Color.BLACK;
+        }
 
         mPaint.setAntiAlias(true);
         mPaint.setTextAlign(Paint.Align.CENTER);
-        a.recycle();
 
         if (mDrawable == null) {
             mDrawable = new ColorDrawable();
@@ -104,8 +126,10 @@ public class SimpleTab extends View implements ITab {
     public void setTabSelect(boolean selected) {
         this.selected = selected;
         if (selected) {
+            mPaint.setColor(selectedColor);
             mDrawable.setState(new int[]{android.R.attr.state_checked});
         } else {
+            mPaint.setColor(color);
             mDrawable.setState(new int[]{-android.R.attr.state_checked});
         }
         invalidate();

@@ -8,14 +8,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.sp.lib.activity.DEBUGActivity;
+import com.sp.lib.activity.SlibActivity;
+import com.sp.lib.common.util.ShortCut;
+import com.sp.lib.widget.nav.SimpleTab;
+import com.sp.lib.widget.nav.TabBar;
 
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends SlibActivity implements TabBar.OnTabSelectListener{
+    TabBar tabBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ShortCut.addShortcut(this,"Svmuu",MainActivity.class);
         setContentView(R.layout.activity_main);
+        tabBar= (TabBar) findViewById(R.id.tabBar);
+        tabBar.setOnTabSelectListener(this);
     }
 
     @Override
@@ -39,5 +46,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSelect(SimpleTab tab) {
+
     }
 }
