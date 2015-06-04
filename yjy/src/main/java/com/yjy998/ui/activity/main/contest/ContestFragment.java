@@ -11,18 +11,16 @@ import android.widget.AdapterView;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
-import com.sp.lib.widget.pager.title.PageStrip;
+import com.sp.lib.widget.nav.title.PageStrip;
 import com.yjy998.R;
 import com.yjy998.common.adapter.ContestListAdapter;
 import com.yjy998.common.adapter.FragmentPagerAdapter;
 import com.yjy998.common.entity.Contest;
-import com.yjy998.common.entity.ContractDetail;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.base.BaseListFragment;
-import com.yjy998.ui.activity.main.apply.ApplyActivity;
 import com.yjy998.ui.activity.main.apply.ContestApplyActivity;
 import com.yjy998.ui.activity.main.my.ContractInfoActivity;
 

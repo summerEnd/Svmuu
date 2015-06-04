@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.sp.lib.widget.pager.title.PageStrip;
+import com.sp.lib.widget.nav.title.PageStrip;
 import com.yjy998.R;
 import com.yjy998.common.adapter.FragmentPagerAdapter;
 import com.yjy998.ui.activity.base.SecondActivity;

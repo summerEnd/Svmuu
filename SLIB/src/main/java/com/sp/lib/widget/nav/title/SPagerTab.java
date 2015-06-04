@@ -1,11 +1,11 @@
-package com.sp.lib.widget.pager.title;
+package com.sp.lib.widget.nav.title;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
 
-public abstract class SPagerTab extends View implements IPagerTab {
+public abstract class SPagerTab extends View implements ITab {
 
     private View mTab;
     private boolean isChecked;

@@ -1,4 +1,4 @@
-package com.sp.lib.widget.pager.title;
+package com.sp.lib.widget.nav.title;
 
 
 import android.content.Context;
@@ -39,11 +39,11 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
     /**
      * all tabs are add in this list
      */
-    private List<IPagerTab> tabs = new LinkedList<IPagerTab>();
+    private List<ITab> tabs = new LinkedList<ITab>();
     /**
      * the tab current selected
      */
-    private IPagerTab selectedTab;
+    private ITab selectedTab;
     /**
      * the listener of the tab click
      */
@@ -64,13 +64,13 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
     public PageStrip(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.IPagerTab);
-        indicatorDrawable = a.getDrawable(R.styleable.IPagerTab_indicator);
+        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.ITab);
+        indicatorDrawable = a.getDrawable(R.styleable.ITab_indicator);
         if (indicatorDrawable == null) {
-            indicatorDrawable = new ColorDrawable(a.getColor(R.styleable.IPagerTab_indicator, Color.BLUE));
+            indicatorDrawable = new ColorDrawable(a.getColor(R.styleable.ITab_indicator, Color.BLUE));
         }
-        indicatorHeight = a.getInt(R.styleable.IPagerTab_indicateHeight, 3);
-        showIndicator = a.getBoolean(R.styleable.IPagerTab_showIndicator, true);
+        indicatorHeight = a.getInt(R.styleable.ITab_indicateHeight, 3);
+        showIndicator = a.getBoolean(R.styleable.ITab_showIndicator, true);
         a.recycle();
 
         setOrientation(LinearLayout.HORIZONTAL);
@@ -81,8 +81,8 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
         int count = getChildCount();
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
-            if (child instanceof IPagerTab) {
-                IPagerTab tab = (IPagerTab) child;
+            if (child instanceof ITab) {
+                ITab tab = (ITab) child;
                 addTabInner(tab);
             }
         }
@@ -98,21 +98,21 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
      * <p>
      * set a ViewPager to control.In this method a {@link android.support.v4.view.ViewPager.OnPageChangeListener OnPageChangeListener}
      * will be set for this ViewPager.so,don't call the {@link android.support.v4.view.ViewPager#setOnPageChangeListener(android.support.v4.view.ViewPager.OnPageChangeListener) ViewPager.setOnPageChangeListener}
-     * for this ViewPager .call {@link com.sp.lib.widget.pager.title.PageStrip#setPageChangeListener(android.support.v4.view.ViewPager.OnPageChangeListener) PageStrip.setOnPageChangeListener}
+     * for this ViewPager .call {@link com.sp.lib.widget.nav.title.PageStrip#setPageChangeListener(android.support.v4.view.ViewPager.OnPageChangeListener) PageStrip.setOnPageChangeListener}
      * instead </p>
      *
      * @param pager the page to control
      */
     public void setViewPager(ViewPager pager) {
         mPager = pager;
-        mPager.setOnPageChangeListener(this);
+        mPager.addOnPageChangeListener(this);
     }
 
     public void setPageChangeListener(ViewPager.OnPageChangeListener listener) {
         this.mOnPageChangeListener = listener;
     }
 
-    private void addTabInner(IPagerTab tab) {
+    private void addTabInner(ITab tab) {
         tabs.add(tab);
         if (tab instanceof View) {
             ((View) tab).setOnClickListener(onTabClick);
@@ -167,12 +167,12 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
      * @param position the position of the tab
      */
     public void check(int position) {
-        IPagerTab tab = tabs.get(position);
+        ITab tab = tabs.get(position);
         if (selectedTab != null && tab == selectedTab) {
             return;
         }
         selectedTab = tab;
-        for (IPagerTab mTab : tabs) {
+        for (ITab mTab : tabs) {
             mTab.setTabSelect(tab == mTab);
         }
         if (mPager != null) {
@@ -212,8 +212,8 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
     }
 
     public interface OnTitleChangeListener {
-        public void onSelected(int position, IPagerTab tab);
+        void onSelected(int position, ITab tab);
 
-        public void onUnSelected(int position, IPagerTab tab);
+        void onUnSelected(int position, ITab tab);
     }
 }

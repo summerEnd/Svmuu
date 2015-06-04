@@ -5,7 +5,7 @@
               android:background="@color/white"
               tools:context="com.yjy998.ui.activity.main.apply.ApplyActivity">
 
-    <com.sp.lib.widget.pager.title.PageStrip
+    <com.sp.lib.widget.nav.title.PageStrip
         android:id="@+id/pageStrip" android:layout_width="match_parent"
         app:indicator="@color/deepBlue" android:background="#F2F2F2"
         android:layout_height="@dimen/center_tab_height">
@@ -44,7 +44,7 @@
 
         <com.yjy998.ui.view.ViewPagerTabItem
             style="@style/pageTitleStyle" android:text="@string/deal" />
-    </com.sp.lib.widget.pager.title.PageStrip>
+    </com.sp.lib.widget.nav.title.PageStrip>
 
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent" android:id="@+id/pager"

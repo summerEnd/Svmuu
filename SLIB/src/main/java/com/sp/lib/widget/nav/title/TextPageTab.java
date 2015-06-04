@@ -1,4 +1,4 @@
-package com.sp.lib.widget.pager.title;
+package com.sp.lib.widget.nav.title;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-public class TextPageTab extends TextView implements IPagerTab {
+public class TextPageTab extends TextView implements ITab {
     private boolean isChecked;
 
     public TextPageTab(Context context) {

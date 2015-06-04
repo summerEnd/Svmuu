@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.sp.lib.common.support.cache.FileObjectCache;
-import com.sp.lib.widget.pager.title.PageStrip;
+import com.sp.lib.widget.nav.title.PageStrip;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.common.entity.Contract;

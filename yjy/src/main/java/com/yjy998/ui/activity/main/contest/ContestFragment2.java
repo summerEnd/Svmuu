@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
-import com.sp.lib.widget.pager.title.PageStrip;
+import com.sp.lib.widget.nav.title.PageStrip;
 import com.yjy998.R;
 import com.yjy998.common.adapter.ContestListAdapter;
 import com.yjy998.common.adapter.FragmentPagerAdapter;

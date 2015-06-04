@@ -21,7 +21,7 @@
         <attr name="cellWidth" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="IPagerTab">
+    <declare-styleable name="ITab">
         <attr name="indicator" format="color|reference" />
         <attr name="showIndicator" format="boolean" />
         <attr name="indicateHeight" format="dimension"/>

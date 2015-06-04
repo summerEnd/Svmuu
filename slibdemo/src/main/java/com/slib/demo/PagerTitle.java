@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
 import com.sp.lib.common.support.adapter.GuidePagerAdapter;
-import com.sp.lib.widget.pager.title.PageStrip;
+import com.sp.lib.widget.nav.title.PageStrip;
 import com.svmuu.slibdemo.R;
 
 public class PagerTitle extends SLIBTest {

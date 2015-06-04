@@ -1,17 +1,12 @@
 package com.yjy998.ui.view;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.ScaleAnimation;
 
-import com.sp.lib.widget.pager.title.TextPageTab;
+import com.sp.lib.widget.nav.title.TextPageTab;
 import com.yjy998.R;
 
 public class ViewPagerTabItem extends TextPageTab {
