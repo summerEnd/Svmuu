@@ -10,8 +10,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/SLIB" />
-            <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/slibdemo" />
+            <option value="$PROJECT_DIR$/svmuu" />
+            <option value="$PROJECT_DIR$/yjy" />
           </set>
         </option>
       </GradleProjectSettings>
