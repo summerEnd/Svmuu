@@ -39,23 +39,15 @@ public class SimpleTab extends View implements ITab {
         super(context, attrs, defStyleAttr);
         mPaint = new Paint();
 
-        int[] attrArray = new int[]
-                {
-                        R.attr._src,
-                        R.attr._checked,
-                        R.attr._text,
-                        R.attr._textSize,
-                        R.attr._textColor,
-                        R.attr._drawablePadding,
-                };
-        TypedArray a = context.obtainStyledAttributes(attrs, attrArray);
 
-        mDrawable = a.getDrawable(0);
-        selected = a.getBoolean(1, false);
-        text = a.getString(2);
-        mPaint.setTextSize(a.getDimensionPixelSize(3, 20));
-        ColorStateList colorList = a.getColorStateList(4);
-        drawablePadding = a.getDimensionPixelSize(5, 10);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SimpleTab);
+
+        mDrawable = a.getDrawable(R.styleable.SimpleTab_tabIcon);
+        selected = a.getBoolean(R.styleable.SimpleTab_tabChecked, false);
+        text = a.getString(R.styleable.SimpleTab_tabText);
+        mPaint.setTextSize(a.getDimensionPixelSize(R.styleable.SimpleTab_tabTextSize, 20));
+        ColorStateList colorList = a.getColorStateList(R.styleable.SimpleTab_tabTextColors);
+        drawablePadding = a.getDimensionPixelSize(R.styleable.SimpleTab_tabIconPadding, 10);
         a.recycle();
 
         if (colorList != null) {

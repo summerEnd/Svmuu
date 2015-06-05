@@ -1,27 +1,29 @@
-package com.svmuu;
+package com.svmuu.ui;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.sp.lib.activity.DEBUGActivity;
 import com.sp.lib.activity.SlibActivity;
+import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.ShortCut;
 import com.sp.lib.widget.nav.SimpleTab;
 import com.sp.lib.widget.nav.TabBar;
+import com.svmuu.R;
+import com.svmuu.common.Constant;
 
 
-public class MainActivity extends SlibActivity implements TabBar.OnTabSelectListener{
+public class MainActivity extends BaseActivity implements TabBar.OnTabSelectListener {
     TabBar tabBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ShortCut.addShortcut(this,"Svmuu",MainActivity.class);
+
         setContentView(R.layout.activity_main);
-        tabBar= (TabBar) findViewById(R.id.tabBar);
+        tabBar = (TabBar) findViewById(R.id.tabBar);
         tabBar.setOnTabSelectListener(this);
     }
 
@@ -50,6 +52,26 @@ public class MainActivity extends SlibActivity implements TabBar.OnTabSelectList
 
     @Override
     public void onSelect(SimpleTab tab) {
-
+        switch (tab.getId()) {
+            case R.id.tb_home:
+                break;
+            case R.id.tb_live:
+                break;
+            case R.id.tb_article:
+                break;
+            case R.id.tb_video:
+                break;
+            case R.id.tb_contest:
+                try {
+                    Intent intent=new Intent(Constant.YJY_EXPORT_Game);
+                    intent.addCategory(Intent.CATEGORY_DEFAULT);
+//                    intent.setClassName("com.yjy998","com.yjy998.ui.export.GameListActivity");
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ContextUtil.toast("没有安装易交易！");
+                }
+                break;
+        }
     }
 }

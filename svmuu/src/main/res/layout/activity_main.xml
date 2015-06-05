@@ -1,47 +1,48 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.svmuu.MainActivity">
+    tools:context="com.svmuu.ui.MainActivity">
 
 
     <FrameLayout
         android:id="@id/fragmentContainer"
-        android:layout_width="match_parent" android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
     <com.sp.lib.widget.nav.TabBar
         android:id="@+id/tabBar"
+        android:background="#8000"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.sp.lib.widget.nav.SimpleTab
             android:id="@+id/tb_home"
             style="@style/mainTab"
-            android:checked="true"
-            app:_text="@string/home"
-            app:_textColor="@drawable/main_tab_text_color"
-            />
+            app:tabChecked="true"
+            app:tabText="@string/home" />
+
         <com.sp.lib.widget.nav.SimpleTab
             android:id="@+id/tb_live"
             style="@style/mainTab"
-            app:_text="@string/liveHouse"
-            />
+            app:tabText="@string/liveHouse" />
+
         <com.sp.lib.widget.nav.SimpleTab
             android:id="@+id/tb_article"
             style="@style/mainTab"
-            app:_text="@string/littleArticle"
-            />
+            app:tabText="@string/littleArticle" />
+
         <com.sp.lib.widget.nav.SimpleTab
             android:id="@+id/tb_video"
             style="@style/mainTab"
-            app:_text="@string/videoTutorial"
-            />
+            app:tabText="@string/videoTutorial" />
+
         <com.sp.lib.widget.nav.SimpleTab
             android:id="@+id/tb_contest"
             style="@style/mainTab"
-            app:_text="@string/realContest"
-            />
+            app:tabText="@string/realContest" />
     </com.sp.lib.widget.nav.TabBar>
 </LinearLayout>

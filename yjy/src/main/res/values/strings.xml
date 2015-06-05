@@ -168,6 +168,7 @@
     <string name="Elite">精英赛</string>
     <string name="sea_race">海选赛</string>
     <string name="normal_race">普通赛</string>
+    <string name="circle_race">圈主赛</string>
     <string name="not_race">非比赛</string>
     <string name="unknow">未知</string>
     <string name="rate_f">%.2f%%</string>
@@ -272,4 +273,5 @@
     <string name="call">拨打</string>
     <string name="trade_ok">交易成功！</string>
     <string name="forbidon_format">MM月dd日禁买</string>
+    <string name="title_activity_game_list">GameListActivity</string>
 </resources>

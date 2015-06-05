@@ -23,12 +23,12 @@ android {
     }
 
     signingConfigs {
-        myConfigs {
-            storeFile file("D:\\workspace\\Svmuu\\rongzhengtong.jks");
-            keyAlias "yjy"
-            keyPassword "yjy998"
-            storePassword "rzt2014"
-        }
+//        myConfigs {
+//            storeFile file("D:\\workspace\\Svmuu\\rongzhengtong.jks");
+//            keyAlias "yjy"
+//            keyPassword "yjy998"
+//            storePassword "rzt2014"
+//        }
     }
 
     productFlavors {

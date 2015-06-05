@@ -35,7 +35,7 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
     //首页
     HomeFragment mHome;
     //我的大赛
-    ContestFragment mGameFragment;
+    ContestFragment2 mGameFragment;
     //实盘申请
     ApplyFragment mApplyFragment;
     //个人中心
@@ -118,7 +118,7 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
                 }
                 case R.id.tabGame: {
                     if (mGameFragment == null) {
-                        mGameFragment = new ContestFragment();
+                        mGameFragment = new ContestFragment2();
                     }
                     fragment = mGameFragment;
                     break;
