@@ -22,16 +22,20 @@ public class CustomTab extends TextPageTab {
     }
 
     public CustomTab(Context context, AttributeSet attrs, int defStyle) {
+
         super(context, attrs, defStyle);
-        mAnim = createAnim();
 
     }
 
     @Override
     public void onTabSelected(boolean selected) {
+
         clearAnimation();
         if (selected) {
             setTextColor(Color.RED);
+           if (mAnim ==null){
+                mAnim=createAnim();
+            }
             startAnimation(mAnim);
         } else {
             setTextColor(Color.GRAY);
