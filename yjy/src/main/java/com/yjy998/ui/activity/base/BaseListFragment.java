@@ -17,7 +17,7 @@ import com.yjy998.R;
 import static android.widget.AdapterView.OnItemClickListener;
 
 public class BaseListFragment extends BaseFragment {
-    private PullToRefreshListView refreshList;
+    protected PullToRefreshListView refreshList;
     private OnItemClickListener mOnItemClickListener;
     private ListAdapter adapter;
     private View emptyView;
