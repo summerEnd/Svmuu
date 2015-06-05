@@ -1,6 +1,7 @@
 package com.yjy998.ui.activity.main.my;
 
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sp.lib.activity.DEBUGActivity;
@@ -36,6 +38,9 @@ import com.yjy998.ui.pop.PickCity;
 import com.yjy998.ui.pop.YAlertDialogTwoButton;
 import com.yjy998.ui.pop.YProgressDialog;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -170,6 +175,7 @@ public class ChangeDataActivity extends SecondActivity {
             case R.id.genderLayout: {
                 final String genders[] = getResources().getStringArray(R.array.genders);
                 final ListDialog dialog = new ListDialog(this, genders);
+
                 dialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -303,7 +309,7 @@ public class ChangeDataActivity extends SecondActivity {
 
             @Override
             public Dialog onCreateDialog() {
-                YProgressDialog dialog=new YProgressDialog(ChangeDataActivity.this);
+                YProgressDialog dialog = new YProgressDialog(ChangeDataActivity.this);
                 dialog.setMessage(getString(R.string.saving));
                 return dialog;
             }

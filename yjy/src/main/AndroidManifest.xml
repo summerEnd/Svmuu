@@ -137,6 +137,7 @@
             android:label="@string/title_activity_invite_friends" />
         <activity
             android:name=".ui.export.GameListActivity"
+
             android:exported="true" >
             <intent-filter >
                 <action android:name="com.yjy998.export.Game"/>
