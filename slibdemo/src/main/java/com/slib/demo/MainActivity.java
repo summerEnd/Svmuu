@@ -1,8 +1,9 @@
 package com.slib.demo;
 
 import android.app.Activity;
-import android.widget.GridLayout;
 
+import com.slib.demo.material.MaterialBaseTest;
+import com.slib.demo.material.MaterialTest;
 import com.sp.lib.activity.DEBUGActivity;
 import com.sp.lib.activity.STestActivity;
 
@@ -12,6 +13,7 @@ public class MainActivity extends STestActivity {
 
     @Override
     protected void addTest(List<Class<? extends Activity>> activities) {
+        activities.add(MaterialTest.class);
         activities.add(PagerTitle.class);
         activities.add(HttpTest.class);
         activities.add(DEBUGActivity.class);

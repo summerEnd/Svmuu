@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Locale;
 
 import static com.sp.lib.activity.album.PhotoDirAdapter.PhotoDirInfo;
 
@@ -52,12 +53,6 @@ public class PhotoAlbumActivity extends SlibActivity implements AdapterView.OnIt
      * 输出图片的宽度
      */
     public static String EXTRA_CAMERA_OUTPUT_WIDTH = "camera_out_width";
-
-    /**
-     * boolean类型，true 返回图片Uri，false 不返回
-     */
-    public static String EXTRA_RETURN_DATA = "return-data";
-
 
     private int outPut_height;
     private int outPut_width;
@@ -140,7 +135,7 @@ public class PhotoAlbumActivity extends SlibActivity implements AdapterView.OnIt
             //从map中获取一个 list，如果没有就创建一个
             LinkedList<String> tempList = mAlbumListMap.get(dirName);
             if (tempList == null) {
-                tempList = new LinkedList<String>();
+                tempList = new LinkedList<>();
                 mAlbumListMap.put(dirName, tempList);
             }
             tempList.add(url);
@@ -192,13 +187,14 @@ public class PhotoAlbumActivity extends SlibActivity implements AdapterView.OnIt
             //打开相机拍照
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss", Locale.getDefault());
 
-            Uri cameraUri = Uri.fromFile(createFile("SLIB_"+sdf.format(new Date())));
+            Uri cameraUri = Uri.fromFile(createFile("SLIB_" + sdf.format(new Date())));
             intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
 
             startActivityForResult(intent, CAPTURE_IMAGE);
-        } else {//选择照片，返回照片Uri
+        } else {
+            //选择照片，返回照片Uri
             File selected = new File(mAlbumList.get(position - 1));
             cropImage(Uri.fromFile(selected));
         }

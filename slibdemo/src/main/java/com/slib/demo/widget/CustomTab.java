@@ -7,7 +7,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 
-import com.sp.lib.widget.pager.title.TextPageTab;
+import com.sp.lib.widget.nav.title.TextPageTab;
 
 
 public class CustomTab extends TextPageTab {

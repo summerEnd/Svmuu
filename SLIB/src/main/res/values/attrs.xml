@@ -21,7 +21,7 @@
         <attr name="cellWidth" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="IPagerTab">
+    <declare-styleable name="ITab">
         <attr name="indicator" format="color|reference" />
         <attr name="showIndicator" format="boolean" />
         <attr name="indicateHeight" format="dimension"/>
@@ -42,4 +42,11 @@
             <enum name="longer" value="4" />
         </attr>
     </declare-styleable>
+
+    <attr name="_src" format="reference"/>
+    <attr name="_textSize" format="dimension"/>
+    <attr name="_checked" format="boolean"/>
+    <attr name="_textColor" format="color|reference"/>
+    <attr name="_drawablePadding" format="dimension"/>
+    <attr name="_text" format="string"/>
 </resources>

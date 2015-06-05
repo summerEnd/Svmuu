@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">水木资本</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="home">首页</string>
+    <string name="liveHouse">直播室</string>
+    <string name="littleArticle">小文章</string>
+    <string name="videoTutorial">视频教程</string>
+    <string name="realContest">实盘大赛</string>
+</resources>

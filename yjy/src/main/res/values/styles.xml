@@ -1,0 +1,480 @@
+<resources>
+
+    <style name="mainMenu">
+
+    </style>
+
+    <style name="wrapLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="mainMenu.clickItem">
+        <item name="android:background">@drawable/main_menu_click_item</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/dimen_36px</item>
+        <item name="android:paddingRight">@dimen/dimen_36px</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:layout_marginBottom">1px</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="mainMenuClickItemTextStyle">
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_32px</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@drawable/s_text_white_gray</item>
+        <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:drawableRight">@drawable/left_menu_arrow</item>
+    </style>
+
+    <style name="mainMenuClickItemIconStyle">
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:layout_width">@dimen/menuIconSize</item>
+        <item name="android:layout_height">@dimen/menuIconSize</item>
+    </style>
+
+    <style name="horizontalSpace">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="horizontalLine">
+        <item name="android:layout_height">1px</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">#d5d5d5</item>
+    </style>
+
+    <style name="horizontalLine.homeMenu">
+        <item name="android:background">#3B3B43</item>
+    </style>
+
+    <style name="verticalLine" parent="horizontalLine">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">1px</item>
+    </style>
+
+    <style name="dialogPadding">
+        <item name="android:paddingTop">@dimen/dimen_20px</item>
+        <item name="android:paddingRight">@dimen/dimen_20px</item>
+        <item name="android:paddingLeft">@dimen/dimen_20px</item>
+        <item name="android:paddingBottom">@dimen/dimen_40px</item>
+    </style>
+
+    <style name="loginDialogEditTextStyle">
+        <item name="android:paddingLeft">@dimen/loginDialog_edit_padding_horizontal</item>
+        <item name="android:paddingRight">@dimen/loginDialog_edit_padding_horizontal</item>
+        <item name="android:layout_height">@dimen/dimen_93px</item>
+        <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="blueButton" parent="wrapLayout">
+        <item name="android:background">@drawable/blue_button</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="blueButton.big">
+        <item name="android:textSize">@dimen/text_28px</item>
+    </style>
+
+    <style name="blueButton.mid">
+        <item name="android:textSize">@dimen/text_26px</item>
+        <item name="android:layout_height">@dimen/mid_button_height</item>
+        <item name="android:layout_width">@dimen/mid_button_width</item>
+    </style>
+
+
+    <style name="redButton">
+        <item name="android:background">@drawable/red_button</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="redButton.big">
+        <item name="android:textSize">@dimen/text_30px</item>
+    </style>
+
+    <style name="redButton.mid">
+        <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:layout_height">@dimen/mid_button_height</item>
+    </style>
+
+    <style name="whiteButton">
+        <item name="android:background">@drawable/white_button</item>
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textSize">@dimen/text_26px</item>
+    </style>
+
+    <style name="yellowButton">
+        <item name="android:background">@drawable/yellow_button</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_26px</item>
+    </style>
+
+    <style name="roundButtonStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="roundButtonStyle.Big">
+        <item name="android:textSize">@dimen/text_30px</item>
+        <item name="android:layout_height">@dimen/round_button_height</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="tabStyle">
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="homeClickItem">
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="homeClickItem.text">
+        <item name="android:clickable">false</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="homeTextViewStyle1" parent="wrapLayout">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textSize">@dimen/text_20px</item>
+        <item name="android:textColor">@color/textColorBlack</item>
+    </style>
+
+    <style name="capitalFragmentLayoutStyle_1">
+        <item name="android:background">@color/lightGray</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:padding">@dimen/dimen_11px</item>
+    </style>
+
+    <style name="contractInfoLayoutStyle">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/lightGray</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">@dimen/dimen_84px</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:padding">@dimen/dimen_20px</item>
+    </style>
+
+    <style name="BusinessTwoTextItem" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/text_20px</item>
+        <item name="android:text">test</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="BusinessTwoTextItem.Red">
+        <item name="android:textColor">@color/textColorRed</item>
+    </style>
+
+    <style name="BusinessTwoTextItem.Green">
+        <item name="android:textColor">@color/textColorGreen</item>
+    </style>
+
+    <style name="BusinessTwoTextItem.Gray">
+        <item name="android:textColor">@color/textColorDeepGray</item>
+    </style>
+
+    <style name="businessPopAnimation" parent="popup_window_animation">
+        <item name="android:windowEnterAnimation">@anim/center_pop_enter</item>
+        <item name="android:windowExitAnimation">@anim/center_pop_exit</item>
+    </style>
+
+    <style name="applyFragmentTextStyle">
+        <item name="android:textColor">@color/textColorDeepGray</item>
+        <item name="android:textSize">@dimen/text_20px</item>
+    </style>
+
+    <style name="applyFragmentTextStyle.big">
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textSize">@dimen/text_24px</item>
+    </style>
+
+    <style name="applyFragmentItemPadding">
+        <item name="android:paddingLeft">9dp</item>
+        <item name="android:paddingRight">9dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+    </style>
+
+    <style name="rotateText">
+        <item name="android:rotation">45</item>
+        <item name="android:textSize">@dimen/text_18px</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">@dimen/dimen_30px</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="activityPadding">
+        <item name="android:paddingLeft">@dimen/dimen_50px</item>
+        <item name="android:paddingRight">@dimen/dimen_50px</item>
+        <item name="android:paddingTop">@dimen/activity_vertical_margin</item>
+        <item name="android:paddingBottom">@dimen/activity_vertical_margin</item>
+    </style>
+
+    <style name="applyActivityTextStyle1">
+        <item name="android:textColor">@color/textColorDeepGray</item>
+        <item name="android:textSize">@dimen/text_20px</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="applyActivityTextStyle2" parent="wrapLayout">
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textSize">@dimen/text_24px</item>
+    </style>
+
+    <style name="applyActivityTextStyle2.yuan">
+        <item name="android:textSize">@dimen/text_24px</item>
+    </style>
+
+    <style name="circleStyle">
+        <item name="android:layout_width">@dimen/circleItemSize</item>
+        <item name="android:layout_height">@dimen/circleItemSize</item>
+    </style>
+
+    <style name="horizontalMargin">
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
+    </style>
+
+    <style name="verticalMargin">
+        <item name="android:layout_marginTop">@dimen/activity_vertical_margin</item>
+        <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
+    </style>
+
+    <style name="centerText" parent="wrapLayout">
+        <item name="android:background">@drawable/clicked_white</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_28px</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:paddingLeft">@dimen/dimen_10px</item>
+        <item name="android:paddingRight">@dimen/dimen_10px</item>
+        <item name="android:textColor">@color/textColorBlack</item>
+    </style>
+
+    <style name="changeDataTabRow">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="changeDataTabName" parent="wrapLayout">
+        <item name="android:textSize">@dimen/text_28px</item>
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="changeDataTabValue" parent="wrapLayout">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_toLeftOf">@id/arrow</item>
+        <item name="android:textSize">@dimen/text_26px</item>
+        <item name="android:textColor">@color/textColorDeepGray</item>
+    </style>
+
+    <style name="changeDataTabImage" parent="wrapLayout">
+        <item name="android:id">@id/arrow</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:src">@drawable/ic_right_arrow</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="capitalFragmentBottomText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/textColorDeepGray</item>
+        <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="capitalFragmentBottomText.value">
+        <item name="android:textSize">@dimen/text_20px</item>
+    </style>
+
+    <style name="capitalFragmentAddReduce">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_20px</item>
+        <item name="android:background">#508FD4</item>
+        <item name="android:layout_width">@dimen/dimen_55px</item>
+        <item name="android:layout_height">@dimen/dimen_55px</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">3dp</item>
+    </style>
+
+    <style name="capitalAddReduceText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_18px</item>
+    </style>
+
+    <style name="capitalFragmentEdit">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textSize">@dimen/text_20px</item>
+        <item name="android:background">@drawable/blue_frame</item>
+    </style>
+
+    <style name="center_pager_item">
+        <item name="android:clickable">true</item>
+        <item name="android:paddingTop">@dimen/dimen_24px</item>
+        <item name="android:paddingBottom">@dimen/dimen_24px</item>
+        <item name="android:background">@drawable/clicked_white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="centerItemText1" parent="wrapLayout">
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/text_22px</item>
+        <item name="android:textColor">@color/textColorBlack</item>
+    </style>
+
+    <style name="centerItemText2" parent="wrapLayout">
+        <item name="android:textColor">#FF6A09</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:text">@string/know_detail</item>
+    </style>
+
+    <style name="centerItemText3" parent="wrapLayout">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:textColor">@color/textColorBlack</item>
+    </style>
+
+    <style name="centerItemText4" parent="wrapLayout">
+        <item name="android:textSize">@dimen/text_28px</item>
+        <item name="android:textColor">@color/textColorRed</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_11px</item>
+        <item name="android:layout_marginRight">@dimen/dimen_11px</item>
+    </style>
+
+    <style name="centerItemLayout" parent="wrapLayout">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="gameInfoItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/gameInfoHorizontalMargin</item>
+        <item name="android:layout_marginRight">@dimen/gameInfoHorizontalMargin</item>
+        <item name="android:layout_marginTop">@dimen/gameInfoMarginTop</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="gameInfoText" parent="wrapLayout">
+        <item name="android:textSize">@dimen/text_28px</item>
+        <item name="android:textColor">@color/textColorBlack</item>
+    </style>
+
+    <style name="gameInfoText.red">
+        <item name="android:textColor">@color/textColorRed</item>
+    </style>
+
+    <style name="payYbItem">
+        <item name="android:paddingLeft">@dimen/dimen_11px</item>
+        <item name="android:paddingRight">@dimen/dimen_11px</item>
+        <item name="android:paddingTop">@dimen/dimen_38px</item>
+        <item name="android:paddingBottom">@dimen/dimen_38px</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:onClick">onYbClick</item>
+
+    </style>
+
+    <style name="payYbText" parent="wrapLayout">
+        <item name="android:textSize">@dimen/text_22px</item>
+        <item name="android:text">@string/YB</item>
+        <item name="android:textColor">@color/deepBlue</item>
+        <item name="android:layout_toRightOf">@id/mark</item>
+        <item name="android:layout_alignBaseline">@id/mark</item>
+    </style>
+
+    <style name="payYbTextNumber" parent="wrapLayout">
+        <item name="android:id">@id/mark</item>
+        <item name="android:textSize">@dimen/text_34px</item>
+        <item name="android:textColor">@color/deepBlue</item>
+    </style>
+
+    <style name="pageTitleStyle">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/textColorDeepGray</item>
+        <item name="android:textSize">@dimen/text_22px</item>
+    </style>
+
+    <style name="pageTitleStyle.game2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:paddingLeft">@dimen/dimen_40px</item>
+        <item name="android:paddingRight">@dimen/dimen_40px</item>
+    </style>
+
+    <style name="popularizeText1">
+        <item name="android:paddingTop">@dimen/dimen_8px</item>
+        <item name="android:paddingBottom">@dimen/dimen_8px</item>
+        <item name="android:textSize">@dimen/text_19px</item>
+        <item name="android:textColor">@color/textColorDeepGray</item>
+        <item name="android:background">#E4E4E4</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="popularizeText1.weight">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginLeft">1dp</item>
+    </style>
+
+    <style name="popularizeText1.weight.listStyle">
+        <item name="android:background">#0000</item>
+    </style>
+
+    <style name="popularizeText1.weight.Tab">
+        <item name="android:textColor">#18326B</item>
+    </style>
+</resources>

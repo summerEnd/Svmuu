@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#f2f2f2"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:drawableLeft="@drawable/ic_msg"
+        android:drawableStart="@drawable/ic_msg"
+        android:id="@+id/noticeText"
+        android:layout_width="match_parent"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:clickable="true"
+        android:textSize="@dimen/text_20px"
+        android:focusableInTouchMode="true"
+        android:layout_height="wrap_content" />
+</LinearLayout>
