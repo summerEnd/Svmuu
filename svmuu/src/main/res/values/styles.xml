@@ -6,7 +6,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="tabTextSize">@dimen/text_22px</item>
-        <item name="tabTextColor">@drawable/main_tab_text_color</item>
+        <item name="tabTextColors">@drawable/main_tab_text_color</item>
         <item name="tabIcon">@drawable/tab_home</item>
         <item name="tabIconPadding">@dimen/dimen_15px</item>
 

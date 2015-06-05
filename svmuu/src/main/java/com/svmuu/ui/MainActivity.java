@@ -7,10 +7,12 @@ import android.view.MenuItem;
 
 import com.sp.lib.activity.DEBUGActivity;
 import com.sp.lib.activity.SlibActivity;
+import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.ShortCut;
 import com.sp.lib.widget.nav.SimpleTab;
 import com.sp.lib.widget.nav.TabBar;
 import com.svmuu.R;
+import com.svmuu.common.Constant;
 
 
 public class MainActivity extends BaseActivity implements TabBar.OnTabSelectListener {
@@ -60,6 +62,15 @@ public class MainActivity extends BaseActivity implements TabBar.OnTabSelectList
             case R.id.tb_video:
                 break;
             case R.id.tb_contest:
+                try {
+                    Intent intent=new Intent(Constant.YJY_EXPORT_Game);
+                    intent.addCategory(Intent.CATEGORY_DEFAULT);
+//                    intent.setClassName("com.yjy998","com.yjy998.ui.export.GameListActivity");
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ContextUtil.toast("没有安装易交易！");
+                }
                 break;
         }
     }
