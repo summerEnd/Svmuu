@@ -16,6 +16,9 @@
     <!-- 查询快捷方式 -->
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="com.xiaomi.market.sdk.UPDATE" />
     <supports-screens
         android:largeScreens="true"
         android:normalScreens="true"
@@ -143,6 +146,11 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+        <receiver android:name="com.xiaomi.market.sdk.DownloadCompleteReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
