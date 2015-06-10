@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
+import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
@@ -130,6 +131,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                             @Override
                             protected void onStatusCorrect(Response response) {
                                 payDialog.dismiss();
+                                AppDelegate.getInstance().refreshUserInfo();
                             }
 
                             @Override

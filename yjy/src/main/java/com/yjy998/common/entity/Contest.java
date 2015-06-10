@@ -48,7 +48,7 @@ public class Contest implements Serializable {
                 return R.string.sea_race;
             }
             case 3: {
-                return R.string.normal_race;
+                return R.string.circle_race;
             }
         }
         return R.string.normal_race;

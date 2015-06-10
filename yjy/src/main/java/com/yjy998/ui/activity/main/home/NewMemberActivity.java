@@ -1,6 +1,7 @@
 package com.yjy998.ui.activity.main.home;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.sp.lib.common.support.net.client.SRequest;
@@ -10,6 +11,7 @@ import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.base.SecondActivity;
 import com.yjy998.ui.activity.pay.PayDialog;
+import com.yjy998.ui.pop.YAlertDialog;
 
 public class NewMemberActivity extends SecondActivity {
 
@@ -28,7 +30,7 @@ public class NewMemberActivity extends SecondActivity {
                 if (showLoginDialogIfNeed()) {
                     break;
                 }
-                final String price = "2000";
+                final String price = "100";
                 final PayDialog payDialog = new PayDialog(this, price);
                 payDialog.setCallback(new PayDialog.Callback() {
                     @Override
@@ -45,7 +47,13 @@ public class NewMemberActivity extends SecondActivity {
                         YHttpClient.getInstance().post(request, new YHttpHandler() {
                             @Override
                             protected void onStatusCorrect(Response response) {
+                            }
 
+                            @Override
+                            protected void onStatusFailed(Response response) {
+                                if (!TextUtils.isEmpty(response.message)){
+                                    YAlertDialog.show(NewMemberActivity.this,response.message);
+                                }
                             }
                         });
                     }

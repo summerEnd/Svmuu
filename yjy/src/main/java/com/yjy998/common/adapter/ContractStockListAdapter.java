@@ -37,7 +37,7 @@ public class ContractStockListAdapter extends ViewHolderAdapter<Holding, Object>
         viewHolder.floatBalance.setTextColor(convertView.getResources().getColor(textColor));
         viewHolder.floatBalance.setText(floatRatio);
         viewHolder.holdNumber.setText(holding.currentAmount + "");
-        viewHolder.holdValue.setText(holding.marketValue + "");
+        viewHolder.holdValue.setText(holding.marketValue/100 + "");
     }
 
     private class ViewHolder {

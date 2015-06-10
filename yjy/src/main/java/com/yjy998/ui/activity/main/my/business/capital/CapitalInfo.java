@@ -88,7 +88,8 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
         if (layout == null) {
             layout = inflater.inflate(R.layout.layout_capital_switch_info, null);
         } else {
-            ((ViewGroup) layout.getParent()).removeView(layout);
+            ViewGroup parent = (ViewGroup) layout.getParent();
+            if (parent!=null)parent.removeView(layout);
         }
         return layout;
     }

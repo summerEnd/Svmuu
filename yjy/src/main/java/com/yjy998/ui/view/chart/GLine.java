@@ -5,7 +5,9 @@ import android.graphics.Path;
 
 public class GLine extends Path {
     private Paint mPaint = new Paint();
-
+    {
+        mPaint.setAntiAlias(true);
+    }
     private float values[];
     private boolean drawBelowColor;
     private int startColor;

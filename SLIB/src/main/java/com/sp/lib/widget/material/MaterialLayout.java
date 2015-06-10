@@ -34,7 +34,7 @@ public class MaterialLayout extends FrameLayout {
         }
         return super.onInterceptTouchEvent(ev);
     }
-    AdapterView a;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);

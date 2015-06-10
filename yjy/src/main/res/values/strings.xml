@@ -153,7 +153,7 @@
     <string name="transferMoneyNotice">1、转账时金额最好有些零头（如1000.85），这样我们好确认是您的汇款 \n2、用户网银转账之后，请务必保留网银转账成功时的截图，并在 资金或者转账用途中 备注清自己要转入的XX用户名 ，将回单发到QQ客服，以便尽快到账！</string>
     <string name="transferMoneySummary">您可以通过网上银行或银行柜台向南京融证通网络科技有限公司转账（手续费最多一笔50易宝）</string>
     <string name="dial_service">一键客服</string>
-    <string name="tn_notice">提醒：申请当日必须买入股票，T+N日14:40分之前必须卖出股票，14:40分之后系统自动平仓</string>
+    <string name="tn_notice">提醒：申请当日必须买入股票，T+1日14:40分之前必须卖出股票，14:40分之后系统自动平仓</string>
     <string name="notice2">盈利全归您，亏损我们来承担！</string>
     <string name="register_ing">注册中…</string>
     <string name="re_register">重新注册</string>
@@ -217,6 +217,7 @@
     <string name="canceledOrder">已撤单</string>
     <string name="deal_done">已成交</string>
     <string name="contract_not_selected">请选择合约</string>
+    <string name="price_invalid">无效价格</string>
     <string name="stock_not_selected">请选择股票</string>
     <string name="draw_gesture_psw">请绘制手势密码</string>
     <string name="draw_open_gesture_psw">绘制解锁密码</string>

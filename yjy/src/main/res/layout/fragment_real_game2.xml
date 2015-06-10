@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.yjy998.ui.activity.main.apply.ApplyActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.yjy998.ui.activity.main.apply.ApplyActivity">
 
 
     <com.sp.lib.widget.nav.title.PageStrip
@@ -14,26 +14,25 @@
         android:background="#F2F2F2"
         app:indicator="@color/deepBlue">
 
-
         <com.yjy998.ui.view.ViewPagerTabItem
             style="@style/pageTitleStyle.game2"
             android:checked="true"
-            android:text="@string/sea_race" />
+            android:text="@string/Elite"/>
 
         <com.yjy998.ui.view.ViewPagerTabItem
             style="@style/pageTitleStyle.game2"
-            android:text="@string/Elite" />
+            android:text="@string/sea_race"/>
 
 
         <com.yjy998.ui.view.ViewPagerTabItem
             style="@style/pageTitleStyle.game2"
-            android:text="@string/circle_race" />
+            android:text="@string/circle_race"/>
 
         <com.yjy998.ui.view.ViewPagerTabItem
             style="@style/pageTitleStyle.game2"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="@string/my_game" />
+            android:text="@string/my_game"/>
 
 
     </com.sp.lib.widget.nav.title.PageStrip>
@@ -42,5 +41,5 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 </LinearLayout>
