@@ -12,7 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.sp.lib.common.util.ContextUtil;
+import com.sp.lib.common.support.net.client.SRequest;
+import com.sp.lib.common.util.JsonUtil;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.common.entity.Assent;
@@ -20,10 +21,12 @@ import com.yjy998.common.entity.User;
 import com.yjy998.common.adapter.ContractPagerAdapter;
 import com.yjy998.common.adapter.ContestPagerAdapter;
 import com.yjy998.common.entity.UserInfo;
+import com.yjy998.common.http.Response;
+import com.yjy998.common.http.YHttpClient;
+import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.common.util.ImageOptions;
 import com.yjy998.common.entity.Contract;
 import com.yjy998.common.entity.Contest;
-import com.yjy998.common.util.NumberUtil;
 import com.yjy998.ui.activity.admin.LoginDialog;
 import com.yjy998.ui.activity.admin.RegisterDialog;
 import com.yjy998.ui.activity.main.more.WebViewActivity;
@@ -34,14 +37,13 @@ import com.yjy998.ui.activity.main.popularize.PopularizeActivity;
 import com.yjy998.ui.activity.pay.RechargeActivity;
 import com.yjy998.ui.view.TwoTextItem;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
 
-public class CenterFragment extends BaseFragment implements View.OnClickListener {
+public class CenterFragment extends BaseFragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     View layout;
     private ImageView avatarImage;
@@ -53,12 +55,18 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
     private TextView contestAmount;
     private TextView popularizeAmount;
     private ViewPager contractPager;
-    private ViewPager gamePager;
+    private ViewPager contestPager;
     private TextView noticeText;
     LoginDialog loginDialog;
     RegisterDialog registerDialog;
     View registerText;
     View line;
+
+
+    View nav_ContractLeft;
+    View nav_ContractRight;
+    View nav_ContestLeft;
+    View nav_ContestRight;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -116,7 +124,62 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
                 break;
             }
 
+            case R.id.contractLeft:
+            case R.id.contractRight:
+            case R.id.contestLeft:
+            case R.id.contestRight: {
+                performPagerGuide(v);
+                break;
+            }
+
         }
+    }
+
+    void performPagerGuide(View nav) {
+
+        int contestItem = contestPager.getCurrentItem();
+
+        int contractItem = contractPager.getCurrentItem();
+
+
+        switch (nav.getId()) {
+            case R.id.contractLeft: {
+                contractItem--;
+                break;
+            }
+            case R.id.contractRight: {
+                contractItem++;
+                break;
+            }
+            case R.id.contestLeft: {
+                contestItem--;
+                break;
+            }
+            case R.id.contestRight: {
+                contestItem++;
+                break;
+            }
+        }
+
+        contestPager.setCurrentItem(contestItem);
+        contractPager.setCurrentItem(contractItem);
+
+        onNavChanged();
+    }
+
+    void onNavChanged() {
+
+        int contestItem = contestPager.getCurrentItem();
+        int totalContest = contestPager.getAdapter().getCount();
+
+        int contractItem = contractPager.getCurrentItem();
+        int totalContract = contractPager.getAdapter().getCount();
+
+        nav_ContestLeft.setVisibility(contestItem <= 0 ? View.INVISIBLE : View.VISIBLE);
+        nav_ContestRight.setVisibility(contestItem >= totalContest - 1 ? View.INVISIBLE : View.VISIBLE);
+
+        nav_ContractLeft.setVisibility(contractItem <= 0 ? View.INVISIBLE : View.VISIBLE);
+        nav_ContractRight.setVisibility(contractItem >= totalContract - 1 ? View.INVISIBLE : View.VISIBLE);
     }
 
 
@@ -141,8 +204,20 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
         findViewById(R.id.sellOut).setOnClickListener(this);
         findViewById(R.id.recharge).setOnClickListener(this);
         findViewById(R.id.popImage).setOnClickListener(this);
+
+
+        (nav_ContestRight = findViewById(R.id.contestRight)).setOnClickListener(this);
+        (nav_ContestLeft = findViewById(R.id.contestLeft)).setOnClickListener(this);
+
+
+        (nav_ContractLeft = findViewById(R.id.contractLeft)).setOnClickListener(this);
+        (nav_ContractRight = findViewById(R.id.contractRight)).setOnClickListener(this);
+
+
         contractPager = (ViewPager) findViewById(R.id.contractPager);
-        gamePager = (ViewPager) findViewById(R.id.gamePager);
+        contestPager = (ViewPager) findViewById(R.id.gamePager);
+        contractPager.addOnPageChangeListener(this);
+        contestPager.addOnPageChangeListener(this);
         refresh();
     }
 
@@ -154,6 +229,22 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
     }
 
     public void refresh() {
+        //先调本地刷新
+        refreshUI();
+
+        //再调远程刷新
+        SRequest request = new SRequest();
+
+        YHttpClient.getInstance().getByMethod("/h5/account/assentinfo", request, new YHttpHandler(false) {
+            @Override
+            protected void onStatusCorrect(Response response) {
+                AppDelegate.getInstance().setUser(JsonUtil.get(response.data, User.class));
+                refreshUI();
+            }
+        });
+    }
+
+    void refreshUI() {
         if (getView() == null) {
             return;
         }
@@ -191,8 +282,8 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
         contestAmount.setText(getString(R.string.myContest_d, myContests != null ? myContests.size() : 0));
         contractAmount.setText(getString(R.string.myContract_d, myContracts != null ? myContracts.size() : 0));
         contractPager.setAdapter(new ContractPagerAdapter(myContracts));
-        gamePager.setAdapter(new ContestPagerAdapter(myContests));
-
+        contestPager.setAdapter(new ContestPagerAdapter(myContests));
+        onNavChanged();
     }
 
     private void createLoginDialogIfNeed() {
@@ -218,6 +309,21 @@ public class CenterFragment extends BaseFragment implements View.OnClickListener
         }
 
         registerDialog = new RegisterDialog(getActivity());
+
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        onNavChanged();
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
     }
 }

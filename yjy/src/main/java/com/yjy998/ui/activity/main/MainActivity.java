@@ -6,17 +6,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import com.yjy998.AppDelegate;
 import com.yjy998.R;
 import com.yjy998.common.util.VersionUtil;
+import com.yjy998.ui.activity.base.BaseFragment;
+import com.yjy998.ui.activity.base.MenuActivity;
 import com.yjy998.ui.activity.main.apply.ApplyFragment;
-import com.yjy998.ui.activity.main.contest.ContestFragment;
 import com.yjy998.ui.activity.main.contest.ContestFragment2;
 import com.yjy998.ui.activity.main.home.HomeFragment;
 import com.yjy998.ui.activity.main.more.MoreFragment;
 import com.yjy998.ui.activity.main.my.CenterFragment;
-import com.yjy998.ui.activity.base.BaseFragment;
-import com.yjy998.ui.activity.base.MenuActivity;
 import com.yjy998.ui.view.TabItem;
 
 import static com.yjy998.ui.view.TabItem.CheckListener;
@@ -57,6 +55,14 @@ public class MainActivity extends MenuActivity implements HomeFragment.HomeListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initialize();
+//        XiaomiUpdateAgent.update(this);
+//        XiaomiUpdateAgent.setUpdateListener(new XiaomiUpdateListener() {
+//            @Override
+//            public void onUpdateReturned(int i, UpdateResponse updateResponse) {
+//                SLog.debug_format("i:%d",i);
+//
+//            }
+//        });
     }
 
 

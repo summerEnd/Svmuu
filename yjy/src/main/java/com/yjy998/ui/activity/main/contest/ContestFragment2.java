@@ -2,6 +2,7 @@ package com.yjy998.ui.activity.main.contest;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -86,8 +87,6 @@ public class ContestFragment2 extends BaseFragment implements ViewPager.OnPageCh
 
         fragment.setAdapter(new ContestListAdapter(getActivity(), new ArrayList<Contest>()));
         fragments.add(fragment);
-
-
         return fragment;
     }
 
@@ -141,7 +140,7 @@ public class ContestFragment2 extends BaseFragment implements ViewPager.OnPageCh
         public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
             refreshList.setPullLoadEnabled(true);
-
+            refreshList.setBackgroundColor(Color.WHITE);
             refreshList.setOnRefreshListener(this);
             if (isDoRefreshWhenCreated()){
                 refresh();
@@ -208,8 +207,6 @@ public class ContestFragment2 extends BaseFragment implements ViewPager.OnPageCh
                 doRefresh=true;
                 getMyContestList(0);
             }
-
-
         }
 
         public void setType(String type) {

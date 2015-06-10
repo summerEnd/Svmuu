@@ -80,7 +80,11 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (layout != null) {
             //ViewPager会摧毁View,导致重复调用这个方法
-            ((ViewGroup) layout.getParent()).removeView(layout);
+            ViewGroup parent = (ViewGroup) layout.getParent();
+            if(parent!=null){
+                parent.removeView(layout);
+            }
+
         } else {
             layout = new PullToRefreshScrollView(getActivity());
             inflater.inflate(R.layout.refreshable_capital, layout.getRefreshableView());
@@ -309,6 +313,16 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
             ContextUtil.toast(getString(R.string.contract_not_selected));
             return;
         }
+
+        BigDecimal maxPrice=new BigDecimal(stock.maxPrice);
+        BigDecimal minPrice=new BigDecimal(stock.minPrice);
+        BigDecimal price=new BigDecimal(stock.entrust_price);
+
+        if (price.compareTo(maxPrice)>0||price.compareTo(minPrice)<0){
+            ContextUtil.toast(getString(R.string.price_invalid));
+            return;
+        }
+
 
         String totalAmount = new BigDecimal(stock.entrust_price).multiply(new BigDecimal(quantity)).toString();
         final PayDialog payDialog = new PayDialog(getActivity(), totalAmount);

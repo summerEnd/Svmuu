@@ -95,7 +95,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         if (getView() == null) {
             return;
         }
-
+        String avatarUrl = "";
         if (AppDelegate.getInstance().isUserLogin()) {
             User user = AppDelegate.getInstance().getUser();
             Assent assent = user.assent;
@@ -108,9 +108,9 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
             remainMoneyText.setText(getString(R.string.remain_money_s, assent.avalaible_amount));
             goldIngotText.setText(getString(R.string.GoldIngot_s, assent.yuanbao_total_amount));
             caopanTickets.setText(getString(R.string.caopan_s, assent.quan_total_amount));
-
-            ImageLoader.getInstance().displayImage(user.userInfo.uface, avatarImage, ImageOptions.getAvatarInstance(getResources().getDimensionPixelOffset(R.dimen.avatarSize)));
-
+            if (user.userInfo != null) {
+                avatarUrl = user.userInfo.uface;
+            }
         } else {
             line.setVisibility(View.VISIBLE);
             registerText.setVisibility(View.VISIBLE);
@@ -119,8 +119,9 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
             goldIngotText.setText(getString(R.string.GoldIngot_s, 0));
             caopanTickets.setText(getString(R.string.caopan_s, 0));
 
-            ImageLoader.getInstance().displayImage("", avatarImage, ImageOptions.getAvatarInstance(getResources().getDimensionPixelOffset(R.dimen.avatarSize)));
         }
+        ImageLoader.getInstance().displayImage(avatarUrl, avatarImage, ImageOptions.getAvatarInstance(getResources().getDimensionPixelOffset(R.dimen.avatarSize)));
+
     }
 
     @Override
@@ -141,6 +142,11 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 break;
             }
             case R.id.recharge: {
+
+                if (checkLogin()){
+                    return;
+                }
+
                 startActivity(new Intent(getActivity(), RechargeActivity.class));
                 break;
             }
@@ -192,8 +198,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 break;
             }
             case R.id.avatarImage: {
-                if (!AppDelegate.getInstance().isUserLogin()) {
-                    showLoginDialog();
+                if (!checkLogin()) {
                     return;
                 }
                 startActivity(new Intent(getActivity(), ChangeDataActivity.class));
@@ -205,6 +210,14 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
             }
         }
 //        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    private boolean checkLogin() {
+        if (!AppDelegate.getInstance().isUserLogin()) {
+            showLoginDialog();
+            return false;
+        }
+        return true;
     }
 
     private void createLoginDialogIfNeed() {

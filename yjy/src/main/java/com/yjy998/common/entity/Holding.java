@@ -35,6 +35,9 @@ public class Holding implements Serializable{
      */
     public String getFloatRatio() {
         float rateValue = (marketValue - costBalance) / costBalance * 100;
+        if (Float.isNaN(rateValue)||Float.isInfinite(rateValue)){
+            rateValue=0;
+        }
         return String.format("%.2f%%", rateValue);
     }
 }

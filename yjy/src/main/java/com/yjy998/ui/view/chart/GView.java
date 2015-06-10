@@ -22,7 +22,7 @@ public class GView extends View {
 
     private String[] leftLabels = new String[]{"11.29", "11.02", "10.03", "10.02", "10.00"};
     private String[] rightLabels = new String[]{"1.56%", "1.26%", "0.00%", "-1.26%", "-1.56%"};
-    private String[] bottomLabels = new String[]{"", "11:30", "", "14.00", ""};
+    private String[] bottomLabels = new String[]{"", "10:30", "", "14.00", ""};
     TextPaint labelPaint = new TextPaint();
     Paint framePaint = new Paint();
     Paint linePaint = new Paint();
@@ -60,7 +60,7 @@ public class GView extends View {
         gridColor = a.getColor(R.styleable.GView_gridColor, Color.GRAY);
         labelTextSize = a.getDimensionPixelSize(R.styleable.GView_labelTextSize, 20);
         a.recycle();
-
+        labelPaint.setAntiAlias(true);
         labelPaint.setTextSize(labelTextSize);
         labelPaint.setTextAlign(Paint.Align.CENTER);
         framePaint.setStyle(Paint.Style.STROKE);
