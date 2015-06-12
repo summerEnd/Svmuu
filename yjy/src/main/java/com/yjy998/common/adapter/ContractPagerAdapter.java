@@ -84,7 +84,7 @@ public class ContractPagerAdapter extends PagerAdapter implements View.OnClickLi
             TextView contractNo = (TextView) item.findViewById(R.id.contractNo);
             TextView typeText = (TextView) item.findViewById(R.id.typeText);
             contractNo.setText("NO." + contract.id);
-            typeText.setText(contract.contract_type);
+            typeText.setText(contract.contract_name);
             setVisibility((ViewGroup) item, View.VISIBLE);
             item.setTag(contract);
         } catch (IndexOutOfBoundsException e) {

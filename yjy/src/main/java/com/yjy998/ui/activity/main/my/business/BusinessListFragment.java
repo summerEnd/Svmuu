@@ -79,7 +79,12 @@ public class BusinessListFragment extends BaseListFragment implements AdapterVie
             mCenterPopup.setAnimationStyle(R.style.businessPopAnimation);
             mCenterPopup.setListener(this);
         }
+        onPreparePop(mCenterPopup);
         mCenterPopup.show(view);
         return true;
+    }
+
+    public void onPreparePop(CenterPopup popup){
+
     }
 }

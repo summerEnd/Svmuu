@@ -314,8 +314,8 @@ public abstract class TradeFragment extends BaseFragment implements View.OnClick
             return;
         }
 
-        BigDecimal maxPrice=new BigDecimal(stock.maxPrice);
-        BigDecimal minPrice=new BigDecimal(stock.minPrice);
+        BigDecimal maxPrice=new BigDecimal(stock.upPrice);
+        BigDecimal minPrice=new BigDecimal(stock.downPrice);
         BigDecimal price=new BigDecimal(stock.entrust_price);
 
         if (price.compareTo(maxPrice)>0||price.compareTo(minPrice)<0){

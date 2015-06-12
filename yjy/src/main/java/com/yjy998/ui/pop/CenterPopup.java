@@ -60,8 +60,12 @@ public class CenterPopup extends PopupWindow implements View.OnClickListener {
         }
     }
 
-    public void show(View parent) {
+    public PopWidget getPop(){
+        return popWidget;
+    }
 
+    public void show(View parent) {
+        setPopWidget(popWidget);
         showAtLocation(parent, Gravity.BOTTOM, 0, 0);
     }
 
@@ -94,7 +98,15 @@ public class CenterPopup extends PopupWindow implements View.OnClickListener {
 
     public static class PopWidget {
         ArrayList<PopItem> widgets = new ArrayList<PopItem>();
+        public PopItem getById(int id){
+            for (PopItem item:widgets){
+                if (item.id==id){
+                    return item;
+                }
+            }
 
+            return null;
+        }
         public void add(PopItem item) {
             widgets.add(item);
         }
@@ -105,6 +117,6 @@ public class CenterPopup extends PopupWindow implements View.OnClickListener {
     }
 
     public interface Listener {
-        public void onClick(PopItem item);
+         void onClick(PopItem item);
     }
 }

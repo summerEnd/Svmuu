@@ -19,6 +19,9 @@ public class Constant {
     public static final String PRE_LOGIN_PASSWORD_RSA = "password_rsa";
     public static final String PRE_LOGIN_PHONE = "login_name";
 
+    public static final String CONTEST_ELITE="1";//精英赛
+    public static final String CONTEST_SEA="2";//海选赛
+    public static final String CONTEST_CIRCLE="3";//普通赛
 
     public static final String PATTERN_PHONE="^(1)\\d{10}$";
 

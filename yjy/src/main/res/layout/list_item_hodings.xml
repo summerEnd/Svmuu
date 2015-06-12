@@ -113,7 +113,7 @@
             <com.yjy998.ui.view.TwoTextItem
                 style="@style/BusinessTwoTextItem.Red"
                 app:prefix="可卖数量:"
-                android:id="@+id/buyAmount"
+                android:id="@+id/sellAmount"
                 app:prefixTextColor="@color/textColorDeepGray"
                 android:text="1000"
                 app:prefixTextSize="@dimen/text_22px" />

@@ -68,6 +68,7 @@
     <string name="cancel">取消</string>
     <string name="cancelOrder">撤单</string>
     <string name="cancelAndRebuy">撤单并重新买入</string>
+    <string name="cancelAndSell">撤单并重新卖出</string>
     <string name="account_remain_">账户余额：</string>
     <string name="hot">正在热销</string>
     <string name="tn">T+N</string>
@@ -142,7 +143,9 @@
     <string name="sellPrice">卖出价格</string>
     <string name="sellAmount">卖出数量</string>
     <string name="canBuyAmount">可买数量：</string>
+    <string name="canBuyAmount_d">可买数量：%d</string>
     <string name="canSellAmount">可卖数量：</string>
+    <string name="canSellAmount_d">可卖数量：%d</string>
     <string name="title_activity_recharge">RechargeActivity</string>
     <string name="onlinePay_yb">网银支付（易宝）</string>
     <string name="bankPay">银行转账</string>
@@ -275,4 +278,6 @@
     <string name="trade_ok">交易成功！</string>
     <string name="forbidon_format">MM月dd日禁买</string>
     <string name="title_activity_game_list">GameListActivity</string>
+    <string name="append_amount">追加金额</string>
+    <string name="apply_token">请输入报名口令</string>
 </resources>

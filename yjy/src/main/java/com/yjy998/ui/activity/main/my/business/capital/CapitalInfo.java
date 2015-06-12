@@ -70,6 +70,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
     private TextWatcher mWatcher;
     private View layout;
     boolean isBuy;
+    private TextView seekerTitle;
 
     /**
      * 根据字段创建买入或者卖出
@@ -113,7 +114,7 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
 
         editPrice = (EditText) findViewById(R.id.editPrice);
         amountEdit = (EditText) findViewById(R.id.amountEdit);
-        TextView seekerTitle = (TextView) findViewById(R.id.seekerTitle);
+        seekerTitle = (TextView) findViewById(R.id.seekerTitle);
 
         findViewById(R.id.addAmount).setOnClickListener(this);
         findViewById(R.id.reduceAmount).setOnClickListener(this);
@@ -264,6 +265,11 @@ public class CapitalInfo extends BaseFragment implements View.OnClickListener, S
                 try {
                     maxAmount = Integer.parseInt(response.data);
                     seeker.setMax(maxAmount / 100);
+                    if (isBuy){
+                        seekerTitle.setText(getString(R.string.canBuyAmount_d,maxAmount));
+                    }else{
+                        seekerTitle.setText(getString(R.string.canSellAmount_d,maxAmount ));
+                    }
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
