@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
@@ -100,6 +101,7 @@ public class RegisterDialog extends Dialog implements View.OnClickListener, RSAU
         resendText.setOnClickListener(RegisterDialog.this);
 
         findViewById(R.id.closeButton).setOnClickListener(this);
+        protocolText.setMovementMethod(LinkMovementMethod.getInstance());
         protocolText.setText(getProtocol());
         countDownTime = new CodeCountDown(60);
     }
@@ -113,7 +115,7 @@ public class RegisterDialog extends Dialog implements View.OnClickListener, RSAU
         spannable.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-
+                new ProtocolDialog(context).show();
             }
         }, string.indexOf("《"), string.length(), 0);
         return spannable;

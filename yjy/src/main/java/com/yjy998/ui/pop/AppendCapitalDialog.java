@@ -11,47 +11,23 @@ import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 
-public class AppendCapitalDialog extends Dialog implements View.OnClickListener {
+public class AppendCapitalDialog extends EditDialog implements View.OnClickListener {
 
-    private EditText editPrice;
     private String contract_id;
 
     public AppendCapitalDialog(Context context, String contract_id) {
         super(context);
         this.contract_id = contract_id;
-        setContentView(R.layout.append_capital);
-        initialize();
-    }
-
-    private void initialize() {
-
-        editPrice = (EditText) findViewById(R.id.editPrice);
-        findViewById(R.id.buttonYes).setOnClickListener(this);
-        findViewById(R.id.buttonNo).setOnClickListener(this);
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.buttonYes:
-                addCapital();
-                break;
-            case R.id.buttonNo:
-                dismiss();
-                break;
-        }
+    protected void initialize() {
+        super.initialize();
+        title.setText(R.string.append_amount);
     }
 
-    /**
-     * 获取追加的资金数量
-     *
-     */
-    public String getAppendAmount() {
-        String s = editPrice.getText().toString();
-        return s.isEmpty() ? "0" : s;
-    }
-
-    public void addCapital() {
+    @Override
+    protected void onYes() {
         SRequest request = new SRequest("http://www.yjy998.com/asset/append");
         request.put("contract_no", contract_id);
         request.put("amount", getAppendAmount());
@@ -61,5 +37,14 @@ public class AppendCapitalDialog extends Dialog implements View.OnClickListener 
                 dismiss();
             }
         });
+    }
+
+    /**
+     * 获取追加的资金数量
+     *
+     */
+    public String getAppendAmount() {
+        String s = editPrice.getText().toString();
+        return s.isEmpty() ? "0" : s;
     }
 }

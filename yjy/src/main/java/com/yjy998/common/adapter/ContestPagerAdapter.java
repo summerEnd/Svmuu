@@ -84,6 +84,7 @@ public class ContestPagerAdapter extends PagerAdapter implements View.OnClickLis
     private void initItem(View item, int dataPosition) {
         try {
             Contest contest = contests.get(dataPosition);
+            setVisibility((ViewGroup) item, View.VISIBLE);
             TextView areaText = (TextView) item.findViewById(R.id.areaText);
             TextView rankText = (TextView) item.findViewById(R.id.rankText);
             TextView rateText = (TextView) item.findViewById(R.id.rateText);
@@ -95,7 +96,7 @@ public class ContestPagerAdapter extends PagerAdapter implements View.OnClickLis
                 ((View) rankText.getParent()).setVisibility(View.VISIBLE);
             }
             rateText.setText(item.getContext().getString(R.string.income_rate_f, contest.getProfitRatio() * 100));
-            setVisibility((ViewGroup) item, View.VISIBLE);
+
             item.setTag(contest);
         } catch (IndexOutOfBoundsException e) {
             setVisibility((ViewGroup) item, View.INVISIBLE);

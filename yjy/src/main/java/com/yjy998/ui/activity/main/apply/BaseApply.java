@@ -26,9 +26,9 @@ import com.yjy998.ui.view.CircleItem;
 public abstract class BaseApply extends BaseFragment implements View.OnClickListener {
 
 
-    protected final int W = 10000;
+    public static final int W = 10000;
     //金额
-    protected int[] DATA = new int[]{
+    public int[] DATA = new int[]{
             5000, W, 3 * W, 5 * W, 10 * W, 20 * W,
             30 * W, 50 * W, 80 * W, 100 * W, 150 * W, 200 * W
     };
@@ -96,7 +96,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
             }
         }
         invalidateCircleText(currentGroup);
-        setData(0);
+        listener.onClick(circle[0]);
     }
 
     @Override
@@ -112,36 +112,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                         return;
                     }
                 }
-
-                final PayDialog payDialog = new PayDialog(getActivity(), payAmount.getTag() + "");
-                payDialog.setCallback(new PayDialog.Callback() {
-                    @Override
-                    public void onPay(String password, String rsa_password) {
-                        SRequest request = new SRequest("http://www.yjy998.com/contract/apply");
-                        request.put("apply_type", getType());//TN或T9
-                        request.put("deposit_amount", total);//总金额
-                        request.put("pay_pwd", password);//支付密码
-                        request.put("prev_store", 1);
-                        request.put("pro_id", getPro_id());
-                        request.put("pro_term", "2");
-                        request.put("trade_pwd", rsa_password);//交易密码
-                        request.put("source_param", "android");//交易密码
-
-                        YHttpClient.getInstance().post(request, new YHttpHandler() {
-                            @Override
-                            protected void onStatusCorrect(Response response) {
-                                payDialog.dismiss();
-                                AppDelegate.getInstance().refreshUserInfo();
-                            }
-
-                            @Override
-                            protected void onStatusFailed(Response response) {
-                                super.onStatusFailed(response);
-                                YAlertDialog.show(getActivity(), response.message);
-                            }
-                        });
-                    }
-                }).show();
+                onApplyPressed();
                 break;
             }
             case R.id.questionImage: {
@@ -155,6 +126,42 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                 break;
             }
         }
+    }
+
+    protected void onApplyPressed(){
+        startPay();
+    }
+
+    public void startPay() {
+        final PayDialog payDialog = new PayDialog(getActivity(), payAmount.getTag() + "");
+        payDialog.setCallback(new PayDialog.Callback() {
+            @Override
+            public void onPay(String password, String rsa_password) {
+                SRequest request = new SRequest("http://www.yjy998.com/contract/apply");
+                request.put("apply_type", getType());//TN或T9
+                request.put("deposit_amount", total);//总金额
+                request.put("pay_pwd", password);//支付密码
+                request.put("prev_store", 1);
+                request.put("pro_id", getPro_id());
+                request.put("pro_term", "2");
+                request.put("trade_pwd", rsa_password);//交易密码
+                request.put("source_param", "android");//交易密码
+
+                YHttpClient.getInstance().post(request, new YHttpHandler() {
+                    @Override
+                    protected void onStatusCorrect(Response response) {
+                        payDialog.dismiss();
+                        AppDelegate.getInstance().refreshUserInfo();
+                    }
+
+                    @Override
+                    protected void onStatusFailed(Response response) {
+                        super.onStatusFailed(response);
+                        YAlertDialog.show(getActivity(), response.message);
+                    }
+                });
+            }
+        }).show();
     }
 
     /**

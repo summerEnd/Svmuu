@@ -35,7 +35,7 @@ public class HoldingsAdapter extends ViewHolderAdapter<Holding, Object> {
         holder.stockAmount = (TwoTextItem) convertView.findViewById(R.id.stockAmount);
         holder.priceText = (TwoTextItem) convertView.findViewById(R.id.priceText);
         holder.marketValue = (TwoTextItem) convertView.findViewById(R.id.marketValue);
-        holder.buyAmount = (TwoTextItem) convertView.findViewById(R.id.buyAmount);
+        holder.sellAmount = (TwoTextItem) convertView.findViewById(R.id.sellAmount);
         holder.costPrice = (TwoTextItem) convertView.findViewById(R.id.costPrice);
         holder.balanceRate = (TwoTextItem) convertView.findViewById(R.id.balanceRate);
         return holder;
@@ -74,7 +74,7 @@ public class HoldingsAdapter extends ViewHolderAdapter<Holding, Object> {
             viewHolder.balanceRate.setTextColor(color);
             viewHolder.marketValue.setTextColor(color);
             viewHolder.priceText.setTextColor(color);
-            viewHolder.buyAmount.setTextColor(color);
+            viewHolder.sellAmount.setTextColor(color);
         }
 
         viewHolder.stockName.setText(holding.stockName);
@@ -87,7 +87,7 @@ public class HoldingsAdapter extends ViewHolderAdapter<Holding, Object> {
 
         //第二行
         viewHolder.marketValue.setText(realMarketValue + "");
-        viewHolder.buyAmount.setText(holding.buyAmount + "");
+        viewHolder.sellAmount.setText(holding.enableAmount + "");
         viewHolder.costPrice.setText(realCost + "");
 
         //第三行
@@ -102,7 +102,7 @@ public class HoldingsAdapter extends ViewHolderAdapter<Holding, Object> {
         private TwoTextItem stockAmount;
         private TwoTextItem priceText;
         private TwoTextItem marketValue;
-        private TwoTextItem buyAmount;
+        private TwoTextItem sellAmount;
         private TwoTextItem costPrice;
         private TwoTextItem balanceRate;
     }

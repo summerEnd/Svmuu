@@ -126,7 +126,7 @@ public class ContestFragment2 extends BaseFragment implements ViewPager.OnPageCh
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             ContestListAdapter adapter = (ContestListAdapter) parent.getAdapter();
             startActivity(new Intent(view.getContext(), ContractInfoActivity.class)
-                    .putExtra(ContractInfoActivity.EXTRA_CONTRACT_NO, adapter.getData().get(position).id));
+                    .putExtra(ContractInfoActivity.EXTRA_CONTRACT_NO, adapter.getData().get(position).prodId));
         }
     }
 

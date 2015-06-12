@@ -44,7 +44,7 @@ public class RoundButton extends TextView {
 
     public void setColor(int color) {
         normal_color = color;
-        pressed_color = Color.rgb(Color.red(color)-0x10, Color.green(color)-0x10, Color.blue(color)-0x10);
+        pressed_color = color-Color.argb(20,0,0,0);
         mPaint.setColor(color);
         invalidate();
     }

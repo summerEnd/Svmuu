@@ -14,6 +14,7 @@ import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.main.my.business.capital.TradeFragment;
+import com.yjy998.ui.pop.CenterPopup;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +32,8 @@ public class CancellationEntrustFragment extends BusinessListFragment {
 
     private List<Entrust> entrusts = new ArrayList<Entrust>();
     EntrustAdapter adapter;
-    private boolean jumpToBuy=false;
+    private boolean jump = false;
+
     @Override
     public String getTitle() {
         return ContextUtil.getString(R.string.cancellationEntrust);
@@ -43,18 +45,39 @@ public class CancellationEntrustFragment extends BusinessListFragment {
         popWidget.add(new PopItem(2, getString(R.string.cancelAndRebuy), getResources().getColor(R.color.roundButtonRed)));
     }
 
+    @Override
+    public void onPreparePop(CenterPopup popup) {
+        PopWidget widget = popup.getPop();
+        PopItem byId = widget.getById(2);
+        int position = getSelectedPosition();
+        Entrust entrust = entrusts.get(position);
+        byId.color = getResources().getColor(R.color.roundButtonBlue);
+        if ("1".equals(entrust.entrustDirection)) {
+            byId.text=getString(R.string.cancelAndRebuy);
+            byId.color=getResources().getColor(R.color.roundButtonRed);
+        }else{
+            byId.text=getString(R.string.cancelAndSell);
+            byId.color=getResources().getColor(R.color.roundButtonBlue);
+        }
+
+    }
 
     @Override
     protected void onPopItemClick(PopItem item) {
+        Entrust entrust = entrusts.get(getSelectedPosition());
         switch (item.id) {
             case 1: {
-                jumpToBuy=false;
-                cancel(entrusts.get(getSelectedPosition()));
+                jump = false;
+                cancel(entrust);
                 break;
             }
             case 2: {
-                jumpToBuy=true;
-                cancel(entrusts.get(getSelectedPosition()));
+                jump = true;
+                cancel(entrust);
+                break;
+            }
+            case 3: {
+
                 break;
             }
         }
@@ -114,10 +137,11 @@ public class CancellationEntrustFragment extends BusinessListFragment {
         YHttpClient.getInstance().post(request, new YHttpHandler() {
             @Override
             protected void onStatusCorrect(Response response) {
-                if (jumpToBuy){
-                    startActivity(new Intent(getActivity(),BusinessActivity.class)
-                        .putExtra(BusinessActivity.EXTRA_STOCK_CODE,entrust.stockCode)
-                        .putExtra(BusinessActivity.EXTRA_CONTRACT_NO, getSharedContract().contractId)
+                if (jump) {
+                    startActivity(new Intent(getActivity(), BusinessActivity.class)
+                                    .putExtra(BusinessActivity.EXTRA_STOCK_CODE, entrust.stockCode)
+                                    .putExtra(BusinessActivity.EXTRA_CONTRACT_NO, getSharedContract().contractId)
+                            .putExtra(BusinessActivity.EXTRA_IS_BUY,"1".equals(entrust.entrustDirection))
                     );
                 }
             }

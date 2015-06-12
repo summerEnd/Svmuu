@@ -199,7 +199,7 @@ public class GView extends View {
         //确定触摸的点
         int position = (int) ((touchX - frame.left) / frame.width() * (xMax - xMin));
         float[] values = lines.get(0).getValues();
-        if (values==null){
+        if (values==null||values.length==0){
             return;
         }
         position = Math.min(position, values.length - 1);
