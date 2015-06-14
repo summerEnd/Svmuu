@@ -14,9 +14,11 @@ import com.yjy998.common.http.YHttpHandler;
 public class AppendCapitalDialog extends EditDialog implements View.OnClickListener {
 
     private String contract_id;
+    private Context context;
 
     public AppendCapitalDialog(Context context, String contract_id) {
         super(context);
+        this.context=context;
         this.contract_id = contract_id;
     }
 
@@ -35,6 +37,12 @@ public class AppendCapitalDialog extends EditDialog implements View.OnClickListe
             @Override
             protected void onStatusCorrect(Response response) {
                 dismiss();
+            }
+
+            @Override
+            public Dialog onCreateDialog() {
+
+                return new YProgressDialog(context);
             }
         });
     }

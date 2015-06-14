@@ -3,13 +3,18 @@ package com.yjy998.ui.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.sp.lib.common.util.TextPainUtil;
 import com.sp.lib.widget.LayoutSquare;
 import com.yjy998.R;
 
@@ -20,7 +25,8 @@ public class CircleItem extends FrameLayout {
     public static final int CIRCLE_RED = 1;
     int layoutSquare;
     View child;
-
+    private boolean isDrawCover=false;private Paint p;
+    float textVertical;
     public CircleItem(Context context) {
         this(context, null);
     }
@@ -92,5 +98,34 @@ public class CircleItem extends FrameLayout {
                 break;
             }
         }
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+        if (isDrawCover){
+
+            if (p==null){
+                p=new Paint();
+                p.setTextAlign(Paint.Align.CENTER);
+                p.setAntiAlias(true);
+                p.setTextSize(getResources().getDimension(R.dimen.text_20px));
+                textVertical=getHeight()/2+TextPainUtil.getBaseLineOffset(p);
+            }
+            p.setColor(Color.argb(130, 0, 0, 0));
+
+            canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, p);
+            p.setColor(Color.WHITE);
+
+            canvas.drawText("配额已用完",getWidth()/2,textVertical,p);
+        }
+    }
+
+    public boolean isDrawCover() {
+        return isDrawCover;
+    }
+
+    public void setIsDrawCover(boolean isDrawCover) {
+        this.isDrawCover = isDrawCover;
     }
 }

@@ -170,7 +170,7 @@ public class ContractInfoActivity extends SecondActivity implements DialogInterf
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-        appendCapitalDialog.getAppendAmount();
+       getContractInfo();
     }
 
 

@@ -38,6 +38,21 @@ public class YJYActivity extends SlibActivity implements View.OnClickListener {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("isLogined", AppDelegate.getInstance().isUserLogin());
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState!=null){
+
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         if (AppDelegate.getInstance().isUserLogin() && AppDelegate.getInstance().shouldLockScreen() && LockActivity.isLockEnabled()) {

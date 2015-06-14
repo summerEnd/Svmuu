@@ -1,17 +1,22 @@
 package com.yjy998.ui.activity.main.apply;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
+import com.sp.lib.common.util.JsonUtil;
 import com.yjy998.AppDelegate;
 import com.yjy998.R;
+import com.yjy998.common.entity.Deposit;
+import com.yjy998.common.entity.RateConfig;
 import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
@@ -20,19 +25,21 @@ import com.yjy998.ui.activity.base.YJYActivity;
 import com.yjy998.ui.activity.main.more.WebViewActivity;
 import com.yjy998.ui.activity.pay.PayDialog;
 import com.yjy998.ui.pop.YAlertDialog;
+import com.yjy998.ui.pop.YProgressDialog;
 import com.yjy998.ui.view.CircleItem;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
 
 public abstract class BaseApply extends BaseFragment implements View.OnClickListener {
 
 
     public static final int W = 10000;
+    public static final String RATIO_4 = "4";
+    public static final String RATIO_9 = "9";
     //金额
-    public int[] DATA = new int[]{
-            5000, W, 3 * W, 5 * W, 10 * W, 20 * W,
-            30 * W, 50 * W, 80 * W, 100 * W, 150 * W, 200 * W
-    };
-    private Item[] items = new Item[12];
+    private ProductConfig[] productConfigs = new ProductConfig[12];
     private CircleItem[] circle = new CircleItem[6];
     private int currentGroup = 0;
     private TextView totalCapitalText;
@@ -41,7 +48,28 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
     private TextView keepText;
     private TextView payAmount;
     private TextView pingCangSummary;
-    int total = 0;
+
+    CapitalConfig configs;
+    String type = RATIO_4;//默认选择4
+    ProductConfig selected;//所选配资
+    //杠杆变化监听
+    private RadioGroup.OnCheckedChangeListener leverChange = new RadioGroup.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            switch (checkedId) {
+                case R.id.rate_4: {
+                    type = RATIO_4;
+                    break;
+                }
+                case R.id.rate_9: {
+                    type = RATIO_9;
+                    break;
+                }
+            }
+            setData(selected);
+            invalidateCircleText(currentGroup);
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,26 +105,64 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
         pingCangText = (TextView) findViewById(R.id.pingCangText);
         keepText = (TextView) findViewById(R.id.keepText);
         payAmount = (TextView) findViewById(R.id.payAmount);
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(leverChange);
 
         //初始化数据
-        int dataLength = DATA.length;
-        for (int i = 0; i < items.length; i++) {
+        setData(null);
+        getCapitalList();
+    }
 
-            if (i >= dataLength) {
-                break;
+    public void getCapitalList() {
+        SRequest request = new SRequest("http://mobile.yjy998.com/h5/contest/getprodconfig");
+        request.put("prod_id", getPro_id());
+        YHttpClient.getInstance().post(request, new YHttpHandler() {
+            @Override
+            protected void onStatusCorrect(Response response) {
+                configs = JsonUtil.get(response.data, CapitalConfig.class);
+                initData();
             }
-            items[i] = new Item();
-            items[i].amount = DATA[i];
-            if (DATA[i] < W) {
-                items[i].boldText = "";
-                items[i].normalText = DATA[i] + getString(R.string.yuan);
+
+            @Override
+            protected void onStatusFailed(Response response) {
+                super.onStatusFailed(response);
+                initData();
+            }
+
+            @Override
+            public Dialog onCreateDialog() {
+                if (getActivity() == null) {
+                    return null;
+                }
+                return new YProgressDialog(getActivity());
+            }
+        });
+    }
+
+    void initData() {
+
+
+        if (configs == null || configs.productConfig == null) {
+            return;
+        }
+
+        productConfigs = new ProductConfig[configs.productConfig.size()];
+
+
+        for (int i = 0; i < productConfigs.length; i++) {
+
+            productConfigs[i] = configs.productConfig.get(i);
+            int quota = productConfigs[i].quota;
+            if (quota < W) {
+                this.productConfigs[i].boldText = "";
+                this.productConfigs[i].normalText = quota + getString(R.string.yuan);
             } else {
-                items[i].boldText = DATA[i] / W + "";
-                items[i].normalText = getString(R.string.ten_thousand);
+                this.productConfigs[i].boldText = quota / W + "";
+                this.productConfigs[i].normalText = getString(R.string.ten_thousand);
             }
         }
         invalidateCircleText(currentGroup);
-        listener.onClick(circle[0]);
+        circle[0].performClick();
     }
 
     @Override
@@ -128,18 +194,28 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
         }
     }
 
-    protected void onApplyPressed(){
+    //点击我要操盘的回调
+    protected void onApplyPressed() {
         startPay();
     }
 
+    /**
+     * 开始调取接口支付
+     */
     public void startPay() {
+
+        if (selected == null) {
+            ContextUtil.toast(getString(R.string.select_capital));
+            return;
+        }
+
         final PayDialog payDialog = new PayDialog(getActivity(), payAmount.getTag() + "");
         payDialog.setCallback(new PayDialog.Callback() {
             @Override
             public void onPay(String password, String rsa_password) {
                 SRequest request = new SRequest("http://www.yjy998.com/contract/apply");
-                request.put("apply_type", getType());//TN或T9
-                request.put("deposit_amount", total);//总金额
+                request.put("apply_type", type);//TN或T9
+                request.put("deposit_amount", selected.quota);//总金额
                 request.put("pay_pwd", password);//支付密码
                 request.put("prev_store", 1);
                 request.put("pro_id", getPro_id());
@@ -158,6 +234,14 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                     protected void onStatusFailed(Response response) {
                         super.onStatusFailed(response);
                         YAlertDialog.show(getActivity(), response.message);
+                    }
+
+                    @Override
+                    public Dialog onCreateDialog() {
+
+                        if (getActivity()==null)return null;
+
+                        return new YProgressDialog(getActivity());
                     }
                 });
             }
@@ -180,37 +264,67 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
     void invalidateCircleText(int group) {
         int startIndex = group * 6;
         for (int i = 0; i < circle.length; i++) {
-            Item item = items[i + startIndex];
-            if (item == null) {
+            ProductConfig productConfig = productConfigs[i + startIndex];
+            if (productConfig == null) {
                 circle[i].setVisibility(View.INVISIBLE);
                 continue;
             }
             circle[i].setVisibility(View.VISIBLE);
-            circle[i].setTag(item);
+            circle[i].setTag(productConfig);
 
-            circle[i].setBoldText(item.boldText);
-            circle[i].setNormalText(item.normalText);
+            circle[i].setBoldText(productConfig.boldText);
+            circle[i].setNormalText(productConfig.normalText);
 
-            if (item.isSelected) {
+            if (productConfig.isSelected) {
                 circle[i].setCircle(CircleItem.CIRCLE_RED);
             } else {
                 circle[i].setCircle(CircleItem.CIRCLE_BLUE);
             }
+            if (RATIO_4.equals(type)) {
+                circle[i].setIsDrawCover(productConfig.enabled);
+            }
+            productConfig.enabled = type.equals(RATIO_4) ? productConfig.lever4 : productConfig.lever9;
+            circle[i].setIsDrawCover(!productConfig.enabled);
+            circle[i].invalidate();
         }
     }
 
     /**
      * 在这里计算各种金额
      *
-     * @param total 所选金额
+     * @param deposit 所选金额
      */
-    void setData(int total) {
-        this.total = total;
-        float fee = total * 0.098f / 100f;//管理费：按天收取，周末节假日免费
-        float keep = getKeep(total);
-        float rate = getRate(total);
+    void setData(ProductConfig deposit) {
+        selected = deposit;
+        int total=0;
+
+        if (deposit != null) {
+            if (type.equals(RATIO_4) ? deposit.lever4 : deposit.lever9) {
+                total = deposit.quota;
+                deposit.isSelected=true;
+            }else{
+                deposit.isSelected=false;
+            }
+        }
+        RateConfig rateConfig = null;
+        if (configs != null && configs.ratioConfig != null) {
+            for (RateConfig config : configs.ratioConfig) {
+                if (config.ratio_type.equals(type)) {
+                    rateConfig = config;
+                    break;
+                }
+            }
+        }
+
+        if (rateConfig == null) {
+            rateConfig = new RateConfig();
+        }
+
+        float fee = new BigDecimal(rateConfig.rate).divide(new BigDecimal("100"), BigDecimal.ROUND_HALF_EVEN).floatValue() * total;//管理费：按天收取，周末节假日免费
+        float keep = total * rateConfig.ratio;
+        float rate = type.equals(RATIO_4) ? 0.45f : 0.5f;//9:0.5 4:0.45
         float pingCang = keep * rate + total - keep;
-        float pay = getFeeDays() * fee + keep;
+        float pay = rateConfig.days * fee + keep;
 
         totalCapitalText.setText(total + "");
         manageFeeText.setText(fee + "");
@@ -224,21 +338,6 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
 
 
     /**
-     * 平仓线 = 操盘保证金 * rate+ 配资金额
-     */
-    public abstract float getRate(int total);
-
-    /**
-     * 操盘保证金
-     */
-    public abstract float getKeep(int total);
-
-    /**
-     * 获取初始账户管理费需要交的天数
-     */
-    public abstract int getFeeDays();
-
-    /**
      * @return TN或T9
      */
     public abstract String getType();
@@ -250,33 +349,40 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
 
     /**
      * 玩法介绍链接
-     *
-     * @return
      */
     public abstract String getIntroduceUrl();
 
-    public class Item {
+    public class ProductConfig extends Deposit {
         private String normalText;
         private String boldText;
-        private int amount;
         private boolean isSelected;
+        private boolean enabled;
+    }
+
+    public class CapitalConfig {
+        ArrayList<ProductConfig> productConfig;
+        ArrayList<RateConfig> ratioConfig;
     }
 
     private class OnCircleClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
+
+            CircleItem circleItem = (CircleItem) v;
+            if (circleItem.isDrawCover()) {
+                return;
+            }
             //清除选中状态
-            for (Item item : items) {
+            for (ProductConfig item : productConfigs) {
                 if (item != null) {
                     item.isSelected = false;
                 }
             }
 
             //设置选中效果
-            Item selected = (Item) v.getTag();
+            ProductConfig selected = (ProductConfig) v.getTag();
             if (selected != null) {
-                selected.isSelected = true;
-                setData(selected.amount);
+                setData(selected);
             }
 
             invalidateCircleText(currentGroup);

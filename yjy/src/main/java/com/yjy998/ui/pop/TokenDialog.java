@@ -1,5 +1,6 @@
 package com.yjy998.ui.pop;
 
+import android.app.Dialog;
 import android.content.Context;
 
 import com.sp.lib.common.support.net.client.SRequest;
@@ -11,9 +12,11 @@ import com.yjy998.common.http.YHttpHandler;
 public class TokenDialog extends EditDialog{
 
     private boolean isTokenRight=false;
+    private Context context;
 
     public TokenDialog(Context context) {
         super(context);
+        this.context=context;
     }
 
     @Override
@@ -34,6 +37,12 @@ public class TokenDialog extends EditDialog{
                 dismiss();
             }
 
+            @Override
+            public Dialog onCreateDialog() {
+                YProgressDialog yProgressDialog = new YProgressDialog(context);
+                yProgressDialog.setMessage(context.getString(R.string.dealing));
+                return yProgressDialog;
+            }
         });
     }
 

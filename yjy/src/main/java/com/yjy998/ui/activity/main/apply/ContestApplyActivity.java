@@ -31,19 +31,7 @@ public class ContestApplyActivity extends SecondActivity {
         ContestApply apply = new ContestApply();
         apply.isElite = "11".equals(mContest.id);
         apply.proId = mContest.id;
-        int W = BaseApply.W;
 
-        if ("34".equals(mContest.id)) {
-            apply.DATA = new int[]{
-                    5 * W,10 * W, 20 * W, 30 * W, 50 * W, 80 * W,
-                    100 * W, 150 * W, 200 * W
-            };
-        }else{
-            apply.DATA = new int[]{
-                   10 * W, 20 * W, 30 * W, 50 * W, 80 * W,
-                    100 * W, 150 * W, 200 * W
-            };
-        }
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, apply).commit();
     }
 

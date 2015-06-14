@@ -28,7 +28,6 @@
     <dimen name="apply_activity_circle_margin_top">12dp</dimen>
     <dimen name="apply_activity_white_layout_padding">@dimen/dimen_20px</dimen>
 
-    <dimen name="question_margin">7dp</dimen>
     <dimen name="payLayoutPaddingVertical">10dp</dimen>
     <dimen name="payLayoutPaddingHorizontal">12dp</dimen>
     <dimen name="tn_fragment_ic_size">30dp</dimen>
@@ -48,4 +47,8 @@
     <dimen name="contractTextSize">@dimen/text_24px</dimen>
     <dimen name="logoWidth">@dimen/dimen_270px</dimen>
     <dimen name="businessListTextSize">@dimen/text_22px</dimen>
+
+    <dimen name="question_margin">5.7dp</dimen>
+    <dimen name="questionImage">@dimen/dimen_40px</dimen>
+    <dimen name="questionImageSpace">@dimen/dimen_50px</dimen>
 </resources>

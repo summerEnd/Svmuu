@@ -133,7 +133,46 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            style="@style/horizontalMargin"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/dimen_15px"
+            android:gravity="center_vertical"
+            android:background="@drawable/corner_white"
+            android:padding="@dimen/apply_activity_white_layout_padding"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/applyActivityTextStyle1"
+                android:text="杠杆" />
+            <!--占位控件-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_marginRight="@dimen/questionImageSpace"
+                android:layout_marginEnd="@dimen/questionImageSpace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/rate_4"
+                    android:checked="true"
+                    style="@style/applyActivityTextStyle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1:4"/>
+                <RadioButton
+                    android:id="@+id/rate_9"
+                    style="@style/applyActivityTextStyle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1:9"/>
+            </RadioGroup>
 
+        </LinearLayout>
         <LinearLayout
             android:gravity="center_vertical"
             style="@style/horizontalMargin"
@@ -159,16 +198,12 @@
                 android:text="2566" />
 
             <TextView
+                android:layout_marginRight="@dimen/questionImageSpace"
+                android:layout_marginEnd="@dimen/questionImageSpace"
                 style="@style/applyActivityTextStyle2.yuan"
                 android:text="@string/yuan" />
 
-            <ImageView
-                android:visibility="invisible"
-                android:layout_marginLeft="@dimen/question_margin"
-                android:layout_marginStart="@dimen/question_margin"
-                android:layout_width="wrap_content"
-                android:src="@drawable/question"
-                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -203,9 +238,9 @@
                 android:id="@+id/questionImage"
                 android:layout_marginLeft="@dimen/question_margin"
                 android:layout_marginStart="@dimen/question_margin"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/questionImage"
                 android:src="@drawable/question"
-                android:layout_height="wrap_content" />
+                android:layout_height="@dimen/questionImage" />
         </LinearLayout>
 
         <LinearLayout
@@ -239,16 +274,12 @@
                 android:text="400" />
 
             <TextView
+                android:layout_marginRight="@dimen/questionImageSpace"
+                android:layout_marginEnd="@dimen/questionImageSpace"
                 style="@style/applyActivityTextStyle2.yuan"
                 android:text="@string/yuan" />
 
-            <ImageView
-                android:visibility="invisible"
-                android:layout_marginLeft="@dimen/question_margin"
-                android:layout_marginStart="@dimen/question_margin"
-                android:layout_width="wrap_content"
-                android:src="@drawable/question"
-                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -278,16 +309,11 @@
                 android:text="1003.0" />
 
             <TextView
+                android:layout_marginRight="@dimen/questionImageSpace"
+                android:layout_marginEnd="@dimen/questionImageSpace"
                 style="@style/applyActivityTextStyle2.yuan"
                 android:text="@string/yuan" />
 
-            <ImageView
-                android:visibility="invisible"
-                android:layout_marginLeft="@dimen/question_margin"
-                android:layout_marginStart="@dimen/question_margin"
-                android:layout_width="wrap_content"
-                android:src="@drawable/question"
-                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <View
