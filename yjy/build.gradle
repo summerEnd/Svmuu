@@ -38,7 +38,14 @@ android {
         baidu {
             manifestPlaceholders = [TestValue: "baidu"];
         }
+        anzhi{
+            manifestPlaceholders=[TestValue: "anzhi"];
+        }
+        mi{
+            manifestPlaceholders=[TestValue: "mi"];
+        }
     }
+
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
