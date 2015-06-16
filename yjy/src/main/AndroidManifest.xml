@@ -37,6 +37,7 @@
             android:value="${TestValue}" />
 
         <activity
+            android:exported="false"
             android:name=".ui.activity.EnterActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
@@ -46,15 +47,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:exported="false"
             android:name=".ui.activity.main.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name="com.sp.lib.activity.album.PhotoAlbumActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name="com.sp.lib.activity.DEBUGActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
@@ -80,50 +84,61 @@
         <!-- </activity-alias> -->
 
         <activity
+            android:exported="false"
             android:name=".common.test.ChartActivity"
             android:label="@string/title_activity_chart"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".ui.activity.admin.LockActivity"
             android:label="@string/title_activity_lock"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".common.test.TestActivity"
             android:label="@string/title_activity_test"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".ui.activity.main.apply.ApplyActivity"
             android:label="@string/title_activity_t9_tn"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".ui.activity.main.my.ChangeDataActivity"
             android:label="@string/title_activity_change_data"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:exported="false"
             android:name=".ui.activity.main.home.NewMemberActivity"
             android:label="@string/title_activity_fresh"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".ui.activity.main.my.business.BusinessActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".common.test.MenuDrawerActivity" />
+        <activity android:name=".common.test.MenuDrawerActivity"  android:exported="false"/>
         <activity
+            android:exported="false"
             android:name=".ui.activity.main.contest.ContestInfoActivity"
             android:label="@string/title_activity_game_info"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".ui.activity.main.contest.RankActivity"
             android:label="@string/title_activity_rank"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".ui.activity.pay.RechargeActivity"
             android:label="@string/title_activity_recharge"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".ui.activity.main.home.MessageActivity"
             android:label="@string/title_activity_message"
             android:screenOrientation="portrait" />
@@ -132,46 +147,45 @@
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".ui.activity.main.my.ContractInfoActivity"
             android:label="@string/title_activity_contract_info"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".ui.activity.main.my.SetGesturePassword"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="false"
             android:name=".ui.activity.main.more.WebViewActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.main.apply.ContestApplyActivity"
             android:label="@string/title_activity_contest_apply"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"  android:exported="false"/>
         <activity
             android:name=".ui.activity.main.popularize.PopularizeActivity"
             android:label="@string/title_activity_popularize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"  android:exported="false"/>
         <activity
             android:name=".ui.activity.main.popularize.InviteFriends"
             android:label="@string/title_activity_invite_friends"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"  android:exported="false"/>
         <activity
             android:name=".ui.activity.main.popularize.Introduce"
             android:label="@string/title_activity_invite_friends"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"  android:exported="false"/>
         <activity
             android:name=".ui.export.GameListActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="com.yjy998.export.Game" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <receiver android:name="com.xiaomi.market.sdk.DownloadCompleteReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
-            </intent-filter>
-        </receiver>
+
     </application>
 
 </manifest>

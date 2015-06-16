@@ -1,2 +1,4 @@
-include ':yjy', ':SLIB'
-//include ':slibdemo', ':svmuu'
+include ':yjy'
+include ':svmuu'
+include ':SLIB'
+include ':slibdemo'

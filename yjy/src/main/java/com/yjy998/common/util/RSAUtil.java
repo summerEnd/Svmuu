@@ -49,12 +49,12 @@ public class RSAUtil {
 
     public RSAUtil() {
     }
-
+    WebView webView;
     @SuppressLint({"AddJavascriptInterface", "SetJavaScriptEnabled"})
     private void sign(Context context, String exp, String mod, String psw, Callback callback) {
 
         this.callback = callback;
-        WebView webView = new WebView(context);
+        webView = new WebView(context);
         webView.loadUrl("http://www.yjy998.com/file/rsa.html");
         webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(new I(handler, exp, mod, psw), "YJY");
@@ -88,7 +88,7 @@ public class RSAUtil {
         @Override
         public boolean handleMessage(Message msg) {
             callback.onRSAEncodeSuccess((String) msg.obj);
-
+            webView.removeJavascriptInterface("searchBoxJavaBredge_");
             return false;
         }
     });
