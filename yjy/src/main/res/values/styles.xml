@@ -131,7 +131,7 @@
     </style>
 
     <style name="tabStyle">
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">@dimen/text_20px</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -447,10 +447,8 @@
     </style>
 
     <style name="pageTitleStyle.game2">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_weight">0</item>
-        <item name="android:paddingLeft">@dimen/dimen_36px</item>
-        <item name="android:paddingRight">@dimen/dimen_36px</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
     </style>
 
     <style name="popularizeText1">

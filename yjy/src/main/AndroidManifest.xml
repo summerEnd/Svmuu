@@ -24,7 +24,8 @@
         android:largeScreens="true"
         android:normalScreens="true"
         android:smallScreens="true"
-        android:xlargeScreens="true" />
+        android:xlargeScreens="true"
+        />
 
     <application
         android:name=".AppDelegate"

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.svmuu" >
+
     <!-- 添加快捷方式 -->
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <!-- 移除快捷方式 -->
     <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
     <!-- 查询快捷方式 -->
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+
     <application
         android:name=".AppDelegate"
         android:allowBackup="true"
@@ -14,18 +16,21 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity android:name=".ui.MainActivity" >
-
         </activity>
         <activity android:name="com.sp.lib.activity.DEBUGActivity" />
         <activity
             android:name=".ui.EnterActivity"
-            android:theme="@style/FullScreen"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/FullScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.LiveActivity"
+            android:label="@string/title_activity_live" >
         </activity>
     </application>
 

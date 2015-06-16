@@ -11,4 +11,5 @@
     <string name="videoTutorial">视频教程</string>
     <string name="realContest">实盘大赛</string>
     <string name="title_activity_enter">EnterActivity</string>
+    <string name="title_activity_live">LiveActivity</string>
 </resources>
