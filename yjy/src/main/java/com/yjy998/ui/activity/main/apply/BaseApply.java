@@ -1,5 +1,6 @@
 package com.yjy998.ui.activity.main.apply;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.yjy998.ui.view.CircleItem;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public abstract class BaseApply extends BaseFragment implements View.OnClickListener {
@@ -239,7 +241,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
                     @Override
                     public Dialog onCreateDialog() {
 
-                        if (getActivity()==null)return null;
+                        if (getActivity() == null) return null;
 
                         return new YProgressDialog(getActivity());
                     }
@@ -252,7 +254,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
      * 换组金额
      */
     public void changeGroup() {
-        currentGroup = (currentGroup + 1) % 2;
+        currentGroup++;
         invalidateCircleText(currentGroup);
     }
 
@@ -263,12 +265,18 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
      */
     void invalidateCircleText(int group) {
         int startIndex = group * 6;
+        if (startIndex >= productConfigs.length) {
+            currentGroup = 0;
+            startIndex = 0;
+        }
         for (int i = 0; i < circle.length; i++) {
-            ProductConfig productConfig = productConfigs[i + startIndex];
-            if (productConfig == null) {
+            int index = startIndex + i;
+            if (index >= productConfigs.length) {
                 circle[i].setVisibility(View.INVISIBLE);
                 continue;
             }
+            ProductConfig productConfig = productConfigs[index];
+
             circle[i].setVisibility(View.VISIBLE);
             circle[i].setTag(productConfig);
 
@@ -296,14 +304,14 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
      */
     void setData(ProductConfig deposit) {
         selected = deposit;
-        int total=0;
+        int total = 0;
 
         if (deposit != null) {
             if (type.equals(RATIO_4) ? deposit.lever4 : deposit.lever9) {
                 total = deposit.quota;
-                deposit.isSelected=true;
-            }else{
-                deposit.isSelected=false;
+                deposit.isSelected = true;
+            } else {
+                deposit.isSelected = false;
             }
         }
         RateConfig rateConfig = null;
@@ -320,7 +328,7 @@ public abstract class BaseApply extends BaseFragment implements View.OnClickList
             rateConfig = new RateConfig();
         }
 
-        float fee = new BigDecimal(rateConfig.rate).divide(new BigDecimal("100"), BigDecimal.ROUND_HALF_EVEN).floatValue() * total;//管理费：按天收取，周末节假日免费
+        float fee = new BigDecimal(rateConfig.rate).multiply(new BigDecimal(total)).floatValue();//管理费：按天收取，周末节假日免费
         float keep = total * rateConfig.ratio;
         float rate = type.equals(RATIO_4) ? 0.45f : 0.5f;//9:0.5 4:0.45
         float pingCang = keep * rate + total - keep;

@@ -131,7 +131,7 @@ public class ContestFragment2 extends BaseFragment implements ViewPager.OnPageCh
     }
 
     public static class GameListFragment extends BaseListFragment implements PullToRefreshBase.OnRefreshListener<ListView> {
-        int page = 0;
+        int page = 1;
         boolean doRefresh = false;
         protected String url = "http://mobile.yjy998.com/h5/contest/contestlist";
         private String type;
@@ -176,7 +176,7 @@ public class ContestFragment2 extends BaseFragment implements ViewPager.OnPageCh
 
                         if (doRefresh) {
                             contestList.clear();
-                            page = 0;
+                            page = 1;
 
                         } else {
 
@@ -205,7 +205,7 @@ public class ContestFragment2 extends BaseFragment implements ViewPager.OnPageCh
             ContestListAdapter adapter = (ContestListAdapter) getAdapter();
             if (adapter.getData().size()==0){
                 doRefresh=true;
-                getMyContestList(0);
+                getMyContestList(1);
             }
         }
 
@@ -216,7 +216,7 @@ public class ContestFragment2 extends BaseFragment implements ViewPager.OnPageCh
         @Override
         public void onPullDownToRefresh(PullToRefreshBase refreshView) {
             doRefresh = true;
-            getMyContestList(0);
+            getMyContestList(1);
         }
 
         @Override

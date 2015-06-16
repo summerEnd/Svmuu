@@ -29,6 +29,7 @@ import com.yjy998.ui.activity.main.my.business.BusinessActivity;
 import com.yjy998.ui.activity.base.BaseFragment;
 import com.yjy998.ui.activity.main.popularize.PopularizeActivity;
 import com.yjy998.ui.activity.pay.RechargeActivity;
+import com.yjy998.ui.pop.YAlertDialog;
 
 public class MenuFragment extends BaseFragment implements View.OnClickListener {
 
@@ -143,11 +144,21 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
             }
             case R.id.recharge: {
 
-                if (checkLogin()){
+                if (!checkLogin()){
                     return;
                 }
 
-                startActivity(new Intent(getActivity(), RechargeActivity.class));
+                final YAlertDialog dialog=new YAlertDialog(getActivity());
+                dialog.setTitle(R.string.warn);
+                dialog.setMessage(getString(R.string.pay_not_support_now));
+                dialog.setButton(getString(R.string.yes), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+                //startActivity(new Intent(getActivity(), RechargeActivity.class));
                 break;
             }
             case R.id.applyTn: {

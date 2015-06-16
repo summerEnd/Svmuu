@@ -36,8 +36,8 @@ public class PopularizeActivity extends SecondActivity implements PullToRefreshB
     PopularizeAdapter adapterFlow;
     PopularizeFriendsAdapter adapterInvite;
     private boolean doRefresh = false;
-    private int flowPage = 0;
-    private int invitePage = 0;
+    private int flowPage = 1;
+    private int invitePage = 1;
     private boolean isFlow = true;
 
     @Override
@@ -55,19 +55,19 @@ public class PopularizeActivity extends SecondActivity implements PullToRefreshB
         listView.setAdapter(adapterFlow);
         content.setOnRefreshListener(this);
         content.listener = this;
-        getFlowList(0);
+        getFlowList(1);
 
     }
 
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-        if (isFlow) {
-            getFlowList(0);
-        } else {
-            getInviteList(0);
-        }
         doRefresh = true;
+        if (isFlow) {
+            getFlowList(1);
+        } else {
+            getInviteList(1);
+        }
 
     }
 
@@ -98,7 +98,7 @@ public class PopularizeActivity extends SecondActivity implements PullToRefreshB
             public void onFinish() {
                 if (doRefresh) {
                     adapterInvite.getData().clear();
-                    invitePage = 0;
+                    invitePage = 1;
                 } else {
                     invitePage++;
                 }
@@ -131,7 +131,7 @@ public class PopularizeActivity extends SecondActivity implements PullToRefreshB
             public void onFinish() {
                 if (doRefresh) {
                     adapterFlow.getData().clear();
-                    flowPage = 0;
+                    flowPage = 1;
                 } else {
                     flowPage++;
                 }
@@ -203,14 +203,14 @@ public class PopularizeActivity extends SecondActivity implements PullToRefreshB
         if (isFlow) {//返利流水
 
             if (adapterFlow.getData().size() == 0) {
-                getFlowList(0);
+                getFlowList(1);
             } else {
                 confirmAdapter(adapterFlow, adapterFlow.getData(), "");
             }
         } else {//邀请好友
 
             if (adapterInvite.getData().size() == 0) {
-                getInviteList(0);
+                getInviteList(1);
             } else {
                 confirmAdapter(adapterInvite, adapterInvite.getData(), "");
             }
