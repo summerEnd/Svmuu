@@ -282,4 +282,5 @@
     <string name="apply_token">请输入报名口令</string>
     <string name="select_capital">请选择配资！</string>
     <string name="pay_not_support_now">充值功能暂时不可用！</string>
+    <string name="title_activity_pay_test">PayTestActivity</string>
 </resources>
