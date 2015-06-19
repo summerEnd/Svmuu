@@ -1,12 +1,45 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@style/window_animation</item>
+        <item name="android:textColorHint">#bebebe</item>
+        <item name="android:dialogTheme">@style/dialogTheme</item>
+        <item name="android:alertDialogTheme">@style/alertDialog</item>
+        <item name="android:actionBarStyle">@style/mActionBarStyle</item>
+
     </style>
 
     <style name="FullScreen" parent="AppTheme">
-        <item name="android:windowNoTitle">true</item>
+
         <item name="android:windowContentOverlay">@null</item>
     </style>
+
+    <style name="window_animation">
+        <!--打开新的activity 用的动画-->
+        <item name="android:activityOpenEnterAnimation">@anim/window_open_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/window_open_exit</item>
+
+        <!--关闭activity时的动画-->
+        <item name="android:activityCloseEnterAnimation">@anim/window_close_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/window_close_exit</item>
+    </style>
+
+    <style name="dialogTheme" parent="android:Theme.Holo.Light.Dialog.MinWidth">
+        <item name="android:background">#0000</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="alertDialog" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowMinWidthMajor">65%</item>
+        <item name="android:windowMinWidthMinor">95%</item>
+    </style>
+    <style name="mActionBarStyle" parent="android:Widget.Holo.Light.ActionBar">
+        <item name="android:background">@drawable/windowTitleBackground</item>
+        <item name="android:displayOptions">showTitle|homeAsUp|showCustom</item>
+    </style>
+    <drawable name="windowBackground">#F5F5F5</drawable>
+    <drawable name="windowTitleBackground">#d82d49</drawable>
 </resources>

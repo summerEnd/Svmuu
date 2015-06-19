@@ -1,0 +1,57 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.svmuu.ui.activity.LiveListActivity">
+
+    <RelativeLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        android:background="@drawable/windowTitleBackground"
+        >
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:text="全部直播"
+                style="@style/topBarStyle"/>
+            <RadioButton
+                android:text="我的关注"
+                style="@style/topBarStyle"/>
+        </RadioGroup>
+    </RelativeLayout>
+
+    <com.svmuu.ui.widget.CustomSearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleLayout"
+        android:layout_marginLeft="@dimen/dimen_24px"
+        android:layout_marginRight="@dimen/dimen_24px"
+        android:layout_marginTop="@dimen/dimen_15px"
+        android:paddingLeft="@dimen/dimen_10px"
+        android:paddingRight="@dimen/dimen_10px"
+        app:iconSize="@dimen/dimen_50px"/>
+
+    <View
+        android:id="@id/horizontalDivider"
+        style="@style/horizontalDivider"
+        android:layout_below="@id/searchView"
+        android:layout_marginTop="@dimen/dimen_15px"
+        />
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/horizontalDivider"
+        android:background="@color/white"
+        android:text="@string/hello_world"/>
+
+</RelativeLayout>

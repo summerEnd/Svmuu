@@ -1,15 +1,12 @@
-package com.svmuu.ui;
+package com.svmuu.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Window;
 import android.widget.ImageView;
 
-import com.sp.lib.activity.SlibActivity;
 import com.sp.lib.common.support.adapter.GuidePagerAdapter;
 import com.sp.lib.common.support.cache.FileObjectCache;
 import com.sp.lib.common.util.ShortCut;

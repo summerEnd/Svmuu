@@ -12,4 +12,6 @@
     <string name="realContest">实盘大赛</string>
     <string name="title_activity_enter">EnterActivity</string>
     <string name="title_activity_live">LiveActivity</string>
+    <string name="search_hint">请填写圈号或昵称</string>
+    <string name="title_activity_live_list">LiveListActivity</string>
 </resources>

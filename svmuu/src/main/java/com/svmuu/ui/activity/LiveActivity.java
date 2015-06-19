@@ -1,4 +1,4 @@
-package com.svmuu.ui;
+package com.svmuu.ui.activity;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -6,8 +6,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.svmuu.R;
+import com.svmuu.ui.BaseActivity;
 
-public class LiveActivity extends ActionBarActivity {
+public class LiveActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -12,4 +12,18 @@
 
     </style>
 
+    <style name="horizontalDivider">
+        <item name="android:id">@id/horizontalDivider</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">#d5d5d5</item>
+    </style>
+
+    <style name="topBarStyle">
+        <item name="android:textColor">@color/select_bar</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_26px</item>
+    </style>
 </resources>

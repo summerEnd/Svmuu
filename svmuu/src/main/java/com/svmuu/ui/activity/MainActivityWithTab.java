@@ -1,4 +1,4 @@
-package com.svmuu.ui;
+package com.svmuu.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +13,10 @@ import com.sp.lib.widget.nav.SimpleTab;
 import com.sp.lib.widget.nav.TabBar;
 import com.svmuu.R;
 import com.svmuu.common.Constant;
+import com.svmuu.ui.BaseActivity;
 
 
-public class MainActivity extends BaseActivity implements TabBar.OnTabSelectListener {
+public class MainActivityWithTab extends BaseActivity implements TabBar.OnTabSelectListener {
     TabBar tabBar;
 
     @Override

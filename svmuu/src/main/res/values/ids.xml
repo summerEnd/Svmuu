@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="fragmentContainer" type="id"/>
+    <item name="menuContainer" type="id"/>
+    <item name="horizontalDivider" type="id"/>
 </resources>
