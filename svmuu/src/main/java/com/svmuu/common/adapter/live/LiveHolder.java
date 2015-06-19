@@ -1,5 +1,6 @@
 package com.svmuu.common.adapter.live;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,10 @@ import android.widget.TextView;
 import com.sp.lib.common.util.DisplayUtil;
 import com.svmuu.R;
 import com.svmuu.common.adapter.BaseHolder;
+import com.svmuu.ui.activity.LiveActivity;
 
 
-public class LiveHolder extends BaseHolder{
+public class LiveHolder extends BaseHolder {
     public ImageView ivcover;
     public TextView tvfansNumber;
     public TextView tvcircleName;
@@ -43,4 +45,8 @@ public class LiveHolder extends BaseHolder{
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        v.getContext().startActivity(new Intent(v.getContext(), LiveActivity.class));
+    }
 }

@@ -11,6 +11,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sp.lib.common.support.adapter.ViewHolderAdapter;
 import com.svmuu.R;
 import com.svmuu.common.ImageOptions;
+import com.svmuu.common.Tests;
 import com.svmuu.common.entity.CircleMaster;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class RecommendAdapter extends ViewHolderAdapter<CircleMaster, Object> {
     @Override
     public void displayView(View convertView, Object holder, int position) {
         ViewHolder viewHolder= (ViewHolder) holder;
-        ImageLoader.getInstance().displayImage("http://i9.hexunimg.cn/2012-02-28/138734088.jpg", viewHolder.avatarImage,options);
+        ImageLoader.getInstance().displayImage(Tests.IMAGE, viewHolder.avatarImage,options);
     }
 
 

@@ -1,5 +1,6 @@
 package com.svmuu.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +17,7 @@ import com.svmuu.ui.widget.CustomSearchView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends MenuActivity {
+public class MainActivity extends MenuActivity implements CustomSearchView.Callback{
 
 
     private CustomSearchView searchView;
@@ -40,5 +41,16 @@ public class MainActivity extends MenuActivity {
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recentContainer.setLayoutManager(manager);
         recentContainer.setAdapter(new MasterAvatar(this));
+        searchView.setCallback(this);
+    }
+
+    @Override
+    public void onSearch(String key) {
+
+    }
+
+    @Override
+    public void onJump() {
+        startActivity(new Intent(this,SearchActivity.class));
     }
 }

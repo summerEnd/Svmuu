@@ -2,5 +2,5 @@
 <resources>
     <item name="fragmentContainer" type="id"/>
     <item name="menuContainer" type="id"/>
-    <item name="horizontalDivider" type="id"/>
+    <item name="divider" type="id"/>
 </resources>

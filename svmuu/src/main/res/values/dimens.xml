@@ -2,6 +2,9 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="menuWidth">@dimen/dimen_360px</dimen>
+    <dimen name="menuWidth">@dimen/dimen_540px</dimen>
     <dimen name="titleHeight">@dimen/dimen_84px</dimen>
+    <dimen name="avatarSize">@dimen/dimen_120px</dimen>
+    <dimen name="menuIconSize">@dimen/dimen_50px</dimen>
+
 </resources>

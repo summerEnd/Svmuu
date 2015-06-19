@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="textColorGray">#bababa</color>
     <drawable name="tabText1" >#ff0000</drawable>
     <drawable name="tabText2" >#00ff00</drawable>
     <color name="transparentBlack">#77000000</color>
@@ -7,6 +8,9 @@
     <color name="black">#000000</color>
     <color name="blackA">#3A3A3A</color>
     <color name="gray">#cccccc</color>
-    <color name="grayA">#dddddd</color>
+    <color name="grayA">#999999</color>
+
+    <!-- not used-->
     <color name="grayB">#bababa</color>
+
 </resources>

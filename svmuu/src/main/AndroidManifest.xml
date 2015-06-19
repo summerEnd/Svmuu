@@ -43,7 +43,10 @@
             android:name=".ui.activity.LiveListActivity"
             android:label="@string/title_activity_live_list" >
         </activity>
-
+        <activity
+            android:name=".ui.activity.SearchActivity"
+            android:label="@string/title_activity_search" >
+        </activity>
     </application>
 
 </manifest>

@@ -40,7 +40,7 @@
         app:iconSize="@dimen/dimen_50px"/>
 
     <View
-        android:id="@id/horizontalDivider"
+        android:id="@id/divider"
         style="@style/horizontalDivider"
         android:layout_below="@id/searchView"
         android:layout_marginTop="@dimen/dimen_15px"
@@ -50,7 +50,7 @@
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/horizontalDivider"
+        android:layout_below="@id/divider"
         android:background="@color/white"
         android:text="@string/hello_world"/>
 

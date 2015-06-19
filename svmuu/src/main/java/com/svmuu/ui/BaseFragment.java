@@ -6,7 +6,8 @@ import android.view.View;
 
 public class BaseFragment extends Fragment {
     private String title;
-    private boolean doRefreshWhenCreated;
+    private boolean isRefreshRequest = false;
+
     public String getTitle() {
         return title;
     }
@@ -19,29 +20,51 @@ public class BaseFragment extends Fragment {
      * 这个方法应该在{@link Fragment#onViewCreated(View, android.os.Bundle) onViewCreated }之后调用，否则会返回null
      */
     public View findViewById(int id) {
+        if (getView() == null) {
+            return null;
+        }
         return getView().findViewById(id);
     }
 
     /**
-     * 刷新
+     * 全部刷新，包括网络请求等等
      */
     public void refresh() {
+       refreshUI();
     }
 
-    public boolean isDoRefreshWhenCreated() {
-        return doRefreshWhenCreated;
-    }
+    /**
+     * 仅仅刷新UI
+     */
+    public void refreshUI() {
 
-    public void setDoRefreshWhenCreated(boolean doRefreshWhenCreated) {
-        this.doRefreshWhenCreated = doRefreshWhenCreated;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initViews();
+        initialize();
+        if (isRefreshRequest) {
+            refresh();
+            isRefreshRequest = false;
+        }
     }
-    protected void initViews(){
 
+    /**
+     * 初始化，这时View已经创建，做一些初始化操作.findId等等
+     */
+    protected void initialize() {
+
+    }
+
+    /**
+     * 请求刷新页面，如果Fragment还没有创建View，则当View创建成功时刷新
+     */
+    public void requestRefresh() {
+        if (getView() != null) {
+            refresh();
+        } else {
+            isRefreshRequest = true;
+        }
     }
 }

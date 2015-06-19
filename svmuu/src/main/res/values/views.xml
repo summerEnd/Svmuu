@@ -2,5 +2,9 @@
 <resources>
     <declare-styleable name="CustomSearchView">
         <attr name="iconSize" format="dimension"/>
+        <attr name="searchStyle" format="enum">
+            <enum name="click" value="0"/>
+            <enum name="edit" value="1"/>
+        </attr>
     </declare-styleable>
 </resources>

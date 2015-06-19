@@ -6,19 +6,22 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="tabTextSize">@dimen/text_22px</item>
-        <item name="tabTextColors">@drawable/main_tab_text_color</item>
         <item name="tabIcon">@drawable/tab_home</item>
         <item name="tabIconPadding">@dimen/dimen_15px</item>
 
     </style>
 
     <style name="horizontalDivider">
-        <item name="android:id">@id/horizontalDivider</item>
+        <item name="android:id">@id/divider</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
-        <item name="android:background">#d5d5d5</item>
+        <item name="android:background">#3d3b3c</item>
     </style>
 
+    <style name="verticalDivider" parent="horizontalDivider">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">1px</item>
+    </style>
     <style name="topBarStyle">
         <item name="android:textColor">@color/select_bar</item>
         <item name="android:button">@null</item>
@@ -26,4 +29,37 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_26px</item>
     </style>
+
+    <style name="MenuClickItem">
+        <item name="android:background">@drawable/main_menu_click_item</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/dimen_36px</item>
+        <item name="android:paddingRight">@dimen/dimen_36px</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:layout_marginBottom">1px</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="MenuTextStyle">
+        <item name="android:textColor">@color/gray_white</item>
+        <item name="android:drawableRight">@drawable/leftbar_jump_selector</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_32px</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_24px</item>
+    </style>
+
+    <style name="MenuIconStyle">
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:layout_width">@dimen/menuIconSize</item>
+        <item name="android:layout_height">@dimen/menuIconSize</item>
+    </style>
+
 </resources>

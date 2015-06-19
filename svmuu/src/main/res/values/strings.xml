@@ -14,4 +14,17 @@
     <string name="title_activity_live">LiveActivity</string>
     <string name="search_hint">请填写圈号或昵称</string>
     <string name="title_activity_live_list">LiveListActivity</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="cancel">取消</string>
+    <string name="yes">确定</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="circle_no_s">圈号：%s</string>
+    <string name="shui_bao_s">水宝：%s</string>
+    <string name="fans_s">粉丝：%s</string>
+    <string name="settings">设置</string>
+    <string name="myBox">我的宝盒</string>
+    <string name="myCareCircle">我关注的圈子</string>
+    <string name="recharge">充值</string>
+    <string name="avatar_desc">头像</string>
 </resources>

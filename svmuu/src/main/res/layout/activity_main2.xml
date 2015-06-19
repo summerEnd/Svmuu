@@ -26,6 +26,9 @@
                 android:layout_marginRight="@dimen/dimen_30px"
                 android:paddingLeft="@dimen/dimen_15px"
                 android:paddingRight="@dimen/dimen_15px"
+                android:paddingTop="@dimen/dimen_15px"
+                android:paddingBottom="@dimen/dimen_15px"
+                app:searchStyle="click"
                 app:iconSize="@dimen/dimen_40px"/>
         </FrameLayout>
 
