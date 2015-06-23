@@ -22,6 +22,7 @@ import com.yjy998.common.http.Response;
 import com.yjy998.common.http.YHttpClient;
 import com.yjy998.common.http.YHttpHandler;
 import com.yjy998.ui.activity.main.MainActivity;
+import com.yjy998.ui.activity.pay.PayTestActivity;
 
 import java.io.File;
 
@@ -167,8 +168,10 @@ public class EnterActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                //todo
+                startActivity(new Intent(EnterActivity.this, PayTestActivity.class));
+//                startActivity(new Intent(EnterActivity.this, MainActivity.class));
 
-                startActivity(new Intent(EnterActivity.this, MainActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
             }

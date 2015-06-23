@@ -4,6 +4,10 @@ import android.util.Log;
 
 import com.loopj.android.http.RequestParams;
 
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.List;
+
 /**
  * {@link SHttpClient} request。
  */
@@ -20,7 +24,18 @@ public class SRequest extends RequestParams {
     public String getUrl() {
         return url;
     }
-
+    public String getUrlWithParams(){
+        List<BasicNameValuePair> paramsList = getParamsList();
+        StringBuilder sb=new StringBuilder(url);
+        sb.append("?");
+        for (BasicNameValuePair pair:paramsList){
+            sb.append(pair.getName());
+            sb.append("=");
+            sb.append(pair.getValue());
+            sb.append("&");
+        }
+        return sb.toString();
+    }
     public void setUrl(String url) {
         this.url = url;
     }

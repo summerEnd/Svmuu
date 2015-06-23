@@ -9,6 +9,11 @@ public abstract class BaseHolder extends RecyclerView.ViewHolder implements View
     public BaseHolder(View itemView) {
         super(itemView);
         itemView.setOnClickListener(this);
+        initialize();
+    }
+
+    protected void initialize() {
+
     }
 
     public View findViewById(int id){

@@ -1,6 +1,7 @@
 package com.svmuu.ui.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,10 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.sp.lib.common.util.ContextUtil;
 import com.svmuu.R;
 import com.svmuu.common.ImageOptions;
 import com.svmuu.common.Tests;
 import com.svmuu.ui.BaseFragment;
+import com.svmuu.ui.pop.YAlertDialog;
 
 public class MenuFragment extends BaseFragment implements View.OnClickListener {
 
@@ -25,6 +28,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
     private TextView tvcircleNo;
     private TextView tvShuibao;
     private TextView tvfans;
+    private YAlertDialog dialog;
 
     @Override
     public void onAttach(Activity activity) {
@@ -44,15 +48,30 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.recharge: {
+                if (dialog == null) {
+                    dialog = new YAlertDialog(getActivity());
+                    dialog.setTitle(R.string.warn);
+                    dialog.setMessage(ContextUtil.getString(R.string.function_not_open));
+                    dialog.setButton(getString(R.string.yes), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.hide();
+                        }
+                    });
+                }
+                dialog.show();
                 break;
             }
             case R.id.myCircle: {
+                startActivity(new Intent(getActivity(),LiveListActivity.class));
                 break;
             }
             case R.id.myBox: {
+                dialog.dismiss();
                 break;
             }
             case R.id.settings: {
+                startActivity(new Intent(getActivity(),SettingActivity.class));
                 break;
             }
         }

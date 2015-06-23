@@ -7,4 +7,9 @@
             <enum name="edit" value="1"/>
         </attr>
     </declare-styleable>
+    <declare-styleable name="SelectBar">
+        <attr name="selectColor" format="color"/>
+        <attr name="normalColor" format="color"/>
+    </declare-styleable>
+
 </resources>

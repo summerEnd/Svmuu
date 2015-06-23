@@ -10,6 +10,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.svmuu.R;
 import com.svmuu.common.ImageOptions;
+import com.svmuu.common.Tests;
 import com.svmuu.common.adapter.BaseAdapter;
 
 
@@ -19,7 +20,7 @@ public class LiveAdapter extends BaseAdapter<LiveHolder> {
 
     public LiveAdapter(Context context) {
         super(context);
-        options= ImageOptions.getStandard();
+        options= ImageOptions.getRoundCorner(5);
         inflater=getInflater();
     }
 
@@ -30,7 +31,7 @@ public class LiveAdapter extends BaseAdapter<LiveHolder> {
 
     @Override
     public void onBindViewHolder(LiveHolder liveHolder, int i) {
-        ImageLoader.getInstance().displayImage("http://i9.hexunimg.cn/2012-02-28/138734088.jpg",liveHolder.ivcover,options);
+        ImageLoader.getInstance().displayImage(Tests.IMAGE,liveHolder.ivcover,options);
     }
 
     @Override

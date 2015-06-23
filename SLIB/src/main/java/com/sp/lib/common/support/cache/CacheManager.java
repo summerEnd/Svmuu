@@ -35,7 +35,7 @@ public class CacheManager {
         return new CacheManager(new FileBitmapCache(CACHE_DIR));
     }
 
-    public static final void init(Context context) {
+    public static void init(Context context) {
         CACHE_DIR = context.getCacheDir();
     }
 

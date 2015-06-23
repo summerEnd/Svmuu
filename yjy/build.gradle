@@ -11,6 +11,10 @@ android {
         versionCode 1
         versionName "1.0.0"
     }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -57,4 +61,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':SLIB')
     compile files('libs/achartengine-1.1.0.jar')
+    compile files('libs/fastjson-1.1.8.jar')
+    compile files('libs/commons-httpclient-3.0.jar')
 }

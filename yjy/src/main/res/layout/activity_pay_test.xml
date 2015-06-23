@@ -9,7 +9,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@id/priceText"
+            android:id="@+id/priceText"
             android:hint="价格"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

@@ -22,7 +22,7 @@ public class RecommendAdapter extends ViewHolderAdapter<CircleMaster, Object> {
     public RecommendAdapter(Context context, List<CircleMaster> data) {
         super(context, data, R.layout.item_recommand);
         setTestCount(5);
-        options=ImageOptions.getStandard();
+        options=ImageOptions.getRoundCorner(5);
     }
 
 

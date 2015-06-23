@@ -50,6 +50,8 @@ public class ContextUtil {
         return 0;
     }
 
+
+
     public static PackageInfo getPackageInfo() {
         try {
             return context.getPackageManager().getPackageInfo(context.getPackageName(), 0);

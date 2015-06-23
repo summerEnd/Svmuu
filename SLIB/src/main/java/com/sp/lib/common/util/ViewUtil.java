@@ -1,14 +1,16 @@
 package com.sp.lib.common.util;
 
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.View;
 
 import static android.view.View.OnClickListener;
 
-public class ViewFinder {
+public class ViewUtil {
 
     private View     mView;
 
-    public ViewFinder(View view) {
+    public ViewUtil(View view) {
         this.mView = view;
     }
 
@@ -26,4 +28,13 @@ public class ViewFinder {
         return (T) v.findViewById(id);
     }
 
+    @SuppressWarnings("deprecation")
+    public static void setBackground(View view,Drawable d){
+        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.JELLY_BEAN){
+            view.setBackground(d);
+        }else{
+            view.setBackgroundDrawable(d);
+
+        }
+    }
 }

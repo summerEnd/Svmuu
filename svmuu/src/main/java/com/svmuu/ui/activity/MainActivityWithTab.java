@@ -63,15 +63,7 @@ public class MainActivityWithTab extends BaseActivity implements TabBar.OnTabSel
             case R.id.tb_video:
                 break;
             case R.id.tb_contest:
-                try {
-                    Intent intent=new Intent(Constant.YJY_EXPORT_Game);
-                    intent.addCategory(Intent.CATEGORY_DEFAULT);
-//                    intent.setClassName("com.yjy998","com.yjy998.ui.export.GameListActivity");
-                    startActivity(intent);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ContextUtil.toast("没有安装易交易！");
-                }
+
                 break;
         }
     }

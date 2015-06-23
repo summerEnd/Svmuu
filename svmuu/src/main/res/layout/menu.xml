@@ -82,7 +82,7 @@
     </LinearLayout>
 
     <View
-        style="@style/horizontalDivider"
+        style="@style/horizontalDivider.menuStyle"
         android:layout_marginTop="@dimen/dimen_50px"/>
 
     <LinearLayout
@@ -100,7 +100,7 @@
             android:text="@string/recharge"/>
     </LinearLayout>
 
-    <View style="@style/horizontalDivider"/>
+    <View style="@style/horizontalDivider.menuStyle"/>
 
     <LinearLayout
         android:id="@+id/myCircle"
@@ -117,7 +117,7 @@
             android:text="@string/myCareCircle"/>
     </LinearLayout>
 
-    <View style="@style/horizontalDivider"/>
+    <View style="@style/horizontalDivider.menuStyle"/>
 
     <LinearLayout
         android:id="@+id/myBox"
@@ -133,7 +133,7 @@
             android:text="@string/myBox"/>
     </LinearLayout>
 
-    <View style="@style/horizontalDivider"/>
+    <View style="@style/horizontalDivider.menuStyle"/>
 
     <View
         android:layout_width="match_parent"

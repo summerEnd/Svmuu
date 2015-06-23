@@ -18,6 +18,7 @@
     <string name="cancel">取消</string>
     <string name="yes">确定</string>
     <string name="login">登录</string>
+    <string name="download_now">立即下载</string>
     <string name="register">注册</string>
     <string name="circle_no_s">圈号：%s</string>
     <string name="shui_bao_s">水宝：%s</string>
@@ -27,4 +28,20 @@
     <string name="myCareCircle">我关注的圈子</string>
     <string name="recharge">充值</string>
     <string name="avatar_desc">头像</string>
+    <string name="recent_visitor">最近访问</string>
+    <string name="recommend_master">推荐圈主</string>
+    <string name="fans_number">粉丝数</string>
+    <string name="center">个人中心</string>
+    <string name="real_contest">实盘大赛</string>
+    <string name="stock_school">股市学院</string>
+    <string name="warn">温馨提示</string>
+    <string name="function_not_open">对不起，此功能暂未开通！</string>
+    <string name="title_activity_setting">@string/settings</string>
+    <string name="yjy">易交易（www.yjy998.com）是当下最受欢迎的互联网融资平台，平台以先进的互联网技术为支撑，以雄厚的资金实力为后盾，为资金短缺的操盘手提供科学倍数的资金支持，以及低成本、快速度、小风险、高收益的投资通道。易交易致力于打造为最具行业品牌影响力的融资平台。</string>
+    <string name="back">返回</string>
+    <string name="about_us">关于我们</string>
+    <string name="suggestion">意见反馈</string>
+    <string name="cache_clear">清理缓存</string>
+    <string name="logout">退出当前账号</string>
+    <string name="version_s">当前版本：%s</string>
 </resources>

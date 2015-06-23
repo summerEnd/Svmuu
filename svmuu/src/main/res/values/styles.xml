@@ -15,6 +15,11 @@
         <item name="android:id">@id/divider</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
+        <item name="android:background">#d5d5d5</item>
+    </style>
+
+
+    <style name="horizontalDivider.menuStyle">
         <item name="android:background">#3d3b3c</item>
     </style>
 
@@ -61,5 +66,36 @@
         <item name="android:layout_width">@dimen/menuIconSize</item>
         <item name="android:layout_height">@dimen/menuIconSize</item>
     </style>
+    <style name="indexBigIconContainer">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="indexBigIcon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
 
+    </style>
+    <style name="indexBigIconText">
+        <item name="android:layout_marginTop">@dimen/dimen_8px</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/blackA</item>
+        <item name="android:text">dasfasdfas</item>
+    </style>
+
+    <style name="settingClick">
+        <item name="android:background">@drawable/clicked_white</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/dimen_36px</item>
+        <item name="android:paddingRight">@dimen/dimen_36px</item>
+        <item name="android:paddingTop">@dimen/dimen_20px</item>
+        <item name="android:paddingBottom">@dimen/dimen_20px</item>
+        <item name="android:textSize">@dimen/text_26px</item>
+        <item name="android:textColor">#333333</item>
+        <item name="android:drawableRight">@drawable/leftbar_jump_normal</item>
+    </style>
 </resources>

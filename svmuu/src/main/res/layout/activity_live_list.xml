@@ -12,20 +12,32 @@
         android:layout_height="@dimen/titleHeight"
         android:background="@drawable/windowTitleBackground"
         >
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal"
+
+        <com.svmuu.ui.widget.SelectBar
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <RadioButton
-                android:text="全部直播"
-                style="@style/topBarStyle"/>
-            <RadioButton
-                android:text="我的关注"
-                style="@style/topBarStyle"/>
-        </RadioGroup>
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"
+            app:normalColor="@color/titleRedText"
+            app:selectColor="@color/windowTitleBackground">
+
+            <TextView
+                android:textColor="@color/titleRedText"
+                android:textSize="@dimen/text_24px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全部直播"/>
+
+            <TextView
+                android:textSize="@dimen/text_24px"
+                android:textColor="@color/windowTitleBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的关注"/>
+        </com.svmuu.ui.widget.SelectBar>
     </RelativeLayout>
+
 
     <com.svmuu.ui.widget.CustomSearchView
         android:id="@+id/searchView"
@@ -53,5 +65,6 @@
         android:layout_below="@id/divider"
         android:background="@color/white"
         android:text="@string/hello_world"/>
+
 
 </RelativeLayout>

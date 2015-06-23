@@ -22,10 +22,9 @@ public class LiveHolder extends BaseHolder {
 
     public LiveHolder(@NonNull View itemView) {
         super(itemView);
-        initialize();
 
     }
-    private void initialize() {
+    protected void initialize() {
 
         ivcover = (ImageView) findViewById(R.id.iv_cover);
         tvfansNumber = (TextView) findViewById(R.id.tv_fansNumber);

@@ -1,19 +1,20 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_210px"
-            android:background="#55ee33"
+            android:background="@drawable/home_search_bg"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -24,13 +25,70 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/dimen_30px"
                 android:layout_marginRight="@dimen/dimen_30px"
+                android:paddingBottom="@dimen/dimen_15px"
                 android:paddingLeft="@dimen/dimen_15px"
                 android:paddingRight="@dimen/dimen_15px"
                 android:paddingTop="@dimen/dimen_15px"
-                android:paddingBottom="@dimen/dimen_15px"
-                app:searchStyle="click"
-                app:iconSize="@dimen/dimen_40px"/>
+                app:iconSize="@dimen/dimen_40px"
+                app:searchStyle="click"/>
         </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingTop="@dimen/dimen_30px"
+            android:paddingBottom="@dimen/dimen_30px"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/liveRoom"
+                style="@style/indexBigIconContainer">
+
+                <ImageView
+                    style="@style/indexBigIcon"
+                    android:src="@drawable/ic_live_house"/>
+
+                <TextView style="@style/indexBigIconText"
+                    android:text="@string/liveHouse"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/stockSchool"
+                style="@style/indexBigIconContainer">
+
+                <ImageView
+                    style="@style/indexBigIcon"
+                    android:src="@drawable/ic_school"/>
+
+                <TextView style="@style/indexBigIconText"
+                    android:text="@string/stock_school"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/realContest"
+                style="@style/indexBigIconContainer">
+
+                <ImageView
+                    style="@style/indexBigIcon"
+                    android:src="@drawable/ic_contest"/>
+
+                <TextView style="@style/indexBigIconText"
+                    android:text="@string/real_contest"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/center"
+                style="@style/indexBigIconContainer">
+
+                <ImageView
+                    style="@style/indexBigIcon"
+                    android:src="@drawable/ic_center"/>
+
+                <TextView style="@style/indexBigIconText"
+                    android:text="@string/center"/>
+            </LinearLayout>
+        </LinearLayout>
 
         <View style="@style/horizontalDivider"/>
 
@@ -39,42 +97,57 @@
             android:layout_marginTop="@dimen/dimen_30px"/>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:padding="@dimen/dimen_10px">
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dimen_10px"
+            android:paddingRight="@dimen/dimen_10px"
+            android:paddingTop="@dimen/dimen_20px"
+            android:paddingBottom="@dimen/dimen_20px">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="最近访问"/>
+                android:drawableLeft="@drawable/index_qus"
+                android:gravity="center_vertical"
+                android:text="@string/recent_visitor"/>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recentContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_180px"
-                    android:orientation="horizontal">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recentContainer"
+                android:layout_marginTop="@dimen/dimen_10px"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_180px"
+                android:orientation="horizontal">
 
-                </android.support.v7.widget.RecyclerView>
+            </android.support.v7.widget.RecyclerView>
         </LinearLayout>
 
         <View style="@style/horizontalDivider"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:padding="@dimen/dimen_10px"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dimen_10px"
+            android:paddingRight="@dimen/dimen_10px"
+            android:paddingTop="@dimen/dimen_10px"
+            android:paddingBottom="@dimen/dimen_10px">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="推荐圈主"/>
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/index_tuijian"
+                android:gravity="center_vertical"
+                android:text="@string/recommend_master"/>
+
             <TextView
-                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="粉丝数"/>
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/fans_number"
+                tools:ignore="RelativeOverlap"/>
         </RelativeLayout>
 
         <View
@@ -83,9 +156,9 @@
 
         <com.sp.lib.widget.list.LinearListView
             android:id="@+id/list"
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"/>
+            android:background="@color/white"
+            android:orientation="vertical"/>
     </LinearLayout>
 </ScrollView>

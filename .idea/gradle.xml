@@ -11,8 +11,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/SLIB" />
+            <option value="$PROJECT_DIR$/liveLib" />
             <option value="$PROJECT_DIR$/slibdemo" />
-            <option value="$PROJECT_DIR$/yjy" />
+            <option value="$PROJECT_DIR$/svmuu" />
           </set>
         </option>
       </GradleProjectSettings>
