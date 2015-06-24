@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/dimen_36px">
+
+    <ImageView
+        android:layout_marginTop="@dimen/dimen_50px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/sign_in_logo"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/svmuu_and_life"/>
+
+    <EditText
+        android:id="@+id/edit_name"
+        style="@style/SignInEditStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dimen_70px"
+        android:drawableLeft="@drawable/sign_name"
+        android:hint="@string/hint_user_name"/>
+
+    <EditText
+        android:id="@+id/edit_psw"
+        style="@style/SignInEditStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dimen_30px"
+        android:drawableLeft="@drawable/sign_in_password"
+        android:ems="10"
+        android:hint="@string/hint_psw"
+        android:inputType="textPassword"/>
+
+    <CheckBox
+        android:id="@+id/save_psw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20px"
+        android:text="@string/save_psw"
+        android:textColor="#9ba19f"
+        android:textSize="@dimen/text_20px"/>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dimen_45px"
+        android:background="@drawable/button_red"
+        android:text="@string/login"
+        android:textSize="@dimen/text_30px"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dimen_55px"
+        android:text="@string/question_fedback"
+        android:textColor="#999999"
+        android:textSize="@dimen/text_24px"/>
+</LinearLayout>

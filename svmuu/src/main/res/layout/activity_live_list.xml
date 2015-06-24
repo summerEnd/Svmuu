@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.svmuu.ui.activity.LiveListActivity">
+    tools:context="com.svmuu.ui.activity.MyCircleActivity">
 
     <RelativeLayout
         android:id="@+id/titleLayout"
@@ -12,29 +12,49 @@
         android:layout_height="@dimen/titleHeight"
         android:background="@drawable/windowTitleBackground"
         >
-
-        <com.svmuu.ui.widget.SelectBar
+        <TextView
+            android:id="@+id/back"
+            android:layout_centerVertical="true"
+            android:drawablePadding="-8dp"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/red_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/back"
+            android:textColor="@color/titleRedText"
+            android:textSize="@dimen/text_24px"
+            />
+        <com.svmuu.ui.widget.SelectBar
+            android:id="@+id/selectedBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:layout_centerInParent="true"
-            app:normalColor="@color/titleRedText"
-            app:selectColor="@color/windowTitleBackground">
+            app:selectColor="@color/titleRedText"
+            app:normalColor="@color/windowTitleBackground">
 
             <TextView
-                android:textColor="@color/titleRedText"
-                android:textSize="@dimen/text_24px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="全部直播"/>
-
-            <TextView
-                android:textSize="@dimen/text_24px"
+                android:layout_marginBottom="@dimen/dimen_10px"
+                android:layout_marginTop="@dimen/dimen_10px"
+                android:text="@string/all_live"
+                android:layout_marginLeft="@dimen/dimen_8px"
+                android:layout_marginRight="@dimen/dimen_8px"
                 android:textColor="@color/windowTitleBackground"
+                android:textSize="@dimen/text_24px"/>
+
+            <TextView
+                android:layout_marginLeft="@dimen/dimen_8px"
+                android:layout_marginRight="@dimen/dimen_8px"
+                android:layout_marginBottom="@dimen/dimen_10px"
+                android:layout_marginTop="@dimen/dimen_10px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我的关注"/>
+                android:text="@string/my_attention"
+                android:textColor="@color/titleRedText"
+                android:textSize="@dimen/text_24px"/>
         </com.svmuu.ui.widget.SelectBar>
     </RelativeLayout>
 

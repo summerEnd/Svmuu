@@ -37,12 +37,7 @@ public class SecondActivity extends BaseActivity {
         content.addView(view);
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId()==R.id.back){
-            finish();
-        }
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

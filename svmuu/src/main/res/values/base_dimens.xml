@@ -22,6 +22,7 @@
     <dimen name="dimen_540px">300dp</dimen>
     <dimen name="dimen_414px">230dp</dimen>
     <dimen name="dimen_360px">200dp</dimen>
+    <dimen name="dimen_300px">166.5dp</dimen>
     <dimen name="dimen_270px">150dp</dimen>
     <dimen name="dimen_210px">116.7dp</dimen>
     <dimen name="dimen_180px">100dp</dimen>

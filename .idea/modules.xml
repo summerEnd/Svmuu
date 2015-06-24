@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SLIB/SLIB.iml" filepath="$PROJECT_DIR$/SLIB/SLIB.iml" />
       <module fileurl="file://$PROJECT_DIR$/Svmuu.iml" filepath="$PROJECT_DIR$/Svmuu.iml" />
-      <module fileurl="file://$PROJECT_DIR$/liveLib/liveLib.iml" filepath="$PROJECT_DIR$/liveLib/liveLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/slibdemo/slibdemo.iml" filepath="$PROJECT_DIR$/slibdemo/slibdemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/svmuu/svmuu.iml" filepath="$PROJECT_DIR$/svmuu/svmuu.iml" />
     </modules>

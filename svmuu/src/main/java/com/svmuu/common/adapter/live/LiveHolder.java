@@ -3,7 +3,6 @@ package com.svmuu.common.adapter.live;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 import com.sp.lib.common.util.DisplayUtil;
 import com.svmuu.R;
 import com.svmuu.common.adapter.BaseHolder;
-import com.svmuu.ui.activity.LiveActivity;
+import com.svmuu.ui.activity.live.LiveActivity;
 
 
 public class LiveHolder extends BaseHolder {

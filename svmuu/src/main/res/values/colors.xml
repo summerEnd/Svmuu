@@ -17,4 +17,6 @@
     <color name="secondTitleColor">#e2e2e2</color>
 
     <color name="titleRedText">#fdbec6</color>
+
+    <color name="liveHouseTabRed">#e5376b</color>
 </resources>

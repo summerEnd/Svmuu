@@ -16,6 +16,7 @@
             android:paddingTop="@dimen/dimen_32px"
             android:paddingBottom="@dimen/dimen_32px"
             android:paddingLeft="@dimen/dimen_20px"
+            android:layout_centerVertical="true"
             android:paddingRight="@dimen/dimen_20px"
             android:layout_width="@dimen/titleHeight"
             android:layout_height="@dimen/titleHeight"/>
@@ -25,6 +26,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/logo"/>
+
+        <ImageView
+            android:id="@+id/signIn"
+            android:layout_width="@dimen/titleHeight"
+            android:layout_height="@dimen/titleHeight"
+            android:scaleType="centerInside"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/sign_bar"/>
     </RelativeLayout>
     <FrameLayout
         android:id="@+id/layoutContainer"

@@ -25,4 +25,10 @@ dependencies {
     compile project(':SLIB')
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile 'com.android.support:cardview-v7:22.2.0'
+    compile files('libs/gensee_common.jar')
+    compile files('libs/gensee_doc.jar')
+    compile files('libs/gensee_hb.jar')
+    compile files('libs/gensee_rt_audio.jar')
+    compile files('libs/gensee_rtsdk.jar')
+    compile files('libs/gensee_vod_ol.jar')
 }

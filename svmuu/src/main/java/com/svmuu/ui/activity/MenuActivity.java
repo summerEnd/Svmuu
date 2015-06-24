@@ -10,6 +10,7 @@ import com.sp.lib.widget.slide.menu.Position;
 import com.sp.lib.widget.slide.toggle.ArrowToggle;
 import com.svmuu.R;
 import com.svmuu.ui.BaseActivity;
+import com.svmuu.ui.pop.SignInDialog;
 
 public class MenuActivity extends BaseActivity implements MenuFragment.OnMenuClick {
     private ViewGroup layoutContainer;
@@ -17,7 +18,7 @@ public class MenuActivity extends BaseActivity implements MenuFragment.OnMenuCli
     private MenuDrawer mMenuDrawer;
 
     ArrowToggle toggle;
-
+        View signIn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +36,17 @@ public class MenuActivity extends BaseActivity implements MenuFragment.OnMenuCli
         getSupportFragmentManager().beginTransaction().add(R.id.menuContainer, mMenuFragment).commit();
 
         toggle = (ArrowToggle) findViewById(R.id.toggle);
+        signIn=findViewById(R.id.signIn);
         toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toggle();
+            }
+        });
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SignInDialog(MenuActivity.this).show();
             }
         });
         mMenuDrawer.setOnDrawerStateChangeListener(new MenuDrawer.OnDrawerStateChangeListener() {

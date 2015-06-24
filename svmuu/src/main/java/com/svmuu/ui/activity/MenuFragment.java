@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -63,7 +62,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 break;
             }
             case R.id.myCircle: {
-                startActivity(new Intent(getActivity(),LiveListActivity.class));
+                startActivity(new Intent(getActivity(),MyCircleActivity.class));
                 break;
             }
             case R.id.myBox: {

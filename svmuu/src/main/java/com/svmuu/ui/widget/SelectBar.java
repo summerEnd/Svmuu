@@ -41,7 +41,7 @@ public class SelectBar extends LinearLayout {
 
         totalDrawable = new CircleLRDrawable(0);
         totalDrawable.setDrawBord(true);
-        totalDrawable.setBorderColor(COLOR_NORMAL);
+        totalDrawable.setBorderColor(COLOR_CHECKED);
         totalDrawable.setMode(CircleLRDrawable.Mode.MODE_NORMAL);
         a.recycle();
     }
@@ -122,6 +122,14 @@ public class SelectBar extends LinearLayout {
 
     public void setListener(OnSelectListener listener) {
         this.listener = listener;
+    }
+
+    public int getCOLOR_CHECKED() {
+        return COLOR_CHECKED;
+    }
+
+    public int getCOLOR_NORMAL() {
+        return COLOR_NORMAL;
     }
 
     public interface OnSelectListener {
