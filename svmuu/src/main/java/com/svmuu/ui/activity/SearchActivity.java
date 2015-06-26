@@ -1,40 +1,86 @@
 package com.svmuu.ui.activity;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
+import com.sp.lib.common.support.cache.CacheManager;
 import com.svmuu.R;
+import com.svmuu.common.adapter.DividerDecoration;
+import com.svmuu.common.adapter.search.SearchAdapter;
+import com.svmuu.common.entity.History;
 import com.svmuu.ui.BaseActivity;
+import com.svmuu.ui.widget.CustomSearchView;
 
-public class SearchActivity extends BaseActivity{
+import java.util.ArrayList;
+
+public class SearchActivity extends BaseActivity implements CustomSearchView.Callback {
+
+
+    public static final String SEARCH_HISTORIES = "search_histories";
+    private CustomSearchView searchView;
+    private RecyclerView recyclerView;
+    private SearchAdapter adapter;
+    ArrayList<History> histories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        initialize();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    @SuppressWarnings("unchecked")
+    private void initialize() {
+        try {
+            histories = (ArrayList<History>) CacheManager.getInstance().read(SEARCH_HISTORIES);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (histories == null) {
+                histories = new ArrayList<>();
+            }
         }
 
-        return super.onOptionsItemSelected(item);
+        searchView = (CustomSearchView) findViewById(R.id.searchView);
+        findViewById(R.id.cancel_action).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        searchView.setCallback(this);
+        LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layout);
+
+        adapter = new SearchAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new DividerDecoration(this));
+        adapter.showHistory(histories);
+    }
+
+    @Override
+    public void onSearch(String key) {
+        History history = new History();
+        history.name = key;
+        if (!histories.contains(history)) {
+            histories.add(history);
+            CacheManager.getInstance().write(SEARCH_HISTORIES, histories);
+        }
+        adapter.showResult(null);
+
+    }
+
+    @Override
+    public void onJump() {
+
     }
 }

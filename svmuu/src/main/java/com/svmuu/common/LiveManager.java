@@ -3,30 +3,66 @@ package com.svmuu.common;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.gensee.common.ServiceType;
 import com.gensee.entity.InitParam;
 import com.gensee.net.RtComp;
+import com.gensee.room.RtSdk;
 import com.gensee.room.RtSimpleImpl;
 import com.gensee.routine.IRTEvent;
+import com.gensee.routine.State;
 import com.gensee.routine.UserInfo;
 import com.gensee.view.GSVideoView;
 import com.sp.lib.common.util.ContextUtil;
+import com.svmuu.R;
 
-public class LiveManager implements RtComp.Callback{
-    RtSimpleImpl simpleImpl;
+public class LiveManager implements RtComp.Callback {
+
+    public static final int MODE_VIDEO=1;
+    public static final int MODE_AUDIO=2;
+    public static final int MODE_TEXT=3;
+    private RtSimpleImpl simpleImpl = new SimImpl();
     private Activity context;
     UserInfo self;
+    @Nullable
     GSVideoView gsVideoView;
+    Callback callback;
+    private static LiveManager INSTANCE;
 
-    public LiveManager(Activity context, GSVideoView gsVideoView) {
+    public interface Callback {
+        void onResult(boolean success);
+
+        void onLeaveRoom(String msg);
+    }
+
+    public static LiveManager getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new LiveManager();
+        }
+        return INSTANCE;
+    }
+
+    private LiveManager() {
+
+    }
+
+    public void setUp(Activity context, GSVideoView gsVideoView, Callback callback) {
         this.context = context;
         this.gsVideoView = gsVideoView;
-        simpleImpl=new SimImpl();
+        this.callback = callback;
         simpleImpl.setVideoView(gsVideoView);
     }
 
-    public void startPlay(String joinPwd,String nickName,String liveId) {
+    public void setGSView(GSVideoView view) {
+        gsVideoView = view;
+        simpleImpl.setVideoView(view);
+    }
+
+
+    public void startPlay(String joinPwd, String nickName, String liveId) {
         InitParam p = new InitParam();
         String domain = "svmuu.gensee.com";
         String account = "admin@svmuu.com";
@@ -61,14 +97,16 @@ public class LiveManager implements RtComp.Callback{
      */
     public boolean leaveCast() {
         //TODO 显示进度框
-        if (self == null) {
-            return true;
-        }
         simpleImpl.leave(false);
-        return false;
+        return self == null;
     }
 
-
+    public void tryRelease() {
+        if (self == null) {
+            return;
+        }
+        leaveCast();
+    }
 
     @Override
     public void onInited(String s) {
@@ -77,7 +115,17 @@ public class LiveManager implements RtComp.Callback{
 
     @Override
     public void onErr(int i) {
+        dispatchResult(false);
+    }
 
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+    }
+
+    void dispatchResult(boolean success) {
+        if (callback != null) {
+            callback.onResult(success);
+        }
     }
 
     private class SimImpl extends RtSimpleImpl {
@@ -102,16 +150,17 @@ public class LiveManager implements RtComp.Callback{
             LiveManager.this.self = self;
             context.runOnUiThread(new Runnable() {
                 public void run() {
-
-                    String resultDesc = null;
+                    dispatchResult(true);
+                    String resultDesc;
                     switch (result) {
                         //加入成功  除了成功其他均需要正常提示给用户
                         case IRTEvent.IRoomEvent.JoinResult.JR_OK:
                             resultDesc = "您已加入成功";
+
                             break;
                         //加入错误
                         case IRTEvent.IRoomEvent.JoinResult.JR_ERROR:
-                            resultDesc = "加入失败，重试或联系管理员";
+                            resultDesc = null;
                             break;
                         //课堂被锁定
                         case IRTEvent.IRoomEvent.JoinResult.JR_ERROR_LOCKED:
@@ -140,15 +189,80 @@ public class LiveManager implements RtComp.Callback{
                             resultDesc = "其他结果码：" + result + "联系管理员";
                             break;
                     }
-                    ContextUtil.toast(resultDesc);
+                    if (!TextUtils.isEmpty(resultDesc)) {
+                        ContextUtil.toast(resultDesc);
+                    }
                 }
             });
         }
 
+
+        /**
+         * 直播状态 s.getValue()   0 默认直播未开始 1、直播中， 2、直播停止，3、直播暂停
+         */
         @Override
-        public void onRoomLeave(int reason) {
-            super.onRoomLeave(reason);
-            self=null;
+        public void onRoomPublish(State s) {
+            super.onRoomPublish(s);
+            //TODO 此逻辑是控制视频要在直播开始后才准许看的逻辑
+            byte castState = s.getValue();
+            RtSdk rtSdk = getRtSdk();
+
+            switch (castState) {
+                case 1:
+                    setVideoView(gsVideoView);
+                    rtSdk.audioOpenSpeaker(null);
+                    break;
+                case 0:
+                case 2:
+                case 3:
+                    if (gsVideoView!=null){
+                        gsVideoView.renderDrawble(BitmapFactory.decodeResource(context.getResources(), R.drawable.no_live),false);
+                    }
+                    setVideoView(null);
+                    rtSdk.audioCloseSpeaker(null);
+                default:
+                    break;
+            }
+        }
+
+        //退出完成 关闭界面
+        @Override
+        protected void onRelease(final int reason) {
+            //reason 退出原因
+            context.runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    String msg = "已退出";
+                    switch (reason) {
+                        //用户自行退出  正常退出
+                        case IRTEvent.IRoomEvent.LeaveReason.LR_NORMAL:
+                            msg = "您已经成功退出";
+                            break;
+                        //LR_EJECTED = LR_NORMAL + 1; //被踢出
+                        case IRTEvent.IRoomEvent.LeaveReason.LR_EJECTED:
+                            msg = "您已被踢出";
+                            break;
+                        //LR_TIMESUP = LR_NORMAL + 2; //时间到
+                        case IRTEvent.IRoomEvent.LeaveReason.LR_TIMESUP:
+                            msg = "时间已过";
+                            break;
+                        //LR_CLOSED = LR_NORMAL + 3; //直播（课堂）已经结束（被组织者结束）
+                        case IRTEvent.IRoomEvent.LeaveReason.LR_CLOSED:
+                            msg = "直播间已经被关闭";
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    if (callback != null) {
+                        callback.onLeaveRoom(msg);
+                    }
+
+
+                }
+            });
         }
 
         @Override

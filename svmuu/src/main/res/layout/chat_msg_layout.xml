@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/leftAvatarView"
+            android:layout_width="@dimen/avatarSizeSmall"
+            android:layout_height="@dimen/avatarSizeSmall"
+            android:src="@drawable/ic_launcher"/>
+
+        <TextView
+            android:background="@drawable/chat_job"
+            android:id="@+id/leftJob"
+            android:layout_width="@dimen/avatarSizeSmall"
+            android:layout_height="wrap_content"
+            android:text="管理员"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="9sp"
+            android:src="@drawable/ic_launcher"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dimen_15px"
+        android:layout_marginRight="@dimen/dimen_15px"
+        android:id="@+id/msgWrapLayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right">
+
+        <LinearLayout
+            android:id="@+id/msgLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_corner_background"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_10px">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="哒哒哒哒哒哒"
+                    android:textColor="#a0a0a0"
+                    android:textSize="@dimen/text_22px"/>
+
+                <ImageView
+                    android:id="@+id/fansIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dimen_8px"
+                    android:layout_marginRight="@dimen/dimen_15px"
+                    android:src="@drawable/year_fans"/>
+
+                <TextView
+                    android:id="@+id/text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="21:00"
+                    android:textColor="#a0a0a0"
+                    android:textSize="@dimen/text_22px"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/msgContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="wewerqewr"
+                android:textColor="#242424"
+                android:textSize="@dimen/text_24px"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/rightAvatarView"
+            android:layout_width="@dimen/avatarSizeSmall"
+            android:layout_height="@dimen/avatarSizeSmall"
+            android:src="@drawable/ic_launcher"/>
+
+        <TextView
+            android:background="@drawable/chat_job"
+            android:id="@+id/rightJob"
+            android:layout_width="@dimen/avatarSizeSmall"
+            android:layout_height="wrap_content"
+            android:text="管理员"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="9sp"
+            android:src="@drawable/ic_launcher"/>
+    </LinearLayout>
+</LinearLayout>

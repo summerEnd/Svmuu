@@ -10,6 +10,7 @@
         <item name="actionBarStyle">@style/mActionBarStyle</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@drawable/windowBackground</item>
     </style>
 
     <style name="AppTheme" parent="BaseTheme">

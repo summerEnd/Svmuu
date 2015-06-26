@@ -8,11 +8,10 @@ import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 
 import com.svmuu.R;
+import com.svmuu.common.LiveManager;
 
 public class LiveModeSelector extends PopupWindow implements RadioGroup.OnCheckedChangeListener{
-    public static final int MODE_VIDEO=1;
-    public static final int MODE_AUDIO=2;
-    public static final int MODE_TEXT=3;
+
 
     public LiveModeSelector(Context context) {
         super(context);
@@ -37,15 +36,15 @@ public class LiveModeSelector extends PopupWindow implements RadioGroup.OnChecke
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId){
             case R.id.videoMode:{
-                onModePick(MODE_VIDEO);
+                onModePick(LiveManager.MODE_VIDEO);
                 break;
             }
             case R.id.audioMode:{
-                onModePick(MODE_AUDIO);
+                onModePick(LiveManager.MODE_AUDIO);
                 break;
             }
             case R.id.textMode:{
-                onModePick(MODE_TEXT);
+                onModePick(LiveManager.MODE_TEXT);
                 break;
             }
         }

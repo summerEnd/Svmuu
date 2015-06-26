@@ -104,7 +104,6 @@ public class CustomSearchView extends LinearLayout {
         ViewUtil.setBackground(searchContent,new ColorDrawable());
 
         setOrientation(HORIZONTAL);
-        setGravity(Gravity.CENTER_VERTICAL);
         LayoutParams iconParams = new LayoutParams(iconSize, iconSize);
         LayoutParams editParams = new LayoutParams(0, LayoutParams.WRAP_CONTENT);
         editParams.weight = 1;

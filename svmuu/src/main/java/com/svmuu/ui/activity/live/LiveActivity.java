@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.PopupMenu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -17,10 +15,18 @@ import android.widget.TextView;
 import com.gensee.view.GSVideoView;
 import com.svmuu.R;
 import com.svmuu.common.LiveManager;
+import com.svmuu.common.Tests;
 import com.svmuu.ui.BaseActivity;
-import com.svmuu.ui.activity.FullScreenVideo;
+import com.svmuu.ui.pop.YAlertDialog;
 
 public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+
+    private final int FULL_SCREEN = -1;
+    private final int AUDIO = LiveManager.MODE_AUDIO;
+    private final int TEXT = LiveManager.MODE_TEXT;
+    private final int VIDEO = LiveManager.MODE_VIDEO;
+    private final int CLOSE = -2;
+    private int WHAT = 0;//初始状态
     LiveManager manager;
     private GSVideoView gsView;
     VideoFragment videoFragment = new VideoFragment();
@@ -36,25 +42,29 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private ImageView indicator;
     private TextView masterName;
     private ImageView avatarImage;
+    private TextView textLive;
     private LiveModeSelector modeSelector;
-    private boolean isCare=false;
+    private boolean isCare = false;
+    Tests.LiveInfo mInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live);
         gsView = (GSVideoView) findViewById(R.id.gsView);
-        manager = new LiveManager(this, gsView);
+
         initialize();
     }
 
     @Override
     public void onBackPressed() {
-        if (manager.leaveCast()) {
-            super.onBackPressed();
-        }
+        manager.tryRelease();
+        WHAT = CLOSE;
+
     }
 
     private void initialize() {
+        manager = LiveManager.getInstance();
 
         gsView = (GSVideoView) findViewById(R.id.gsView);
         popularity = (TextView) findViewById(R.id.popularity);
@@ -63,8 +73,8 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         fansNumber = (TextView) findViewById(R.id.fansNumber);
         masterName = (TextView) findViewById(R.id.masterName);
         circleName = (TextView) findViewById(R.id.circleName);
+        textLive = (TextView) findViewById(R.id.textLive);
         avatarImage = (ImageView) findViewById(R.id.avatarImage);
-
         concern.setOnClickListener(this);
 
         View changeLiveType = findViewById(R.id.changeLiveType);
@@ -78,11 +88,82 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.fullScreen).setOnClickListener(this);
+        showVideoView(true);
+        manager.setUp(this, gsView, new LiveManager.Callback() {
+            @Override
+            public void onResult(boolean success) {
+//                findViewById(R.id.no_live).setVisibility(success ? View.GONE : View.VISIBLE);
+            }
+
+            @Override
+            public void onLeaveRoom(String msg) {
+                //这里可以弹出对话框，确定后在关闭界面
+
+                switch (WHAT) {
+                    case FULL_SCREEN: {
+                        toFullScreen();
+                        break;
+                    }
+                    case AUDIO: {
+                        if (mInfo != null) {
+                            gsView.renderDefault();
+                            manager.setGSView(null);
+                            manager.startPlay(mInfo.attendeeToken, "LINCOLN", mInfo.id);
+                        }
+                        break;
+                    }
+                    case VIDEO: {
+                        if (mInfo != null) {
+                            manager.setGSView(gsView);
+                            manager.startPlay(mInfo.attendeeToken, "LINCOLN", mInfo.id);
+                        }
+                        break;
+                    }
+                    case TEXT: {
+                        if (mInfo != null) {
+                            manager.setGSView(null);
+                        }
+                        break;
+                    }
+                    case CLOSE: {
+                        finish();
+                        break;
+                    }
+                }
+            }
+        });
+    }
+
+    void showVideoView(boolean show) {
+        if (show) {
+            textLive.setVisibility(View.GONE);
+            findViewById(R.id.videoLayout).setVisibility(View.VISIBLE);
+        } else {
+            textLive.setVisibility(View.VISIBLE);
+            findViewById(R.id.videoLayout).setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+        new Tests.GetAvailableLive() {
+            @Override
+            public void onResult(Tests.LiveInfo info) {
+                mInfo = info;
+                if (WHAT!=0){
+                    setMode(WHAT);
+                }else {
+                    manager.startPlay(info.attendeeToken,"LINCOLN",info.id);
+                }
+            }
+        }.get();
     }
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
         switch (v.getId()) {
             case R.id.changeLiveType: {
                 createPopIfNeed();
@@ -97,25 +178,41 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
                 break;
             }
-            case R.id.concern:{
-                if (isCare){
+            case R.id.concern: {
+                if (isCare) {
                     concern.setImageResource(R.drawable.care_normal);
-                }else{
+                } else {
                     concern.setImageResource(R.drawable.care_checked);
                 }
-                isCare=!isCare;
+                isCare = !isCare;
                 break;
             }
-            case R.id.fullScreen:{
-                startActivity(new Intent(this, FullScreenVideo.class));
+            case R.id.fullScreen: {
+
+                if (manager.leaveCast()) {
+                    toFullScreen();
+                } else {
+                    WHAT = FULL_SCREEN;
+                }
+
+                break;
+            }
+            case R.id.back: {
+                onBackPressed();
                 break;
             }
         }
     }
 
-    //请求关注
-    void requestConcern(){
-
+    private void toFullScreen() {
+        if (mInfo == null) {
+            return;
+        }
+        startActivity(new Intent(this, FullScreenVideo.class)
+                        .putExtra(FullScreenVideo.EXTRA_JOIN_TOKEN, mInfo.attendeeToken)
+                        .putExtra(FullScreenVideo.EXTRA_NICK_NAME, "lincoln")
+                        .putExtra(FullScreenVideo.EXTRA_LIVE_ID, mInfo.id)
+        );
     }
 
     private void createPopIfNeed() {
@@ -123,17 +220,7 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             modeSelector = new LiveModeSelector(this) {
                 @Override
                 public void onModePick(int mode) {
-                    switch (mode) {
-                        case LiveModeSelector.MODE_VIDEO:
-                            menuIcon.setImageResource(R.drawable.mode_video_normal);
-                            break;
-                        case LiveModeSelector.MODE_AUDIO:
-                            menuIcon.setImageResource(R.drawable.mode_audio_normal);
-                            break;
-                        case LiveModeSelector.MODE_TEXT:
-                            menuIcon.setImageResource(R.drawable.mode_text_normal);
-                            break;
-                    }
+                    setMode(mode);
                     dismiss();
                 }
             };
@@ -146,6 +233,27 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
             });
         }
+    }
+
+    private void setMode(int mode) {
+        switch (mode) {
+            case LiveManager.MODE_VIDEO:
+                showVideoView(true);
+                menuIcon.setImageResource(R.drawable.mode_video_normal);
+                WHAT = VIDEO;
+                break;
+            case LiveManager.MODE_AUDIO:
+                showVideoView(true);
+                menuIcon.setImageResource(R.drawable.mode_audio_normal);
+                WHAT = AUDIO;
+                break;
+            case LiveManager.MODE_TEXT:
+                showVideoView(false);
+                menuIcon.setImageResource(R.drawable.mode_text_normal);
+                WHAT = TEXT;
+                break;
+        }
+        manager.tryRelease();
     }
 
     @Override
@@ -203,5 +311,10 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         animation.setDuration(200);
         animation.setFillAfter(true);
         indicator.startAnimation(animation);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

@@ -1,5 +1,7 @@
 package com.svmuu.ui.activity;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.pm.PackageInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,8 +12,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.sp.lib.common.util.ContextUtil;
+import com.sp.lib.common.util.FileUtil;
 import com.svmuu.R;
 import com.svmuu.ui.BaseActivity;
+import com.svmuu.ui.pop.YAlertDialog;
+
+import java.io.File;
 
 public class SettingActivity extends SecondActivity {
 
@@ -34,17 +40,20 @@ public class SettingActivity extends SecondActivity {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.aboutUs:{
+        switch (v.getId()) {
+            case R.id.aboutUs: {
                 break;
             }
-            case R.id.suggestion:{
+            case R.id.suggestion: {
                 break;
             }
-            case R.id.clear:{
+            case R.id.clear: {
+                File cacheDir = getCacheDir();
+                FileUtil.delete(cacheDir);
+                YAlertDialog.show(this, getString(R.string.tips), getString(R.string.cache_clear_ok));
                 break;
             }
-            case R.id.logout:{
+            case R.id.logout: {
                 break;
             }
         }

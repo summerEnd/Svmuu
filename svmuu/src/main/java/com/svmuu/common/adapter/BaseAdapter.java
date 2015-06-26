@@ -12,7 +12,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
  */
 public abstract class BaseAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH>{
     private Context context;
-
+    private LayoutInflater inflater;
     public BaseAdapter(@NonNull Context context) {
         this.context = context;
     }
@@ -23,7 +23,10 @@ public abstract class BaseAdapter<VH extends RecyclerView.ViewHolder> extends Re
 
 
     public LayoutInflater getInflater(){
-        return LayoutInflater.from(context);
+        if (inflater==null){
+            inflater=LayoutInflater.from(context);
+        }
+        return inflater;
     }
 
 

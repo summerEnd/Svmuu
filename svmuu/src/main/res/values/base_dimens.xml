@@ -20,6 +20,7 @@
 
     <!--确定的-->
     <dimen name="dimen_540px">300dp</dimen>
+    <dimen name="dimen_490px">271.6dp</dimen>
     <dimen name="dimen_414px">230dp</dimen>
     <dimen name="dimen_360px">200dp</dimen>
     <dimen name="dimen_300px">166.5dp</dimen>

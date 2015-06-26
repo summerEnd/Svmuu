@@ -57,4 +57,9 @@
     <string name="popularity_s">总人气：%s</string>
     <string name="live_video">直播录像</string>
     <string name="my_box">我的宝盒</string>
+    <string name="http_request_fail">网络请求错误</string>
+    <string name="tips">提示</string>
+    <string name="cache_clear_ok">缓存清理完毕</string>
+    <string name="search_history">搜索历史</string>
+    <string name="clear_search_history">清空搜索历史</string>
 </resources>

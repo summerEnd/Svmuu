@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/clicked_white"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/dimen_30px"
+    android:paddingRight="@dimen/dimen_30px"
+    android:paddingTop="@dimen/dimen_10px"
+    android:paddingBottom="@dimen/dimen_10px"
+    android:orientation="horizontal">
+
+    <ImageView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_history"/>
+
+    <TextView
+        android:id="@+id/tv_search"
+        android:layout_marginLeft="@dimen/dimen_10px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="美丽姑娘叫小芳"
+        android:textColor="#333333"
+        android:textSize="@dimen/text_28px"/>
+</LinearLayout>

@@ -7,9 +7,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.sp.lib.common.image.RoundDisplayer;
 import com.sp.lib.common.image.drawable.RoundDrawable;
 
-/**
- * Created by Lincoln on 15/6/19.
- */
+
 public class ImageOptions {
     public static DisplayImageOptions getStandard(){
         return new DisplayImageOptions.Builder()

@@ -1,5 +1,6 @@
 package com.svmuu.ui.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +9,10 @@ import android.widget.FrameLayout;
 import com.sp.lib.widget.slide.menu.MenuDrawer;
 import com.sp.lib.widget.slide.menu.Position;
 import com.sp.lib.widget.slide.toggle.ArrowToggle;
+import com.svmuu.AppDelegate;
 import com.svmuu.R;
 import com.svmuu.ui.BaseActivity;
-import com.svmuu.ui.pop.SignInDialog;
+import com.svmuu.ui.pop.LoginDialog;
 
 public class MenuActivity extends BaseActivity implements MenuFragment.OnMenuClick {
     private ViewGroup layoutContainer;
@@ -18,7 +20,8 @@ public class MenuActivity extends BaseActivity implements MenuFragment.OnMenuCli
     private MenuDrawer mMenuDrawer;
 
     ArrowToggle toggle;
-        View signIn;
+    View signIn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +39,7 @@ public class MenuActivity extends BaseActivity implements MenuFragment.OnMenuCli
         getSupportFragmentManager().beginTransaction().add(R.id.menuContainer, mMenuFragment).commit();
 
         toggle = (ArrowToggle) findViewById(R.id.toggle);
-        signIn=findViewById(R.id.signIn);
+        signIn = findViewById(R.id.signIn);
         toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +49,18 @@ public class MenuActivity extends BaseActivity implements MenuFragment.OnMenuCli
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SignInDialog(MenuActivity.this).show();
+                LoginDialog loginDialog = new LoginDialog(MenuActivity.this);
+                loginDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        if (AppDelegate.getInstance().isLogin()) {
+                            signIn.setVisibility(View.INVISIBLE);
+                        } else {
+                            signIn.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+                loginDialog.show();
             }
         });
         mMenuDrawer.setOnDrawerStateChangeListener(new MenuDrawer.OnDrawerStateChangeListener() {

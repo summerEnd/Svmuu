@@ -4,16 +4,25 @@ import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JsonUtil {
+
+    private static Gson gson;
+    static {
+        gson = new Gson();
+    }
     public static <T> T get(String json, Class<T> cls) {
-        return new Gson().fromJson(json, cls);
+        return gson.fromJson(json, cls);
     }
 
+    public static <T> T get(JSONObject object,Class<T> cls){
+        return get(object.toString(),cls);
+    }
 
     /**
      * 返回一个新的列表
@@ -22,7 +31,6 @@ public class JsonUtil {
      */
     public static <T> ArrayList<T> getArray(JSONArray array, Class<T> cls) throws JSONException {
         ArrayList<T> list = new ArrayList<T>();
-        Gson gson = new Gson();
 
         for (int i = 0; i < array.length(); i++) {
             T t = gson.fromJson(array.get(i).toString(), cls);
@@ -38,7 +46,6 @@ public class JsonUtil {
      * @throws JSONException
      */
     public static <T> void getArray(JSONArray array, Class<T> cls, List<T> list) throws JSONException {
-        Gson gson = new Gson();
 
         for (int i = 0; i < array.length(); i++) {
             T t = gson.fromJson(array.get(i).toString(), cls);

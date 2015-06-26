@@ -1,21 +1,18 @@
 package com.svmuu.ui.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.sp.lib.common.support.update.Downloader;
 import com.sp.lib.widget.list.LinearListView;
 import com.svmuu.R;
-import com.svmuu.common.Constant;
+import com.svmuu.common.config.Constant;
 import com.svmuu.common.adapter.master.MasterAvatar;
 import com.svmuu.common.adapter.other.RecommendAdapter;
 import com.svmuu.common.entity.CircleMaster;
 import com.svmuu.ui.pop.YAlertDialog;
-import com.svmuu.ui.pop.YAlertDialogTwoButton;
 import com.svmuu.ui.widget.CustomSearchView;
 
 import java.util.ArrayList;
