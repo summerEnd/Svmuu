@@ -8,4 +8,14 @@ public class Response {
     public String message;
     public boolean status;
     public String code;
+
+    @Override
+    public String toString() {
+        return "Response{" +
+                "data='" + data + '\'' +
+                ", message='" + message + '\'' +
+                ", status=" + status +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }

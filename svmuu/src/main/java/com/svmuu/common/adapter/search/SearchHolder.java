@@ -1,9 +1,9 @@
 package com.svmuu.common.adapter.search;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sp.lib.common.util.ContextUtil;
 import com.svmuu.R;
 import com.svmuu.common.adapter.BaseHolder;
 
@@ -16,8 +16,19 @@ public class SearchHolder extends BaseHolder {
      * 搜索结果
      */
     public static class SearchResult extends SearchHolder {
+        public ImageView avatarImage;
+        public TextView nickText;
+        public TextView tvcircleNo;
+
         public SearchResult(View itemView) {
             super(itemView);
+        }
+
+        protected void initialize() {
+
+            avatarImage = (ImageView) findViewById(R.id.avatarImage);
+            nickText = (TextView) findViewById(R.id.nickText);
+            tvcircleNo = (TextView) findViewById(R.id.tv_circleNo);
         }
     }
 
@@ -26,9 +37,10 @@ public class SearchHolder extends BaseHolder {
      */
     public static class SearchHistory extends SearchHolder {
         TextView tv_search;
+
         public SearchHistory(View itemView) {
             super(itemView);
-            tv_search= (TextView) findViewById(R.id.tv_search);
+            tv_search = (TextView) findViewById(R.id.tv_search);
         }
     }
 
@@ -37,12 +49,13 @@ public class SearchHolder extends BaseHolder {
      */
     public static class SearchHistoryTitle extends SearchHolder {
         TextView title;
+
         public SearchHistoryTitle(View itemView) {
             super(itemView);
-            title= (TextView) findViewById(R.id.title);
+            title = (TextView) findViewById(R.id.title);
         }
 
-        public void setTitle(){
+        public void setTitle() {
 
         }
 

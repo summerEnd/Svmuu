@@ -11,12 +11,24 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.sp.lib.common.support.cache.CacheManager;
+import com.sp.lib.common.support.net.client.SRequest;
+import com.sp.lib.common.util.JsonUtil;
 import com.svmuu.R;
 import com.svmuu.common.adapter.DividerDecoration;
 import com.svmuu.common.adapter.search.SearchAdapter;
+import com.svmuu.common.entity.CircleMaster;
 import com.svmuu.common.entity.History;
+import com.svmuu.common.entity.Search;
+import com.svmuu.common.http.HttpHandler;
+import com.svmuu.common.http.HttpManager;
+import com.svmuu.common.http.Response;
 import com.svmuu.ui.BaseActivity;
 import com.svmuu.ui.widget.CustomSearchView;
+
+import org.apache.http.Header;
+import org.apache.http.client.methods.HttpGet;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -28,7 +40,7 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
     private RecyclerView recyclerView;
     private SearchAdapter adapter;
     ArrayList<History> histories;
-
+    ArrayList<Search> searches=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,12 +87,26 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
             histories.add(history);
             CacheManager.getInstance().write(SEARCH_HISTORIES, histories);
         }
-        adapter.showResult(null);
-
+        search(key);
     }
 
     @Override
     public void onJump() {
 
     }
+
+    public void search(String key) {
+        SRequest request = new SRequest("find");
+        request.put("kw", key);
+        HttpManager.getInstance().postMobileApi(this, request, new HttpHandler() {
+            @Override
+            public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException {
+                searches.clear();
+                JsonUtil.getArray(new JSONArray(response.data), Search.class, searches);
+                adapter.showResult(searches);
+            }
+        });
+    }
+
+
 }

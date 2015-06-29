@@ -15,14 +15,11 @@ import com.svmuu.ui.widget.ChatItemView;
 
 import java.util.List;
 
-public class ChatAdapter extends BaseAdapter<ChatHolder> {
+public class ChatAdapter extends BaseAdapter<Chat,ChatHolder> {
     DisplayImageOptions options;
-    List<Chat> data;
 
     public ChatAdapter(@NonNull Context context,List<Chat> data) {
-        super(context);
-        this.data=data;
-        int avatarSize=context.getResources().getDimensionPixelSize(R.dimen.avatarSize);
+        super(context,data);
         options= ImageOptions.getRoundCorner(4);
     }
 
@@ -33,17 +30,13 @@ public class ChatAdapter extends BaseAdapter<ChatHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return data.get(position).isSelf?0:1;
+        return "1".equals(getData().get(position).is_owner)?0:1;
     }
 
     @Override
     public void onBindViewHolder(ChatHolder holder, int position) {
-        holder.setData(data.get(position));
-        ImageLoader.getInstance().displayImage(Tests.IMAGE,holder.getAvatarView(),options);
+        holder.setData(getData().get(position));
+        ImageLoader.getInstance().displayImage(getData().get(position).uface,holder.getAvatarView(),options);
     }
 
-    @Override
-    public int getItemCount() {
-        return data.size();
-    }
 }

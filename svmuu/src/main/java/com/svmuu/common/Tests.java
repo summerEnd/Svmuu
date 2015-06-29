@@ -27,7 +27,7 @@ public class Tests {
             request.put("loginName", "admin@svmuu.com");
             request.put("password", "888888");
             request.put("status", "2");
-            HttpManager.getInstance().post(request, new JsonHttpResponseHandler("UTF-8") {
+            HttpManager.getInstance().post(null,request, new JsonHttpResponseHandler("UTF-8") {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     try {
@@ -45,7 +45,7 @@ public class Tests {
             request.put("loginName", "admin@svmuu.com");
             request.put("password", "888888");
             request.put("webcastId", id);
-            HttpManager.getInstance().post(request, new JsonHttpResponseHandler("UTF-8") {
+            HttpManager.getInstance().post(null,request, new JsonHttpResponseHandler("UTF-8") {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     try {

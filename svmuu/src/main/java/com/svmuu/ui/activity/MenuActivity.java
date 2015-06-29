@@ -53,6 +53,7 @@ public class MenuActivity extends BaseActivity implements MenuFragment.OnMenuCli
                 loginDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
+                        onUserChanged();
                         if (AppDelegate.getInstance().isLogin()) {
                             signIn.setVisibility(View.INVISIBLE);
                         } else {
@@ -96,7 +97,7 @@ public class MenuActivity extends BaseActivity implements MenuFragment.OnMenuCli
     }
 
     public void open() {
-        mMenuFragment.refresh();
+        mMenuFragment.requestRefresh();
         mMenuDrawer.openMenu();
 
     }
@@ -126,4 +127,5 @@ public class MenuActivity extends BaseActivity implements MenuFragment.OnMenuCli
     public boolean onMenuClick(View v) {
         return false;
     }
+    protected void onUserChanged(){}
 }

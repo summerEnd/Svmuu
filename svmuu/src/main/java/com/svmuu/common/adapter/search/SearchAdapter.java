@@ -5,28 +5,32 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.svmuu.R;
+import com.svmuu.common.ImageOptions;
 import com.svmuu.common.adapter.BaseAdapter;
 import com.svmuu.common.adapter.search.SearchHolder.SearchHistory;
 import com.svmuu.common.adapter.search.SearchHolder.SearchHistoryTitle;
 import com.svmuu.common.adapter.search.SearchHolder.SearchResult;
-import com.svmuu.common.entity.CircleMaster;
 import com.svmuu.common.entity.History;
+import com.svmuu.common.entity.Search;
 
 import java.util.List;
 
-public class SearchAdapter extends BaseAdapter<SearchHolder> {
+public class SearchAdapter extends BaseAdapter<History,SearchHolder> {
 
     public static final int TYPE_SEARCH = 1;
     public static final int TYPE_SEARCH_HISTORY = 2;
     public static final int TYPE_SEARCH_CLEAR_HISTORY = 3;
     public static final int TYPE_SEARCH_HISTORY_TITLE = 4;
     private List<History> histories;
-    private List<CircleMaster> masters;
+    private List<Search> searches;
     private boolean showHistory;
-
+    private DisplayImageOptions options;
     public SearchAdapter(@NonNull Context context) {
         super(context);
+        options= ImageOptions.getRoundCorner(5);
     }
 
     public void showHistory(List<History> histories) {
@@ -35,8 +39,8 @@ public class SearchAdapter extends BaseAdapter<SearchHolder> {
         notifyDataSetChanged();
     }
 
-    public void showResult(List<CircleMaster> masters){
-        this.masters=masters;
+    public void showResult(List<Search> masters){
+        this.searches =masters;
         showHistory=false;
         notifyDataSetChanged();
     }
@@ -89,8 +93,14 @@ public class SearchAdapter extends BaseAdapter<SearchHolder> {
             }
 
             default: {
+                if (searches==null||searches.size()==0){
+                    return;
+                }
                 SearchResult h = (SearchResult) holder;
-
+                Search result= searches.get(position);
+                ImageLoader.getInstance().displayImage(result.uhome,h.avatarImage,options);
+                h.nickText.setText(result.unick);
+                h.tvcircleNo.setText(getString(R.string.circle_no_s,result.uid));
             }
         }
     }
@@ -120,6 +130,6 @@ public class SearchAdapter extends BaseAdapter<SearchHolder> {
         if (showHistory){
             return histories.size()+2;
         }
-        return 10;
+        return searches.size();
     }
 }

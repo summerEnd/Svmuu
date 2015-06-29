@@ -45,6 +45,9 @@ public class LiveHolder extends BaseHolder {
 
     @Override
     public void onClick(View v) {
-        v.getContext().startActivity(new Intent(v.getContext(), LiveActivity.class));
+        OnItemListener listener = getListener();
+        if (listener!=null){
+            listener.onClick(v,getAdapterPosition());
+        }
     }
 }

@@ -60,6 +60,7 @@
         <item name="android:layout_width">@dimen/menuIconSize</item>
         <item name="android:layout_height">@dimen/menuIconSize</item>
     </style>
+
     <style name="indexBigIconContainer">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">0dp</item>
@@ -67,11 +68,13 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
     </style>
+
     <style name="indexBigIcon">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
 
     </style>
+
     <style name="indexBigIconText">
         <item name="android:layout_marginTop">@dimen/dimen_8px</item>
         <item name="android:layout_width">wrap_content</item>
@@ -128,5 +131,16 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/check_red_normal_gray</item>
         <item name="android:textSize">@dimen/text_24px</item>
+    </style>
+
+    <style name="boxTabStyle">
+        <item name="android:paddingTop">@dimen/dimen_10px</item>
+        <item name="android:paddingBottom">@dimen/dimen_10px</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:textColor">@color/check_red_normal_gray</item>
+        <item name="android:gravity">center</item>
     </style>
 </resources>

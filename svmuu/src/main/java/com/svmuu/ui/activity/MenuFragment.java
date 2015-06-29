@@ -11,12 +11,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.sp.lib.common.util.ContextUtil;
+import com.sp.lib.common.support.net.client.SRequest;
+import com.svmuu.AppDelegate;
 import com.svmuu.R;
 import com.svmuu.common.ImageOptions;
-import com.svmuu.common.Tests;
+import com.svmuu.common.entity.User;
+import com.svmuu.common.http.HttpHandler;
+import com.svmuu.common.http.HttpManager;
+import com.svmuu.common.http.Response;
 import com.svmuu.ui.BaseFragment;
 import com.svmuu.ui.pop.YAlertDialog;
+
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MenuFragment extends BaseFragment implements View.OnClickListener {
 
@@ -48,29 +56,22 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.recharge: {
                 if (dialog == null) {
-                    dialog = new YAlertDialog(getActivity());
-                    dialog.setTitle(R.string.warn);
-                    dialog.setMessage(ContextUtil.getString(R.string.function_not_open));
-                    dialog.setButton(getString(R.string.yes), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.hide();
-                        }
-                    });
+                    dialog = YAlertDialog.showNoSuchFunction(getActivity());
                 }
                 dialog.show();
                 break;
             }
             case R.id.myCircle: {
-                startActivity(new Intent(getActivity(),MyCircleActivity.class));
+                startActivity(new Intent(getActivity(), MyCircleActivity.class));
                 break;
             }
             case R.id.myBox: {
-                dialog.dismiss();
+                startActivity(new Intent(getActivity(), BoxActivity.class));
+
                 break;
             }
             case R.id.settings: {
-                startActivity(new Intent(getActivity(),SettingActivity.class));
+                startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
             }
         }
@@ -87,17 +88,54 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         findViewById(R.id.myCircle).setOnClickListener(this);
         findViewById(R.id.myBox).setOnClickListener(this);
         findViewById(R.id.settings).setOnClickListener(this);
-        refreshUI();
+        requestRefresh();
     }
 
     @Override
-    public void refresh() {
-
+    protected void refresh() {
+        SRequest request = new SRequest();
+        request.setUrl("/moblieapi/leftinfo");
+        HttpManager.getInstance().post(null,request, new HttpHandler() {
+            @Override
+            public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException {
+                JSONObject object = new JSONObject(response.data);
+                User user = AppDelegate.getInstance().getUser();
+                user.fans = object.getString("fans");
+                user.money = object.getString("money");
+                user.uface = object.getString("uface");
+                user.uid = object.getString("uid");
+                requestRefreshUI();
+            }
+        });
     }
 
     @Override
     public void refreshUI() {
-        ImageLoader.getInstance().displayImage(Tests.IMAGE, avatarImage,
+        String name;
+        String circleNo;
+        String shuibao;
+        String fans;
+        String avatar;
+        if (AppDelegate.getInstance().isLogin()) {
+            User user = AppDelegate.getInstance().getUser();
+            name=user.name;
+            circleNo=user.uid;
+            shuibao=user.money;
+            fans=user.fans;
+            avatar=user.uface;
+        } else {
+            name="未登录";
+            circleNo="0";
+            shuibao="0";
+            fans="0";
+            avatar="0";
+        }
+
+        phoneText.setText(name);
+        tvcircleNo.setText(getString(R.string.circle_no_s,circleNo));
+        tvfans.setText(getString(R.string.fans_s,fans));
+        tvShuibao.setText(getString(R.string.shui_bao_s,shuibao));
+        ImageLoader.getInstance().displayImage(avatar, avatarImage,
                 ImageOptions.getRound((int) getResources().getDimension(R.dimen.avatarSize)));
     }
 

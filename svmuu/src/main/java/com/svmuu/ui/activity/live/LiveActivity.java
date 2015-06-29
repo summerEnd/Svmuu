@@ -1,9 +1,11 @@
 package com.svmuu.ui.activity.live;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -13,14 +15,24 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.gensee.view.GSVideoView;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.sp.lib.common.support.net.client.SRequest;
+import com.sp.lib.common.util.JsonUtil;
 import com.svmuu.R;
+import com.svmuu.common.ImageOptions;
 import com.svmuu.common.LiveManager;
-import com.svmuu.common.Tests;
+import com.svmuu.common.http.HttpHandler;
+import com.svmuu.common.http.HttpManager;
+import com.svmuu.common.http.Response;
 import com.svmuu.ui.BaseActivity;
 import com.svmuu.ui.pop.YAlertDialog;
 
-public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+import org.apache.http.Header;
+import org.json.JSONException;
 
+@SuppressWarnings("unused")
+public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+    public static final String EXTRA_QUANZHU_ID = "id";
     private final int FULL_SCREEN = -1;
     private final int AUDIO = LiveManager.MODE_AUDIO;
     private final int TEXT = LiveManager.MODE_TEXT;
@@ -31,7 +43,7 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private GSVideoView gsView;
     VideoFragment videoFragment = new VideoFragment();
     BoxFragment boxFragment = new BoxFragment();
-    ChartFragment chartFragment = new ChartFragment();
+    ChatFragment chatFragment;
     Fragment curFragment;
     private TextView popularity;
     private ImageView menuIcon;
@@ -45,7 +57,53 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private TextView textLive;
     private LiveModeSelector modeSelector;
     private boolean isCare = false;
-    Tests.LiveInfo mInfo;
+    LiveInfo mInfo;
+    _DATA data;
+
+    //liveManager回调
+    private LiveManager.Callback liveManagerCallback = new LiveManager.Callback() {
+        @Override
+        public void onResult(boolean success) {
+            //findViewById(R.id.no_live).setVisibility(success ? View.GONE : View.VISIBLE);
+        }
+
+        @Override
+        public void onLeaveRoom(String msg) {
+            //这里可以弹出对话框，确定后在关闭界面
+
+            switch (WHAT) {
+                case FULL_SCREEN: {
+                    toFullScreen();
+                    break;
+                }
+                case AUDIO: {
+                    if (mInfo != null) {
+                        gsView.renderDefault();
+                        manager.setGSView(null);
+                        manager.startPlay(mInfo.attendeeToken, "LINCOLN", mInfo.id);
+                    }
+                    break;
+                }
+                case VIDEO: {
+                    if (mInfo != null) {
+                        manager.setGSView(gsView);
+                        manager.startPlay(mInfo.attendeeToken, "LINCOLN", mInfo.id);
+                    }
+                    break;
+                }
+                case TEXT: {
+                    if (mInfo != null) {
+                        manager.setGSView(null);
+                    }
+                    break;
+                }
+                case CLOSE: {
+                    finish();
+                    break;
+                }
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +114,6 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         initialize();
     }
 
-    @Override
-    public void onBackPressed() {
-        manager.tryRelease();
-        WHAT = CLOSE;
-
-    }
 
     private void initialize() {
         manager = LiveManager.getInstance();
@@ -82,54 +134,49 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         menuIcon = (ImageView) changeLiveType.findViewById(R.id.menuIcon);
         changeLiveType.setOnClickListener(this);
 
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        radioGroup.setOnCheckedChangeListener(this);
-        radioGroup.check(R.id.liveRoom);
 
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.fullScreen).setOnClickListener(this);
         showVideoView(true);
-        manager.setUp(this, gsView, new LiveManager.Callback() {
-            @Override
-            public void onResult(boolean success) {
-//                findViewById(R.id.no_live).setVisibility(success ? View.GONE : View.VISIBLE);
-            }
-
-            @Override
-            public void onLeaveRoom(String msg) {
-                //这里可以弹出对话框，确定后在关闭界面
-
-                switch (WHAT) {
-                    case FULL_SCREEN: {
-                        toFullScreen();
-                        break;
-                    }
-                    case AUDIO: {
-                        if (mInfo != null) {
-                            gsView.renderDefault();
-                            manager.setGSView(null);
-                            manager.startPlay(mInfo.attendeeToken, "LINCOLN", mInfo.id);
-                        }
-                        break;
-                    }
-                    case VIDEO: {
-                        if (mInfo != null) {
-                            manager.setGSView(gsView);
-                            manager.startPlay(mInfo.attendeeToken, "LINCOLN", mInfo.id);
-                        }
-                        break;
-                    }
-                    case TEXT: {
-                        if (mInfo != null) {
-                            manager.setGSView(null);
-                        }
-                        break;
-                    }
-                    case CLOSE: {
-                        finish();
-                        break;
-                    }
+        //创建聊天
+        String circleId = getIntent().getStringExtra(EXTRA_QUANZHU_ID);
+        if (TextUtils.isEmpty(circleId)) {
+            YAlertDialog.show(this, getString(R.string.live_not_exist)).setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    finish();
                 }
+            });
+        }
+        chatFragment = ChatFragment.newInstance(circleId);
+        //选中第一个tab
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(this);
+        radioGroup.check(R.id.liveRoom);
+        manager.setUp(this, gsView, liveManagerCallback);
+        setLiveInfo(null);
+        getLiveInfo(circleId);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (manager.tryRelease()) {
+            super.onBackPressed();
+        } else {
+            WHAT = CLOSE;
+        }
+
+    }
+
+    public void getLiveInfo(String circleId) {
+        SRequest request = new SRequest("livevideo");
+        request.put("quanzhu_id", circleId);
+        HttpManager.getInstance().postMobileApi(this, request, new HttpHandler() {
+            @Override
+            public void onResultOk(int statusCode, Header[] headers, Response response) throws JSONException {
+                data = JsonUtil.get(response.data, _DATA.class);
+                mInfo = data.liveInfo;
+                setLiveInfo(mInfo);
             }
         });
     }
@@ -144,22 +191,38 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         }
     }
 
+    void setLiveInfo(LiveInfo info) {
+        String fans ;
+        String hot ;
+        String unick ;
+        String live_subject ;
+        String uface ;
+
+        if (info != null) {
+            fans = info.fans;
+            hot = "0";
+            unick = info.unick;
+            live_subject = info.live_subject;
+            uface = info.uface;
+
+        } else {
+            fans="0";
+            hot="0";
+            unick="";
+            live_subject="";
+            uface="";
+        }
+        fansNumber.setText(getString(R.string.fans_s, fans));
+        popularity.setText(getString(R.string.popularity_s, hot));
+        masterName.setText(unick);
+        circleName.setText(unick);
+        subject.setText(live_subject);
+        ImageLoader.getInstance().displayImage(uface, avatarImage, ImageOptions.getRoundCorner(6));
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-
-
-        new Tests.GetAvailableLive() {
-            @Override
-            public void onResult(Tests.LiveInfo info) {
-                mInfo = info;
-                if (WHAT!=0){
-                    setMode(WHAT);
-                }else {
-                    manager.startPlay(info.attendeeToken,"LINCOLN",info.id);
-                }
-            }
-        }.get();
     }
 
     @Override
@@ -261,7 +324,7 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
         switch (checkedId) {
             case R.id.liveRoom: {
-                displayFragment(chartFragment);
+                displayFragment(chatFragment);
                 break;
             }
             case R.id.video: {
@@ -316,5 +379,35 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+
+    private class _DATA {
+        UserInfo user_info;
+        LiveInfo liveInfo;
+    }
+
+    private class LiveInfo {
+        public String uid;
+        public String isQuanzhu;
+        public String fans;
+        public String live_subject;
+        public String adminFlag;
+        public String uface;
+        public String unick;
+
+        //自己添加
+        public String attendeeToken;
+        public String id;
+    }
+
+    private class UserInfo {
+        public String uid;
+        public String isQuanzhu;
+        public String fans;
+        public String live_subject;
+        public String adminFlag;
+        public String uface;
+        public String unick;
     }
 }

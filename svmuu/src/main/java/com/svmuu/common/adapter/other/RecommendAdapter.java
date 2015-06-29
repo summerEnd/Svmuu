@@ -21,7 +21,6 @@ public class RecommendAdapter extends ViewHolderAdapter<CircleMaster, Object> {
 
     public RecommendAdapter(Context context, List<CircleMaster> data) {
         super(context, data, R.layout.item_recommand);
-        setTestCount(5);
         options=ImageOptions.getRoundCorner(5);
     }
 
@@ -40,7 +39,11 @@ public class RecommendAdapter extends ViewHolderAdapter<CircleMaster, Object> {
     @Override
     public void displayView(View convertView, Object holder, int position) {
         ViewHolder viewHolder= (ViewHolder) holder;
-        ImageLoader.getInstance().displayImage(Tests.IMAGE, viewHolder.avatarImage,options);
+        CircleMaster master=getData().get(position);
+        viewHolder.fansText.setText(master.Hot);
+        viewHolder.introText.setText(master.desc);
+        viewHolder.nickText.setText(master.name);
+        ImageLoader.getInstance().displayImage(master.uface, viewHolder.avatarImage,options);
     }
 
 

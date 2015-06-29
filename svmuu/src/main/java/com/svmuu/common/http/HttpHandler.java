@@ -10,6 +10,7 @@ import com.svmuu.R;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -22,7 +23,7 @@ public abstract class HttpHandler extends SHttpProgressHandler {
     @Override
     public final void onSuccess(int statusCode, Header[] headers, JSONObject response) {
         super.onSuccess(statusCode, headers, response);
-        dispatchResult(statusCode, headers, JsonUtil.get(response.toString(), Response.class));
+        dispatchResult(statusCode, headers, parseResponse(response));
     }
 
     @Override
@@ -68,16 +69,50 @@ public abstract class HttpHandler extends SHttpProgressHandler {
             ContextUtil.toast(response.message);
         }
 
-        if (response.status) {
-            onResultOk(statusCOde, headers, response);
-        } else {
-            onResultError(statusCOde, headers, response);
+        try {
+            if (response.status) {
+                onResultOk(statusCOde, headers, response);
+            } else {
+                onResultError(statusCOde, headers, response);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
 
-    public abstract void onResultOk(int statusCOde, Header[] headers, Response response);
+    public abstract void onResultOk(int statusCode, Header[] headers, Response response) throws JSONException;
 
-    public void onResultError(int statusCOde, Header[] headers, Response response) {
+    public void onResultError(int statusCOde, Header[] headers, Response response) throws JSONException{
+    }
+
+    /**
+     * 解析一个{@link org.json.JSONObject JSONObject}
+     */
+    public Response parseResponse(JSONObject jsonResponse) {
+        Response response = new Response();
+        try {
+            response.data = jsonResponse.getString("data");
+
+            try {
+                response.status = jsonResponse.getBoolean("status");
+            } catch (JSONException e) {
+                response.status = jsonResponse.getBoolean("success");
+            }
+
+            try {
+                response.message = jsonResponse.getString("message");
+            } catch (JSONException e) {
+                response.message = jsonResponse.getString("msg");
+            }
+
+            if (jsonResponse.has("code")) {
+                response.code = jsonResponse.getString("code");
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return response;
     }
 }

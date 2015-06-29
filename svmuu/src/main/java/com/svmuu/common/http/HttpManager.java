@@ -1,9 +1,13 @@
 package com.svmuu.common.http;
 
+import android.content.Context;
+import android.support.annotation.Nullable;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.ResponseHandlerInterface;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.SLog;
+import com.svmuu.AppDelegate;
 
 import org.apache.http.client.ResponseHandler;
 
@@ -39,16 +43,27 @@ public class HttpManager {
         return client;
     }
 
+
     /**
      * @param request request的url可以传完整的链接，也可以传除host以外的部分，程序会自动补全host
      */
-    public void post(SRequest request, ResponseHandlerInterface handler) {
+    public void post(@Nullable Context context, SRequest request, ResponseHandlerInterface handler) {
         String url = request.getUrl();
         if (!url.startsWith("http://")) {
-            url = getHost() + url;
+            request.setUrl(getHost() + url);
         }
         //todo 发布时最好注销
         SLog.debug(request.toLogString());
-        client.post(url, request, handler);
+
+        if (context==null){
+            context= AppDelegate.getInstance();
+        }
+
+        client.post(context, request.getUrl(), request, handler);
+    }
+
+    public void postMobileApi(Context context,SRequest request, ResponseHandlerInterface handlerInterface) {
+        request.setUrl(getHost() + "/moblieapi/" + request.getUrl());
+        post(context,request,handlerInterface);
     }
 }

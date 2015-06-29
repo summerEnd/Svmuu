@@ -1,22 +1,17 @@
 package com.svmuu.common.entity;
 
+public class Question {
 
-public class Chat {
-
-
-    public String uid;
-    public String time_m;
-    public String uname;
-    public String type;
-    public String uface;
     public String content;
+    public String uid;
     public String addtime;
-    public String is_owner;
+    public String time_m;
     public String is_admin;
     public String fans_type;
     public String time_s;
+    public String uname;
     public String userLevel;
-    public String msg_id;
     public String certify_status;
-    Question question;
+    public String question_id;
+    public String uface;
 }

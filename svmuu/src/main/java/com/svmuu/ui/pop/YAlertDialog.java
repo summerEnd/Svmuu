@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import com.sp.lib.common.util.ContextUtil;
 import com.svmuu.R;
 
 
@@ -17,6 +18,20 @@ public class YAlertDialog extends Dialog implements View.OnClickListener {
         super(context);
         setContentView(R.layout.alert_dialog);
         initialize();
+    }
+
+    public static YAlertDialog showNoSuchFunction(Context context) {
+        final YAlertDialog dialog = new YAlertDialog(context);
+        dialog.setTitle(R.string.warn);
+        dialog.setMessage(ContextUtil.getString(R.string.function_not_open));
+        dialog.setButton(context.getString(R.string.yes), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+        return dialog;
     }
 
     public static YAlertDialog show(Context context, String title, String message) {

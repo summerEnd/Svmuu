@@ -62,4 +62,7 @@
     <string name="cache_clear_ok">缓存清理完毕</string>
     <string name="search_history">搜索历史</string>
     <string name="clear_search_history">清空搜索历史</string>
+    <string name="title_activity_a">A</string>
+    <string name="title_activity_box">宝盒</string>
+    <string name="live_not_exist">直播不存在</string>
 </resources>

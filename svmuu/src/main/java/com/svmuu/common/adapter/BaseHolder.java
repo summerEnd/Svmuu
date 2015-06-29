@@ -1,11 +1,10 @@
 package com.svmuu.common.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-public abstract class BaseHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
+public abstract class BaseHolder<ET> extends RecyclerView.ViewHolder implements View.OnClickListener{
+    OnItemListener listener;
     public BaseHolder(View itemView) {
         super(itemView);
         itemView.setOnClickListener(this);
@@ -26,5 +25,17 @@ public abstract class BaseHolder extends RecyclerView.ViewHolder implements View
     @Override
     public void onClick(View v) {
 
+    }
+
+    public void setListener(OnItemListener listener) {
+        this.listener = listener;
+    }
+
+    public OnItemListener getListener() {
+        return listener;
+    }
+
+    public interface OnItemListener{
+        void onClick(View itemView,int position);
     }
 }

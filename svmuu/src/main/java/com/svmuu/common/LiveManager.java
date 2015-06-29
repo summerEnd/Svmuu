@@ -21,9 +21,9 @@ import com.svmuu.R;
 
 public class LiveManager implements RtComp.Callback {
 
-    public static final int MODE_VIDEO=1;
-    public static final int MODE_AUDIO=2;
-    public static final int MODE_TEXT=3;
+    public static final int MODE_VIDEO = 1;
+    public static final int MODE_AUDIO = 2;
+    public static final int MODE_TEXT = 3;
     private RtSimpleImpl simpleImpl = new SimImpl();
     private Activity context;
     UserInfo self;
@@ -101,11 +101,8 @@ public class LiveManager implements RtComp.Callback {
         return self == null;
     }
 
-    public void tryRelease() {
-        if (self == null) {
-            return;
-        }
-        leaveCast();
+    public boolean tryRelease() {
+        return self == null || leaveCast();
     }
 
     @Override
@@ -215,8 +212,8 @@ public class LiveManager implements RtComp.Callback {
                 case 0:
                 case 2:
                 case 3:
-                    if (gsVideoView!=null){
-                        gsVideoView.renderDrawble(BitmapFactory.decodeResource(context.getResources(), R.drawable.no_live),false);
+                    if (gsVideoView != null) {
+                        gsVideoView.renderDrawble(BitmapFactory.decodeResource(context.getResources(), R.drawable.no_live), false);
                     }
                     setVideoView(null);
                     rtSdk.audioCloseSpeaker(null);

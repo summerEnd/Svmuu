@@ -11,9 +11,10 @@ import com.svmuu.R;
 import com.svmuu.common.ImageOptions;
 import com.svmuu.common.Tests;
 import com.svmuu.common.adapter.BaseAdapter;
+import com.svmuu.common.entity.Recording;
 
 
-public class VideoAdapter extends BaseAdapter<VideoHolder>{
+public class VideoAdapter extends BaseAdapter<Recording,VideoHolder>{
     LayoutInflater inflater;
     DisplayImageOptions options;
     public VideoAdapter(@NonNull Context context) {

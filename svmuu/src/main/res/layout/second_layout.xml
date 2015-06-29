@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/titleHeight"
-        android:background="@color/secondTitleColor">
+        android:background="@drawable/windowTitleBackground">
 
         <LinearLayout
             android:id="@+id/back"
@@ -21,16 +21,25 @@
 
 
             <TextView
-                android:drawablePadding="-8dp"
-                android:gravity="center_vertical"
-                android:drawableLeft="@drawable/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/red_back"
+                android:drawablePadding="-8dp"
+                android:gravity="center_vertical"
                 android:text="@string/back"
-                android:textColor="@color/blackA"
+                android:textColor="@color/titleRedText"
                 android:textSize="@dimen/text_30px"
                 />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/window_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="title"
+            android:textColor="@color/titleRedText"
+            android:textSize="@dimen/text_30px"/>
     </RelativeLayout>
 
     <ImageView

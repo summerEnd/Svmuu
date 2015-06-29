@@ -57,7 +57,7 @@ public class LoginDialog extends Dialog {
                 request.put("pwd", password);
 
 
-                HttpManager.getInstance().post(request, new HttpHandler() {
+                HttpManager.getInstance().post(null,request, new HttpHandler() {
                     @Override
                     public void onResultOk(int statusCOde, Header[] headers, Response response) {
 
@@ -76,6 +76,7 @@ public class LoginDialog extends Dialog {
                         User user = AppDelegate.getInstance().getUser();
                         user.name = userName;
                         user.password = password;
+                        dismiss();
                     }
 
                 });

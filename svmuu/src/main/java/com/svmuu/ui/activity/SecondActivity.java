@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.svmuu.R;
 import com.svmuu.ui.BaseActivity;
@@ -15,21 +16,24 @@ import com.svmuu.ui.BaseActivity;
  */
 public class SecondActivity extends BaseActivity {
     ViewGroup content;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.second_layout);
-        content= (ViewGroup) findViewById(R.id.content);
+        content = (ViewGroup) findViewById(R.id.content);
         initTitle();
     }
 
     private void initTitle() {
         findViewById(R.id.back).setOnClickListener(this);
+        TextView tv = (TextView) findViewById(R.id.window_title);
+        tv.setText(getTitle());
     }
 
     @Override
     public void setContentView(int layoutResID) {
-       setContentView(getLayoutInflater().inflate(layoutResID, content, false));
+        setContentView(getLayoutInflater().inflate(layoutResID, content, false));
     }
 
     @Override
@@ -38,11 +42,10 @@ public class SecondActivity extends BaseActivity {
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{
+        switch (item.getItemId()) {
+            case android.R.id.home: {
                 finish();
                 break;
             }

@@ -7,6 +7,7 @@ import android.view.View;
 public class BaseFragment extends Fragment {
     private String title;
     private boolean isRefreshRequest = false;
+    private boolean isUIRefreshRequest=false;
 
     public String getTitle() {
         return title;
@@ -29,7 +30,7 @@ public class BaseFragment extends Fragment {
     /**
      * 全部刷新，包括网络请求等等
      */
-    public void refresh() {
+    protected void refresh() {
        refreshUI();
     }
 
@@ -48,6 +49,10 @@ public class BaseFragment extends Fragment {
             refresh();
             isRefreshRequest = false;
         }
+        if (isUIRefreshRequest){
+            refreshUI();
+            isUIRefreshRequest=false;
+        }
     }
 
     /**
@@ -61,10 +66,18 @@ public class BaseFragment extends Fragment {
      * 请求刷新页面，如果Fragment还没有创建View，则当View创建成功时刷新
      */
     public void requestRefresh() {
-        if (getView() != null) {
+        if (getActivity() != null) {
             refresh();
         } else {
             isRefreshRequest = true;
+        }
+    }
+
+    public void requestRefreshUI(){
+        if (getView()!=null){
+            refreshUI();
+        }else{
+            isUIRefreshRequest=true;
         }
     }
 }
