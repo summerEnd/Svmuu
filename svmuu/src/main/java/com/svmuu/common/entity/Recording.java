@@ -1,7 +1,12 @@
 package com.svmuu.common.entity;
 
-/**
- * Created by Lincoln on 15/6/25.
- */
+
 public class Recording {
+    public String uid;
+    public String id;
+    public String pwd;
+    public String cover;
+    public String video_url;
+    public String subject;
+    public String add_time;
 }

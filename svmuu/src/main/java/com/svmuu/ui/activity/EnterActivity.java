@@ -2,16 +2,28 @@ package com.svmuu.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.sp.lib.common.support.adapter.GuidePagerAdapter;
 import com.sp.lib.common.support.cache.FileObjectCache;
+import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ShortCut;
 import com.svmuu.AppDelegate;
 import com.svmuu.R;
+import com.svmuu.common.config.Preference;
+import com.svmuu.common.config.Preference.USER;
+import com.svmuu.common.entity.User;
+import com.svmuu.common.http.HttpHandler;
+import com.svmuu.common.http.HttpManager;
+import com.svmuu.common.http.Response;
+
+import org.apache.http.Header;
+import org.json.JSONException;
 
 import java.io.File;
 
@@ -28,7 +40,7 @@ public class EnterActivity extends Activity {
             ShortCut.addShortcut(this, getString(R.string.app_name), EnterActivity.class);
             startGuide();
         } else {
-            startLoading();
+           startLoading();
         }
     }
 
@@ -74,12 +86,6 @@ public class EnterActivity extends Activity {
 
     void startLoading() {
 
-        File dir = new File(getCacheDir(), "contract");
-        if (!dir.exists()) {
-            if (dir.mkdirs())
-                new FileObjectCache(dir).clear();//重新进入app清空合约缓存
-        }
-
         //设置下次不再启动引导页
         AppDelegate.getInstance().setIsFirstStartApplication(false);
         //显示loading图片
@@ -87,9 +93,50 @@ public class EnterActivity extends Activity {
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         setContentView(imageView);
         imageView.setImageResource(R.drawable.loading);
-        enterMain();
+        tryLogin();
     }
 
+    private void tryLogin() {
+        SharedPreferences sp_user = Preference.get(this, USER.class);
+
+        if (!sp_user.getBoolean(USER.IS_SAVE_PASSWORD, false)) {
+            enterMain();
+            return;
+        }
+
+
+        final String userName = sp_user.getString(USER.USER_NAME, "");
+        final String password = sp_user.getString(USER.USER_PASSWORD, "");
+
+        if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
+            enterMain();
+            return;
+        }
+
+        SRequest request = new SRequest("/moblieapi/login");
+
+        request.put("name", userName);
+        request.put("pwd", password);
+
+
+        HttpManager.getInstance().post(null, request, new HttpHandler(false) {
+            @Override
+            public void onResultOk(int statusCOde, Header[] headers, Response response) {
+
+
+                User user = AppDelegate.getInstance().getUser();
+                user.name = userName;
+                user.password = password;
+                enterMain();
+            }
+
+            @Override
+            public void onResultError(int statusCOde, Header[] headers, Response response) throws JSONException {
+                super.onResultError(statusCOde, headers, response);
+                enterMain();
+            }
+        });
+    }
 
     private void enterMain() {
         //延迟进入

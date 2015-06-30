@@ -54,11 +54,8 @@ public class MenuActivity extends BaseActivity implements MenuFragment.OnMenuCli
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         onUserChanged();
-                        if (AppDelegate.getInstance().isLogin()) {
-                            signIn.setVisibility(View.INVISIBLE);
-                        } else {
-                            signIn.setVisibility(View.VISIBLE);
-                        }
+
+                        initTitle();
                     }
                 });
                 loginDialog.show();
@@ -75,6 +72,15 @@ public class MenuActivity extends BaseActivity implements MenuFragment.OnMenuCli
                 toggle.setRatio(openRatio);
             }
         });
+        initTitle();
+    }
+
+    private void initTitle() {
+        if (AppDelegate.getInstance().isLogin()) {
+            signIn.setVisibility(View.INVISIBLE);
+        } else {
+            signIn.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

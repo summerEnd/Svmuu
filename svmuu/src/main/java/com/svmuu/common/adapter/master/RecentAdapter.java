@@ -1,8 +1,10 @@
 package com.svmuu.common.adapter.master;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,11 +15,14 @@ import com.svmuu.R;
 import com.svmuu.common.ImageOptions;
 import com.svmuu.common.Tests;
 import com.svmuu.common.adapter.BaseAdapter;
+import com.svmuu.common.adapter.BaseHolder;
+import com.svmuu.common.entity.CircleMaster;
 import com.svmuu.common.entity.Visitor;
+import com.svmuu.ui.activity.live.LiveActivity;
 
 import java.util.List;
 
-public class RecentAdapter extends BaseAdapter<Visitor,MasterAvatarHolder>{
+public class RecentAdapter extends BaseAdapter<Visitor,MasterAvatarHolder> implements BaseHolder.OnItemListener{
     DisplayImageOptions options;
     public RecentAdapter(@NonNull Context context) {
         super(context);
@@ -32,7 +37,9 @@ public class RecentAdapter extends BaseAdapter<Visitor,MasterAvatarHolder>{
 
     @Override
     public MasterAvatarHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MasterAvatarHolder(getInflater().inflate(R.layout.item_recent_avatar,parent,false));
+        MasterAvatarHolder ho = new MasterAvatarHolder(getInflater().inflate(R.layout.item_recent_avatar, parent, false));
+        ho.setListener(this);
+        return ho;
     }
 
     @Override
@@ -40,5 +47,14 @@ public class RecentAdapter extends BaseAdapter<Visitor,MasterAvatarHolder>{
         Visitor visitor=getData().get(position);
         holder.tvname.setText(visitor.unick);
         ImageLoader.getInstance().displayImage(visitor.uface,holder.ivavatar,options);
+    }
+
+    @Override
+    public void onClick(View itemView, int position) {
+
+        Visitor master = getData().get(position);
+        Context context = itemView.getContext();
+        context.startActivity(new Intent(context, LiveActivity.class)
+                .putExtra(LiveActivity.EXTRA_QUANZHU_ID, master.id));
     }
 }

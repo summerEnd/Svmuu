@@ -1,5 +1,6 @@
-package com.svmuu.ui.activity;
+package com.svmuu.ui.activity.box;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,8 @@ import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
 
 import com.svmuu.R;
+import com.svmuu.common.adapter.box.BoxAdapter;
+import com.svmuu.ui.activity.SecondActivity;
 
 public class BoxActivity extends SecondActivity {
 
@@ -35,6 +38,15 @@ public class BoxActivity extends SecondActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        BoxAdapter adapter = new BoxAdapter(this);
+        adapter.setViewType(BoxAdapter.VIEW_LIST);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                outRect.set(6,6,6,6);
+            }
+        });
     }
 
     @Override

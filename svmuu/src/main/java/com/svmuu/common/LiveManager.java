@@ -102,7 +102,13 @@ public class LiveManager implements RtComp.Callback {
     }
 
     public boolean tryRelease() {
-        return self == null || leaveCast();
+
+        if (self==null){
+
+            return true;
+        }
+
+        return leaveCast();
     }
 
     @Override

@@ -20,6 +20,7 @@ import com.svmuu.common.http.HttpHandler;
 import com.svmuu.common.http.HttpManager;
 import com.svmuu.common.http.Response;
 import com.svmuu.ui.BaseFragment;
+import com.svmuu.ui.activity.box.BoxActivity;
 import com.svmuu.ui.pop.YAlertDialog;
 
 import org.apache.http.Header;

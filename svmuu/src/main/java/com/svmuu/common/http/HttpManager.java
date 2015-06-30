@@ -2,6 +2,8 @@ package com.svmuu.common.http;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.ResponseHandlerInterface;
@@ -49,6 +51,10 @@ public class HttpManager {
      */
     public void post(@Nullable Context context, SRequest request, ResponseHandlerInterface handler) {
         String url = request.getUrl();
+        if (TextUtils.isEmpty(url)){
+            Log.e("HttpManager","invalid url :"+url);
+            return;
+        }
         if (!url.startsWith("http://")) {
             request.setUrl(getHost() + url);
         }

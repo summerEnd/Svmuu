@@ -25,7 +25,9 @@ public class BoxFragment extends BaseFragment{
     protected void initialize() {
         recyclerView= (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),4));
-        recyclerView.setAdapter(new BoxAdapter(getActivity()));
+        BoxAdapter adapter = new BoxAdapter(getActivity());
+        adapter.setViewType(BoxAdapter.VIEW_GRID);
+        recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {

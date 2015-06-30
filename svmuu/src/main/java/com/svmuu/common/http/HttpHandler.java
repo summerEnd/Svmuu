@@ -15,6 +15,16 @@ import org.json.JSONObject;
 
 
 public abstract class HttpHandler extends SHttpProgressHandler {
+
+    private boolean showToast;
+    public HttpHandler() {
+        this(true);
+    }
+
+    public HttpHandler(boolean showToast) {
+        this.showToast = showToast;
+    }
+
     @Override
     public Dialog onCreateDialog() {
         return null;
@@ -65,7 +75,7 @@ public abstract class HttpHandler extends SHttpProgressHandler {
 
     private void dispatchResult(int statusCOde, Header[] headers, Response response) {
 
-        if (!TextUtils.isEmpty(response.message)) {
+        if (showToast&&!TextUtils.isEmpty(response.message)) {
             ContextUtil.toast(response.message);
         }
 

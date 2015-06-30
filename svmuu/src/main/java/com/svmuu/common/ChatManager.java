@@ -47,7 +47,7 @@ public class ChatManager {
         HttpManager.getInstance().postMobileApi(context, request, new HttpHandler() {
             @Override
             public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException {
-                callback.onMessageAdded();
+                callback.onMessageAdded(JsonUtil.get(response.data,Chat.class));
             }
         });
     }
@@ -56,7 +56,7 @@ public class ChatManager {
         SRequest request = new SRequest("livemsg");
         request.put("quanzhu_id", circleId);
         request.put("max_msgid", getMaxMsgId());
-        HttpManager.getInstance().postMobileApi(context, request, new HttpHandler() {
+        HttpManager.getInstance().postMobileApi(context, request, new HttpHandler(false) {
             @Override
             public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException {
                 ArrayList<Chat> array = JsonUtil.getArray(new JSONArray(response.data), Chat.class);
@@ -91,11 +91,11 @@ public class ChatManager {
             public void run() {
                 updateMsgHandler.sendEmptyMessage(0);
             }
-        }, duration);
+        }, 0,duration);
     }
 
     public interface Callback {
-        void onMessageAdded();
+        void onMessageAdded(Chat added);
 
         void onNewMessageLoaded(ArrayList<Chat> newMessages);
     }

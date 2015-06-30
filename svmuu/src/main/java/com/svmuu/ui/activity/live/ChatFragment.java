@@ -19,6 +19,7 @@ import com.svmuu.common.entity.Chat;
 import com.svmuu.ui.BaseFragment;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ChatFragment extends BaseFragment implements ChatManager.Callback {
@@ -29,7 +30,7 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
     private ChatAdapter adapter;
     private String quanzhu_id;
     ChatManager mChatManager;
-
+    LinkedList<Chat> tempChatPool=new LinkedList<>();
     public static ChatFragment newInstance(String circleId) {
         ChatFragment fragment = new ChatFragment();
         fragment.setCircleId(circleId);
@@ -83,6 +84,7 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
         recyclerView.addItemDecoration(new ChatItemDec());
 
         requestRefresh();
+        mChatManager.updateMessageList(180*1000,quanzhu_id);
     }
 
     @Override
@@ -92,15 +94,27 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
     }
 
     @Override
-    public void onMessageAdded() {
-        mChatManager.getNewMessages();
+    public void onMessageAdded(Chat chat) {
+        data.add(chat);
+        tempChatPool.add(chat);
+        recyclerView.scrollToPosition(data.size() - 1);
+        adapter.notifyItemInserted(data.size() - 1);
+        editContent.setText(null);
     }
 
     @Override
     public void onNewMessageLoaded(ArrayList<Chat> newMessages) {
+
+        if (tempChatPool.size()>0){
+            data.removeAll(tempChatPool);
+            tempChatPool.clear();
+            adapter.notifyDataSetChanged();
+        }
+
         int fromPosition = data.size() - 1;
         data.addAll(newMessages);
         adapter.notifyItemRangeInserted(fromPosition, newMessages.size());
+        recyclerView.scrollToPosition(data.size()-1);
     }
 
     @Override

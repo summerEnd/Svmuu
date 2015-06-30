@@ -1,6 +1,7 @@
 package com.svmuu.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.svmuu.common.entity.Visitor;
 import com.svmuu.common.http.HttpHandler;
 import com.svmuu.common.http.HttpManager;
 import com.svmuu.common.http.Response;
+import com.svmuu.ui.activity.live.LiveActivity;
 import com.svmuu.ui.pop.YAlertDialog;
 import com.svmuu.ui.widget.CustomSearchView;
 
@@ -52,7 +54,14 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
         list = (LinearListView) findViewById(R.id.list);
         recommendAdapter = new RecommendAdapter(this, new ArrayList<CircleMaster>());
         list.setAdapter(recommendAdapter);
-
+        list.setOnItemClick(new LinearListView.OnItemClick() {
+            @Override
+            public void onItemClick(LinearListView parent, View view, int position, long id) {
+                CircleMaster master = recommendAdapter.getData().get(position);
+                startActivity(new Intent(MainActivity.this, LiveActivity.class)
+                .putExtra(LiveActivity.EXTRA_QUANZHU_ID,master.uid));
+            }
+        });
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recentContainer.setLayoutManager(manager);
         recentAdapter = new RecentAdapter(this,new ArrayList<Visitor>());
@@ -64,6 +73,7 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
         findViewById(R.id.realContest).setOnClickListener(this);
         findViewById(R.id.stockSchool).setOnClickListener(this);
         findViewById(R.id.center).setOnClickListener(this);
+
     }
 
     @Override
@@ -125,7 +135,7 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
 
     public void getRecent(){
         SRequest request=new SRequest("/moblieapi/recent");
-        HttpManager.getInstance().post(this,request, new HttpHandler() {
+        HttpManager.getInstance().post(this,request, new HttpHandler(false) {
             @Override
             public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException{
                 SLog.debug(response);

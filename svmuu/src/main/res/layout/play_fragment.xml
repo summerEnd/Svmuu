@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textLive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/text_live"
+        android:drawablePadding="@dimen/dimen_15px"
+        android:gravity="bottom"
+        android:padding="@dimen/dimen_10px"
+        android:text="超级直播咻咻咻咻"
+        android:textColor="@color/liveHouseTabRed"
+        android:visibility="gone"/>
+
+    <FrameLayout
+        android:id="@+id/videoLayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_300px"
+        android:visibility="visible">
+
+        <com.gensee.view.GSVideoView
+            android:id="@+id/gsView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_300px"/>
+
+        <LinearLayout
+            android:id="@+id/controlLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#8000"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_15px">
+
+            <TextView
+                android:id="@+id/subject"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/test_subject"
+                android:textColor="@color/white"/>
+
+            <ImageView
+                android:id="@+id/fullScreen"
+                android:layout_width="@dimen/dimen_45px"
+                android:layout_height="@dimen/dimen_45px"
+                android:src="@drawable/full_screen"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/no_live"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/no_live"
+            android:visibility="gone"/>
+    </FrameLayout>
+</FrameLayout>

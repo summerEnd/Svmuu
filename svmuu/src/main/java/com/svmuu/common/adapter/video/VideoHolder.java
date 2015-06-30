@@ -22,4 +22,6 @@ public class VideoHolder extends BaseHolder {
         subject = (TextView) findViewById(R.id.subject);
         time = (TextView) findViewById(R.id.time);
     }
+
+
 }

@@ -21,7 +21,7 @@ public class AppDelegate extends SApplication{
     }
 
     public boolean isLogin(){
-        return !TextUtils.isEmpty(getUser().uid);
+        return !TextUtils.isEmpty(getUser().name);
     }
 
     public User getUser() {
