@@ -15,7 +15,7 @@
         android:padding="@dimen/dimen_10px"
         android:text="超级直播咻咻咻咻"
         android:textColor="@color/liveHouseTabRed"
-        android:visibility="gone"/>
+       />
 
     <FrameLayout
         android:id="@+id/videoLayout"

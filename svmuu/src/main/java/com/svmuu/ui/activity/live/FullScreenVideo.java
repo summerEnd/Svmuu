@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.View;
 
 import com.gensee.view.GSVideoView;
 import com.svmuu.R;
@@ -30,7 +29,6 @@ public class FullScreenVideo extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_full_sceen_video);
@@ -80,7 +78,7 @@ public class FullScreenVideo extends Activity {
     }
 
     void setUpVod() {
-        vodManager = VodManager.getInstance(this, gsView);
+        vodManager = VodManager.newInstance(this, gsView);
 
         Intent i = getIntent();
         id = i.getStringExtra(EXTRA_LIVE_ID);
@@ -88,7 +86,6 @@ public class FullScreenVideo extends Activity {
         vodManager.start(
                 id,
                 password
-
         );
     }
 

@@ -21,9 +21,9 @@ public class HttpManager {
     private AsyncHttpClient client = new AsyncHttpClient();
 
     //是否使用测试host
-    private static boolean USE_TEST_HOST = true;
+    private final  boolean  USE_TEST_HOST = true;
 
-    public static String getHost() {
+    public  String getHost() {
         if (USE_TEST_HOST) {
             return "http://dev-test.svmuu.com";
         } else {
@@ -47,29 +47,45 @@ public class HttpManager {
 
 
     /**
-     * @param request request的url可以传完整的链接，也可以传除host以外的部分，程序会自动补全host
      */
     public void post(@Nullable Context context, SRequest request, ResponseHandlerInterface handler) {
-        String url = request.getUrl();
-        if (TextUtils.isEmpty(url)){
-            Log.e("HttpManager","invalid url :"+url);
-            return;
-        }
-        if (!url.startsWith("http://")) {
-            request.setUrl(getHost() + url);
-        }
-        //todo 发布时最好注销
-        SLog.debug(request.toLogString());
 
-        if (context==null){
-            context= AppDelegate.getInstance();
+        if (context == null) {
+            context = AppDelegate.getInstance();
         }
-
         client.post(context, request.getUrl(), request, handler);
     }
 
-    public void postMobileApi(Context context,SRequest request, ResponseHandlerInterface handlerInterface) {
-        request.setUrl(getHost() + "/moblieapi/" + request.getUrl());
-        post(context,request,handlerInterface);
+    /**
+     * @param request request的url可以传完整的链接，也可以传除host以外的部分，程序会自动补全host
+     */
+    public void postMobileApi(Context context, SRequest request, ResponseHandlerInterface handlerInterface) {
+        fixUrl(request);
+        post(context, request, handlerInterface);
+    }
+
+
+    /**
+     * @param request request的url可以传完整的链接，也可以传除host以外的部分，程序会自动补全host
+     */
+    public void getMobileApi(@Nullable Context context, SRequest request, ResponseHandlerInterface handlerInterface) {
+        fixUrl(request);
+        if (context == null) {
+            context = AppDelegate.getInstance();
+        }
+        client.get(context, request.getUrl(), request,handlerInterface);
+    }
+
+    private void fixUrl(SRequest request) {
+
+        String url = request.getUrl();
+
+        if (TextUtils.isEmpty(url) || url.startsWith("http://")) {
+            return;
+        }
+        //todo 发布时最好注销
+        request.setUrl(getHost() + "/moblieapi/" + url);
+        SLog.debug(request.toLogString());
+
     }
 }

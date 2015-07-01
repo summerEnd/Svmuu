@@ -60,6 +60,7 @@
     <string name="http_request_fail">网络请求错误</string>
     <string name="tips">提示</string>
     <string name="cache_clear_ok">缓存清理完毕</string>
+    <string name="confirm_logout">确定退出？</string>
     <string name="search_history">搜索历史</string>
     <string name="clear_search_history">清空搜索历史</string>
     <string name="title_activity_a">A</string>
@@ -67,4 +68,11 @@
     <string name="live_not_exist">直播不存在</string>
     <string name="title_activity_vod">VodActivity</string>
     <string name="title_activity_box_detail">BoxDetailActivity</string>
+    <string name="open_living">正在打开直播…</string>
+    <string name="open_vod">正在打开录像…</string>
+    <string name="leaving">正在离开房间…</string>
+    <string name="data_load_done">数据加载完毕</string>
+    <string name="title_activity_box_info">宝盒详情</string>
+    <string name="box_detail_get_failed">查询宝盒详情失败</string>
+    <string name="title_activity_text_box">文字宝盒</string>
 </resources>

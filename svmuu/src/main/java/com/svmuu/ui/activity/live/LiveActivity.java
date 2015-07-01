@@ -12,22 +12,20 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-import com.gensee.view.GSVideoView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.common.util.SLog;
-import com.svmuu.AppDelegate;
 import com.svmuu.R;
 import com.svmuu.common.ImageOptions;
-import com.svmuu.common.LiveManager;
-import com.svmuu.common.VodManager;
 import com.svmuu.common.http.HttpHandler;
 import com.svmuu.common.http.HttpManager;
 import com.svmuu.common.http.Response;
 import com.svmuu.ui.BaseActivity;
+import com.svmuu.ui.activity.box.BoxDetailActivity;
 import com.svmuu.ui.pop.ProgressIDialog;
 import com.svmuu.ui.pop.YAlertDialog;
 
@@ -35,22 +33,10 @@ import org.apache.http.Header;
 import org.json.JSONException;
 
 @SuppressWarnings("unused")
-public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+public class LiveActivity extends BaseActivity implements OnCheckedChangeListener,PlayFragment.Callback {
     public static final String EXTRA_QUANZHU_ID = "quanzhu_id";
     public static final String EXTRA_VOD_ID = "vod_id";
 
-    private final int FULL_SCREEN = -1;
-    private final int AUDIO = LiveManager.MODE_AUDIO;
-    private final int TEXT = LiveManager.MODE_TEXT;
-    private final int VIDEO = LiveManager.MODE_VIDEO;
-    //关闭页面
-    private final int CLOSE = -2;
-    //切换为录像
-    private final int TO_VIDEO = -3;
-    private int WHAT = 0;//初始状态
-    LiveManager liveManager;
-    VodManager vodManager;
-    private GSVideoView gsView;
     VideoListFragment videoListFragment;
     BoxFragment boxFragment = new BoxFragment();
     ChatFragment chatFragment;
@@ -58,104 +44,41 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private TextView popularity;
     private ImageView menuIcon;
     private ImageView concern;
-    private TextView subject;
     private TextView circleName;
     private TextView fansNumber;
     private ImageView indicator;
     private TextView masterName;
     private ImageView avatarImage;
-    private TextView textLive;
     private LiveModeSelector modeSelector;
     private boolean isCare = false;
     LiveInfo mInfo;
     _DATA data;
-    private String vodId;
-    private String vodPsw;
 
     ProgressIDialog progressIDialog;
 
-    private boolean isVod = false;
-    //liveManager回调
-    private LiveManager.Callback liveManagerCallback = new LiveManager.Callback() {
-        @Override
-        public void onResult(boolean success) {
-            //findViewById(R.id.no_live).setVisibility(success ? View.GONE : View.VISIBLE);
-        }
 
-        @Override
-        public void onLeaveRoom(String msg) {
-            //这里可以弹出对话框，确定后在关闭界面
-            if (progressIDialog != null) {
-                progressIDialog.dismiss();
-            }
-            switch (WHAT) {
-                case FULL_SCREEN: {
-                    toFullScreen();
-                    break;
-                }
-                case AUDIO: {
-                    if (mInfo != null) {
-                        gsView.renderDefault();
-                        liveManager.setGSView(null);
-                        liveManager.startPlay(mInfo.guest_token, "LINCOLN", mInfo.id);
-                    }
-                    break;
-                }
-                case VIDEO: {
-                    if (mInfo != null) {
-                        liveManager.setGSView(gsView);
-                        liveManager.startPlay(mInfo.guest_token, "LINCOLN", mInfo.id);
-                    }
-                    break;
-                }
-                case TEXT: {
-                    if (mInfo != null) {
-                        liveManager.setGSView(null);
-                    }
-                    break;
-                }
-                case CLOSE: {
-                    finish();
-                    break;
-                }
-                case TO_VIDEO: {
-                    isVod = true;
-                    vodManager.start(vodId, vodPsw);
-                    break;
-                }
-            }
-        }
-    };
+    PlayFragment mPlayFragment;
+    private String vodId;
+    private String psw;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live);
-        gsView = (GSVideoView) findViewById(R.id.gsView);
-
+        mPlayFragment = new PlayFragment();
+        mPlayFragment.setCallback(this);
+        getSupportFragmentManager().beginTransaction().add(R.id.playerContainer, mPlayFragment).commit();
         initialize();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (isVod){
-            vodManager.start(vodId,vodPsw);
-        }else{
-            liveManager.setUp(this,gsView,liveManagerCallback);
-        }
-    }
-
     private void initialize() {
-        liveManager = LiveManager.getInstance();
-        gsView = (GSVideoView) findViewById(R.id.gsView);
+
         popularity = (TextView) findViewById(R.id.popularity);
         concern = (ImageView) findViewById(R.id.concern);
-        subject = (TextView) findViewById(R.id.subject);
         fansNumber = (TextView) findViewById(R.id.fansNumber);
         masterName = (TextView) findViewById(R.id.masterName);
         circleName = (TextView) findViewById(R.id.circleName);
-        textLive = (TextView) findViewById(R.id.textLive);
         avatarImage = (ImageView) findViewById(R.id.avatarImage);
         concern.setOnClickListener(this);
 
@@ -166,8 +89,6 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
 
         findViewById(R.id.back).setOnClickListener(this);
-        findViewById(R.id.fullScreen).setOnClickListener(this);
-        showVideoView(true);
         //创建聊天
         String circleId = getIntent().getStringExtra(EXTRA_QUANZHU_ID);
         if (TextUtils.isEmpty(circleId)) {
@@ -184,22 +105,14 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(this);
         radioGroup.check(R.id.liveRoom);
-        liveManager.setUp(this, gsView, liveManagerCallback);
         setLiveInfo(null);
         getLiveInfo(circleId);
     }
 
     @Override
     public void onBackPressed() {
-        if (vodManager != null) {
-            vodManager.release();
-        }
-        if (liveManager.tryRelease()) {
-            super.onBackPressed();
-        } else {
-            WHAT = CLOSE;
-            ProgressIDialog.show(this, "正在退出直播...");
-        }
+
+        mPlayFragment.onActivityClose();
 
     }
 
@@ -216,15 +129,6 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         });
     }
 
-    void showVideoView(boolean show) {
-        if (show) {
-            textLive.setVisibility(View.GONE);
-            findViewById(R.id.videoLayout).setVisibility(View.VISIBLE);
-        } else {
-            textLive.setVisibility(View.VISIBLE);
-            findViewById(R.id.videoLayout).setVisibility(View.GONE);
-        }
-    }
 
     void setLiveInfo(UserInfo userInfo) {
         String fans;
@@ -241,7 +145,7 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             uface = userInfo.uface;
             LiveInfo info = data.liveInfo;
             if (info != null) {
-                liveManager.startPlay(info.guest_token, unick, info.zb_id);
+                mPlayFragment.playLive(info.zb_id, info.zb_token);
             }
         } else {
             fans = "0";
@@ -254,7 +158,7 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         popularity.setText(getString(R.string.popularity_s, hot));
         masterName.setText(unick);
         circleName.setText(unick);
-        subject.setText(live_subject);
+        mPlayFragment.setSubject(live_subject);
         ImageLoader.getInstance().displayImage(uface, avatarImage, ImageOptions.getRoundCorner(6));
     }
 
@@ -262,7 +166,7 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.changeLiveType: {
-                createPopIfNeed();
+                createSelectorIfNeed();
 
                 if (modeSelector.isShowing()) {
                     modeSelector.dismiss();
@@ -283,19 +187,7 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 isCare = !isCare;
                 break;
             }
-            case R.id.fullScreen: {
-                if (vodManager!=null){
-                    vodManager.release();
-                }
-                if (liveManager.leaveCast()) {
-                    toFullScreen();
-                } else {
-                    showSwitchDialog("切换中...");
-                    WHAT = FULL_SCREEN;
-                }
 
-                break;
-            }
             case R.id.back: {
                 onBackPressed();
                 break;
@@ -304,36 +196,31 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         }
     }
 
-    private void toFullScreen() {
 
-        String liveId;
-        String token;
-        String nick = AppDelegate.getInstance().getUser().name;
-        if (isVod) {
-            liveId = vodId;
-            token = vodPsw;
-        } else {
-            if (mInfo == null) {
-                return;
-            }
-            liveId = mInfo.id;
-            token = mInfo.guest_token;
-        }
-        startActivity(new Intent(this, FullScreenVideo.class)
-                        .putExtra(FullScreenVideo.EXTRA_JOIN_TOKEN, token)
-                        .putExtra(FullScreenVideo.EXTRA_NICK_NAME, nick)
-                        .putExtra(FullScreenVideo.EXTRA_LIVE_ID, liveId)
-                        .putExtra(FullScreenVideo.EXTRA_IS_VOD, isVod)
-        );
-    }
-
-    private void createPopIfNeed() {
+    private void createSelectorIfNeed() {
         if (modeSelector == null) {
             modeSelector = new LiveModeSelector(this) {
                 @Override
-                public void onModePick(int mode) {
-                    setMode(mode);
+                public void onClicked(int position) {
+
+                    switch (position) {
+                        case 0: {
+                            menuIcon.setImageResource(R.drawable.mode_video_normal);
+                            break;
+                        }
+                        case 1: {
+                            menuIcon.setImageResource(R.drawable.mode_audio_normal);
+
+                            break;
+                        }
+                        case 2: {
+                            menuIcon.setImageResource(R.drawable.mode_text_normal);
+
+                            break;
+                        }
+                    }
                     dismiss();
+                    mPlayFragment.setLiveType(position);
                 }
             };
 
@@ -345,27 +232,6 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
             });
         }
-    }
-
-    private void setMode(int mode) {
-        switch (mode) {
-            case LiveManager.MODE_VIDEO:
-                showVideoView(true);
-                menuIcon.setImageResource(R.drawable.mode_video_normal);
-                WHAT = VIDEO;
-                break;
-            case LiveManager.MODE_AUDIO:
-                showVideoView(true);
-                menuIcon.setImageResource(R.drawable.mode_audio_normal);
-                WHAT = AUDIO;
-                break;
-            case LiveManager.MODE_TEXT:
-                showVideoView(false);
-                menuIcon.setImageResource(R.drawable.mode_text_normal);
-                WHAT = TEXT;
-                break;
-        }
-        liveManager.tryRelease();
     }
 
     @Override
@@ -432,43 +298,40 @@ public class LiveActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     //直播转录像
     public void L2V(String vodId, String psw) {
-        SLog.debug_format("vodId:%s psw:%s",vodId,psw);
         this.vodId = vodId;
-        this.vodPsw = psw;
-        if (vodManager == null) {
-            vodManager = VodManager.getInstance(this, gsView);
-        }
-
-        if (liveManager.tryRelease()) {
-            vodManager.start(vodId, psw);
-        } else {
-            WHAT = TO_VIDEO;
-            showSwitchDialog("正在打开录像...");
-        }
-
-
+        this.psw = psw;
+        SLog.debug_format("vodId:%s psw:%s", vodId, psw);
+        mPlayFragment.stop();
     }
 
-    private void showSwitchDialog(String message) {
-        if (progressIDialog == null) {
-            progressIDialog = new ProgressIDialog(this);
-        } else {
-            if (progressIDialog.isShowing()) {
-                progressIDialog.dismiss();
-            }
-        }
-        progressIDialog.setMessage(message);
-        progressIDialog.show();
-    }
+
 
     /**
      * 录像转直播
      */
     public void V2L(String pwd, String nick, String liveId) {
-        vodManager.release();
-        liveManager.startPlay(pwd, nick, liveId);
-        showSwitchDialog("正在打开直播...");
+        mPlayFragment.playLive(liveId, pwd);
     }
+
+    /**
+     * 直播关闭后回调
+     * @param reason 关闭的原因
+     */
+    @Override
+    public void onReleased(int reason) {
+        if (reason== PlayFragment.Reason.STOP_PLAY){
+            startActivity(new Intent(this, BoxDetailActivity.class)
+            .putExtra(BoxDetailActivity.EXTRA_ID,vodId)
+            .putExtra(BoxDetailActivity.EXTRA_TOKEN,psw)
+            .putExtra(BoxDetailActivity.EXTRA_SUBJECT,data.user_info.live_subject)
+            .putExtra(BoxDetailActivity.EXTRA_CIRCLE_NAME,data.user_info.unick)
+            .putExtra(BoxDetailActivity.EXTRA_IS_BOX,false)
+
+            );
+        }
+    }
+
+
 
     private class _DATA {
         UserInfo user_info;

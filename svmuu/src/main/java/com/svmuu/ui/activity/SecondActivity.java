@@ -32,6 +32,17 @@ public class SecondActivity extends BaseActivity {
     }
 
     @Override
+    public void setTitle(CharSequence title) {
+        TextView tv = (TextView) findViewById(R.id.window_title);
+        tv.setText(getTitle());
+    }
+
+    @Override
+    public void setTitle(int titleId) {
+        setTitle(getString(titleId));
+    }
+
+    @Override
     public void setContentView(int layoutResID) {
         setContentView(getLayoutInflater().inflate(layoutResID, content, false));
     }

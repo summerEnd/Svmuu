@@ -113,13 +113,13 @@ public class EnterActivity extends Activity {
             return;
         }
 
-        SRequest request = new SRequest("/moblieapi/login");
+        SRequest request = new SRequest("login");
 
         request.put("name", userName);
         request.put("pwd", password);
 
 
-        HttpManager.getInstance().post(null, request, new HttpHandler(false) {
+        HttpManager.getInstance().postMobileApi(null, request, new HttpHandler(false) {
             @Override
             public void onResultOk(int statusCOde, Header[] headers, Response response) {
 
@@ -133,6 +133,11 @@ public class EnterActivity extends Activity {
             @Override
             public void onResultError(int statusCOde, Header[] headers, Response response) throws JSONException {
                 super.onResultError(statusCOde, headers, response);
+                enterMain();
+            }
+
+            @Override
+            public void onException() {
                 enterMain();
             }
         });

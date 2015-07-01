@@ -11,7 +11,10 @@ import android.view.ViewGroup;
 
 import com.svmuu.R;
 import com.svmuu.common.adapter.box.BoxAdapter;
+import com.svmuu.common.entity.Box;
 import com.svmuu.ui.BaseFragment;
+
+import java.util.ArrayList;
 
 public class BoxFragment extends BaseFragment{
     RecyclerView recyclerView;
@@ -25,7 +28,7 @@ public class BoxFragment extends BaseFragment{
     protected void initialize() {
         recyclerView= (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),4));
-        BoxAdapter adapter = new BoxAdapter(getActivity());
+        BoxAdapter adapter = new BoxAdapter(getActivity(),new ArrayList<Box>());
         adapter.setViewType(BoxAdapter.VIEW_GRID);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {

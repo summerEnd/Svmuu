@@ -22,6 +22,8 @@ public abstract class BaseAdapter<ET,VH extends BaseHolder> extends RecyclerView
         this.data = data;
     }
 
+
+
     public BaseAdapter(@NonNull Context context) {
         this.context = context;
     }

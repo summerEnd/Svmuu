@@ -62,7 +62,7 @@ public class LiveListFragment extends BaseFragment implements PullToRefreshBase.
 
         SRequest request = new SRequest(url);
         request.put("kw", kw);
-        HttpManager.getInstance().post(getActivity(), request, new HttpHandler() {
+        HttpManager.getInstance().postMobileApi(getActivity(), request, new HttpHandler() {
             @Override
             public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException {
                 lives.clear();

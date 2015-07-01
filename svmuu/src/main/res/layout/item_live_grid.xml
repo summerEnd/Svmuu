@@ -30,10 +30,11 @@
             <ImageView
                 android:layout_width="@dimen/dimen_20px"
                 android:layout_height="@dimen/dimen_20px"
-                android:src="@drawable/ic_launcher"/>
+                android:src="@drawable/luc"/>
             <TextView
                 android:id="@+id/tv_fansNumber"
                 android:textColor="@color/white"
+                android:textSize="@dimen/text_18px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="12123"/>
@@ -41,11 +42,15 @@
     </FrameLayout>
 
     <TextView
+        android:textColor="@color/textColorBlack"
+        android:textSize="@dimen/text_22px"
         android:id="@+id/tv_circleName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="让票子越飞越高"/>
     <TextView
+        android:textColor="#777777"
+        android:textSize="@dimen/text_22px"
         android:id="@+id/tv_circleNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

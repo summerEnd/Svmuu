@@ -1,42 +1,82 @@
 package com.svmuu.common.adapter.box;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.svmuu.R;
 import com.svmuu.common.adapter.BaseAdapter;
+import com.svmuu.common.adapter.BaseHolder;
 import com.svmuu.common.entity.Box;
+import com.svmuu.ui.activity.box.BoxInfoActivity;
+import com.svmuu.ui.activity.box.TextBoxActivity;
 
-public class BoxAdapter extends BaseAdapter<Box, BoxHolder> {
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+public class BoxAdapter extends BaseAdapter<Box, BoxHolder> implements BaseHolder.OnItemListener {
 
     public static final int VIEW_LIST = 0;
     public static final int VIEW_GRID = 1;
 
+    int boxType;
     int viewType = VIEW_LIST;
 
-    public BoxAdapter(@NonNull Context context) {
-        super(context);
+
+    public BoxAdapter(Context context, List<Box> data) {
+        super(context, data);
+    }
+
+    /**
+     * 1:文字宝盒 2:视频宝盒
+     */
+    public void setBoxType(int boxType) {
+        this.boxType = boxType;
     }
 
     @Override
     public BoxHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        switch (viewType) {
-            case VIEW_LIST: {
-                return new BoxHolder(getInflater().inflate(R.layout.box_list_item, parent, false));
-            }
-            case VIEW_GRID: {
-                return new BoxHolder(getInflater().inflate(R.layout.box_grid_item, parent, false));
-            }
-        }
+        View itemView;
 
-        return null;
+
+        if (viewType == VIEW_LIST) {
+            itemView = getInflater().inflate(R.layout.box_list_item, parent, false);
+        } else {
+            itemView = getInflater().inflate(R.layout.box_grid_item, parent, false);
+        }
+        BoxHolder holder = new BoxHolder(itemView);
+        holder.setListener(this);
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(BoxHolder holder, int position) {
+        Box box = getData().get(position);
+        holder.text.setText(box.name);
+        //1铁粉2年粉 3公共
+        switch (box.free_group) {
+            case "1": {
+                holder.icon.setImageResource(R.drawable.iron_box);
+                break;
+            }
+            case "2": {
+                holder.icon.setImageResource(R.drawable.gold_box);
+                break;
+            }
+            case "3": {
+                holder.icon.setImageResource(R.drawable.com_box);
+                break;
+            }
+        }
+
         switch (getItemViewType(position)) {
             case VIEW_LIST: {
+                Date date = new Date(Long.decode(box.add_time) * 1000);
+                holder.time.setText(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault()).format(date));
                 break;
             }
             case VIEW_GRID: {
@@ -57,7 +97,19 @@ public class BoxAdapter extends BaseAdapter<Box, BoxHolder> {
     }
 
     @Override
-    public int getItemCount() {
-        return 10;
+    public void onClick(View itemView, int position) {
+        Context context = getContext();
+        if (boxType == 2) {
+            //视频宝盒
+            context.startActivity(new Intent(context, BoxInfoActivity.class)
+                    .putExtra(BoxInfoActivity.EXTRA_ID, getData().get(position).id));
+
+        } else {
+            //文字宝盒
+            context.startActivity(new Intent(context, TextBoxActivity.class)
+                    .putExtra(TextBoxActivity.EXTRA_ID, getData().get(position).id));
+
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 package com.svmuu.common;
 
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
@@ -27,7 +28,12 @@ public class ImageOptions {
                 .build();
     }
     public static DisplayImageOptions getRoundCorner(int cornerPixels){
+        ColorDrawable drawable = new ColorDrawable(Color.GRAY);
+
         return new DisplayImageOptions.Builder()
+                .showImageOnFail(drawable)
+                .showImageForEmptyUri(drawable)
+                .showImageOnLoading(drawable)
                 .cacheOnDisk(true)
                 .cacheInMemory(true)
                 .displayer(new RoundedBitmapDisplayer(cornerPixels))

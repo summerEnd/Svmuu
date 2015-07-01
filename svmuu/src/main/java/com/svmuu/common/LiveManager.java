@@ -21,9 +21,6 @@ import com.svmuu.R;
 
 public class LiveManager implements RtComp.Callback {
 
-    public static final int MODE_VIDEO = 1;
-    public static final int MODE_AUDIO = 2;
-    public static final int MODE_TEXT = 3;
     private RtSimpleImpl simpleImpl = new SimImpl();
     private Activity context;
     UserInfo self;

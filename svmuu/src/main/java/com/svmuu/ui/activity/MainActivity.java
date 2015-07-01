@@ -134,8 +134,8 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
     }
 
     public void getRecent(){
-        SRequest request=new SRequest("/moblieapi/recent");
-        HttpManager.getInstance().post(this,request, new HttpHandler(false) {
+        SRequest request=new SRequest("recent");
+        HttpManager.getInstance().postMobileApi(this,request, new HttpHandler(false) {
             @Override
             public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException{
                 SLog.debug(response);

@@ -16,10 +16,10 @@ public class MyCircleActivity extends BaseActivity implements SelectBar.OnSelect
     private LiveListFragment fragment;
     CustomSearchView searchView;
 
-    private final String MY_CIRCLE = "/moblieapi/mycircle";
-    private final String SEARCH_MY_CIRCLE = "/moblieapi/searchmycircle";
-    private final String LIVE = "/moblieapi/live";
-    private final String SEARCH_LIVE = "/moblieapi/searchonline";
+    private final String MY_CIRCLE = "mycircle";
+    private final String SEARCH_MY_CIRCLE = "searchmycircle";
+    private final String LIVE = "live";
+    private final String SEARCH_LIVE = "searchonline";
 
     private int barIndex;
 

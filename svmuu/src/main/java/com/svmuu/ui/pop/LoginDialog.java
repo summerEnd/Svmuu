@@ -49,7 +49,7 @@ public class LoginDialog extends Dialog {
             @Override
             public void onClick(View v) {
 
-                SRequest request = new SRequest("/moblieapi/login");
+                SRequest request = new SRequest("login");
                 final String userName = editname.getText().toString();
                 final String password = editpsw.getText().toString();
 
@@ -57,7 +57,7 @@ public class LoginDialog extends Dialog {
                 request.put("pwd", password);
 
 
-                HttpManager.getInstance().post(null,request, new HttpHandler() {
+                HttpManager.getInstance().postMobileApi(null,request, new HttpHandler() {
                     @Override
                     public void onResultOk(int statusCOde, Header[] headers, Response response) {
 

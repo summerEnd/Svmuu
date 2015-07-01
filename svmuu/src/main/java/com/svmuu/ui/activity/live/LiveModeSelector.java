@@ -28,7 +28,7 @@ public class LiveModeSelector extends PopupWindow implements RadioGroup.OnChecke
         inflate.check(R.id.videoMode);
     }
 
-    public void onModePick(int mode){
+    public void onClicked(int position){
 
     }
 
@@ -36,15 +36,15 @@ public class LiveModeSelector extends PopupWindow implements RadioGroup.OnChecke
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId){
             case R.id.videoMode:{
-                onModePick(LiveManager.MODE_VIDEO);
+                onClicked(0);
                 break;
             }
             case R.id.audioMode:{
-                onModePick(LiveManager.MODE_AUDIO);
+                onClicked(1);
                 break;
             }
             case R.id.textMode:{
-                onModePick(LiveManager.MODE_TEXT);
+                onClicked(2);
                 break;
             }
         }

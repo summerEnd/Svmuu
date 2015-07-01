@@ -14,6 +14,7 @@ import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.widget.list.refresh.PullToRefreshBase;
 import com.sp.lib.widget.list.refresh.PullToRefreshRecyclerView;
 import com.svmuu.R;
+import com.svmuu.common.PageUtils;
 import com.svmuu.common.adapter.BaseHolder;
 import com.svmuu.common.adapter.video.VideoAdapter;
 import com.svmuu.common.entity.Recording;
@@ -31,12 +32,11 @@ import java.util.List;
 
 
 public class VideoListFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener<RecyclerView> {
-    private RecyclerView recyclerView;
     private String quanzhu_id;
-    private int page = 0;
     private boolean isRefresh = false;
     private VideoAdapter adapter;
     private PullToRefreshRecyclerView refreshRecyclerView;
+    PageUtils pageUtils;
 
     public static VideoListFragment newInstance(String quanzhu_id) {
         VideoListFragment fragment = new VideoListFragment();
@@ -51,6 +51,7 @@ public class VideoListFragment extends BaseFragment implements PullToRefreshBase
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        pageUtils = new PageUtils();
         return inflater.inflate(R.layout.fragment_video, container, false);
     }
 
@@ -61,15 +62,15 @@ public class VideoListFragment extends BaseFragment implements PullToRefreshBase
         refreshRecyclerView.setPullRefreshEnabled(true);
         refreshRecyclerView.setPullLoadEnabled(true);
 
-        recyclerView = refreshRecyclerView.getRefreshableView();
+        RecyclerView recyclerView = refreshRecyclerView.getRefreshableView();
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         adapter = new VideoAdapter(getActivity(), new ArrayList<Recording>());
         adapter.setListener(new BaseHolder.OnItemListener() {
             @Override
             public void onClick(View itemView, int position) {
                 Recording recording = adapter.getData().get(position);
-//                ((LiveActivity) getActivity()).L2V(recording.id,recording.pwd);
-                ((LiveActivity) getActivity()).L2V("30d998bdd65b4a2bb6c405cad9d8dee5", "964786");
+                //                ((LiveActivity) getActivity()).L2V(recording.id,recording.pwd);
+                ((LiveActivity) getActivity()).L2V(recording.video_url, recording.pwd);
             }
         });
         recyclerView.setAdapter(adapter);
@@ -79,13 +80,8 @@ public class VideoListFragment extends BaseFragment implements PullToRefreshBase
                 outRect.set(3, 3, 3, 3);
             }
         });
-        requestRefresh();
+        getVideoList(0);
 
-    }
-
-    @Override
-    protected void refresh() {
-        getVideoList(page);
     }
 
     public void getVideoList(int pn) {
@@ -95,23 +91,12 @@ public class VideoListFragment extends BaseFragment implements PullToRefreshBase
         HttpManager.getInstance().postMobileApi(getActivity(), request, new HttpHandler() {
             @Override
             public void onResultOk(int statusCode, Header[] headers, Response response) throws JSONException {
+                JSONArray array = new JSONArray(response.data);
 
                 List<Recording> data = adapter.getData();
-                JSONArray array = new JSONArray(response.data);
-                if (isRefresh){
-                    data.clear();
-                    isRefresh=false;
-                    page=0;
-                    JsonUtil.getArray(array,Recording.class, data);
-                    adapter.notifyDataSetChanged();
-                }else{
-                    page++;
-                    int position=data.size();
-                    JsonUtil.getArray(array,Recording.class, data);
-                    adapter.notifyItemRangeInserted(position,array.length());
-                }
-
-
+                List<Recording> newData = JsonUtil.getArray(array, Recording.class);
+                pageUtils.addNewPage(data, newData, isRefresh);
+                adapter.notifyItemRangeInserted(data.size(), newData.size());
             }
 
             @Override
@@ -132,6 +117,6 @@ public class VideoListFragment extends BaseFragment implements PullToRefreshBase
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
         isRefresh = false;
-        getVideoList(page + 1);
+        getVideoList(pageUtils.getPage() + 1);
     }
 }

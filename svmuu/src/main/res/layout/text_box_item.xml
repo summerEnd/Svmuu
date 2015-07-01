@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dimen_8px"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/icon"
+            android:layout_width="4dp"
+            android:layout_height="@dimen/dimen_40px"
+            android:background="@color/liveHouseTabRed"/>
+
+        <TextView
+            android:id="@+id/timeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_8px"
+            android:text="2015-08-11"
+            android:textColor="@color/liveHouseTabRed"
+            android:textSize="@dimen/text_24px"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/contentText"
+        android:layout_marginLeft="@dimen/dimen_15px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="阿萨德发阿萨德发阿萨德发阿萨德发 i 阿苏和地方 iu 核武器请问我企鹅去玩儿"
+        android:textColor="@color/textColorBlack"/>
+</LinearLayout>
