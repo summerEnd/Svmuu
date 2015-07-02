@@ -211,6 +211,7 @@ public class LiveManager implements RtComp.Callback {
                 case 1:
                     setVideoView(gsVideoView);
                     rtSdk.audioOpenSpeaker(null);
+
                     break;
                 case 0:
                 case 2:

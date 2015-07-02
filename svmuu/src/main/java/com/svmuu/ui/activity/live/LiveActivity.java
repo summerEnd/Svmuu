@@ -361,7 +361,6 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         public String guest_url;
         public String admin_url;
 
-
     }
 
     private class UserInfo {

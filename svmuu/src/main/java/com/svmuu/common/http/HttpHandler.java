@@ -1,12 +1,17 @@
 package com.svmuu.common.http;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.text.TextUtils;
+import android.view.WindowManager;
 
 import com.sp.lib.common.support.net.client.SHttpProgressHandler;
 import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.JsonUtil;
+import com.svmuu.AppDelegate;
 import com.svmuu.R;
+import com.svmuu.ui.pop.LoginActivity;
+import com.svmuu.ui.pop.LoginDialog;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -17,6 +22,7 @@ import org.json.JSONObject;
 public abstract class HttpHandler extends SHttpProgressHandler {
 
     private boolean showToast;
+
     public HttpHandler() {
         this(true);
     }
@@ -75,7 +81,15 @@ public abstract class HttpHandler extends SHttpProgressHandler {
 
     private void dispatchResult(int statusCOde, Header[] headers, Response response) {
 
-        if (showToast&&!TextUtils.isEmpty(response.message)) {
+
+        if ("9090".equals(response.code)) {
+            AppDelegate context = AppDelegate.getInstance();
+            Intent intent = new Intent(context, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
+
+        if (showToast && !TextUtils.isEmpty(response.message)) {
             ContextUtil.toast(response.message);
         }
 
@@ -93,7 +107,7 @@ public abstract class HttpHandler extends SHttpProgressHandler {
 
     public abstract void onResultOk(int statusCode, Header[] headers, Response response) throws JSONException;
 
-    public void onResultError(int statusCOde, Header[] headers, Response response) throws JSONException{
+    public void onResultError(int statusCOde, Header[] headers, Response response) throws JSONException {
     }
 
     /**

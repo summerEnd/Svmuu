@@ -168,8 +168,7 @@ public class EnterActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //todo
-                startActivity(new Intent(EnterActivity.this, PayTestActivity.class));
+                startActivity(new Intent(EnterActivity.this, MainActivity.class));
 //                startActivity(new Intent(EnterActivity.this, MainActivity.class));
 
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

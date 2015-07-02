@@ -53,6 +53,12 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        requestRefresh();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.recharge: {

@@ -25,6 +25,9 @@ import java.util.List;
 
 public class PlayFragment extends BaseFragment implements LiveManager.Callback {
 
+    public static final int TYPE_VIDEO_LIVE = 0;
+    public static final int TYPE_AUDIO_LIVE = 1;
+    public static final int TYPE_TEXT_LIVE = 2;
     VodManager vodManager;
     LiveManager liveManager;
     private TextView tv_subject;
@@ -42,7 +45,8 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
     private String token;
     private boolean isVod;
     private Callback callback;
-    private boolean showMediaController=true;
+    private boolean showMediaController = true;
+    private int type;
 
     public void setCallback(Callback callback) {
         this.callback = callback;
@@ -71,7 +75,7 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
         showMediaController(showMediaController);
     }
 
-    public void playVod(String vodId, String pwd,boolean ajustVideoSize){
+    public void playVod(String vodId, String pwd, boolean ajustVideoSize) {
         this.vodId = vodId;
         this.vodPsw = pwd;
         if (getView() == null) {
@@ -123,10 +127,10 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
         if (progressIDialog != null) progressIDialog.dismiss();
     }
 
-    public void showMediaController(boolean show){
+    public void showMediaController(boolean show) {
         this.showMediaController = show;
-        if (controlLayout!=null){
-            controlLayout.setVisibility(show?View.VISIBLE:View.INVISIBLE);
+        if (controlLayout != null) {
+            controlLayout.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
         }
     }
 
@@ -145,7 +149,6 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
             vodManager.release();
         }
 
-
         if (liveManager == null) {
             liveManager = LiveManager.getInstance();
         }
@@ -163,14 +166,16 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
         if (vodManager != null) {
             vodManager.release();
         }
-        return liveManager == null || liveManager.tryRelease();
+        return LiveManager.getInstance().tryRelease();
     }
 
     public void onActivityClose() {
         mReason = Reason.CLOSE_ACTIVITY;
 
         if (tryRelease()) {
-            getActivity().finish();
+            if (getActivity() != null) {
+                getActivity().finish();
+            }
         } else {
             showSwitchDialog(ContextUtil.getString(R.string.leaving));
         }
@@ -181,21 +186,28 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
      * 0、视频 1、音频 2、文字
      */
     public void setLiveType(int type) {
-        boolean isReleased = tryRelease();
+        boolean isReleased = false;
         switch (type) {
-            case 0: {
+            case TYPE_VIDEO_LIVE: {
                 setVideoVisible(true);
                 mReason = Reason.LIVE_VIDEO;
+                if (this.type != 1) {
+                    isReleased = tryRelease();
+                }
                 break;
             }
-            case 1: {
+            case TYPE_AUDIO_LIVE: {
                 setVideoVisible(false);
                 mReason = Reason.LIVE_AUDIO;
+                if (this.type != 0) {
+                    isReleased = tryRelease();
+                }
                 break;
             }
-            case 2: {
+            case TYPE_TEXT_LIVE: {
                 setVideoVisible(false);
                 mReason = Reason.LIVE_TEXT;
+                isReleased = tryRelease();
                 break;
             }
         }
@@ -209,7 +221,7 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
         if (tryRelease()) {
             onLeaveRoom("");
         }
-        showSwitchDialog("正在关闭直播...");
+        showSwitchDialog("正在关闭...");
     }
 
 
@@ -246,7 +258,9 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
         if (isVod && !TextUtils.isEmpty(vodId)) {
             playVod(vodId, vodPsw);
         } else if (!isVod && !TextUtils.isEmpty(live_id)) {
-            playLive(live_id, token);
+            if (type != TYPE_TEXT_LIVE) {
+                playLive(live_id, token);
+            }
         }
     }
 
@@ -306,7 +320,7 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
                 break;
             }
             case Reason.CLOSE_ACTIVITY: {
-                if (getActivity()!=null){
+                if (getActivity() != null) {
                     getActivity().finish();
                 }
                 break;
