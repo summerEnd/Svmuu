@@ -82,7 +82,7 @@
             android:label="@string/title_activity_box_detail" >
         </activity>
         <activity
-            android:name=".ui.activity.box.BoxInfoActivity"
+            android:name=".ui.activity.box.VideoBoxActivity"
             android:label="@string/title_activity_box_info" >
         </activity>
         <activity

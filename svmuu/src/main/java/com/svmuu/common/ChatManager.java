@@ -59,18 +59,19 @@ public class ChatManager {
         HttpManager.getInstance().postMobileApi(context, request, new HttpHandler(false) {
             @Override
             public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException {
-                ArrayList<Chat> array = JsonUtil.getArray(new JSONArray(response.data), Chat.class);
-                if (array == null || array.size() == 0) {
+                ArrayList<Chat> newChats = JsonUtil.getArray(new JSONArray(response.data), Chat.class);
+                if (newChats == null || newChats.size() == 0) {
                     return;
                 }
-                maxMsgId = array.get(array.size() - 1).msg_id;
-                callback.onNewMessageLoaded(array);
+                maxMsgId = newChats.get(newChats.size() - 1).msg_id;
+                callback.onNewMessageLoaded(newChats);
             }
         });
     }
 
     public String getMaxMsgId() {
-        return maxMsgId;
+        int max=Integer.parseInt(maxMsgId);
+        return (max+1)+"";
     }
 
     public void setMaxMsgId(String maxMsgId) {
@@ -86,6 +87,10 @@ public class ChatManager {
     }
 
     public void updateMessageList(int duration, String quanzhu_id) {
+        if (timer!=null){
+            recycle();
+        }
+        timer=new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -113,7 +118,10 @@ public class ChatManager {
      * 在destroy种调用
      */
     public void recycle() {
-        timer.cancel();
+        try {
+            timer.cancel();
+        } catch (Exception e) {
+        }
     }
 
 }

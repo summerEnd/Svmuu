@@ -42,6 +42,7 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
     private String token;
     private boolean isVod;
     private Callback callback;
+    private boolean showMediaController=true;
 
     public void setCallback(Callback callback) {
         this.callback = callback;
@@ -67,12 +68,10 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
                 toFullScreen();
             }
         });
+        showMediaController(showMediaController);
     }
 
-    /**
-     * 点播视频
-     */
-    public void playVod(String vodId, String pwd) {
+    public void playVod(String vodId, String pwd,boolean ajustVideoSize){
         this.vodId = vodId;
         this.vodPsw = pwd;
         if (getView() == null) {
@@ -108,12 +107,27 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
                 }
             });
         }
+        vodManager.adjustVideoSize(ajustVideoSize);
         vodManager.start(vodId, pwd);
         showSwitchDialog(ContextUtil.getString(R.string.open_vod));
     }
 
+    /**
+     * 点播视频
+     */
+    public void playVod(String vodId, String pwd) {
+        playVod(vodId, pwd, false);
+    }
+
     private void tryDismiss() {
         if (progressIDialog != null) progressIDialog.dismiss();
+    }
+
+    public void showMediaController(boolean show){
+        this.showMediaController = show;
+        if (controlLayout!=null){
+            controlLayout.setVisibility(show?View.VISIBLE:View.INVISIBLE);
+        }
     }
 
     /**
@@ -153,10 +167,11 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
     }
 
     public void onActivityClose() {
+        mReason = Reason.CLOSE_ACTIVITY;
+
         if (tryRelease()) {
             getActivity().finish();
         } else {
-            mReason = Reason.CLOSE_ACTIVITY;
             showSwitchDialog(ContextUtil.getString(R.string.leaving));
         }
     }
@@ -291,7 +306,9 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
                 break;
             }
             case Reason.CLOSE_ACTIVITY: {
-                getActivity().finish();
+                if (getActivity()!=null){
+                    getActivity().finish();
+                }
                 break;
             }
             case Reason.TO_VOD: {
@@ -350,5 +367,11 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
 
     public interface Callback {
         void onReleased(int reason);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        tryRelease();
     }
 }

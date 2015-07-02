@@ -51,9 +51,11 @@ public class BoxActivity extends SecondActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_box);
         if (savedInstanceState == null) {
+            BoxListFragment fragment = BoxListFragment.withType(2);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragmentContainer, BoxListFragment.withType(1), TAG_TEXT_LIST)
-                    .add(R.id.fragmentContainer, BoxListFragment.withType(2), TAG_VIDEO_LIST)
+                    .add(R.id.fragmentContainer, fragment, TAG_VIDEO_LIST)
+                    .hide(fragment)
                     .commit();
         }
         initialize();
@@ -142,7 +144,6 @@ public class BoxActivity extends SecondActivity {
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             adapter = new BoxAdapter(getActivity(), new ArrayList<Box>());
             adapter.setViewType(BoxAdapter.VIEW_LIST);
-            adapter.setBoxType(type);
             recyclerView.setAdapter(adapter);
             recyclerView.addItemDecoration(new ItemDecoration() {
                 @Override

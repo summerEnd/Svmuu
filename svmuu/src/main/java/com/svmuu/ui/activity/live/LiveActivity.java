@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
@@ -43,14 +44,13 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
     Fragment curFragment;
     private TextView popularity;
     private ImageView menuIcon;
-    private ImageView concern;
+    private CheckedTextView concern;
     private TextView circleName;
     private TextView fansNumber;
     private ImageView indicator;
     private TextView masterName;
     private ImageView avatarImage;
     private LiveModeSelector modeSelector;
-    private boolean isCare = false;
     LiveInfo mInfo;
     _DATA data;
 
@@ -60,6 +60,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
     PlayFragment mPlayFragment;
     private String vodId;
     private String psw;
+    private String circleId;
 
 
     @Override
@@ -75,7 +76,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
     private void initialize() {
 
         popularity = (TextView) findViewById(R.id.popularity);
-        concern = (ImageView) findViewById(R.id.concern);
+        concern = (CheckedTextView) findViewById(R.id.concern);
         fansNumber = (TextView) findViewById(R.id.fansNumber);
         masterName = (TextView) findViewById(R.id.masterName);
         circleName = (TextView) findViewById(R.id.circleName);
@@ -90,7 +91,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
 
         findViewById(R.id.back).setOnClickListener(this);
         //创建聊天
-        String circleId = getIntent().getStringExtra(EXTRA_QUANZHU_ID);
+        circleId = getIntent().getStringExtra(EXTRA_QUANZHU_ID);
         if (TextUtils.isEmpty(circleId)) {
             YAlertDialog.show(this, getString(R.string.live_not_exist)).setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
@@ -136,7 +137,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         String unick;
         String live_subject;
         String uface;
-
+        boolean isFollow;
         if (userInfo != null) {
             fans = userInfo.fans;
             hot = "0";
@@ -147,18 +148,21 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
             if (info != null) {
                 mPlayFragment.playLive(info.zb_id, info.zb_token);
             }
+            isFollow=userInfo.isFollow;
         } else {
             fans = "0";
             hot = "0";
             unick = "";
             live_subject = "";
             uface = "";
+            isFollow=false;
         }
         fansNumber.setText(getString(R.string.fans_s, fans));
         popularity.setText(getString(R.string.popularity_s, hot));
         masterName.setText(unick);
         circleName.setText(unick);
         mPlayFragment.setSubject(live_subject);
+        concern.setChecked(isFollow);
         ImageLoader.getInstance().displayImage(uface, avatarImage, ImageOptions.getRoundCorner(6));
     }
 
@@ -179,12 +183,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
                 break;
             }
             case R.id.concern: {
-                if (isCare) {
-                    concern.setImageResource(R.drawable.care_normal);
-                } else {
-                    concern.setImageResource(R.drawable.care_checked);
-                }
-                isCare = !isCare;
+                addAttention();
                 break;
             }
 
@@ -196,6 +195,16 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         }
     }
 
+    public void addAttention(){
+        SRequest request=new SRequest("attention");
+        request.put("groupid",circleId);
+        HttpManager.getInstance().postMobileApi(this, request, new HttpHandler() {
+            @Override
+            public void onResultOk(int statusCode, Header[] headers, Response response) throws JSONException {
+                concern.setChecked(true);
+            }
+        });
+    }
 
     private void createSelectorIfNeed() {
         if (modeSelector == null) {
@@ -363,5 +372,6 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         public String adminFlag;
         public String uface;
         public String unick;
+        public boolean isFollow;
     }
 }

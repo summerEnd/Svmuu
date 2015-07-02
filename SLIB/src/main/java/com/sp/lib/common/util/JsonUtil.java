@@ -1,5 +1,7 @@
 package com.sp.lib.common.util;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -8,20 +10,23 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class JsonUtil {
 
     private static Gson gson;
+
     static {
         gson = new Gson();
     }
+
     public static <T> T get(String json, Class<T> cls) {
         return gson.fromJson(json, cls);
     }
 
-    public static <T> T get(JSONObject object,Class<T> cls){
-        return get(object.toString(),cls);
+    public static <T> T get(JSONObject object, Class<T> cls) {
+        return get(object.toString(), cls);
     }
 
     /**
@@ -51,6 +56,24 @@ public class JsonUtil {
             T t = gson.fromJson(array.get(i).toString(), cls);
 
             list.add(t);
+        }
+    }
+
+    public static void debugJsonObject(JSONObject object) {
+        if (object == null) {
+            SLog.debug("null");
+        }else{
+            Iterator<String> keys = object.keys();
+            while (keys.hasNext()){
+                try {
+                    String key = keys.next();
+                    Object o = object.get(key);
+                    SLog.debug_format("key->%s value->%s",key,String.valueOf(o));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

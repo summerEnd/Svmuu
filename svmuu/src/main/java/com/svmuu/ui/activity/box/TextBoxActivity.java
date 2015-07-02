@@ -12,6 +12,7 @@ import com.svmuu.R;
 import com.svmuu.common.PageUtils;
 import com.svmuu.common.adapter.DividerDecoration;
 import com.svmuu.common.adapter.box.TextBoxAdapter;
+import com.svmuu.common.entity.Box;
 import com.svmuu.common.entity.TextBoxDetail;
 import com.svmuu.common.http.HttpHandler;
 import com.svmuu.common.http.HttpManager;
@@ -51,6 +52,7 @@ public class TextBoxActivity extends SecondActivity implements PullToRefreshBase
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.addItemDecoration(new DividerDecoration(this));
         adapter = new TextBoxAdapter(this, new ArrayList<TextBoxDetail>());
+        adapter.setHeadInfo("","");
         recyclerView.setAdapter(adapter);
 
         boxId = getIntent().getStringExtra(EXTRA_ID);
@@ -66,9 +68,20 @@ public class TextBoxActivity extends SecondActivity implements PullToRefreshBase
             @Override
             public void onResultOk(int statusCode, Header[] headers, Response response) throws JSONException {
                 JSONObject data = new JSONObject(response.data);
+                JsonUtil.debugJsonObject(data);
                 List<TextBoxDetail> newData = JsonUtil.getArray(data.getJSONArray("data"), TextBoxDetail.class);
                 pageUtils.addNewPage(adapter.getData(), newData, doRefresh);
+                Box info=JsonUtil.get(data.getJSONObject("info"),Box.class);
+                adapter.setHeadInfo(info.name,info.desc);
+
                 adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                refreshView.onPullDownRefreshComplete();
+                refreshView.onPullUpRefreshComplete();
             }
         });
     }

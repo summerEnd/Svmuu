@@ -3,6 +3,7 @@ package com.svmuu.ui.activity.box;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.svmuu.R;
 import com.svmuu.ui.activity.SecondActivity;
@@ -33,6 +34,7 @@ public class BoxDetailActivity extends SecondActivity {
         subject = getIntent().getStringExtra(EXTRA_SUBJECT);
 
         fragment = new PlayFragment();
+
         getSupportFragmentManager().beginTransaction().add(R.id.videoContainer, fragment).commit();
     }
 
@@ -59,12 +61,20 @@ public class BoxDetailActivity extends SecondActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        fragment.playVod(id, token);
+
+        fragment.playVod(id, token,true);
         fragment.setSubject(subject);
         if (isBox) {
             setTitle(R.string.title_activity_box_detail);
         } else {
             setTitle(name);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId()==R.id.back){
+            onBackPressed();
         }
     }
 

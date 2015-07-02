@@ -114,11 +114,11 @@
                 android:textColor="@color/grayA"/>
         </LinearLayout>
 
-        <ImageView
+        <CheckedTextView
             android:id="@+id/concern"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/care_normal"/>
+            android:checkMark="@drawable/care"/>
     </LinearLayout>
 
     <RadioGroup

@@ -57,7 +57,7 @@ public class VideoAdapterForBox extends BaseAdapter<BoxVideoDetail, VideoHolder>
         getContext().startActivity(new Intent(getContext(), BoxDetailActivity.class)
             .putExtra(BoxDetailActivity.EXTRA_SUBJECT,detail.subject)
             .putExtra(BoxDetailActivity.EXTRA_TOKEN,detail.pwd)
-            .putExtra(BoxDetailActivity.EXTRA_ID,detail.id)
+            .putExtra(BoxDetailActivity.EXTRA_ID,detail.video_url)
         );
     }
 }

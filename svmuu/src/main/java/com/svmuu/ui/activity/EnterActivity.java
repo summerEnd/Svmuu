@@ -51,9 +51,9 @@ public class EnterActivity extends Activity {
         pager = new ViewPager(this);
         //加载引导页图片
         pager.setAdapter(new GuidePagerAdapter(this, new int[]{
-                R.drawable.loading,
-                R.drawable.loading,
-                R.drawable.loading
+                R.drawable.intro_item_manrun_1,
+                R.drawable.intro_item_manrun_2,
+                R.drawable.intro_item_manrun_1
         }));
         //监听滑动事件
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

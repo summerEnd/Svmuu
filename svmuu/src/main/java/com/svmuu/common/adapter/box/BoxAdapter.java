@@ -2,7 +2,6 @@ package com.svmuu.common.adapter.box;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -10,7 +9,7 @@ import com.svmuu.R;
 import com.svmuu.common.adapter.BaseAdapter;
 import com.svmuu.common.adapter.BaseHolder;
 import com.svmuu.common.entity.Box;
-import com.svmuu.ui.activity.box.BoxInfoActivity;
+import com.svmuu.ui.activity.box.VideoBoxActivity;
 import com.svmuu.ui.activity.box.TextBoxActivity;
 
 import java.text.SimpleDateFormat;
@@ -23,19 +22,11 @@ public class BoxAdapter extends BaseAdapter<Box, BoxHolder> implements BaseHolde
     public static final int VIEW_LIST = 0;
     public static final int VIEW_GRID = 1;
 
-    int boxType;
     int viewType = VIEW_LIST;
 
 
     public BoxAdapter(Context context, List<Box> data) {
         super(context, data);
-    }
-
-    /**
-     * 1:文字宝盒 2:视频宝盒
-     */
-    public void setBoxType(int boxType) {
-        this.boxType = boxType;
     }
 
     @Override
@@ -99,15 +90,18 @@ public class BoxAdapter extends BaseAdapter<Box, BoxHolder> implements BaseHolde
     @Override
     public void onClick(View itemView, int position) {
         Context context = getContext();
-        if (boxType == 2) {
+
+
+        Box box = getData().get(position);
+        if ("2".equals(box.type)) {
             //视频宝盒
-            context.startActivity(new Intent(context, BoxInfoActivity.class)
-                    .putExtra(BoxInfoActivity.EXTRA_ID, getData().get(position).id));
+            context.startActivity(new Intent(context, VideoBoxActivity.class)
+                    .putExtra(VideoBoxActivity.EXTRA_ID, box.id));
 
         } else {
             //文字宝盒
             context.startActivity(new Intent(context, TextBoxActivity.class)
-                    .putExtra(TextBoxActivity.EXTRA_ID, getData().get(position).id));
+                    .putExtra(TextBoxActivity.EXTRA_ID, box.id));
 
         }
 

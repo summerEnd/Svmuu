@@ -84,7 +84,7 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
         recyclerView.addItemDecoration(new ChatItemDec());
 
         requestRefresh();
-        mChatManager.updateMessageList(180*1000,quanzhu_id);
+        mChatManager.updateMessageList(4*1000,quanzhu_id);
     }
 
     @Override
@@ -124,6 +124,19 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
                 mChatManager.getNewMessages();
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mChatManager.updateMessageList(4*1000,quanzhu_id);
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mChatManager.recycle();
     }
 
     @Override

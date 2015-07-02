@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_corner_background"
+    android:orientation="vertical"
+    android:padding="@dimen/dimen_10px"
+    tools:showIn="@layout/activity_box_info">
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="超级无敌比赛申请流程啊有木有（免费宝盒）"
+        android:textColor="@color/textColorBlack"
+        android:textSize="@dimen/text_24px"/>
+
+    <TextView
+        android:id="@+id/summaryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10px"
+        android:lineSpacingExtra="3dp"
+        android:text="宝盒间接：废话一堆废话一堆废话一堆废话一堆废话一堆废话一堆废话一堆废话一堆废话一堆废话一堆"
+        android:textColor="@color/grayA"
+        android:textSize="@dimen/text_22px"/>
+</LinearLayout>

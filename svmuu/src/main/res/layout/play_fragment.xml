@@ -15,13 +15,13 @@
         android:padding="@dimen/dimen_10px"
         android:text="超级直播咻咻咻咻"
         android:textColor="@color/liveHouseTabRed"
-       />
+        />
 
     <FrameLayout
         android:id="@+id/videoLayout"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_300px"
+        android:layout_height="wrap_content"
         android:visibility="visible">
 
         <com.gensee.view.GSVideoView
@@ -40,10 +40,14 @@
             android:padding="@dimen/dimen_15px">
 
             <TextView
+                android:focusable="true"
+                android:clickable="true"
                 android:id="@+id/subject"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:ellipsize="marquee"
+                android:singleLine="true"
                 android:text="@string/test_subject"
                 android:textColor="@color/white"/>
 

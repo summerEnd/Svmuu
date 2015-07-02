@@ -34,7 +34,7 @@ public class SecondActivity extends BaseActivity {
     @Override
     public void setTitle(CharSequence title) {
         TextView tv = (TextView) findViewById(R.id.window_title);
-        tv.setText(getTitle());
+        tv.setText(title);
     }
 
     @Override

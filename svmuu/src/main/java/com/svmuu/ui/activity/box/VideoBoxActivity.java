@@ -3,7 +3,6 @@ package com.svmuu.ui.activity.box;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,30 +15,25 @@ import com.sp.lib.widget.list.refresh.PullToRefreshBase;
 import com.sp.lib.widget.list.refresh.PullToRefreshRecyclerView;
 import com.svmuu.R;
 import com.svmuu.common.PageUtils;
-import com.svmuu.common.adapter.video.VideoAdapter;
 import com.svmuu.common.adapter.video.VideoAdapterForBox;
 import com.svmuu.common.entity.Box;
 import com.svmuu.common.entity.BoxVideoDetail;
-import com.svmuu.common.entity.Recording;
 import com.svmuu.common.http.HttpHandler;
 import com.svmuu.common.http.HttpManager;
 import com.svmuu.common.http.Response;
 import com.svmuu.ui.activity.SecondActivity;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class BoxInfoActivity extends SecondActivity implements PullToRefreshBase.OnRefreshListener<RecyclerView> {
+public class VideoBoxActivity extends SecondActivity implements PullToRefreshBase.OnRefreshListener<RecyclerView> {
     public static final String EXTRA_ID = "id";
 
     private TextView titleText;
     private TextView summaryText;
-    private RecyclerView recyclerView;
     PullToRefreshRecyclerView refreshView;
 
     private String boxId;
@@ -47,7 +41,6 @@ public class BoxInfoActivity extends SecondActivity implements PullToRefreshBase
     private VideoAdapterForBox adapter;
 
     private boolean doRefresh = false;
-    private List<BoxVideoDetail> videos = new ArrayList<>();
     private Box info;
 
     @Override
@@ -66,7 +59,7 @@ public class BoxInfoActivity extends SecondActivity implements PullToRefreshBase
         refreshView.setPullRefreshEnabled(true);
 
         //列表
-        recyclerView = refreshView.getRefreshableView();
+        RecyclerView recyclerView = refreshView.getRefreshableView();
         adapter = new VideoAdapterForBox(this, new ArrayList<BoxVideoDetail>());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -108,7 +101,7 @@ public class BoxInfoActivity extends SecondActivity implements PullToRefreshBase
     public void setInfo(Box info) {
         if (info != null) {
             summaryText.setText(info.desc);
-            titleText.setText(info.cata);
+            titleText.setText(info.name);
         } else {
             summaryText.setText("");
             titleText.setText("");

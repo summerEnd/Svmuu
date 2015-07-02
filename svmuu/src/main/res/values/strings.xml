@@ -67,7 +67,7 @@
     <string name="title_activity_box">宝盒</string>
     <string name="live_not_exist">直播不存在</string>
     <string name="title_activity_vod">VodActivity</string>
-    <string name="title_activity_box_detail">BoxDetailActivity</string>
+    <string name="title_activity_box_detail">宝盒详情</string>
     <string name="open_living">正在打开直播…</string>
     <string name="open_vod">正在打开录像…</string>
     <string name="leaving">正在离开房间…</string>
@@ -75,4 +75,6 @@
     <string name="title_activity_box_info">宝盒详情</string>
     <string name="box_detail_get_failed">查询宝盒详情失败</string>
     <string name="title_activity_text_box">文字宝盒</string>
+    <string name="circleMaster">圈主</string>
+    <string name="manager">管理员</string>
 </resources>
