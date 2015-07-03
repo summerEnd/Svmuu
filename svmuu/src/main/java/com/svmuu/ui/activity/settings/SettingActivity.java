@@ -1,19 +1,14 @@
-package com.svmuu.ui.activity;
+package com.svmuu.ui.activity.settings;
 
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.internal.VersionUtils;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.sp.lib.common.preference.PreferenceUtil;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.FileUtil;
@@ -23,7 +18,8 @@ import com.svmuu.common.config.Preference;
 import com.svmuu.common.http.HttpHandler;
 import com.svmuu.common.http.HttpManager;
 import com.svmuu.common.http.Response;
-import com.svmuu.ui.BaseActivity;
+import com.svmuu.common.receiver.UserChangeReceiver;
+import com.svmuu.ui.activity.SecondActivity;
 import com.svmuu.ui.pop.YAlertDialog;
 
 import org.apache.http.Header;
@@ -54,9 +50,12 @@ public class SettingActivity extends SecondActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.aboutUs: {
+                startActivity(new Intent(this,AboutActivity.class));
+
                 break;
             }
             case R.id.suggestion: {
+                startActivity(new Intent(this,SuggestionActivity.class));
                 break;
             }
             case R.id.clear: {
@@ -89,6 +88,9 @@ public class SettingActivity extends SecondActivity {
                                         .putString(Preference.USER.USER_PASSWORD, "")
                                         .putBoolean(Preference.USER.IS_SAVE_PASSWORD, false)
                                         .apply();
+
+                                Intent useChanged=new Intent(UserChangeReceiver.ACTION_USER_CHANGED);
+                                sendBroadcast(useChanged);
                                 finish();
                             }
                         });

@@ -10,6 +10,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.svmuu.R;
 import com.svmuu.common.ImageOptions;
 import com.svmuu.common.adapter.BaseAdapter;
+import com.svmuu.common.adapter.BaseHolder;
 import com.svmuu.common.adapter.search.SearchHolder.SearchHistory;
 import com.svmuu.common.adapter.search.SearchHolder.SearchHistoryTitle;
 import com.svmuu.common.adapter.search.SearchHolder.SearchResult;
@@ -28,9 +29,22 @@ public class SearchAdapter extends BaseAdapter<History,SearchHolder> {
     private List<Search> searches;
     private boolean showHistory;
     private DisplayImageOptions options;
+
+
+    private BaseHolder.OnItemListener listener;
+
+
     public SearchAdapter(@NonNull Context context) {
         super(context);
         options= ImageOptions.getRoundCorner(5);
+    }
+
+    public boolean isShowHistory() {
+        return showHistory;
+    }
+
+    public void setListener(BaseHolder.OnItemListener listener) {
+        this.listener = listener;
     }
 
     public void showHistory(List<History> histories) {
@@ -63,7 +77,7 @@ public class SearchAdapter extends BaseAdapter<History,SearchHolder> {
             default:
                 holder = new SearchResult(getInflater().inflate(R.layout.search_result, parent, false));
         }
-
+        if (listener!=null)holder.setListener(listener);
         return holder;
     }
 
@@ -98,9 +112,9 @@ public class SearchAdapter extends BaseAdapter<History,SearchHolder> {
                 }
                 SearchResult h = (SearchResult) holder;
                 Search result= searches.get(position);
-                ImageLoader.getInstance().displayImage(result.uhome,h.avatarImage,options);
+                ImageLoader.getInstance().displayImage(result.uface, h.avatarImage, options);
                 h.nickText.setText(result.unick);
-                h.tvcircleNo.setText(getString(R.string.circle_no_s,result.uid));
+                h.tvcircleNo.setText(getString(R.string.circle_no_s, result.uid));
             }
         }
     }
@@ -132,4 +146,6 @@ public class SearchAdapter extends BaseAdapter<History,SearchHolder> {
         }
         return searches.size();
     }
+
+
 }

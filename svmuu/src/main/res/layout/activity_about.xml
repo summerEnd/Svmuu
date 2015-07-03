@@ -1,0 +1,64 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+
+    tools:context="com.svmuu.ui.activity.settings.AboutActivity">
+
+    <View
+        style="@style/horizontalDivider"
+        android:layout_marginTop="@dimen/dimen_20px"/>
+
+    <TextView
+        android:layout_margin="@dimen/dimen_15px"
+        android:autoLink="web"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingMultiplier="1.3"
+        android:padding="@dimen/dimen_15px"
+        android:text="@string/about_desc"
+        android:textColor="@color/grayA"
+        android:textSize="@dimen/text_22px"/>
+
+    <View style="@style/horizontalDivider"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/dimen_15px"
+        android:layout_marginLeft="@dimen/dimen_15px"
+        android:layout_marginRight="@dimen/dimen_15px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="phone"
+        android:lineSpacingMultiplier="1.3"
+        android:padding="@dimen/dimen_15px"
+        android:text="联系电话：025-86657191"
+        android:textColor="@color/grayA"
+        android:textSize="@dimen/text_22px"/>
+    <TextView
+        android:layout_marginBottom="@dimen/dimen_15px"
+        android:layout_marginLeft="@dimen/dimen_15px"
+        android:layout_marginRight="@dimen/dimen_15px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="phone"
+        android:lineSpacingMultiplier="1.3"
+        android:padding="@dimen/dimen_15px"
+        android:text="客服电话：400-828-1911"
+        android:textColor="@color/grayA"
+        android:textSize="@dimen/text_22px"/>
+    <View style="@style/horizontalDivider"/>
+
+    <TextView
+        android:layout_margin="@dimen/dimen_15px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="all"
+        android:lineSpacingMultiplier="1.3"
+        android:padding="@dimen/dimen_15px"
+        android:text="微信公众号\n手机搜索微信公众号“水木资本”"
+        android:textColor="@color/grayA"
+        android:textSize="@dimen/text_22px"/>
+</LinearLayout>

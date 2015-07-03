@@ -46,9 +46,7 @@ public class ChatItemView extends LinearLayout {
         text = a.getString(R.styleable.ChatItemView_msgContent);
         a.recycle();
         init(context, isSelf);
-        //todo forTest
-        info.nameText.setText("Lincoln");
-        info.timeText.setText("21:00");
+
         setText(text);
 
     }

@@ -21,13 +21,15 @@ import com.svmuu.common.entity.User;
 import com.svmuu.common.http.HttpHandler;
 import com.svmuu.common.http.HttpManager;
 import com.svmuu.common.http.Response;
+import com.svmuu.ui.BaseActivity;
+import com.svmuu.ui.pop.LoginActivity;
 
 import org.apache.http.Header;
 import org.json.JSONException;
 
 import java.io.File;
 
-public class EnterActivity extends Activity {
+public class EnterActivity extends BaseActivity {
     ViewPager pager;
     int lastPosition;
     boolean exit = false;
@@ -38,9 +40,10 @@ public class EnterActivity extends Activity {
 
         if (AppDelegate.getInstance().isFirstStartApplication()) {
             ShortCut.addShortcut(this, getString(R.string.app_name), EnterActivity.class);
-            startGuide();
+            //暂时没有引导页 startGuide();
+            startLoading();
         } else {
-           startLoading();
+            startLoading();
         }
     }
 
@@ -127,6 +130,7 @@ public class EnterActivity extends Activity {
                 User user = AppDelegate.getInstance().getUser();
                 user.name = userName;
                 user.password = password;
+                LoginActivity.handleLoginResponse(EnterActivity.this);
                 enterMain();
             }
 

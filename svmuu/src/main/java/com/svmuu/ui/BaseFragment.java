@@ -1,13 +1,17 @@
 package com.svmuu.ui;
 
+import android.app.Activity;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.svmuu.common.receiver.UserChangeReceiver;
+
 public class BaseFragment extends Fragment {
     private String title;
     private boolean isRefreshRequest = false;
-    private boolean isUIRefreshRequest=false;
+    private boolean isUIRefreshRequest = false;
 
     public String getTitle() {
         return title;
@@ -31,7 +35,7 @@ public class BaseFragment extends Fragment {
      * 全部刷新，包括网络请求等等
      */
     protected void refresh() {
-       refreshUI();
+        refreshUI();
     }
 
     /**
@@ -49,9 +53,9 @@ public class BaseFragment extends Fragment {
             refresh();
             isRefreshRequest = false;
         }
-        if (isUIRefreshRequest){
+        if (isUIRefreshRequest) {
             refreshUI();
-            isUIRefreshRequest=false;
+            isUIRefreshRequest = false;
         }
     }
 
@@ -73,11 +77,36 @@ public class BaseFragment extends Fragment {
         }
     }
 
-    public void requestRefreshUI(){
-        if (getView()!=null){
+    public void requestRefreshUI() {
+        if (getView() != null) {
             refreshUI();
-        }else{
-            isUIRefreshRequest=true;
+        } else {
+            isUIRefreshRequest = true;
         }
+    }
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        activity.registerReceiver(mChangeReceiver, new IntentFilter(UserChangeReceiver.ACTION_USER_CHANGED));
+
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        getActivity().unregisterReceiver(mChangeReceiver);
+    }
+
+    private UserChangeReceiver mChangeReceiver = new UserChangeReceiver() {
+        @Override
+        public void onChanged() {
+            onUserChanged();
+        }
+    };
+
+    protected void onUserChanged() {
+
     }
 }

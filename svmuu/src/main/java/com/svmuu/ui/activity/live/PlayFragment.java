@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.gensee.entity.DocInfo;
 import com.gensee.view.GSVideoView;
 import com.sp.lib.common.util.ContextUtil;
+import com.svmuu.AppDelegate;
 import com.svmuu.R;
 import com.svmuu.common.LiveManager;
 import com.svmuu.common.VodManager;
@@ -47,6 +48,7 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
     private Callback callback;
     private boolean showMediaController = true;
     private int type;
+    private String nickName;
 
     public void setCallback(Callback callback) {
         this.callback = callback;
@@ -55,6 +57,7 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        nickName= AppDelegate.getInstance().getUser().name;
         return inflater.inflate(R.layout.play_fragment, container, false);
     }
 
@@ -111,6 +114,8 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
                 }
             });
         }
+        vodManager.release();
+
         vodManager.adjustVideoSize(ajustVideoSize);
         vodManager.start(vodId, pwd);
         showSwitchDialog(ContextUtil.getString(R.string.open_vod));
@@ -153,7 +158,7 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
             liveManager = LiveManager.getInstance();
         }
         liveManager.setUp(getActivity(), gsView, this);
-        liveManager.startPlay(token, "Lincoln", liveId);
+        liveManager.startPlay(token, nickName, liveId);
         showSwitchDialog(ContextUtil.getString(R.string.open_living));
     }
 
@@ -255,7 +260,10 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
 
     //是否有延迟加载的任务
     private void tryPlay() {
+
+
         if (isVod && !TextUtils.isEmpty(vodId)) {
+
             playVod(vodId, vodPsw);
         } else if (!isVod && !TextUtils.isEmpty(live_id)) {
             if (type != TYPE_TEXT_LIVE) {
@@ -302,14 +310,14 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
                 if (live_id != null) {
                     gsView.renderDefault();
                     liveManager.setGSView(null);
-                    liveManager.startPlay(token, "LINCOLN", live_id);
+                    liveManager.startPlay(token, nickName, live_id);
                 }
                 break;
             }
             case Reason.LIVE_VIDEO: {
                 if (live_id != null) {
                     liveManager.setGSView(gsView);
-                    liveManager.startPlay(token, "LINCOLN", live_id);
+                    liveManager.startPlay(token, nickName, live_id);
                 }
                 break;
             }

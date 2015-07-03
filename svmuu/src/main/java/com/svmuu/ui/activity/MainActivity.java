@@ -9,11 +9,15 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.common.util.SLog;
 import com.sp.lib.widget.list.LinearListView;
+import com.sp.lib.widget.list.refresh.PullToRefreshBase;
+import com.sp.lib.widget.list.refresh.PullToRefreshScrollView;
 import com.svmuu.AppDelegate;
 import com.svmuu.R;
 import com.svmuu.common.config.Constant;
@@ -32,6 +36,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends MenuActivity implements CustomSearchView.Callback {
 
@@ -42,11 +47,29 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
     _DATA mData;
     private RecentAdapter recentAdapter;
     private RecommendAdapter recommendAdapter;
+    private PullToRefreshScrollView refreshScrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+
+        refreshScrollView = new PullToRefreshScrollView(this);
+        refreshScrollView.setPullRefreshEnabled(true);
+        ScrollView scrollView = refreshScrollView.getRefreshableView();
+        //把页面加入到下拉刷新中
+        getLayoutInflater().inflate(R.layout.activity_main2, scrollView, true);
+        refreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                getRecent();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+
+            }
+        });
+        setContentView(refreshScrollView);
         initialize();
     }
 
@@ -62,12 +85,12 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
             public void onItemClick(LinearListView parent, View view, int position, long id) {
                 CircleMaster master = recommendAdapter.getData().get(position);
                 startActivity(new Intent(MainActivity.this, LiveActivity.class)
-                .putExtra(LiveActivity.EXTRA_QUANZHU_ID,master.uid));
+                        .putExtra(LiveActivity.EXTRA_QUANZHU_ID, master.uid));
             }
         });
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recentContainer.setLayoutManager(manager);
-        recentAdapter = new RecentAdapter(this,new ArrayList<Visitor>());
+        recentAdapter = new RecentAdapter(this, new ArrayList<Visitor>());
         recentContainer.setAdapter(recentAdapter);
 
         searchView.setCallback(this);
@@ -76,6 +99,7 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
         findViewById(R.id.realContest).setOnClickListener(this);
         findViewById(R.id.stockSchool).setOnClickListener(this);
         findViewById(R.id.center).setOnClickListener(this);
+
 
     }
 
@@ -93,7 +117,7 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.liveRoom: {
-                startActivity(new Intent(this,MyCircleActivity.class));
+                startActivity(new Intent(this, MyCircleActivity.class));
                 break;
             }
             case R.id.realContest: {
@@ -103,15 +127,15 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
                     startActivity(intent);
                 } catch (Exception e) {
                     //易交易没有安装
-                    AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
                     builder.setMessage(getString(R.string.yjy));
 
                     builder.setPositiveButton(R.string.download_now, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Uri uri=Uri.parse("http://apps.wandoujia.com/apps/com.yjy998/download");
-                            Intent intent=new Intent(Intent.ACTION_VIEW);
+                            Uri uri = Uri.parse("http://app.mi.com/download/99749?ref=search");
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
                             intent.setData(uri);
                             startActivity(intent);
                             dialog.dismiss();
@@ -123,7 +147,17 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
                 break;
             }
             case R.id.stockSchool: {
-                YAlertDialog.showNoSuchFunction(this);
+                AlertDialog dialog = new AlertDialog.Builder(this)
+                        .setTitle(R.string.warn)
+                        .setMessage(R.string.function_not_open)
+                        .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .create();
+                dialog.show();
                 break;
             }
             case R.id.center: {
@@ -134,36 +168,47 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
         super.onClick(v);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (AppDelegate.getInstance().isLogin()){
-            getRecent();
-        }
-    }
-
-    public void getRecent(){
-        SRequest request=new SRequest("recent");
-        HttpManager.getInstance().postMobileApi(this,request, new HttpHandler(false) {
+    public void getRecent() {
+        SRequest request = new SRequest("recent");
+        HttpManager.getInstance().postMobileApi(this, request, new HttpHandler() {
             @Override
-            public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException{
+            public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException {
                 SLog.debug(response);
-                mData = JsonUtil.get(response.data,_DATA.class);
-                recommendAdapter.getData().addAll(mData.quanzhu);
-                recentAdapter.getData().addAll(mData.visitor);
+                mData = JsonUtil.get(response.data, _DATA.class);
+                List<CircleMaster> recommends = recommendAdapter.getData();
+                recommends.clear();
+                recommends.addAll(mData.quanzhu);
+
+                List<Visitor> visitors = recentAdapter.getData();
+                visitors.clear();
+                visitors.addAll(mData.visitor);
+
                 recommendAdapter.notifyDataSetChanged();
                 recentAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                refreshScrollView.onPullDownRefreshComplete();
             }
         });
     }
 
     @Override
-    protected void onUserChanged() {
-        super.onUserChanged();
-        getRecent();
+    public void onUserChanged() {
+        if (AppDelegate.getInstance().isLogin()) {
+            getRecent();
+        } else {
+            recommendAdapter.getData().clear();
+            recommendAdapter.notifyDataSetChanged();
+
+            recentAdapter.getData().clear();
+            recentAdapter.notifyDataSetChanged();
+        }
     }
 
-    private class _DATA{
+    private class _DATA {
         ArrayList<Visitor> visitor;
         ArrayList<CircleMaster> quanzhu;
     }

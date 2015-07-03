@@ -1,9 +1,11 @@
 package com.svmuu.ui.activity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,8 @@ import com.svmuu.common.http.HttpManager;
 import com.svmuu.common.http.Response;
 import com.svmuu.ui.BaseFragment;
 import com.svmuu.ui.activity.box.BoxActivity;
+import com.svmuu.ui.activity.settings.SettingActivity;
+import com.svmuu.ui.pop.LoginActivity;
 import com.svmuu.ui.pop.YAlertDialog;
 
 import org.apache.http.Header;
@@ -30,21 +34,12 @@ import org.json.JSONObject;
 public class MenuFragment extends BaseFragment implements View.OnClickListener {
 
 
-    private OnMenuClick menuClick;
     private ImageView avatarImage;
     private TextView phoneText;
     private TextView tvcircleNo;
     private TextView tvShuibao;
     private TextView tvfans;
-    private YAlertDialog dialog;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof OnMenuClick) {
-            menuClick = (OnMenuClick) activity;
-        }
-    }
+    private AlertDialog dialog;
 
     @Nullable
     @Override
@@ -53,17 +48,20 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        requestRefresh();
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.recharge: {
                 if (dialog == null) {
-                    dialog = YAlertDialog.showNoSuchFunction(getActivity());
+                    dialog = new AlertDialog.Builder(getActivity())
+                            .setTitle(R.string.warn)
+                            .setMessage(R.string.function_not_open)
+                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .create();
                 }
                 dialog.show();
                 break;
@@ -97,6 +95,15 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         findViewById(R.id.settings).setOnClickListener(this);
         refreshUI();
         requestRefresh();
+
+        phoneText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!AppDelegate.getInstance().isLogin()) {
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                }
+            }
+        });
     }
 
     @Override
@@ -111,6 +118,11 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 user.money = object.getString("money");
                 user.uface = object.getString("uface");
                 user.uid = object.getString("uid");
+                requestRefreshUI();
+            }
+
+            @Override
+            public void onResultError(int statusCOde, Header[] headers, Response response) throws JSONException {
                 requestRefreshUI();
             }
         });
@@ -146,8 +158,8 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 ImageOptions.getRound((int) getResources().getDimension(R.dimen.avatarSize)));
     }
 
-    public interface OnMenuClick {
-
-        boolean onMenuClick(View v);
+    @Override
+    protected void onUserChanged() {
+        requestRefresh();
     }
 }

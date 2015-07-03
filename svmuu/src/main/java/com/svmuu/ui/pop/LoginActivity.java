@@ -1,5 +1,7 @@
 package com.svmuu.ui.pop;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.svmuu.common.entity.User;
 import com.svmuu.common.http.HttpHandler;
 import com.svmuu.common.http.HttpManager;
 import com.svmuu.common.http.Response;
+import com.svmuu.common.receiver.UserChangeReceiver;
 import com.svmuu.ui.BaseActivity;
 
 import org.apache.http.Header;
@@ -80,11 +83,18 @@ public class LoginActivity extends BaseActivity {
                         User user = AppDelegate.getInstance().getUser();
                         user.name = userName;
                         user.password = password;
+                        handleLoginResponse(LoginActivity.this);
                         finish();
                     }
 
                 });
             }
         });
+    }
+
+    public static void handleLoginResponse(Context context){
+
+        Intent userChanged=new Intent(UserChangeReceiver.ACTION_USER_CHANGED);
+        context.sendBroadcast(userChanged);
     }
 }

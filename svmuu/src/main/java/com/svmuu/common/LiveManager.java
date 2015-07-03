@@ -93,7 +93,7 @@ public class LiveManager implements RtComp.Callback {
      * 退出的时候请调用
      */
     public boolean leaveCast() {
-        //TODO 显示进度框
+        // 显示进度框
         simpleImpl.leave(false);
         return self == null;
     }
@@ -203,7 +203,7 @@ public class LiveManager implements RtComp.Callback {
         @Override
         public void onRoomPublish(State s) {
             super.onRoomPublish(s);
-            //TODO 此逻辑是控制视频要在直播开始后才准许看的逻辑
+            // 此逻辑是控制视频要在直播开始后才准许看的逻辑
             byte castState = s.getValue();
             RtSdk rtSdk = getRtSdk();
 
