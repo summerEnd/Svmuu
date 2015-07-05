@@ -89,6 +89,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
         activity.registerReceiver(mChangeReceiver, new IntentFilter(UserChangeReceiver.ACTION_USER_CHANGED));
 
     }

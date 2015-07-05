@@ -78,7 +78,7 @@
                     android:textSize="@dimen/text_22px"/>
             </LinearLayout>
 
-            <TextView
+            <com.gensee.view.MyTextViewEx
                 android:id="@+id/msgContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

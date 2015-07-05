@@ -22,22 +22,22 @@ public class ContextUtil {
     private static Context context;
 
     private static int mToastLayoutId;
+    private static Toast mToast;
+    private static int TOAST_GRAVITY = Gravity.NO_GRAVITY;
 
-    private static int TOAST_GRAVITY = Gravity.CENTER;
-
-    public static  void init(Context context) {
+    public static void init(Context context) {
         ContextUtil.context = context;
     }
 
     /**
      * @param toastLayout 用于toast的布局,里面要包含一个id为R.id.slib_toast_text_1的TextView
      */
-    public static  void setToastLayout(int toastLayout, int gravity) {
+    public static void setToastLayout(int toastLayout, int gravity) {
         mToastLayoutId = toastLayout;
         TOAST_GRAVITY = gravity;
     }
 
-    public static  String getString(int id) {
+    public static String getString(int id) {
         return context.getString(id);
     }
 
@@ -51,7 +51,6 @@ public class ContextUtil {
     }
 
 
-
     public static PackageInfo getPackageInfo() {
         try {
             return context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -61,42 +60,44 @@ public class ContextUtil {
         return null;
     }
 
-    public static  void toast(Object o) {
+    public static void toast(Object o) {
         if (null == o)
             return;
         //要toast的信息
         String msg = String.valueOf(o);
-
-        Toast toast;
-        if (mToastLayoutId != 0) {
-            toast = new Toast(context);
+        if (mToast == null) {
+            mToast=new Toast(context);
+            if (mToastLayoutId == 0) {
+                mToastLayoutId = R.layout.toast_layout;
+            }
             View v = View.inflate(context, mToastLayoutId, null);
-            toast.setView(v);
+            mToast.setView(v);
             if (TOAST_GRAVITY != Gravity.NO_GRAVITY) {
-                toast.setGravity(TOAST_GRAVITY, 0, 0);
+                mToast.setGravity(TOAST_GRAVITY, 0, 0);
             }
-            TextView tv = (TextView) v.findViewById(R.id.slib_toast_text_1);
-            if (tv != null) {
-                tv.setText(msg);
-            }
-            toast.setDuration(Toast.LENGTH_SHORT);
 
-        } else {
-            toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
+            mToast.setDuration(Toast.LENGTH_SHORT);
         }
-        toast.show();
+
+
+        TextView tv = (TextView) mToast.getView().findViewById(R.id.slib_toast_text_1);
+        if (tv != null) {
+            tv.setText(msg);
+        }
+
+        mToast.show();
     }
 
-    public static  void toast(int resId) {
+    public static void toast(int resId) {
 
         try {
             toast(getString(resId));
         } catch (Exception e) {
-           toast(Integer.valueOf(resId));
+            toast(Integer.valueOf(resId));
         }
     }
 
-    public static  void toast_debug(Object o) {
+    public static void toast_debug(Object o) {
         if (SApplication.DEBUG) {
             toast(o);
         }

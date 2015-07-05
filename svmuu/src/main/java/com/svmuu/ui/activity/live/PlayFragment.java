@@ -57,7 +57,7 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        nickName= AppDelegate.getInstance().getUser().name;
+        nickName = AppDelegate.getInstance().getUser().name;
         return inflater.inflate(R.layout.play_fragment, container, false);
     }
 
@@ -283,12 +283,10 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
         tv_live.setText(subject);
     }
 
-    @Override
-    public void onResult(boolean success) {
-        if (progressIDialog != null) {
-            progressIDialog.dismiss();
-        }
 
+    @Override
+    public void onLiveJoint() {
+        nolive.setVisibility(View.INVISIBLE);
     }
 
     @Override

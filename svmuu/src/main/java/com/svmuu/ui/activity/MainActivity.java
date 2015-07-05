@@ -100,7 +100,7 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
         findViewById(R.id.stockSchool).setOnClickListener(this);
         findViewById(R.id.center).setOnClickListener(this);
 
-
+        getRecent();
     }
 
     @Override
@@ -206,6 +206,7 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
             recentAdapter.getData().clear();
             recentAdapter.notifyDataSetChanged();
         }
+        mMenuFragment.requestRefresh();
     }
 
     private class _DATA {

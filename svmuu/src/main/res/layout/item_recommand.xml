@@ -22,10 +22,10 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_20px"
             android:layout_marginRight="@dimen/dimen_20px"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -39,20 +39,36 @@
             <TextView
                 android:id="@+id/introText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:lines="2"
                 android:text="1231123一大堆啰嗦话反正要长一大堆啰嗦话反正要长一大堆啰嗦话反正要长一大堆啰嗦话反正要长"
                 android:textColor="@color/grayA"
                 android:textSize="@dimen/text_20px"/>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/fansText"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1200"
-            android:textColor="#5a5a5a"
-            android:textSize="@dimen/text_24px"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fansText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1200"
+                android:textColor="#5a5a5a"
+                android:textSize="@dimen/text_24px"
+                />
+
+            <TextView
+                android:id="@+id/toggle"
+                android:layout_alignParentBottom="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#0000"
+                android:text="展开"/>
+        </RelativeLayout>
     </LinearLayout>
+
     <View style="@style/horizontalDivider"/>
 </LinearLayout>
