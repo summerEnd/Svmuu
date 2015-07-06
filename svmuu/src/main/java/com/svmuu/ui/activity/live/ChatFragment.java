@@ -30,7 +30,8 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
     private ChatAdapter adapter;
     private String quanzhu_id;
     ChatManager mChatManager;
-    LinkedList<Chat> tempChatPool=new LinkedList<>();
+    LinkedList<Chat> tempChatPool = new LinkedList<>();
+
     public static ChatFragment newInstance(String circleId) {
         ChatFragment fragment = new ChatFragment();
         fragment.setCircleId(circleId);
@@ -84,7 +85,7 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
         recyclerView.addItemDecoration(new ChatItemDec());
 
         requestRefresh();
-        mChatManager.updateMessageList(4*1000,quanzhu_id);
+        mChatManager.updateMessageList(4 * 1000);
     }
 
     @Override
@@ -105,7 +106,7 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
     @Override
     public void onNewMessageLoaded(ArrayList<Chat> newMessages) {
 
-        if (tempChatPool.size()>0){
+        if (tempChatPool.size() > 0) {
             data.removeAll(tempChatPool);
             tempChatPool.clear();
             adapter.notifyDataSetChanged();
@@ -114,7 +115,7 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
         int fromPosition = data.size() - 1;
         data.addAll(newMessages);
         adapter.notifyItemRangeInserted(fromPosition, newMessages.size());
-        recyclerView.scrollToPosition(data.size()-1);
+        recyclerView.scrollToPosition(data.size() - 1);
     }
 
     @Override
@@ -129,7 +130,7 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
     @Override
     public void onResume() {
         super.onResume();
-        mChatManager.updateMessageList(4*1000,quanzhu_id);
+        mChatManager.updateMessageList(4 * 1000);
 
     }
 

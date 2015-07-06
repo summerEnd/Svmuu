@@ -30,6 +30,8 @@ public class SearchHolder extends BaseHolder {
             nickText = (TextView) findViewById(R.id.nickText);
             tvcircleNo = (TextView) findViewById(R.id.tv_circleNo);
         }
+
+
     }
 
     /**
@@ -53,16 +55,6 @@ public class SearchHolder extends BaseHolder {
         public SearchHistoryTitle(View itemView) {
             super(itemView);
             title = (TextView) findViewById(R.id.title);
-        }
-
-        public void setTitle() {
-
-        }
-
-        @Override
-        public void onClick(View v) {
-            super.onClick(v);
-
         }
     }
 

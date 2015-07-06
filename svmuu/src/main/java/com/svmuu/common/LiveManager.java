@@ -30,7 +30,7 @@ public class LiveManager implements RtComp.Callback {
     private static LiveManager INSTANCE;
 
     public interface Callback {
-        void onResult(boolean success);
+        void onLiveJoint();
 
         void onLeaveRoom(String msg);
     }
@@ -93,7 +93,7 @@ public class LiveManager implements RtComp.Callback {
      * 退出的时候请调用
      */
     public boolean leaveCast() {
-        //TODO 显示进度框
+        // 显示进度框
         simpleImpl.leave(false);
         return self == null;
     }
@@ -115,18 +115,14 @@ public class LiveManager implements RtComp.Callback {
 
     @Override
     public void onErr(int i) {
-        dispatchResult(false);
+        ;
     }
 
     public void setCallback(Callback callback) {
         this.callback = callback;
     }
 
-    void dispatchResult(boolean success) {
-        if (callback != null) {
-            callback.onResult(success);
-        }
-    }
+
 
     private class SimImpl extends RtSimpleImpl {
         @Override
@@ -150,13 +146,14 @@ public class LiveManager implements RtComp.Callback {
             LiveManager.this.self = self;
             context.runOnUiThread(new Runnable() {
                 public void run() {
-                    dispatchResult(true);
                     String resultDesc;
                     switch (result) {
                         //加入成功  除了成功其他均需要正常提示给用户
                         case IRTEvent.IRoomEvent.JoinResult.JR_OK:
                             resultDesc = "您已加入成功";
-
+                            if (callback!=null){
+                                callback.onLiveJoint();
+                            }
                             break;
                         //加入错误
                         case IRTEvent.IRoomEvent.JoinResult.JR_ERROR:
@@ -203,7 +200,7 @@ public class LiveManager implements RtComp.Callback {
         @Override
         public void onRoomPublish(State s) {
             super.onRoomPublish(s);
-            //TODO 此逻辑是控制视频要在直播开始后才准许看的逻辑
+            // 此逻辑是控制视频要在直播开始后才准许看的逻辑
             byte castState = s.getValue();
             RtSdk rtSdk = getRtSdk();
 

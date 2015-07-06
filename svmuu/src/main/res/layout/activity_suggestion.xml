@@ -1,0 +1,91 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.svmuu.ui.activity.settings.SuggestionActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        android:background="@drawable/windowTitleBackground">
+
+        <LinearLayout
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/red_back"
+                android:drawablePadding="-8dp"
+                android:gravity="center_vertical"
+                android:text="@string/back"
+                android:textColor="@color/titleRedText"
+                android:textSize="@dimen/text_26px"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/window_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/title_activity_suggestion"
+            android:textColor="@color/titleRedText"
+            android:textSize="@dimen/titleTextSize"/>
+
+        <TextView
+
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dimen_10px"
+            android:gravity="center"
+            android:text="@string/send"
+            android:textColor="@color/titleRedText"
+            android:textSize="@dimen/titleTextSize"/>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/horizontalDivider"
+        android:layout_marginTop="@dimen/dimen_20px"/>
+
+    <TextView
+        android:id="@+id/circle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/dimen_15px"
+        android:text="证券娱乐圈"
+        android:textSize="@dimen/text_22px"/>
+
+    <View style="@style/horizontalDivider"/>
+
+    <View
+        style="@style/horizontalDivider"
+        android:layout_marginTop="@dimen/dimen_20px"/>
+
+    <EditText
+        android:id="@+id/content"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="@dimen/dimen_210px"
+        android:background="@color/white"
+        android:padding="@dimen/dimen_15px"
+        android:gravity="top"
+        android:hint="请提出您的宝贵意见，我们将不断的改善！"
+
+        android:textSize="@dimen/text_22px"/>
+
+    <View style="@style/horizontalDivider"/>
+</LinearLayout>

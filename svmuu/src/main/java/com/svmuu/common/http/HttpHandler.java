@@ -27,6 +27,9 @@ public abstract class HttpHandler extends SHttpProgressHandler {
         this(true);
     }
 
+    /**
+     * @param showToast true 用toast弹出Response的message false 反之
+     */
     public HttpHandler(boolean showToast) {
         this.showToast = showToast;
     }
@@ -75,22 +78,16 @@ public abstract class HttpHandler extends SHttpProgressHandler {
         onException();
     }
 
-    public void onException() {
-        ContextUtil.toast(R.string.http_request_fail);
-    }
 
     private void dispatchResult(int statusCOde, Header[] headers, Response response) {
-
-
-        if ("9090".equals(response.code)) {
-            AppDelegate context = AppDelegate.getInstance();
-            Intent intent = new Intent(context, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-        }
+        //如果不需要强制登录，注释掉下面这行
+        mustLogin(response);
 
         if (showToast && !TextUtils.isEmpty(response.message)) {
-            ContextUtil.toast(response.message);
+            //免去“处理成功”的消息
+            if (!"处理成功".equals(response.message)) {
+                ContextUtil.toast(response.message);
+            }
         }
 
         try {
@@ -100,14 +97,40 @@ public abstract class HttpHandler extends SHttpProgressHandler {
                 onResultError(statusCOde, headers, response);
             }
         } catch (JSONException e) {
+            //Json解析错误
             e.printStackTrace();
         }
     }
 
+    /**
+     * 是否强制登录，根据返回的code来判断是否需要用户登录
+     */
+    public void mustLogin(Response response) {
+        if ("9090".equals(response.code)) {
+            AppDelegate context = AppDelegate.getInstance();
+            Intent intent = new Intent(context, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
+    }
 
+    /**
+     * 请求成功，并且Response的status为true时调用
+     */
     public abstract void onResultOk(int statusCode, Header[] headers, Response response) throws JSONException;
 
+    /**
+     * 请求成功，并且Response的status为false时调用。
+     * 如：密码错误等等
+     */
     public void onResultError(int statusCOde, Header[] headers, Response response) throws JSONException {
+    }
+
+    /**
+     * 请求失败，如网络链接不通或json格式不正确等
+     */
+    public void onException() {
+        ContextUtil.toast(R.string.http_request_fail);
     }
 
     /**

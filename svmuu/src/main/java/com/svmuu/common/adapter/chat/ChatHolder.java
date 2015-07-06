@@ -1,12 +1,15 @@
 package com.svmuu.common.adapter.chat;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.gensee.view.MyTextViewEx;
 import com.svmuu.R;
 import com.svmuu.common.adapter.BaseHolder;
 import com.svmuu.common.entity.Chat;
@@ -30,7 +33,7 @@ public class ChatHolder extends BaseHolder {
         //        itemView.setMsgType(chat.isSelf);
         info.timeText.setText(chat.time_m);
         info.nameText.setText(chat.uname);
-        info.contentText.setText(Html.fromHtml(chat.content));
+
 
         if ("1".equals(chat.is_admin)) {
             info.jobText.setVisibility(View.VISIBLE);
@@ -59,6 +62,19 @@ public class ChatHolder extends BaseHolder {
             }
         }
 
+        //消息类型 1 普通 2 解盘 3 问答 4 悄悄话 5 公告',
+        switch (chat.type) {
+
+            case "5": {
+                ((View) info.fansIcon.getParent()).setVisibility(View.GONE);
+                break;
+            }
+            default: {
+                ((View) info.fansIcon.getParent()).setVisibility(View.VISIBLE);
+            }
+        }
+
+
     }
 
     /**
@@ -66,5 +82,9 @@ public class ChatHolder extends BaseHolder {
      */
     public ImageView getAvatarView() {
         return itemView.getInfo().avatarView;
+    }
+
+    public MyTextViewEx getContentTextView(){
+        return itemView.getInfo().contentText;
     }
 }

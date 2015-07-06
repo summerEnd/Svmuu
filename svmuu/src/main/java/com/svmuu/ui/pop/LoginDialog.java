@@ -76,6 +76,7 @@ public class LoginDialog extends Dialog {
                         User user = AppDelegate.getInstance().getUser();
                         user.name = userName;
                         user.password = password;
+                        LoginActivity.handleLoginResponse(getContext());
                         dismiss();
                     }
 
@@ -83,6 +84,5 @@ public class LoginDialog extends Dialog {
             }
         });
     }
-
 
 }

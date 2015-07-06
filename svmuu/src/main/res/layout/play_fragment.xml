@@ -64,6 +64,6 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/no_live"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
     </FrameLayout>
 </FrameLayout>

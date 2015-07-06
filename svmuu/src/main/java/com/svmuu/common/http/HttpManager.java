@@ -3,15 +3,12 @@ package com.svmuu.common.http;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.ResponseHandlerInterface;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.SLog;
 import com.svmuu.AppDelegate;
-
-import org.apache.http.client.ResponseHandler;
 
 /**
  * 应用的所有Http请求原则上应该都经过这个类发起
@@ -20,7 +17,7 @@ public class HttpManager {
     private static HttpManager instance;
     private AsyncHttpClient client = new AsyncHttpClient();
 
-    //是否使用测试host
+    //todo 是否使用测试host
     private final  boolean  USE_TEST_HOST = true;
 
     public  String getHost() {
@@ -47,8 +44,10 @@ public class HttpManager {
 
 
     /**
+     * @param request request的url可以传完整的链接，也可以传除host以外的部分，程序会自动补全host
      */
-    public void post(@Nullable Context context, SRequest request, ResponseHandlerInterface handler) {
+    public void postMobileApi(Context context, SRequest request, ResponseHandlerInterface handler) {
+        fixUrl(request);
 
         if (context == null) {
             context = AppDelegate.getInstance();
@@ -58,14 +57,6 @@ public class HttpManager {
             return;
         }
         client.post(context, url, request, handler);
-    }
-
-    /**
-     * @param request request的url可以传完整的链接，也可以传除host以外的部分，程序会自动补全host
-     */
-    public void postMobileApi(Context context, SRequest request, ResponseHandlerInterface handlerInterface) {
-        fixUrl(request);
-        post(context, request, handlerInterface);
     }
 
 
@@ -84,6 +75,7 @@ public class HttpManager {
         client.get(context,url, request,handlerInterface);
     }
 
+    //修复url
     private void fixUrl(SRequest request) {
 
         String url = request.getUrl();
@@ -91,8 +83,9 @@ public class HttpManager {
         if (TextUtils.isEmpty(url) || url.startsWith("http://")) {
             return;
         }
-        //todo 发布时最好注销
+
         request.setUrl(getHost() + "/moblieapi/" + url);
+        //todo 发布
         SLog.debug(request.toLogString());
 
     }

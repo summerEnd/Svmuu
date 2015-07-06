@@ -20,6 +20,7 @@ import com.gensee.utils.StringUtil;
 import com.gensee.view.GSVideoView;
 import com.gensee.vod.VodSite;
 import com.sp.lib.common.util.ContextUtil;
+import com.svmuu.AppDelegate;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class VodManager {
     private VODPlayer mGSOLPlayer;
     //是否调整视频尺寸
     private boolean adjustVideoSize = false;
+    private String nickName;
 
     public static VodManager newInstance(Activity context, GSVideoView videoView) {
         VodManager manager = new VodManager();
@@ -43,6 +45,7 @@ public class VodManager {
     }
 
     private VodManager() {
+        nickName = AppDelegate.getInstance().getUser().name;
         mGSOLPlayer = new VODPlayer();
     }
 
@@ -78,7 +81,7 @@ public class VodManager {
         // 点播口令
         initParam.setVodPwd(password);
         // 昵称 用于统计和显示
-        initParam.setNickName("lincoln");
+        initParam.setNickName(nickName);
         // 服务类型（站点类型）
         // webcast - ST_CASTLINE
         // training - ST_TRAINING
@@ -201,7 +204,7 @@ public class VodManager {
         loadEntities = mVodDownLoad.getDownloadList();
     }
 
-    public  class SimpleVodListener implements VODPlayer.OnVodPlayListener {
+    public class SimpleVodListener implements VODPlayer.OnVodPlayListener {
         @Override
         public void onInit(int i, boolean b, int i1, List<DocInfo> list) {
 

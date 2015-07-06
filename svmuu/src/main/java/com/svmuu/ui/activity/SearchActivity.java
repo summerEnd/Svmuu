@@ -1,6 +1,7 @@
 package com.svmuu.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -14,6 +15,7 @@ import com.sp.lib.common.support.cache.CacheManager;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.svmuu.R;
+import com.svmuu.common.adapter.BaseHolder;
 import com.svmuu.common.adapter.DividerDecoration;
 import com.svmuu.common.adapter.search.SearchAdapter;
 import com.svmuu.common.entity.CircleMaster;
@@ -23,6 +25,7 @@ import com.svmuu.common.http.HttpHandler;
 import com.svmuu.common.http.HttpManager;
 import com.svmuu.common.http.Response;
 import com.svmuu.ui.BaseActivity;
+import com.svmuu.ui.activity.live.LiveActivity;
 import com.svmuu.ui.widget.CustomSearchView;
 
 import org.apache.http.Header;
@@ -40,7 +43,8 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
     private RecyclerView recyclerView;
     private SearchAdapter adapter;
     ArrayList<History> histories;
-    ArrayList<Search> searches=new ArrayList<>();
+    ArrayList<Search> searches = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +81,29 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerDecoration(this));
         adapter.showHistory(histories);
+        adapter.setListener(new BaseHolder.OnItemListener() {
+            @Override
+            public void onClick(View itemView, int position) {
+                if (adapter.isShowHistory()) {
+                    if (histories == null) {
+                        return;
+                    }
+
+                    int clearPosition = histories.size() + 1;
+                    if (position == clearPosition) {
+                        histories.clear();
+                        adapter.notifyDataSetChanged();
+                    }else{
+                        search(histories.get(position-1).name);
+                    }
+                } else {
+                    startActivity(new Intent(SearchActivity.this,LiveActivity.class)
+                            .putExtra(LiveActivity.EXTRA_QUANZHU_ID,searches.get(position).uid)
+                    );
+                }
+            }
+        });
+
     }
 
     @Override

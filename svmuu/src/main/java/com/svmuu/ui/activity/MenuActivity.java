@@ -14,7 +14,7 @@ import com.svmuu.R;
 import com.svmuu.ui.BaseActivity;
 import com.svmuu.ui.pop.LoginDialog;
 
-public class MenuActivity extends BaseActivity implements MenuFragment.OnMenuClick {
+public class MenuActivity extends BaseActivity{
     private ViewGroup layoutContainer;
     protected MenuFragment mMenuFragment;
     private MenuDrawer mMenuDrawer;
@@ -72,6 +72,11 @@ public class MenuActivity extends BaseActivity implements MenuFragment.OnMenuCli
                 toggle.setRatio(openRatio);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initTitle();
     }
 
@@ -124,14 +129,5 @@ public class MenuActivity extends BaseActivity implements MenuFragment.OnMenuCli
         }
     }
 
-    /**
-     * 如果要拦截侧边栏的点击事件，就重写此方法
-     *
-     * @return true 拦截，false 不拦截
-     */
-    @Override
-    public boolean onMenuClick(View v) {
-        return false;
-    }
-    protected void onUserChanged(){}
+
 }

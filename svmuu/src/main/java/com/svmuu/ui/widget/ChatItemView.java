@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gensee.view.MyTextViewEx;
 import com.svmuu.R;
 
 public class ChatItemView extends LinearLayout {
@@ -46,9 +47,7 @@ public class ChatItemView extends LinearLayout {
         text = a.getString(R.styleable.ChatItemView_msgContent);
         a.recycle();
         init(context, isSelf);
-        //todo forTest
-        info.nameText.setText("Lincoln");
-        info.timeText.setText("21:00");
+
         setText(text);
 
     }
@@ -69,7 +68,7 @@ public class ChatItemView extends LinearLayout {
 
         info = new MsgLayoutInfo();
         info.fansIcon = (ImageView) findViewById(R.id.fansIcon);
-        info.contentText = (TextView) findViewById(R.id.msgContent);
+        info.contentText = (MyTextViewEx) findViewById(R.id.msgContent);
 
         setMsgType(isSelf);
 
@@ -119,7 +118,7 @@ public class ChatItemView extends LinearLayout {
         public ImageView fansIcon;
         public TextView nameText;
         public TextView timeText;
-        public TextView contentText;
+        public MyTextViewEx contentText;
         public TextView jobText;
     }
 }

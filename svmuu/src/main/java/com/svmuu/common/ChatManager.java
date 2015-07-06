@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * 聊天的管理类
+ */
 public class ChatManager {
 
 
@@ -47,11 +50,14 @@ public class ChatManager {
         HttpManager.getInstance().postMobileApi(context, request, new HttpHandler() {
             @Override
             public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException {
-                callback.onMessageAdded(JsonUtil.get(response.data,Chat.class));
+                callback.onMessageAdded(JsonUtil.get(response.data, Chat.class));
             }
         });
     }
 
+    /**
+     * 获取新的消息
+     */
     public void getNewMessages() {
         SRequest request = new SRequest("livemsg");
         request.put("quanzhu_id", circleId);
@@ -69,15 +75,21 @@ public class ChatManager {
         });
     }
 
+    /**
+     * 获取最大消息id
+     */
     public String getMaxMsgId() {
-        int max=Integer.parseInt(maxMsgId);
-        return (max+1)+"";
+        int max = Integer.parseInt(maxMsgId);
+        return (max + 1) + "";
     }
 
     public void setMaxMsgId(String maxMsgId) {
         this.maxMsgId = maxMsgId;
     }
 
+    /**
+     * 获取圈子id
+     */
     public String getCircleId() {
         return circleId;
     }
@@ -86,22 +98,38 @@ public class ChatManager {
         this.circleId = circleId;
     }
 
-    public void updateMessageList(int duration, String quanzhu_id) {
-        if (timer!=null){
+    /**
+     * 更新消息列表
+     *
+     * @param duration 更新的时间间隔 单位毫秒
+     */
+    public void updateMessageList(long duration) {
+        if (timer != null) {
             recycle();
         }
-        timer=new Timer();
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 updateMsgHandler.sendEmptyMessage(0);
             }
-        }, 0,duration);
+        }, 0, duration);
     }
 
     public interface Callback {
+
+        /**
+         * 发送消息成功
+         *
+         * @param added 发送的消息
+         */
         void onMessageAdded(Chat added);
 
+        /**
+         * 加载新的消息列表成功
+         *
+         * @param newMessages 新的消息列表
+         */
         void onNewMessageLoaded(ArrayList<Chat> newMessages);
     }
 

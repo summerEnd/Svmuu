@@ -77,5 +77,10 @@
     <string name="title_activity_text_box">文字宝盒</string>
     <string name="circleMaster">圈主</string>
     <string name="manager">管理员</string>
+    <string name="title_activity_suggestion">意见反馈</string>
+    <string name="send">发送</string>
+    <string name="title_activity_about">关于我们</string>
+    <string name="about_desc">水木资本(www.svmuu.com)是公司全力打造的财经类互动社区，平台整合业界一线专家资源，以圈子的方式分享投资智慧，投资者通过分享专家投资经验、跟踪专家实战操作，实现自身投资技术的提高和收益的增值。水木资本以其开放、分享、专业、互动的服务理念，即将打造成为中国最具影响力的财经互动平台。</string>
+    <string name="tel_desc">联系电话：025&#8211;86657191 \n客服电话：400&#8211;828&#8211;1911</string>
     <string name="live">直播</string>
 </resources>

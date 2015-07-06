@@ -16,12 +16,12 @@ import com.svmuu.common.entity.CircleMaster;
 
 import java.util.List;
 
-public class RecommendAdapter extends ViewHolderAdapter<CircleMaster, Object> {
+public class RecommendAdapter extends ViewHolderAdapter<CircleMaster, Object> implements View.OnClickListener {
     DisplayImageOptions options;
 
     public RecommendAdapter(Context context, List<CircleMaster> data) {
         super(context, data, R.layout.item_recommand);
-        options=ImageOptions.getRoundCorner(5);
+        options = ImageOptions.getRoundCorner(5);
     }
 
 
@@ -33,19 +33,36 @@ public class RecommendAdapter extends ViewHolderAdapter<CircleMaster, Object> {
         holder.nickText = (TextView) convertView.findViewById(R.id.nickText);
         holder.introText = (TextView) convertView.findViewById(R.id.introText);
         holder.fansText = (TextView) convertView.findViewById(R.id.fansText);
+        holder.toggle = (TextView) convertView.findViewById(R.id.toggle);
+        holder.toggle.setOnClickListener(this);
         return holder;
     }
 
     @Override
     public void displayView(View convertView, Object holder, int position) {
-        ViewHolder viewHolder= (ViewHolder) holder;
-        CircleMaster master=getData().get(position);
+        ViewHolder viewHolder = (ViewHolder) holder;
+        CircleMaster master = getData().get(position);
         viewHolder.fansText.setText(master.Hot);
         viewHolder.introText.setText(master.desc);
         viewHolder.nickText.setText(master.name);
-        ImageLoader.getInstance().displayImage(master.uface, viewHolder.avatarImage,options);
+        if (master.isOPen) {
+            viewHolder.toggle.setText("收缩");
+            viewHolder.introText.setSingleLine(false);
+        } else {
+            viewHolder.toggle.setText("展开");
+            viewHolder.introText.setSingleLine(true);
+        }
+
+        viewHolder.toggle.setTag(master);
+        ImageLoader.getInstance().displayImage(master.uface, viewHolder.avatarImage, options);
     }
 
+    @Override
+    public void onClick(View v) {
+        CircleMaster master= (CircleMaster) v.getTag();
+        master.isOPen=!master.isOPen;
+        notifyDataSetChanged();
+    }
 
 
     private class ViewHolder {
@@ -53,5 +70,6 @@ public class RecommendAdapter extends ViewHolderAdapter<CircleMaster, Object> {
         private TextView nickText;
         private TextView introText;
         private TextView fansText;
+        private TextView toggle;
     }
 }
