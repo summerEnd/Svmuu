@@ -1,0 +1,41 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.svmuu.ui.activity.box.BoxActivity">
+
+    <LinearLayout
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <CheckedTextView
+            android:id="@+id/textBox"
+            style="@style/boxTabStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="文字宝盒"/>
+
+        <View style="@style/verticalDivider"/>
+
+        <CheckedTextView
+            android:id="@+id/videoBox"
+            style="@style/boxTabStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="视频宝盒"/>
+    </LinearLayout>
+
+    <View style="@style/horizontalDivider"/>
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

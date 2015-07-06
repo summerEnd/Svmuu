@@ -50,6 +50,8 @@ public class ContextUtil {
         return 0;
     }
 
+
+
     public static PackageInfo getPackageInfo() {
         try {
             return context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -86,7 +88,12 @@ public class ContextUtil {
     }
 
     public static  void toast(int resId) {
-        toast(getString(resId));
+
+        try {
+            toast(getString(resId));
+        } catch (Exception e) {
+           toast(Integer.valueOf(resId));
+        }
     }
 
     public static  void toast_debug(Object o) {

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigationModel
+  ns = "http://schemas.android.com?import=com.android.tools.idea.editors.navigation.model.*">
+  <locations  
+    class = "java.util.ArrayList">
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.svmuu.ui.ActivityList"/>
+      <point      
+        x = "1800"      
+        y = "1664"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.svmuu.ui.activity.MainActivity"/>
+      <point      
+        x = "2664"      
+        y = "1856"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.svmuu.ui.activity.live.LiveActivity"/>
+      <point      
+        x = "28"      
+        y = "32"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.MenuState"      
+        className = "com.svmuu.ui.activity.live.LiveActivity"/>
+      <point      
+        x = "1852"      
+        y = "-64"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.svmuu.ui.activity.MainActivityWithTab"/>
+      <point      
+        x = "1080"      
+        y = "216"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.MenuState"      
+        className = "com.svmuu.ui.activity.MainActivityWithTab"/>
+      <point      
+        x = "2348"      
+        y = "216"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.svmuu.ui.activity.MyCircleActivity"/>
+      <point      
+        x = "76"      
+        y = "1488"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.sp.lib.activity.DEBUGActivity"/>
+      <point      
+        x = "2900"      
+        y = "364"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.svmuu.ui.activity.EnterActivity"/>
+      <point      
+        x = "896"      
+        y = "1608"/>
+    </statePointEntry>
+  </locations>
+</navigationModel>

@@ -1,12 +1,63 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="BaseTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@style/window_animation</item>
+        <item name="android:textColorHint">#aaaaaa</item>
+        <item name="android:dialogTheme">@style/dialogTheme</item>
+        <item name="android:alertDialogTheme">@style/alertDialog</item>
+        <item name="actionBarStyle">@style/mActionBarStyle</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@drawable/windowBackground</item>
     </style>
 
-    <style name="FullScreen" parent="AppTheme">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowContentOverlay">@null</item>
+    <style name="AppTheme" parent="BaseTheme">
+
     </style>
+
+    <style name="window_animation">
+        <!--打开新的activity 用的动画-->
+        <item name="android:activityOpenEnterAnimation">@anim/window_open_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/window_open_exit</item>
+
+        <!--关闭activity时的动画-->
+        <item name="android:activityCloseEnterAnimation">@anim/window_close_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/window_close_exit</item>
+    </style>
+
+    <style name="dialogTheme" parent="android:Theme.Holo.Light.Dialog.MinWidth">
+        <item name="android:background">@drawable/dialog_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/dialogAnim</item>
+    </style>
+
+    <style name="loginActivity" parent="Theme.AppCompat.Light.DialogWhenLarge">
+
+    </style>
+
+    <style name="alertDialog" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowMinWidthMajor">65%</item>
+        <item name="android:windowMinWidthMinor">95%</item>
+    </style>
+
+    <style name="mActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="background">@drawable/windowTitleBackground</item>
+        <item name="homeAsUpIndicator">@drawable/back</item>
+        <item name="displayOptions">showTitle|homeAsUp|showCustom</item>
+        <item name="actionBarSize">@dimen/titleHeight</item>
+    </style>
+
+    <style name="dialogAnim">
+        <item name="android:windowEnterAnimation">@anim/dialog_show</item>
+        <item name="android:windowExitAnimation">@anim/slide_down_out</item>
+        <item name="android:windowShowAnimation">@anim/dialog_show</item>
+        <item name="android:windowHideAnimation">@anim/abc_fade_out</item>
+    </style>
+
+    <drawable name="windowBackground">#F5F5F5</drawable>
+    <drawable name="windowTitleBackground">#d82d49</drawable>
+    <color name="windowTitleBackground">#d82d49</color>
 </resources>

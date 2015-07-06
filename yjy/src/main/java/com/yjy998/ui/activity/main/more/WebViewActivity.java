@@ -7,6 +7,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.sp.lib.common.util.SLog;
 import com.yjy998.ui.activity.base.SecondActivity;
 
 public class WebViewActivity extends SecondActivity {
@@ -30,6 +31,7 @@ public class WebViewActivity extends SecondActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
+            SLog.debug(url);
             return true;
         }
     }

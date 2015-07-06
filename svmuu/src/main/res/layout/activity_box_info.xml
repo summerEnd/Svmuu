@@ -1,0 +1,22 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dimen_15px"
+    android:paddingLeft="@dimen/dimen_15px"
+    android:paddingRight="@dimen/dimen_15px"
+    android:paddingTop="@dimen/dimen_10px"
+    tools:context="com.svmuu.ui.activity.box.VideoBoxActivity">
+
+
+    <include layout="@layout/box_summary_layout"/>
+
+    <com.sp.lib.widget.list.refresh.PullToRefreshRecyclerView
+        android:id="@+id/refreshView"
+        android:layout_marginTop="@dimen/dimen_30px"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/white_corner_background"/>
+</LinearLayout>

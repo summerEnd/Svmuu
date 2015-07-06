@@ -31,7 +31,7 @@
         <com.yjy998.ui.view.ViewPagerTabItem
             style="@style/pageTitleStyle.game2"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:text="@string/my_game"/>
 
 

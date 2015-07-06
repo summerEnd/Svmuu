@@ -1,0 +1,57 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.svmuu.ui.activity.SettingActivity">
+
+
+    <TextView
+        android:id="@+id/aboutUs"
+        style="@style/settingClick"
+        android:text="@string/about_us"/>
+
+    <View style="@style/horizontalDivider"/>
+
+    <TextView
+        android:id="@+id/suggestion"
+        style="@style/settingClick"
+        android:text="@string/suggestion"/>
+
+    <View style="@style/horizontalDivider"/>
+
+    <View
+        style="@style/horizontalDivider"
+        android:layout_marginTop="@dimen/dimen_30px"/>
+
+    <TextView
+        android:id="@+id/clear"
+        style="@style/settingClick"
+        android:text="@string/cache_clear"/>
+
+    <View style="@style/horizontalDivider"/>
+
+
+    <View
+        style="@style/horizontalDivider"
+        android:layout_marginTop="@dimen/dimen_30px"/>
+
+    <TextView
+        android:id="@+id/logout"
+        style="@style/settingClick"
+        android:drawableRight="@null"
+        android:text="@string/logout"/>
+
+    <View style="@style/horizontalDivider"/>
+
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_gravity="right"
+        android:layout_marginTop="@dimen/dimen_20px"
+        android:layout_marginRight="@dimen/dimen_10px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/version_s"/>
+
+</LinearLayout>

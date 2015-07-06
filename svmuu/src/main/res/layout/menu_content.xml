@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@drawable/windowBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/windowTitleBackground"
+        android:layout_height="@dimen/titleHeight"
+        android:orientation="horizontal">
+        <com.sp.lib.widget.slide.toggle.ArrowToggle
+            android:id="@+id/toggle"
+            android:paddingTop="@dimen/dimen_32px"
+            android:paddingBottom="@dimen/dimen_32px"
+            android:paddingLeft="@dimen/dimen_20px"
+            android:layout_centerVertical="true"
+            android:paddingRight="@dimen/dimen_20px"
+            android:layout_width="@dimen/titleHeight"
+            android:layout_height="@dimen/titleHeight"/>
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"/>
+
+        <ImageView
+            android:id="@+id/signIn"
+            android:layout_width="@dimen/titleHeight"
+            android:layout_height="@dimen/titleHeight"
+            android:scaleType="centerInside"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/sign_bar"/>
+    </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/layoutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

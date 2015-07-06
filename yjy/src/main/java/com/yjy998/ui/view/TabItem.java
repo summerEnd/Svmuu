@@ -1,9 +1,11 @@
 package com.yjy998.ui.view;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -30,9 +32,11 @@ public class TabItem extends LinearLayout implements Checkable, View.OnClickList
     }
 
     public TabItem(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        super(context, attrs);
+        init(context,attrs);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public TabItem(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs);

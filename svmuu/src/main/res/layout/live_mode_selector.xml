@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gray_corner_background"
+    android:orientation="vertical">
+
+    <RadioButton
+        android:id="@+id/videoMode"
+        android:button="@drawable/mode_video"
+        style="@style/liveTypeSelector"
+        android:text="视频模式"/>
+
+    <View style="@style/horizontalDivider"/>
+
+    <RadioButton
+        android:button="@drawable/mode_audio"
+        android:id="@+id/audioMode"
+        style="@style/liveTypeSelector"
+        android:text="语音模式"/>
+
+    <View style="@style/horizontalDivider"/>
+
+    <RadioButton
+        android:button="@drawable/mode_text"
+        android:id="@+id/textMode"
+        style="@style/liveTypeSelector"
+        android:text="文本模式"/>
+</RadioGroup>

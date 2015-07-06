@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="CustomSearchView">
+        <attr name="iconSize" format="dimension"/>
+        <attr name="searchStyle" format="enum">
+            <enum name="click" value="0"/>
+            <enum name="edit" value="1"/>
+        </attr>
+    </declare-styleable>
 
+    <declare-styleable name="SelectBar">
+        <attr name="selectColor" format="color"/>
+        <attr name="normalColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="ChatItemView">
+        <attr name="isSelf" format="boolean"/>
+        <attr name="msgContent" format="string"/>
+    </declare-styleable>
 </resources>

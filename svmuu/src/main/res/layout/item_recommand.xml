@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/clicked_white"
+        android:gravity="top"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_15px">
+
+        <ImageView
+            android:id="@+id/avatarImage"
+            android:layout_width="@dimen/avatarSize"
+            android:layout_height="@dimen/avatarSize"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20px"
+            android:layout_marginRight="@dimen/dimen_20px"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nickText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="股票小乐乐"
+                android:textColor="@color/blackA"
+                android:textSize="@dimen/text_24px"/>
+
+            <TextView
+                android:id="@+id/introText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1231123一大堆啰嗦话反正要长一大堆啰嗦话反正要长一大堆啰嗦话反正要长一大堆啰嗦话反正要长"
+                android:textColor="@color/grayA"
+                android:textSize="@dimen/text_20px"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/fansText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1200"
+            android:textColor="#5a5a5a"
+            android:textSize="@dimen/text_24px"
+            />
+    </LinearLayout>
+    <View style="@style/horizontalDivider"/>
+</LinearLayout>

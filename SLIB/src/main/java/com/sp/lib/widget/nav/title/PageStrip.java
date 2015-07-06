@@ -1,6 +1,7 @@
 package com.sp.lib.widget.nav.title;
 
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -8,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -58,12 +60,18 @@ public class PageStrip extends LinearLayout implements ViewPager.OnPageChangeLis
     }
 
     public PageStrip(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        super(context, attrs);
+        init(attrs);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public PageStrip(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
+        init(attrs);
+    }
+
+    private void init(AttributeSet attrs) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.ITab);
         indicatorDrawable = a.getDrawable(R.styleable.ITab_indicator);
         if (indicatorDrawable == null) {
