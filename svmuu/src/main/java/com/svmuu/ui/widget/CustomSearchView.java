@@ -65,10 +65,11 @@ public class CustomSearchView extends LinearLayout {
 
         ImageView searchIcon = new ImageView(context);
         searchIcon.setImageResource(R.drawable.ic_search);
-
+        searchIcon.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         final TextView searchContent;
 
         ImageView closeIcon = new ImageView(context);
+        closeIcon.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         closeIcon.setImageResource(R.drawable.ic_clear_search);
         if (style == STYLE_EDIT) {
             searchContent = new EditText(context);

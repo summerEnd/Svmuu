@@ -13,10 +13,12 @@ import com.svmuu.common.LiveManager;
 public class LiveModeSelector extends PopupWindow implements RadioGroup.OnCheckedChangeListener{
 
 
+    private final RadioGroup inflate;
+
     public LiveModeSelector(Context context) {
         super(context);
 
-        RadioGroup inflate = (RadioGroup) View.inflate(context, R.layout.live_mode_selector, null);
+        inflate = (RadioGroup) View.inflate(context, R.layout.live_mode_selector, null);
         setContentView(inflate);
         inflate.setOnCheckedChangeListener(this);
         setBackgroundDrawable(new ColorDrawable());
@@ -25,7 +27,11 @@ public class LiveModeSelector extends PopupWindow implements RadioGroup.OnChecke
                 WindowManager.LayoutParams.WRAP_CONTENT
         );
         setFocusable(true);
-        inflate.check(R.id.videoMode);
+        check(0);
+    }
+
+    public void check(int position){
+        inflate.check(inflate.getChildAt(position).getId());
     }
 
     public void onClicked(int position){

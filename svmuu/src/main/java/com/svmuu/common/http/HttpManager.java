@@ -3,11 +3,14 @@ package com.svmuu.common.http;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.SparseArray;
+import android.util.SparseIntArray;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.ResponseHandlerInterface;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.SLog;
+import com.sp.lib.widget.slide.menu.MenuDrawer;
 import com.svmuu.AppDelegate;
 
 /**
@@ -17,15 +20,21 @@ public class HttpManager {
     private static HttpManager instance;
     private AsyncHttpClient client = new AsyncHttpClient();
 
-    //todo 是否使用测试host
-    private final  boolean  USE_TEST_HOST = true;
 
-    public  String getHost() {
-        if (USE_TEST_HOST) {
-            return "http://dev-test.svmuu.com";
-        } else {
-            return "http://www.svmuu.com";
-        }
+    private static SparseArray<String> HOSTS = new SparseArray<>();
+
+    static {
+        HOSTS.put(0, "http://dev.svmuu.com");//dev
+        HOSTS.put(1, "http://m-dev.svmuu.com/index.html");//h5移动版
+        HOSTS.put(2, "http://dev-test.svmuu.com");//test
+        HOSTS.put(3, "http://mtest.svmuu.com/index.html");//h5移动版
+    }
+
+    //todo host类型
+    private static final int type = 0;
+
+    public String getHost() {
+        return HOSTS.get(type);
     }
 
     public static HttpManager getInstance() {
@@ -53,7 +62,7 @@ public class HttpManager {
             context = AppDelegate.getInstance();
         }
         String url = request.getUrl();
-        if (TextUtils.isEmpty(url)){
+        if (TextUtils.isEmpty(url)) {
             return;
         }
         client.post(context, url, request, handler);
@@ -66,13 +75,13 @@ public class HttpManager {
     public void getMobileApi(@Nullable Context context, SRequest request, ResponseHandlerInterface handlerInterface) {
         fixUrl(request);
         String url = request.getUrl();
-        if (TextUtils.isEmpty(url)){
+        if (TextUtils.isEmpty(url)) {
             return;
         }
         if (context == null) {
             context = AppDelegate.getInstance();
         }
-        client.get(context,url, request,handlerInterface);
+        client.get(context, url, request, handlerInterface);
     }
 
     //修复url

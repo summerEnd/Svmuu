@@ -368,7 +368,6 @@ public class VodManager {
                             ViewGroup.LayoutParams lp = videoView.getLayoutParams();
                             lp.height = (int) (videoView.getMeasuredWidth() * ratio);
                             videoView.requestLayout();
-
                         }
 
                     }

@@ -15,6 +15,7 @@ import com.gensee.room.RtSimpleImpl;
 import com.gensee.routine.IRTEvent;
 import com.gensee.routine.State;
 import com.gensee.routine.UserInfo;
+import com.gensee.taskret.OnTaskRet;
 import com.gensee.view.GSVideoView;
 import com.sp.lib.common.util.ContextUtil;
 import com.svmuu.R;
@@ -94,16 +95,17 @@ public class LiveManager implements RtComp.Callback {
      */
     public boolean leaveCast() {
         // 显示进度框
-        simpleImpl.leave(false);
-        return self == null;
+        return simpleImpl.getRtSdk().leave(false, new OnTaskRet() {
+            @Override
+            public void onTaskRet(boolean b, int i, String s) {
+                if (callback!=null){
+                    callback.onLeaveRoom("");
+                }
+            }
+        });
     }
 
     public boolean tryRelease() {
-
-        if (self==null){
-
-            return true;
-        }
 
         return leaveCast();
     }
@@ -121,7 +123,6 @@ public class LiveManager implements RtComp.Callback {
     public void setCallback(Callback callback) {
         this.callback = callback;
     }
-
 
 
     private class SimImpl extends RtSimpleImpl {
@@ -150,8 +151,8 @@ public class LiveManager implements RtComp.Callback {
                     switch (result) {
                         //加入成功  除了成功其他均需要正常提示给用户
                         case IRTEvent.IRoomEvent.JoinResult.JR_OK:
-                            resultDesc = "您已加入成功";
-                            if (callback!=null){
+                            resultDesc = "加入直播成功";
+                            if (callback != null) {
                                 callback.onLiveJoint();
                             }
                             break;
@@ -262,6 +263,7 @@ public class LiveManager implements RtComp.Callback {
                 }
             });
         }
+
 
         @Override
         public Context onGetContext() {

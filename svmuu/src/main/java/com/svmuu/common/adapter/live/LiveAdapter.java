@@ -55,7 +55,7 @@ public class LiveAdapter extends BaseAdapter<Live, LiveHolder> implements BaseHo
         liveHolder.tvcircleName.setText(live.unick);
         liveHolder.tvcircleNo.setText(getString(R.string.circle_no_s, live.uid));
         if (sortByHot) {
-            liveHolder.tvfansNumber.setText(getString(R.string.popularity_s, live.hot));
+            liveHolder.tvfansNumber.setText( live.hot);
         } else {
             liveHolder.tvfansNumber.setText(getString(R.string.fans_s, live.fans));
         }

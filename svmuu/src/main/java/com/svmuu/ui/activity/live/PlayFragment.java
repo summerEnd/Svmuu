@@ -49,6 +49,7 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
     private boolean showMediaController = true;
     private int type;
     private String nickName;
+    private boolean isClosed = false;
 
     public void setCallback(Callback callback) {
         this.callback = callback;
@@ -58,7 +59,17 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         nickName = AppDelegate.getInstance().getUser().name;
+
         return inflater.inflate(R.layout.play_fragment, container, false);
+    }
+
+    /**
+     * 用来判断当前是否已被关闭，在onActivityClose调用后为true
+     *
+     * @return true 已关闭，反之 false
+     */
+    public boolean isClosed() {
+        return isClosed;
     }
 
     protected void initialize() {
@@ -112,11 +123,14 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
                     super.onPlayResume();
                     tryDismiss();
                 }
+
+
             });
         }
         vodManager.release();
 
         vodManager.adjustVideoSize(ajustVideoSize);
+        nolive.setVisibility(View.INVISIBLE);
         vodManager.start(vodId, pwd);
         showSwitchDialog(ContextUtil.getString(R.string.open_vod));
     }
@@ -129,13 +143,17 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
     }
 
     private void tryDismiss() {
-        if (progressIDialog != null) progressIDialog.dismiss();
+        try {
+            progressIDialog.dismiss();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void showMediaController(boolean show) {
         this.showMediaController = show;
         if (controlLayout != null) {
-            controlLayout.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+            controlLayout.findViewById(R.id.fullScreen).setVisibility(show ? View.VISIBLE : View.INVISIBLE);
         }
     }
 
@@ -147,6 +165,10 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
         this.token = token;
         if (getView() == null) {
             isVod = false;
+            return;
+        }
+
+        if (isClosed()) {
             return;
         }
 
@@ -168,15 +190,20 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
      * @return true 已经释放完毕，false 稍后释放
      */
     public boolean tryRelease() {
-        if (vodManager != null) {
+        if (isVod && vodManager != null) {
             vodManager.release();
+            return true;
         }
-        return LiveManager.getInstance().tryRelease();
+        if (!isVod && liveManager != null) {
+            return liveManager.tryRelease();
+        }
+
+        return true;
     }
 
     public void onActivityClose() {
         mReason = Reason.CLOSE_ACTIVITY;
-
+        isClosed = true;
         if (tryRelease()) {
             if (getActivity() != null) {
                 getActivity().finish();
@@ -191,13 +218,12 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
      * 0、视频 1、音频 2、文字
      */
     public void setLiveType(int type) {
-        boolean isReleased = false;
         switch (type) {
             case TYPE_VIDEO_LIVE: {
                 setVideoVisible(true);
                 mReason = Reason.LIVE_VIDEO;
                 if (this.type != 1) {
-                    isReleased = tryRelease();
+                    tryRelease();
                 }
                 break;
             }
@@ -205,28 +231,26 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
                 setVideoVisible(false);
                 mReason = Reason.LIVE_AUDIO;
                 if (this.type != 0) {
-                    isReleased = tryRelease();
+                    tryRelease();
                 }
                 break;
             }
             case TYPE_TEXT_LIVE: {
                 setVideoVisible(false);
                 mReason = Reason.LIVE_TEXT;
-                isReleased = tryRelease();
+                tryRelease();
                 break;
             }
         }
-        if (isReleased) {
-            onLeaveRoom("");
-        }
+        this.type = type;
+
     }
 
     public void stop() {
         mReason = Reason.STOP_PLAY;
-        if (tryRelease()) {
-            onLeaveRoom("");
+        if (!tryRelease()) {
+            showSwitchDialog("正在关闭...");
         }
-        showSwitchDialog("正在关闭...");
     }
 
 
@@ -234,7 +258,7 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
 
         if (tryRelease()) {
             Intent intent = new Intent(getActivity(), FullScreenVideo.class);
-            intent.putExtra(FullScreenVideo.EXTRA_IS_VOD, true);
+            intent.putExtra(FullScreenVideo.EXTRA_IS_VOD, isVod);
 
             if (isVod) {
                 intent.putExtra(FullScreenVideo.EXTRA_JOIN_TOKEN, vodPsw)
@@ -258,10 +282,15 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
     }
 
 
-    //是否有延迟加载的任务
+    /**
+     * 尝试播放，是否有延迟加载的任务.
+     * 如果已经关闭则不能播放
+     */
     private void tryPlay() {
 
-
+        if (isClosed) {
+            return;
+        }
         if (isVod && !TextUtils.isEmpty(vodId)) {
 
             playVod(vodId, vodPsw);
@@ -286,15 +315,14 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
 
     @Override
     public void onLiveJoint() {
+        tryDismiss();
         nolive.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void onLeaveRoom(String msg) {
         //这里可以弹出对话框，确定后在关闭界面
-        if (progressIDialog != null) {
-            progressIDialog.dismiss();
-        }
+        tryDismiss();
 
         if (callback != null) {
             callback.onReleased(mReason);
@@ -361,13 +389,12 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
         if (progressIDialog == null) {
             progressIDialog = new ProgressIDialog(getActivity());
         } else {
-            if (progressIDialog.isShowing()) {
-                progressIDialog.dismiss();
-            }
+            tryDismiss();
         }
         progressIDialog.setMessage(message);
         progressIDialog.show();
     }
+
 
     public String getLive_id() {
         return live_id;

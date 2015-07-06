@@ -12,7 +12,9 @@ import com.svmuu.ui.widget.CustomSearchView;
 import com.svmuu.ui.widget.SelectBar;
 
 public class MyCircleActivity extends BaseActivity implements SelectBar.OnSelectListener, CustomSearchView.Callback {
+    public static final String EXTRA_IS_MY = "is_my";
     SelectBar selectBar;
+
     private LiveListFragment fragment;
     CustomSearchView searchView;
 
@@ -41,13 +43,16 @@ public class MyCircleActivity extends BaseActivity implements SelectBar.OnSelect
         fragment = new LiveListFragment();
         fragment.setUrlAndKey(LIVE, "");
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, fragment).commit();
+        getSupportFragmentManager().executePendingTransactions();
+        if (getIntent().getBooleanExtra(EXTRA_IS_MY,false)) {
+            selectBar.getChildAt(1).performClick();
+        }
     }
 
 
     @Override
     public void onSelect(int index) {
         barIndex = index;
-        ContextUtil.toast(index);
         TextView first = (TextView) selectBar.getChildAt(0);
         TextView second = (TextView) selectBar.getChildAt(1);
         if (index == 0) {

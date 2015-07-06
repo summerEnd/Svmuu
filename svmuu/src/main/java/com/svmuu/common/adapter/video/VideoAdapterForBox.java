@@ -20,7 +20,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-
+/**
+ * for我的宝盒页面的列表
+ */
 public class VideoAdapterForBox extends BaseAdapter<BoxVideoDetail, VideoHolder> implements OnItemListener {
     DisplayImageOptions options;
     SimpleDateFormat timeFormat;

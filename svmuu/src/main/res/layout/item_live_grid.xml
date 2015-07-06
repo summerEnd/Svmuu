@@ -57,6 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="让票子越飞越高"
+        android:singleLine="true"
         android:textColor="@color/textColorBlack"
         android:textSize="@dimen/text_22px"/>
     <TextView

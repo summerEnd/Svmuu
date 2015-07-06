@@ -12,7 +12,7 @@
         android:background="@color/gray"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="@dimen/dimen_15px">
+        android:padding="@dimen/dimen_8px">
 
         <com.svmuu.ui.widget.CustomSearchView
             android:id="@+id/searchView"

@@ -84,15 +84,9 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new ChatItemDec());
 
-        requestRefresh();
-        mChatManager.updateMessageList(4 * 1000);
     }
 
-    @Override
-    protected void refresh() {
 
-        mChatManager.getNewMessages();
-    }
 
     @Override
     public void onMessageAdded(Chat chat) {
@@ -112,7 +106,7 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
             adapter.notifyDataSetChanged();
         }
 
-        int fromPosition = data.size() - 1;
+        int fromPosition = data.size();
         data.addAll(newMessages);
         adapter.notifyItemRangeInserted(fromPosition, newMessages.size());
         recyclerView.scrollToPosition(data.size() - 1);
@@ -131,7 +125,6 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
     public void onResume() {
         super.onResume();
         mChatManager.updateMessageList(4 * 1000);
-
     }
 
     @Override

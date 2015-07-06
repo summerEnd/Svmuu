@@ -34,6 +34,7 @@ import com.svmuu.ui.widget.CustomSearchView;
 
 import org.apache.http.Header;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -174,14 +175,23 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
             @Override
             public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException {
                 SLog.debug(response);
-                mData = JsonUtil.get(response.data, _DATA.class);
+                JSONObject data = new JSONObject(response.data);
+//                mData = JsonUtil.get(response.data, _DATA.class);
+                mData = new _DATA();
+
+                mData.quanzhu = JsonUtil.getArray(data.optJSONArray("quanzhu"), CircleMaster.class);
+                mData.visitor = JsonUtil.getArray(data.optJSONArray("visitor"), Visitor.class);
                 List<CircleMaster> recommends = recommendAdapter.getData();
                 recommends.clear();
-                recommends.addAll(mData.quanzhu);
+                if (mData.quanzhu != null) {
+                    recommends.addAll(mData.quanzhu);
+                }
 
                 List<Visitor> visitors = recentAdapter.getData();
                 visitors.clear();
-                visitors.addAll(mData.visitor);
+                if (mData.visitor != null) {
+                    visitors.addAll(mData.visitor);
+                }
 
                 recommendAdapter.notifyDataSetChanged();
                 recentAdapter.notifyDataSetChanged();

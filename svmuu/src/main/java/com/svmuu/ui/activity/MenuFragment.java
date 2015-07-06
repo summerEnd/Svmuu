@@ -67,7 +67,8 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                 break;
             }
             case R.id.myCircle: {
-                startActivity(new Intent(getActivity(), MyCircleActivity.class));
+                startActivity(new Intent(getActivity(), MyCircleActivity.class)
+                .putExtra(MyCircleActivity.EXTRA_IS_MY,true));
                 break;
             }
             case R.id.myBox: {

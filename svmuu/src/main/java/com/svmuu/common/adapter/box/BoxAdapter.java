@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.svmuu.R;
 import com.svmuu.common.adapter.BaseAdapter;
 import com.svmuu.common.adapter.BaseHolder;
@@ -49,6 +50,30 @@ public class BoxAdapter extends BaseAdapter<Box, BoxHolder> implements BaseHolde
         Box box = getData().get(position);
         holder.text.setText(box.name);
         //1铁粉2年粉 3公共
+
+        if ("2".equals(box.type)) {
+            //视频宝盒
+            ImageLoader.getInstance().displayImage(box.user.uface,holder.icon);
+        } else {
+            //文字宝盒
+            displayTextBoxImage(holder, box);
+        }
+
+
+        switch (getItemViewType(position)) {
+            case VIEW_LIST: {
+                Date date = new Date(Long.decode(box.add_time) * 1000);
+                holder.time.setText(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault()).format(date));
+                break;
+            }
+            case VIEW_GRID: {
+                break;
+            }
+        }
+
+    }
+
+    private void displayTextBoxImage(BoxHolder holder, Box box) {
         switch (box.free_group) {
             case "1": {
                 holder.icon.setImageResource(R.drawable.iron_box);
@@ -63,18 +88,6 @@ public class BoxAdapter extends BaseAdapter<Box, BoxHolder> implements BaseHolde
                 break;
             }
         }
-
-        switch (getItemViewType(position)) {
-            case VIEW_LIST: {
-                Date date = new Date(Long.decode(box.add_time) * 1000);
-                holder.time.setText(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault()).format(date));
-                break;
-            }
-            case VIEW_GRID: {
-                break;
-            }
-        }
-
     }
 
     @Override
