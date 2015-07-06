@@ -38,7 +38,7 @@ public class LoginDialog extends Dialog {
         savepsw = (CheckBox) findViewById(R.id.save_psw);
 
         sp_user = Preference.get(getContext(), USER.class);
-        boolean isSavePassword = sp_user.getBoolean(USER.IS_SAVE_PASSWORD, false);
+        boolean isSavePassword = sp_user.getBoolean(USER.IS_SAVE_PASSWORD, true);
         savepsw.setChecked(isSavePassword);
         editname.setText(sp_user.getString(USER.USER_NAME, ""));
 

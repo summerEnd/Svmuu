@@ -2,6 +2,7 @@ package com.svmuu.ui.pop;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.BaseKeyListener;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -41,8 +42,9 @@ public class LoginActivity extends BaseActivity {
         editpsw = (EditText) findViewById(R.id.edit_psw);
         savepsw = (CheckBox) findViewById(R.id.save_psw);
 
+
         sp_user = Preference.get(this, Preference.USER.class);
-        boolean isSavePassword = sp_user.getBoolean(Preference.USER.IS_SAVE_PASSWORD, false);
+        boolean isSavePassword = sp_user.getBoolean(Preference.USER.IS_SAVE_PASSWORD, true);
         savepsw.setChecked(isSavePassword);
         editname.setText(sp_user.getString(Preference.USER.USER_NAME, ""));
 

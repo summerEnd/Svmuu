@@ -39,7 +39,7 @@ public class MyCircleActivity extends BaseActivity implements SelectBar.OnSelect
             }
         });
         fragment = new LiveListFragment();
-        fragment.setUrlAndKey(LIVE, "*");
+        fragment.setUrlAndKey(LIVE, "");
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, fragment).commit();
     }
 
@@ -53,11 +53,11 @@ public class MyCircleActivity extends BaseActivity implements SelectBar.OnSelect
         if (index == 0) {
             first.setTextColor(selectBar.getCOLOR_NORMAL());
             second.setTextColor(selectBar.getCOLOR_CHECKED());
-            fragment.setUrlAndKey(LIVE, "*");
+            fragment.setUrlAndKey(LIVE, "");
         } else {
             first.setTextColor(selectBar.getCOLOR_CHECKED());
             second.setTextColor(selectBar.getCOLOR_NORMAL());
-            fragment.setUrlAndKey(MY_CIRCLE, "*");
+            fragment.setUrlAndKey(MY_CIRCLE, "");
         }
         fragment.requestRefresh();
 

@@ -22,7 +22,7 @@ import com.svmuu.ui.activity.live.LiveActivity;
 import java.util.List;
 
 
-public class LiveAdapter extends BaseAdapter<Live, LiveHolder> implements BaseHolder.OnItemListener{
+public class LiveAdapter extends BaseAdapter<Live, LiveHolder> implements BaseHolder.OnItemListener {
     DisplayImageOptions options;
     private boolean sortByHot = false;
 
@@ -58,8 +58,10 @@ public class LiveAdapter extends BaseAdapter<Live, LiveHolder> implements BaseHo
             liveHolder.tvfansNumber.setText(getString(R.string.popularity_s, live.hot));
         } else {
             liveHolder.tvfansNumber.setText(getString(R.string.fans_s, live.fans));
-
         }
+
+        liveHolder.live.setVisibility(live.isOnline?View.VISIBLE:View.INVISIBLE);
+
         ImageLoader.getInstance().displayImage(live.uface, liveHolder.ivcover, options);
     }
 
@@ -67,6 +69,6 @@ public class LiveAdapter extends BaseAdapter<Live, LiveHolder> implements BaseHo
     public void onClick(View itemView, int position) {
 
         getContext().startActivity(new Intent(getContext(), LiveActivity.class)
-                .putExtra(LiveActivity.EXTRA_QUANZHU_ID,getData().get(position).uid));
+                .putExtra(LiveActivity.EXTRA_QUANZHU_ID, getData().get(position).uid));
     }
 }

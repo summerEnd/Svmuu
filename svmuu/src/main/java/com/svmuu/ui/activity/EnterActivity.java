@@ -38,9 +38,10 @@ public class EnterActivity extends Activity {
 
         if (AppDelegate.getInstance().isFirstStartApplication()) {
             ShortCut.addShortcut(this, getString(R.string.app_name), EnterActivity.class);
-            startGuide();
+            //暂无引导页
+            startLoading();
         } else {
-           startLoading();
+            startLoading();
         }
     }
 

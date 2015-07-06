@@ -21,7 +21,10 @@
 
     <EditText
         android:id="@+id/edit_name"
+        android:imeOptions="actionNext"
+        android:nextFocusDown="@+id/edit_psw"
         style="@style/SignInEditStyle"
+        android:singleLine="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dimen_70px"
         android:drawableLeft="@drawable/sign_name"
@@ -29,9 +32,11 @@
 
     <EditText
         android:id="@+id/edit_psw"
+        android:nextFocusDown="@+id/save_psw"
         style="@style/SignInEditStyle"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dimen_30px"
+        android:imeOptions="actionDone"
         android:drawableLeft="@drawable/sign_in_password"
         android:ems="10"
         android:hint="@string/hint_psw"

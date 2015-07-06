@@ -53,7 +53,11 @@ public class HttpManager {
         if (context == null) {
             context = AppDelegate.getInstance();
         }
-        client.post(context, request.getUrl(), request, handler);
+        String url = request.getUrl();
+        if (TextUtils.isEmpty(url)){
+            return;
+        }
+        client.post(context, url, request, handler);
     }
 
     /**
@@ -70,10 +74,14 @@ public class HttpManager {
      */
     public void getMobileApi(@Nullable Context context, SRequest request, ResponseHandlerInterface handlerInterface) {
         fixUrl(request);
+        String url = request.getUrl();
+        if (TextUtils.isEmpty(url)){
+            return;
+        }
         if (context == null) {
             context = AppDelegate.getInstance();
         }
-        client.get(context, request.getUrl(), request,handlerInterface);
+        client.get(context,url, request,handlerInterface);
     }
 
     private void fixUrl(SRequest request) {

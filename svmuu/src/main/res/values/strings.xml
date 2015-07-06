@@ -77,4 +77,5 @@
     <string name="title_activity_text_box">文字宝盒</string>
     <string name="circleMaster">圈主</string>
     <string name="manager">管理员</string>
+    <string name="live">直播</string>
 </resources>

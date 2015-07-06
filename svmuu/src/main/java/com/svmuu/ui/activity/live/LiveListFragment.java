@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URI;
 import java.util.ArrayList;
 
 public class LiveListFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener<RecyclerView> {
@@ -66,13 +68,21 @@ public class LiveListFragment extends BaseFragment implements PullToRefreshBase.
             @Override
             public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException {
                 lives.clear();
-                if (response.data.startsWith("[")){
+                if (response.data.startsWith("[")) {
                     JsonUtil.getArray(new JSONArray(response.data), Live.class, lives);
                     adapter.sortByHot(false);
-                }else{
-                    JSONObject data=new JSONObject(response.data);
-                    JsonUtil.getArray(data.getJSONArray("online"),Live.class, lives);
-                    JsonUtil.getArray(data.getJSONArray("offline"),Live.class, lives);
+                } else {
+                    JSONObject data = new JSONObject(response.data);
+                    ArrayList<Live> onlineList = JsonUtil.getArray(data.getJSONArray("online"), Live.class);
+                    ArrayList<Live> offlineList = JsonUtil.getArray(data.getJSONArray("offline"), Live.class);
+                    for (Live live : onlineList) {
+                        live.isOnline = true;
+                    }
+                    for (Live live : offlineList) {
+                        live.isOnline = false;
+                    }
+                    lives.addAll(onlineList);
+                    lives.addAll(offlineList);
                     adapter.sortByHot(true);
                 }
                 adapter.notifyDataSetChanged();
@@ -87,6 +97,10 @@ public class LiveListFragment extends BaseFragment implements PullToRefreshBase.
         });
     }
 
+    /**
+     * @param url 搜索的链接
+     * @param kw  搜索的关键字
+     */
     public void setUrlAndKey(String url, String kw) {
         this.kw = kw;
         this.url = url;

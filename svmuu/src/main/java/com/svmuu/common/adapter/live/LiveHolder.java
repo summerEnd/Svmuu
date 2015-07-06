@@ -18,13 +18,14 @@ public class LiveHolder extends BaseHolder {
     public TextView tvfansNumber;
     public TextView tvcircleName;
     public TextView tvcircleNo;
+    public View live;
 
     public LiveHolder(@NonNull View itemView) {
         super(itemView);
 
     }
     protected void initialize() {
-
+        live=findViewById(R.id.live);
         ivcover = (ImageView) findViewById(R.id.iv_cover);
         tvfansNumber = (TextView) findViewById(R.id.tv_fansNumber);
         tvcircleName = (TextView) findViewById(R.id.tv_circleName);

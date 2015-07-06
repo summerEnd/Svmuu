@@ -17,6 +17,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    signingConfigs {
+        myConfigs {
+            //windows下地址
+            storeFile file("D:\\workspace\\Svmuu\\rongzhengtong.jks");
+            //mac下的地址
+            // storeFile file("/Users/Lincoln/AndroidStudioProjects/Svmuu/rongzhengtong.jks");
+            keyAlias "yjy"
+            keyPassword "yjy998"
+            storePassword "rzt2014"
+        }
+    }
 }
 
 dependencies {
