@@ -88,9 +88,6 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                     return;
                 }
-
-
-
                 startActivity(new Intent(getActivity(), LiveActivity.class)
                         .putExtra(LiveActivity.EXTRA_QUANZHU_ID, uid));
                 break;
@@ -112,9 +109,6 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         findViewById(R.id.my_circle).setOnClickListener(this);
         refreshUI();
         requestRefresh();
-
-
-
         phoneText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,7 +158,6 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
             shuibao = user.money;
             fans = user.fans;
             avatar = user.uface;
-
         } else {
             name = "未登录";
             circleNo = "0";

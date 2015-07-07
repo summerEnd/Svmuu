@@ -31,7 +31,7 @@ public class HttpManager {
     }
 
     //todo host类型
-    private static final int type = 0;
+    private static final int type = 2;
 
     public String getHost() {
         return HOSTS.get(type);
