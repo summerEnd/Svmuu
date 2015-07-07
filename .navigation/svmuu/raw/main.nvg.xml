@@ -54,7 +54,7 @@
     <statePointEntry>
       <state      
         class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
-        className = "com.svmuu.ui.activity.MyCircleActivity"/>
+        className = "com.svmuu.ui.activity.live.MyCircleActivity"/>
       <point      
         x = "76"      
         y = "1488"/>

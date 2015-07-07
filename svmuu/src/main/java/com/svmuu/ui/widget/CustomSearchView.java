@@ -7,6 +7,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sp.lib.common.image.drawable.CircleLRDrawable;
@@ -27,10 +31,38 @@ public class CustomSearchView extends LinearLayout {
 
     CircleLRDrawable drawable;
 
-    private static final int STYLE_CLICK = 0;
-    private static final int STYLE_EDIT = 1;
+    public static final int STYLE_CLICK = 0;
+    public static final int STYLE_EDIT = 1;
 
     private Callback mCallback;
+    ProgressBar progressBar;
+    private EditText editSearch;
+    private TextView textSearch;
+    private ImageView closeIcon;
+    private ImageView searchIcon;
+    private OnClickListener jumpListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (mCallback != null) {
+                mCallback.onJump();
+            }
+        }
+    };
+    private OnClickListener searchListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //没有输入内容就不发起搜索,产品这么说的- -!
+            String content = editSearch.getText().toString();
+            if (TextUtils.isEmpty(content)) {
+                return;
+            }
+            //显示进度条
+            progressBar.setVisibility(VISIBLE);
+            if (mCallback != null) {
+                mCallback.onSearch(content);
+            }
+        }
+    };
 
     public interface Callback {
         //在编辑状态下，点击搜索时触发
@@ -62,65 +94,66 @@ public class CustomSearchView extends LinearLayout {
         int iconSize = (int) a.getDimension(R.styleable.CustomSearchView_iconSize, LayoutParams.WRAP_CONTENT);
         int style = a.getInt(R.styleable.CustomSearchView_searchStyle, STYLE_EDIT);
         a.recycle();
+        View v = View.inflate(context, R.layout.search_view, this);
+        searchIcon = (ImageView) v.findViewById(R.id.search);
+        closeIcon = (ImageView) v.findViewById(R.id.cross);
+        editSearch = (EditText) findViewById(R.id.editSearch);
+        textSearch = (TextView) findViewById(R.id.textSearch);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        ImageView searchIcon = new ImageView(context);
-        searchIcon.setImageResource(R.drawable.ic_search);
-        searchIcon.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        final TextView searchContent;
+        closeIcon.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editSearch.setText(null);
+            }
+        });
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        ImageView closeIcon = new ImageView(context);
-        closeIcon.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        closeIcon.setImageResource(R.drawable.ic_clear_search);
-        if (style == STYLE_EDIT) {
-            searchContent = new EditText(context);
-            closeIcon.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    searchContent.setText(null);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s == null || s.length() == 0) {
+                    closeIcon.setVisibility(INVISIBLE);
+                } else {
+                    closeIcon.setVisibility(VISIBLE);
                 }
-            });
+            }
+        });
+        setStyle(style);
 
-            searchIcon.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mCallback != null) {
-                        mCallback.onSearch(searchContent.getText().toString());
-                    }
-                }
-            });
-        } else {
-            searchContent = new TextView(context);
-            setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mCallback != null) {
-                        mCallback.onJump();
-                    }
-                }
-            });
-        }
-
-        searchContent.setTextSize(TypedValue.COMPLEX_UNIT_SP,13);
-        searchContent.setHint(R.string.search_hint);
-        ViewUtil.setBackground(searchContent,new ColorDrawable());
-
-        setOrientation(HORIZONTAL);
-        LayoutParams iconParams = new LayoutParams(iconSize, iconSize);
-        LayoutParams editParams = new LayoutParams(0, LayoutParams.WRAP_CONTENT);
-        editParams.weight = 1;
-        addView(searchIcon, iconParams);
-        addView(searchContent, editParams);
-        addView(closeIcon, iconParams);
         //背景图片
         drawable = new CircleLRDrawable(Color.WHITE);
         drawable.setBorderColor(Color.LTGRAY);
         drawable.setDrawBord(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            setBackground(drawable);
-        } else {
-            setBackgroundDrawable(drawable);
+        ViewUtil.setBackground(this, drawable);
+    }
 
+    public void setStyle(int style) {
+        if (style == STYLE_EDIT) {
+            setOnClickListener(null);
+            closeIcon.setVisibility(VISIBLE);
+            editSearch.setVisibility(VISIBLE);
+            textSearch.setVisibility(INVISIBLE);
+            searchIcon.setOnClickListener(searchListener);
+        } else {
+            setOnClickListener(jumpListener);
+            closeIcon.setVisibility(INVISIBLE);
+            editSearch.setVisibility(INVISIBLE);
+            textSearch.setVisibility(VISIBLE);
+            searchIcon.setOnClickListener(null);
         }
+    }
+
+    public void onSearchComplete() {
+        progressBar.setVisibility(INVISIBLE);
     }
 
     public void setCallback(Callback callback) {

@@ -1,5 +1,6 @@
 package com.svmuu.ui.activity.live;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -35,6 +36,15 @@ public class LiveListFragment extends BaseFragment implements PullToRefreshBase.
     private PullToRefreshRecyclerView contentView;
     private String url;
     private String kw;
+    Callback callback;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof Callback) {
+            callback = (Callback) activity;
+        }
+    }
 
     @Nullable
     @Override
@@ -86,6 +96,9 @@ public class LiveListFragment extends BaseFragment implements PullToRefreshBase.
                     adapter.sortByHot(true);
                 }
                 adapter.notifyDataSetChanged();
+                if (callback != null) {
+                    callback.onSearchComplete();
+                }
             }
 
             @Override
@@ -119,6 +132,10 @@ public class LiveListFragment extends BaseFragment implements PullToRefreshBase.
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
 
+    }
+
+    public interface Callback {
+        void onSearchComplete();
     }
 
 }

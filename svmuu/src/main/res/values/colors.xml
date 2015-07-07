@@ -3,6 +3,7 @@
     <color name="textColorGray">#bababa</color>
     <drawable name="tabText1" >#ff0000</drawable>
     <drawable name="tabText2" >#00ff00</drawable>
+    <drawable name="divider" >#3d3b3c</drawable>
     <color name="transparentBlack">#77000000</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>

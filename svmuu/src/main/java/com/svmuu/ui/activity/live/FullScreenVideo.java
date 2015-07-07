@@ -22,6 +22,9 @@ public class FullScreenVideo extends FragmentActivity {
     public static final String EXTRA_LIVE_ID = "id";
     //是否为录像
     public static final String EXTRA_IS_VOD = "is_vod";
+    //直播主题
+    public static final String EXTRA_SUBJECT = "subject";
+
 
     PlayFragment mPlayFragment;
 
@@ -32,10 +35,10 @@ public class FullScreenVideo extends FragmentActivity {
         setContentView(R.layout.activity_full_sceen_video);
         mPlayFragment = new PlayFragment();
         mPlayFragment.showMediaController(false);
-        getSupportFragmentManager().beginTransaction().add(R.id.videoContainer,mPlayFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.videoContainer, mPlayFragment).commit();
         getSupportFragmentManager().executePendingTransactions();
+        mPlayFragment.setSubject(getIntent().getStringExtra(EXTRA_SUBJECT));
         if (getIntent().getBooleanExtra(EXTRA_IS_VOD, false)) {
-
             Intent i = getIntent();
             mPlayFragment.playVod(
                     i.getStringExtra(EXTRA_LIVE_ID),

@@ -6,7 +6,7 @@ import com.sp.lib.activity.DEBUGActivity;
 import com.sp.lib.activity.STestActivity;
 import com.svmuu.ui.activity.EnterActivity;
 import com.svmuu.ui.activity.MainActivity;
-import com.svmuu.ui.activity.MyCircleActivity;
+import com.svmuu.ui.activity.live.MyCircleActivity;
 import com.svmuu.ui.activity.SearchActivity;
 import com.svmuu.ui.activity.live.LiveActivity;
 

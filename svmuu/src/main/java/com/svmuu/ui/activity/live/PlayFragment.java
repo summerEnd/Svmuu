@@ -246,6 +246,10 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
 
     }
 
+    public int getLiveType() {
+        return type;
+    }
+
     public void stop() {
         mReason = Reason.STOP_PLAY;
         if (!tryRelease()) {
@@ -386,6 +390,9 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
     }
 
     private void showSwitchDialog(String message) {
+        if (getActivity()==null){
+            return;
+        }
         if (progressIDialog == null) {
             progressIDialog = new ProgressIDialog(getActivity());
         } else {

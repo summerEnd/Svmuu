@@ -58,6 +58,7 @@
     <string name="popularity_s">总人气：%s</string>
     <string name="live_video">直播录像</string>
     <string name="my_box">我的宝盒</string>
+    <string name="my_book">我的订阅</string>
     <string name="http_request_fail">网络请求错误</string>
     <string name="tips">提示</string>
     <string name="cache_clear_ok">缓存清理完毕</string>
@@ -65,7 +66,7 @@
     <string name="search_history">搜索历史</string>
     <string name="clear_search_history">清空搜索历史</string>
     <string name="title_activity_a">A</string>
-    <string name="title_activity_box">宝盒</string>
+    <string name="title_activity_box">我订阅的宝盒</string>
     <string name="live_not_exist">直播不存在</string>
     <string name="title_activity_vod">VodActivity</string>
     <string name="title_activity_box_detail">宝盒详情</string>
@@ -84,5 +85,6 @@
     <string name="about_desc">水木资本(www.svmuu.com)是公司全力打造的财经类互动社区，平台整合业界一线专家资源，以圈子的方式分享投资智慧，投资者通过分享专家投资经验、跟踪专家实战操作，实现自身投资技术的提高和收益的增值。水木资本以其开放、分享、专业、互动的服务理念，即将打造成为中国最具影响力的财经互动平台。</string>
     <string name="tel_desc">联系电话：025&#8211;86657191 \n客服电话：400&#8211;828&#8211;1911</string>
     <string name="live">直播</string>
+    <string name="live_null">未直播</string>
     <string name="get_live_info_failed">获取直播信息失败</string>
 </resources>

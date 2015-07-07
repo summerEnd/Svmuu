@@ -143,4 +143,15 @@
         <item name="android:textColor">@color/check_red_normal_gray</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="search_text_style">
+        <item name="android:textSize">@dimen/text_22px</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">#0000</item>
+        <item name="android:layout_toLeftOf">@+id/cross</item>
+        <item name="android:layout_toRightOf">@+id/search</item>
+        <item name="android:hint">@string/search_hint</item>
+    </style>
 </resources>

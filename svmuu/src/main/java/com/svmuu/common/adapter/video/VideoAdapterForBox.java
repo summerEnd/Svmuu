@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * forÎÒµÄ±¦ºĞÒ³ÃæµÄÁĞ±í
+ * foræˆ‘çš„å®ç›’é¡µé¢çš„åˆ—è¡¨
  */
 public class VideoAdapterForBox extends BaseAdapter<BoxVideoDetail, VideoHolder> implements OnItemListener {
     DisplayImageOptions options;

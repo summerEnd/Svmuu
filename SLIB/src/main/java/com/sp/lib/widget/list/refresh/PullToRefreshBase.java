@@ -1,6 +1,8 @@
 package com.sp.lib.widget.list.refresh;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -114,6 +116,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
      * @param attrs attrs
      * @param defStyle defStyle
      */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public PullToRefreshBase(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs);

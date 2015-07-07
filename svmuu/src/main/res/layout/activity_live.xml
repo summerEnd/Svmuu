@@ -87,6 +87,8 @@
             android:src="@drawable/ic_launcher"/>
 
         <LinearLayout
+            android:layout_marginLeft="@dimen/dimen_8px"
+            android:layout_marginRight="@dimen/dimen_8px"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -154,7 +156,7 @@
         <RadioButton
             android:id="@+id/box"
             style="@style/liveTabButtonStyle"
-            android:text="@string/my_box"/>
+            android:text="@string/my_book"/>
 
     </RadioGroup>
 

@@ -27,7 +27,7 @@ public class LiveModeSelector extends PopupWindow implements RadioGroup.OnChecke
                 WindowManager.LayoutParams.WRAP_CONTENT
         );
         setFocusable(true);
-        check(0);
+
     }
 
     public void check(int position){

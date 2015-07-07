@@ -48,7 +48,6 @@ public class LiveAdapter extends BaseAdapter<Live, LiveHolder> implements BaseHo
         this.sortByHot = sortByHot;
     }
 
-
     @Override
     public void onBindViewHolder(LiveHolder liveHolder, int i) {
         Live live = getData().get(i);
@@ -59,8 +58,11 @@ public class LiveAdapter extends BaseAdapter<Live, LiveHolder> implements BaseHo
         } else {
             liveHolder.tvfansNumber.setText(getString(R.string.fans_s, live.fans));
         }
-
-        liveHolder.live.setVisibility(live.isOnline?View.VISIBLE:View.INVISIBLE);
+        if (live.isOnline){
+            liveHolder.live.setBackgroundColor(0xffe5376b);
+        }else{
+            liveHolder.live.setBackgroundColor(0xffcccccc);
+        }
 
         ImageLoader.getInstance().displayImage(live.uface, liveHolder.ivcover, options);
     }

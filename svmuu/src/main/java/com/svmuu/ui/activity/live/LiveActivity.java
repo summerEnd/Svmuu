@@ -102,14 +102,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         findViewById(R.id.back).setOnClickListener(this);
         //创建聊天
         circleId = getIntent().getStringExtra(EXTRA_QUANZHU_ID);
-        if (TextUtils.isEmpty(circleId)) {
-            YAlertDialog.show(this, getString(R.string.live_not_exist)).setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    finish();
-                }
-            });
-        }
+
         chatFragment = ChatFragment.newInstance(circleId);
         videoListFragment = VideoListFragment.newInstance(circleId);
         //选中第一个tab
@@ -178,14 +171,12 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         boolean isFollow;
         if (userInfo != null) {
             fans = userInfo.fans;
-            hot = "0";
+            hot = userInfo.totalhot;
             unick = userInfo.unick;
             live_subject = userInfo.live_subject;
             uface = userInfo.uface;
             LiveInfo info = data.liveInfo;
             if (info != null) {
-
-
                 if ("32".equals(circleId)) {
                     setTitleIcon(0);
                 } else {
@@ -270,7 +261,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
                     dismiss();
                 }
             };
-
+            modeSelector.check(mPlayFragment.getLiveType());
             modeSelector.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
@@ -446,6 +437,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         public String uid;
         public String isQuanzhu;
         public String fans;
+        public String totalhot;
         public String live_subject;
         public String adminFlag;
         public String uface;

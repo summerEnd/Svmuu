@@ -20,10 +20,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/dimen_30px"
             android:layout_marginRight="@dimen/dimen_30px"
-            android:paddingBottom="@dimen/dimen_15px"
             android:paddingLeft="@dimen/dimen_15px"
             android:paddingRight="@dimen/dimen_15px"
-            android:paddingTop="@dimen/dimen_15px"
             app:iconSize="@dimen/dimen_40px"
             app:searchStyle="click"/>
     </FrameLayout>
