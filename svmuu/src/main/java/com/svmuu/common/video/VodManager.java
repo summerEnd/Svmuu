@@ -50,6 +50,7 @@ public class VodManager extends AbsVideoManager {
 
     @Override
     protected boolean onRelease() {
+        mGSOLPlayer.stop();
         return mGSOLPlayer.release();
     }
 
@@ -157,6 +158,6 @@ public class VodManager extends AbsVideoManager {
     });
 
     public void adjustVideoSize(boolean adjustVideoSize) {
-        this.adjustVideoSize=adjustVideoSize;
+        this.adjustVideoSize = adjustVideoSize;
     }
 }
