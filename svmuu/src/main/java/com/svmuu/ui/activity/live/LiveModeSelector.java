@@ -7,10 +7,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.CheckedTextView;
 import android.widget.PopupWindow;
-import android.widget.RadioGroup;
 
 import com.svmuu.R;
-import com.svmuu.common.LiveManager;
 
 public class LiveModeSelector extends PopupWindow implements View.OnClickListener {
 

@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.gensee.entity.DocInfo;
 import com.gensee.taskret.OnTaskRet;
 import com.gensee.view.GSVideoView;
 import com.sp.lib.common.util.ContextUtil;
@@ -25,15 +24,13 @@ import com.sp.lib.common.util.SLog;
 import com.sp.lib.common.util.TextPainUtil;
 import com.svmuu.AppDelegate;
 import com.svmuu.R;
-import com.svmuu.common.LiveManager;
-import com.svmuu.common.VodManager;
+import com.svmuu.common.video.LiveManager;
+import com.svmuu.common.video.VodManager;
 import com.svmuu.ui.BaseFragment;
 import com.svmuu.ui.pop.ProgressIDialog;
 
-import java.util.List;
 
-
-public class PlayFragment extends BaseFragment implements LiveManager.Callback {
+public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveManager.Callback {
 
     public static final int TYPE_VIDEO_LIVE = 0;
     public static final int TYPE_AUDIO_LIVE = 1;
@@ -91,7 +88,7 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
         gsView = (GSVideoView) findViewById(R.id.gsView);
         videoLayout = findViewById(R.id.videoLayout);
 
-        gsView.renderDrawble(getBitmap(), false);
+        gsView.renderDrawble(getLoadingBitmap(), false);
         findViewById(R.id.fullScreen).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +98,7 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
         showMediaController(showMediaController);
     }
 
-    Bitmap getBitmap() {
+    Bitmap getLoadingBitmap() {
 
         ColorDrawable drawable = new ColorDrawable(0xfff5f5f5);
         int width = 400;
@@ -128,7 +125,14 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
         return src;
     }
 
-    public void playVod(String vodId, String pwd, boolean ajustVideoSize) {
+    /**
+     * 播放录像
+     *
+     * @param vodId           录像id
+     * @param pwd             录像密码
+     * @param adjustVideoSize 是否调整视频宽高
+     */
+    public void playVod(String vodId, String pwd, boolean adjustVideoSize) {
         this.vodId = vodId;
         this.vodPsw = pwd;
         if (gsView == null) {
@@ -137,12 +141,11 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
         }
 
         if (vodManager == null) {
-            vodManager = VodManager.newInstance(getActivity(), gsView);
-            vodManager.setCallback(vodManager.new SimpleVodListener());
+            vodManager = VodManager.getInstance(getActivity());
         }
 
         vodManager.release();
-        vodManager.adjustVideoSize(ajustVideoSize);
+        vodManager.adjustVideoSize(adjustVideoSize);
         nolive.setVisibility(View.INVISIBLE);
         vodManager.start(vodId, pwd);
         showSwitchDialog(ContextUtil.getString(R.string.open_vod));
@@ -155,16 +158,6 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
         playVod(vodId, pwd, false);
     }
 
-    private void tryDismiss() {
-        try {
-//            if (progressBar != null) {
-//                progressBar.setVisibility(View.INVISIBLE);
-//            }
-            progressIDialog.dismiss();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public void showMediaController(boolean show) {
         this.showMediaController = show;
@@ -179,7 +172,7 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
     public void playLive(String liveId, String token) {
         this.mLiveId = liveId;
         this.mToken = token;
-        SLog.debug("liveId:" + liveId + "  mToken:" + token);
+
         if (gsView == null) {
             //如果当前是点播返回
             isVod = false;
@@ -191,10 +184,21 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
             return;
         }
 
-        if (liveManager == null) {
-            liveManager = LiveManager.getInstance();
+        if (TextUtils.isEmpty(liveId)) {
+            nolive.setVisibility(View.VISIBLE);
+            return;
         }
-        boolean isReleased = liveManager.tryRelease(new OnTaskRet() {
+        nolive.setVisibility(View.INVISIBLE);
+        if (liveManager == null) {
+            liveManager = LiveManager.getInstance(getActivity());
+        }
+
+        if (liveManager.isPlaying()) {
+            liveManager.setGSView(gsView);
+            return;
+        }
+
+        boolean isReleased = liveManager.release(new OnTaskRet() {
             @Override
             public void onTaskRet(boolean b, int i, String s) {
                 startLive();
@@ -209,8 +213,8 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
      * 启动直播
      */
     private void startLive() {
-        liveManager.setUp(getActivity(), gsView, PlayFragment.this);
-        liveManager.startPlay(mToken, nickName, mLiveId);
+        liveManager.setGSView(gsView);
+        liveManager.start(mLiveId, mToken);
         showSwitchDialog(ContextUtil.getString(R.string.open_living));
     }
 
@@ -222,11 +226,10 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
     public boolean tryRelease() {
         if (isVod && vodManager != null) {
             vodManager.release();
-            return true;
         }
 
         if (!isVod && liveManager != null) {
-            return liveManager.tryRelease(new OnTaskRet() {
+            return liveManager.release(new OnTaskRet() {
                 @Override
                 public void onTaskRet(boolean b, int i, String s) {
                     onLeaveRoom("");
@@ -299,7 +302,7 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
 
     public void toFullScreen() {
 
-        if (tryRelease()) {
+        if (true) {
             Intent intent = new Intent(getActivity(), FullScreenVideo.class);
             intent.putExtra(FullScreenVideo.EXTRA_IS_VOD, isVod);
 
@@ -335,7 +338,6 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
             return;
         }
         if (isVod && !TextUtils.isEmpty(vodId)) {
-
             playVod(vodId, vodPsw);
         } else if (!isVod && !TextUtils.isEmpty(mLiveId)) {
             if (type != TYPE_TEXT_LIVE) {
@@ -362,7 +364,6 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    tryDismiss();
                     nolive.setVisibility(View.INVISIBLE);
                 }
             });
@@ -372,8 +373,6 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
 
     @Override
     public void onLeaveRoom(String msg) {
-        //这里可以弹出对话框，确定后在关闭界面
-        tryDismiss();
 
         if (callback != null) {
             callback.onReleased(mReason);
@@ -387,14 +386,14 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
                 if (mLiveId != null) {
                     gsView.renderDefault();
                     liveManager.setGSView(null);
-                    liveManager.startPlay(mToken, nickName, mLiveId);
+                    liveManager.start(mToken, mLiveId);
                 }
                 break;
             }
             case Reason.LIVE_VIDEO: {
                 if (mLiveId != null) {
                     liveManager.setGSView(gsView);
-                    liveManager.startPlay(mToken, nickName, mLiveId);
+                    liveManager.start(mToken, mLiveId);
                 }
                 break;
             }
@@ -448,19 +447,19 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
 
     private void showSwitchDialog(String message) {
 
-//        if (progressBar != null) {
-////            progressBar.setVisibility(View.VISIBLE);
-//        }
+        //        if (progressBar != null) {
+        ////            progressBar.setVisibility(View.VISIBLE);
+        //        }
         if (getActivity() == null) {
             return;
         }
-//        if (progressIDialog == null) {
-//            progressIDialog = new ProgressIDialog(getActivity());
-//        } else {
-//            tryDismiss();
-//        }
-//        progressIDialog.setMessage(message);
-//        progressIDialog.show();
+        //        if (progressIDialog == null) {
+        //            progressIDialog = new ProgressIDialog(getActivity());
+        //        } else {
+        //            tryDismiss();
+        //        }
+        //        progressIDialog.setMessage(message);
+        //        progressIDialog.show();
     }
 
     public interface Callback {
@@ -474,4 +473,5 @@ public class PlayFragment extends BaseFragment implements LiveManager.Callback {
         mReason = Reason.STOP_PLAY;
         tryRelease();
     }
+
 }

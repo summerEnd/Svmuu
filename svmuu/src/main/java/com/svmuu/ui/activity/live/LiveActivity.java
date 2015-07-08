@@ -445,11 +445,6 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         );
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mPlayFragment.stop();
-    }
 
     /**
      * 录像转直播

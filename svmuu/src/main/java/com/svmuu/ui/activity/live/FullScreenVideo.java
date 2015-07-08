@@ -1,15 +1,15 @@
 package com.svmuu.ui.activity.live;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.gensee.taskret.OnTaskRet;
+import com.gensee.view.GSVideoView;
 import com.svmuu.R;
-import com.svmuu.common.LiveManager;
-import com.svmuu.ui.BaseActivity;
-import com.svmuu.ui.pop.ProgressIDialog;
+import com.svmuu.common.video.VodManager;
+import com.svmuu.common.video.LiveManager;
 
 public class FullScreenVideo extends FragmentActivity {
 
@@ -26,38 +26,44 @@ public class FullScreenVideo extends FragmentActivity {
     public static final String EXTRA_SUBJECT = "subject";
 
 
-    PlayFragment mPlayFragment;
+    GSVideoView gsVideoView;
+
+    LiveManager liveManager;
+    VodManager vodManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_full_sceen_video);
-        mPlayFragment = new PlayFragment();
-        mPlayFragment.showMediaController(false);
+        gsVideoView = (GSVideoView) findViewById(R.id.gsView);
 
-        mPlayFragment.setSubject(getIntent().getStringExtra(EXTRA_SUBJECT));
 
         if (getIntent().getBooleanExtra(EXTRA_IS_VOD, false)) {
-            Intent i = getIntent();
-            mPlayFragment.playVod(
-                    i.getStringExtra(EXTRA_LIVE_ID),
-                    i.getStringExtra(EXTRA_JOIN_TOKEN)
-            );
-        } else {
+            vodManager = VodManager.getInstance(this);
+            vodManager.setGSView(gsVideoView);
 
-            Intent i = getIntent();
-            mPlayFragment.playLive(
-                    i.getStringExtra(EXTRA_LIVE_ID),
-                    i.getStringExtra(EXTRA_JOIN_TOKEN)
-            );
+        } else {
+            liveManager = LiveManager.getInstance(this);
+            liveManager.setGSView(gsVideoView);
         }
-        getSupportFragmentManager().beginTransaction().add(R.id.videoContainer, mPlayFragment).commit();
+
     }
 
     @Override
     public void onBackPressed() {
-        if (mPlayFragment.onActivityClose()) {
+        if (liveManager != null) {
+            liveManager.release(new OnTaskRet() {
+                @Override
+                public void onTaskRet(boolean b, int i, String s) {
+
+                }
+            });
+            super.onBackPressed();
+        }
+
+        if (vodManager != null) {
+            vodManager.release();
             super.onBackPressed();
         }
 

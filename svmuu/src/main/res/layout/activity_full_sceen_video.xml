@@ -6,5 +6,8 @@
     android:layout_height="match_parent"
     tools:context="com.svmuu.ui.activity.live.FullScreenVideo">
 
-
+    <com.gensee.view.GSVideoView
+        android:id="@+id/gsView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </FrameLayout>
