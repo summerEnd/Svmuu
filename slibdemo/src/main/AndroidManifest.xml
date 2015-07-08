@@ -38,6 +38,7 @@
         <activity android:name="com.slib.demo.WidgetHost" />
         <activity android:name="com.slib.demo.material.MaterialBaseTest" />
         <activity android:name="com.slib.demo.material.MaterialTest" />
+        <activity android:name="com.slib.demo.material.AndroidLTest" />
         <activity android:name="com.slib.demo.material.MaterialGridView" />
 
         <receiver android:name="com.slib.demo.WidgetHost$MyWidget" >

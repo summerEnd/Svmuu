@@ -6,8 +6,8 @@
     tools:context="com.svmuu.ui.activity.box.BoxDetailActivity">
 
     <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_360px"
         android:id="@+id/videoContainer"/>
 
 </RelativeLayout>

@@ -86,28 +86,13 @@
                 android:textColor="@color/grayA"
                 android:textSize="@dimen/text_22px"/>
         </LinearLayout>
-        <View style="@style/horizontalDivider.menuStyle"/>
         <android.support.v7.widget.LinearLayoutCompat
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="@dimen/menuWidth"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:divider="@drawable/horizontal_divider"
-            app:showDividers="middle">
-            <LinearLayout
-                android:id="@+id/my_circle"
-                style="@style/MenuClickItem">
-
-                <ImageView
-                    style="@style/MenuIconStyle"
-                    android:contentDescription="@string/myBox"
-                    android:src="@drawable/my_circle"/>
-
-                <TextView
-                    style="@style/MenuTextStyle"
-                    android:text="我的圈子"/>
-            </LinearLayout>
-
+            app:showDividers="beginning|middle|end">
             <LinearLayout
                 android:id="@+id/recharge"
                 style="@style/MenuClickItem">
@@ -121,6 +106,19 @@
                 <TextView
                     style="@style/MenuTextStyle"
                     android:text="@string/recharge"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/my_circle"
+                style="@style/MenuClickItem">
+
+                <ImageView
+                    style="@style/MenuIconStyle"
+                    android:contentDescription="@string/myBox"
+                    android:src="@drawable/my_circle"/>
+
+                <TextView
+                    style="@style/MenuTextStyle"
+                    android:text="我的圈子"/>
             </LinearLayout>
 
 
@@ -169,7 +167,6 @@
                     android:text="@string/settings"/>
             </LinearLayout>
         </android.support.v7.widget.LinearLayoutCompat>
-        <View style="@style/horizontalDivider.menuStyle"/>
 
     </LinearLayout>
 </ScrollView>

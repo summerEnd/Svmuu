@@ -90,24 +90,15 @@ public class LiveManager implements RtComp.Callback {
         comp.initWithGensee(p);
     }
 
+
+
     /**
      * 退出的时候请调用
      */
-    public boolean leaveCast() {
+    public boolean tryRelease(OnTaskRet taskRet) {
+
         // 显示进度框
-        return simpleImpl.getRtSdk().leave(false, new OnTaskRet() {
-            @Override
-            public void onTaskRet(boolean b, int i, String s) {
-                if (callback!=null){
-                    callback.onLeaveRoom("");
-                }
-            }
-        });
-    }
-
-    public boolean tryRelease() {
-
-        return leaveCast();
+        return simpleImpl.getRtSdk().leave(false, taskRet);
     }
 
     @Override
@@ -117,7 +108,9 @@ public class LiveManager implements RtComp.Callback {
 
     @Override
     public void onErr(int i) {
-        ;
+      if (callback!=null){
+          callback.onLiveJoint();
+      }
     }
 
     public void setCallback(Callback callback) {
@@ -128,7 +121,9 @@ public class LiveManager implements RtComp.Callback {
     private class SimImpl extends RtSimpleImpl {
         @Override
         protected void onVideoStart() {
-
+            if (callback!=null){
+                callback.onLiveJoint();
+            }
         }
 
         @Override
@@ -138,20 +133,23 @@ public class LiveManager implements RtComp.Callback {
 
         @Override
         public void onJoin(boolean b) {
-
+            if (callback!=null){
+                callback.onLiveJoint();
+            }
         }
 
         @Override
         public void onRoomJoin(final int result, UserInfo self) {
             super.onRoomJoin(result, self);
             LiveManager.this.self = self;
+
             context.runOnUiThread(new Runnable() {
                 public void run() {
                     String resultDesc;
                     switch (result) {
                         //加入成功  除了成功其他均需要正常提示给用户
                         case IRTEvent.IRoomEvent.JoinResult.JR_OK:
-                            resultDesc = "加入直播成功";
+                            resultDesc = "";
                             if (callback != null) {
                                 callback.onLiveJoint();
                             }

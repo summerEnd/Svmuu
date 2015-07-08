@@ -78,14 +78,7 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
         list = (LinearListView) findViewById(R.id.list);
         recommendAdapter = new RecommendAdapter(this, new ArrayList<CircleMaster>());
         list.setAdapter(recommendAdapter);
-        list.setOnItemClick(new LinearListView.OnItemClick() {
-            @Override
-            public void onItemClick(LinearListView parent, View view, int position, long id) {
-                CircleMaster master = recommendAdapter.getData().get(position);
-                startActivity(new Intent(MainActivity.this, LiveActivity.class)
-                        .putExtra(LiveActivity.EXTRA_QUANZHU_ID, master.uid));
-            }
-        });
+
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recentContainer.setLayoutManager(manager);
         recentAdapter = new RecentAdapter(this, new ArrayList<Visitor>());

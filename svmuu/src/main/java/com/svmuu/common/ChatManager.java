@@ -80,7 +80,7 @@ public class ChatManager {
      */
     public String getMaxMsgId() {
         int max = Integer.parseInt(maxMsgId);
-        return (max + 1) + "";
+        return (max ) + "";
     }
 
     public void setMaxMsgId(String maxMsgId) {

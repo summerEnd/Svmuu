@@ -36,12 +36,14 @@ public class VodManager {
     //是否调整视频尺寸
     private boolean adjustVideoSize = false;
     private String nickName;
-
+    private static VodManager INSTANCE;
     public static VodManager newInstance(Activity context, GSVideoView videoView) {
-        VodManager manager = new VodManager();
-        manager.setVideoView(videoView);
-        manager.setContext(context);
-        return manager;
+       if (INSTANCE==null){
+           INSTANCE=new VodManager();
+       }
+        INSTANCE.setVideoView(videoView);
+        INSTANCE.setContext(context);
+        return INSTANCE;
     }
 
     private VodManager() {

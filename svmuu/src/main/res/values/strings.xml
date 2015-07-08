@@ -32,6 +32,7 @@
     <string name="recent_visitor">最近访问</string>
     <string name="recommend_master">推荐圈主</string>
     <string name="fans_number">粉丝数</string>
+    <string name="hot_today">今日人气</string>
     <string name="center">个人中心</string>
     <string name="real_contest">实盘大赛</string>
     <string name="stock_school">股市学院</string>
@@ -87,4 +88,5 @@
     <string name="live">直播</string>
     <string name="live_null">未直播</string>
     <string name="get_live_info_failed">获取直播信息失败</string>
+    <string name="title_activity_http_settings">HttpSettings</string>
 </resources>

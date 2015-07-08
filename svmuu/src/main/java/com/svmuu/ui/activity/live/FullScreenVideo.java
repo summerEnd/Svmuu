@@ -35,9 +35,9 @@ public class FullScreenVideo extends FragmentActivity {
         setContentView(R.layout.activity_full_sceen_video);
         mPlayFragment = new PlayFragment();
         mPlayFragment.showMediaController(false);
-        getSupportFragmentManager().beginTransaction().add(R.id.videoContainer, mPlayFragment).commit();
-        getSupportFragmentManager().executePendingTransactions();
+
         mPlayFragment.setSubject(getIntent().getStringExtra(EXTRA_SUBJECT));
+
         if (getIntent().getBooleanExtra(EXTRA_IS_VOD, false)) {
             Intent i = getIntent();
             mPlayFragment.playVod(
@@ -48,15 +48,19 @@ public class FullScreenVideo extends FragmentActivity {
 
             Intent i = getIntent();
             mPlayFragment.playLive(
-                    i.getStringExtra(EXTRA_JOIN_TOKEN),
-                    i.getStringExtra(EXTRA_LIVE_ID)
+                    i.getStringExtra(EXTRA_LIVE_ID),
+                    i.getStringExtra(EXTRA_JOIN_TOKEN)
             );
         }
+        getSupportFragmentManager().beginTransaction().add(R.id.videoContainer, mPlayFragment).commit();
     }
 
     @Override
     public void onBackPressed() {
-        mPlayFragment.onActivityClose();
+        if (mPlayFragment.onActivityClose()) {
+            super.onBackPressed();
+        }
+
     }
 
 }

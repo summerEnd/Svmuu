@@ -45,7 +45,6 @@ public class LoginActivity extends BaseActivity {
         editpsw = (EditText) findViewById(R.id.edit_psw);
         savepsw = (CheckBox) findViewById(R.id.save_psw);
 
-
         sp_user = Preference.get(this, Preference.USER.class);
         boolean isSavePassword = sp_user.getBoolean(Preference.USER.IS_SAVE_PASSWORD, true);
         savepsw.setChecked(isSavePassword);
@@ -94,9 +93,9 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    public static void handleLoginResponse(Context context){
+    public static void handleLoginResponse(Context context) {
 
-        Intent userChanged=new Intent(UserChangeReceiver.ACTION_USER_CHANGED);
+        Intent userChanged = new Intent(UserChangeReceiver.ACTION_USER_CHANGED);
         context.sendBroadcast(userChanged);
     }
 }

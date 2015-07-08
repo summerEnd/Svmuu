@@ -1,15 +1,10 @@
 package com.svmuu.ui.activity.live;
 
-import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -17,6 +12,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
@@ -25,9 +21,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.common.util.SLog;
-import com.sp.lib.widget.AutoLayout;
 import com.svmuu.R;
-import com.svmuu.common.AlertUtils;
 import com.svmuu.common.ImageOptions;
 import com.svmuu.common.http.HttpHandler;
 import com.svmuu.common.http.HttpManager;
@@ -35,7 +29,6 @@ import com.svmuu.common.http.Response;
 import com.svmuu.ui.BaseActivity;
 import com.svmuu.ui.activity.box.BoxDetailActivity;
 import com.svmuu.ui.pop.ProgressIDialog;
-import com.svmuu.ui.pop.YAlertDialog;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -62,29 +55,24 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
     private LiveModeSelector modeSelector;
     LiveInfo mInfo;
     _DATA data;
-
     ProgressIDialog progressIDialog;
 
-
-    PlayFragment mPlayFragment;
     private String vodId;
     private String psw;
     private String circleId;
-
+    private RadioGroup radioGroup;
+    private View changeLiveType;
+    PlayFragment mPlayFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live);
-        mPlayFragment = new PlayFragment();
-        mPlayFragment.setCallback(this);
-        getSupportFragmentManager().beginTransaction().add(R.id.playerContainer, mPlayFragment).commit();
-        getSupportFragmentManager().executePendingTransactions();
+
         initialize();
     }
 
     private void initialize() {
-
         popularity = (TextView) findViewById(R.id.popularity);
         concern = (CheckedTextView) findViewById(R.id.concern);
         fansNumber = (TextView) findViewById(R.id.fansNumber);
@@ -93,11 +81,10 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         avatarImage = (ImageView) findViewById(R.id.avatarImage);
         concern.setOnClickListener(this);
 
-        View changeLiveType = findViewById(R.id.changeLiveType);
+        changeLiveType = findViewById(R.id.changeLiveType);
         indicator = (ImageView) changeLiveType.findViewById(R.id.indicator);
         menuIcon = (ImageView) changeLiveType.findViewById(R.id.menuIcon);
         changeLiveType.setOnClickListener(this);
-
 
         findViewById(R.id.back).setOnClickListener(this);
         //创建聊天
@@ -106,9 +93,13 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         chatFragment = ChatFragment.newInstance(circleId);
         videoListFragment = VideoListFragment.newInstance(circleId);
         //选中第一个tab
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(this);
-        radioGroup.check(R.id.liveRoom);
+
+        //初始化fragment，暂时不添加到activity
+        mPlayFragment = new PlayFragment();
+        mPlayFragment.setCallback(this);
+
         setLiveInfo(null);
         getLiveInfo();
     }
@@ -116,7 +107,9 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
     @Override
     public void onBackPressed() {
 
-        mPlayFragment.onActivityClose();
+        if (mPlayFragment.onActivityClose()) {
+            super.onBackPressed();
+        }
 
     }
 
@@ -161,22 +154,41 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         });
     }
 
-
+    /**
+     * 设置直播信息
+     * 根据权限来隐藏聊天室、直播录像等
+     */
     void setLiveInfo(UserInfo userInfo) {
         String fans;
         String hot;
         String unick;
         String live_subject;
         String uface;
+
+        //是否关注
         boolean isFollow;
+        //是否支持聊天
+        boolean supportChat = true;
+        //是否支持录像
+        boolean supportVideo = true;
+
         if (userInfo != null) {
             fans = userInfo.fans;
             hot = userInfo.totalhot;
             unick = userInfo.unick;
             live_subject = userInfo.live_subject;
             uface = userInfo.uface;
+
+            if ("-1".equals(userInfo.chat_live)) {
+                supportChat = false;
+            }
+            if ("-1".equals(userInfo.video_live)) {
+                supportVideo = false;
+            }
             LiveInfo info = data.liveInfo;
+
             if (info != null) {
+                //证券娱乐圈(32)默认显示视频直播,其余默认显示文字直播
                 if ("32".equals(circleId)) {
                     setTitleIcon(0);
                 } else {
@@ -192,11 +204,55 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
             uface = "";
             isFollow = false;
         }
+
+        //直播室按钮
+        RadioButton chatButton = (RadioButton) radioGroup.findViewById(R.id.liveRoom);
+        //直播室分割线
+        View div1 = radioGroup.findViewById(R.id.dv_1);
+        if (supportChat) {
+            chatButton.setVisibility(View.VISIBLE);
+            div1.setVisibility(View.VISIBLE);
+            radioGroup.check(R.id.liveRoom);
+        } else {
+            chatButton.setVisibility(View.GONE);
+            div1.setVisibility(View.GONE);
+
+        }
+
+        //录像按钮
+        RadioButton videoButton = (RadioButton) radioGroup.findViewById(R.id.video);
+        //直播室分割线
+        View div2 = radioGroup.findViewById(R.id.dv_2);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        if (supportVideo) {
+            videoButton.setVisibility(View.VISIBLE);
+            div2.setVisibility(View.VISIBLE);
+            changeLiveType.setVisibility(View.VISIBLE);
+            mPlayFragment.setSubject(live_subject);
+            //防止重复加载
+            if (!mPlayFragment.isAdded()) {
+                ft.add(R.id.playerContainer, mPlayFragment);
+                findViewById(R.id.playerContainer).setVisibility(View.VISIBLE);
+            }
+        } else {
+            videoButton.setVisibility(View.GONE);
+            div2.setVisibility(View.GONE);
+            changeLiveType.setVisibility(View.INVISIBLE);
+            //移除视频窗口
+            if (mPlayFragment.isAdded()) {
+                ft.remove(mPlayFragment);
+                findViewById(R.id.playerContainer).setVisibility(View.GONE);
+                radioGroup.check(R.id.box);
+            }
+        }
+        ft.commit();
+        getSupportFragmentManager().executePendingTransactions();
+
         fansNumber.setText(getString(R.string.fans_s, fans));
         popularity.setText(getString(R.string.popularity_s, hot));
         masterName.setText(unick);
         circleName.setText(unick);
-        mPlayFragment.setSubject(live_subject);
         concern.setChecked(isFollow);
         ImageLoader.getInstance().displayImage(uface, avatarImage, ImageOptions.getRoundCorner(6));
     }
@@ -275,28 +331,29 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
     void setTitleIcon(int position) {
         switch (position) {
             case 0: {
-                mPlayFragment.setLiveType(0);
                 setVideoHeight(getResources().getDimensionPixelSize(R.dimen.dimen_300px));
-                menuIcon.setImageResource(R.drawable.mode_video_normal);
-                if (mInfo != null) {
+                menuIcon.setImageResource(R.drawable.ic_mode_video);
+                //如果当前直播是语音模式，就不用加载视频
+                if (mInfo != null && mPlayFragment.getLiveType() != 1) {
                     mPlayFragment.playLive(mInfo.zb_id, mInfo.zb_token);
                 }
+                mPlayFragment.setLiveType(0);
+
                 break;
             }
             case 1: {
-                mPlayFragment.setLiveType(1);
-                menuIcon.setImageResource(R.drawable.mode_audio_normal);
+                menuIcon.setImageResource(R.drawable.ic_mode_audio);
                 setVideoHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-                if (mInfo != null) {
+                //如果当前直播是视频模式，就不用重新加载视频
+                if (mInfo != null && mPlayFragment.getLiveType() != 0) {
                     mPlayFragment.playLive(mInfo.zb_id, mInfo.zb_token);
                 }
-
+                mPlayFragment.setLiveType(1);
                 break;
             }
             case 2: {
                 mPlayFragment.setLiveType(2);
-
-                menuIcon.setImageResource(R.drawable.mode_text_normal);
+                menuIcon.setImageResource(R.drawable.ic_mode_text);
                 setVideoHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
                 break;
             }
@@ -442,6 +499,8 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         public String adminFlag;
         public String uface;
         public String unick;
+        public String chat_live;
+        public String video_live;
         public boolean isFollow;
     }
 
@@ -453,10 +512,10 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        data = (_DATA) savedInstanceState.getSerializable("data");
-        circleId = savedInstanceState.getString("circleId");
+    protected void onRestoreInstanceState(Bundle saveInstance) {
+        super.onRestoreInstanceState(saveInstance);
+        data = (_DATA) saveInstance.getSerializable("data");
+        circleId = saveInstance.getString("circleId");
         if (videoListFragment != null) {
             videoListFragment.setQuanzhu_id(circleId);
             chatFragment.setCircleId(circleId);

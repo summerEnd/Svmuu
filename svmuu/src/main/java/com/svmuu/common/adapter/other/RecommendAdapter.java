@@ -1,6 +1,7 @@
 package com.svmuu.common.adapter.other;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import com.svmuu.R;
 import com.svmuu.common.ImageOptions;
 import com.svmuu.common.Tests;
 import com.svmuu.common.entity.CircleMaster;
+import com.svmuu.ui.activity.live.LiveActivity;
 
 import java.util.List;
 
@@ -24,7 +26,6 @@ public class RecommendAdapter extends ViewHolderAdapter<CircleMaster, Object> im
         options = ImageOptions.getRoundCorner(5);
     }
 
-
     @Override
     public Object doFindIds(View convertView) {
         ViewHolder holder = new ViewHolder();
@@ -34,6 +35,10 @@ public class RecommendAdapter extends ViewHolderAdapter<CircleMaster, Object> im
         holder.introText = (TextView) convertView.findViewById(R.id.introText);
         holder.fansText = (TextView) convertView.findViewById(R.id.fansText);
         holder.toggle = (TextView) convertView.findViewById(R.id.toggle);
+
+        holder.avatarImage.setOnClickListener(jumpListener);
+        holder.nickText.setOnClickListener(jumpListener);
+        holder.introText.setOnClickListener(this);
         holder.toggle.setOnClickListener(this);
         return holder;
     }
@@ -54,16 +59,30 @@ public class RecommendAdapter extends ViewHolderAdapter<CircleMaster, Object> im
         }
 
         viewHolder.toggle.setTag(master);
+        viewHolder.introText.setTag(master);
+
+        viewHolder.avatarImage.setTag(master);
+        viewHolder.nickText.setTag(master);
+
         ImageLoader.getInstance().displayImage(master.uface, viewHolder.avatarImage, options);
     }
 
     @Override
     public void onClick(View v) {
-        CircleMaster master= (CircleMaster) v.getTag();
-        master.isOPen=!master.isOPen;
+        CircleMaster master = (CircleMaster) v.getTag();
+        master.isOPen = !master.isOPen;
         notifyDataSetChanged();
     }
 
+    private View.OnClickListener jumpListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            CircleMaster master = (CircleMaster) v.getTag();
+            Context context = v.getContext();
+            context.startActivity(new Intent(context, LiveActivity.class)
+                    .putExtra(LiveActivity.EXTRA_QUANZHU_ID, master.uid));
+        }
+    };
 
     private class ViewHolder {
         private ImageView avatarImage;

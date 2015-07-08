@@ -2,20 +2,15 @@ package com.svmuu.common.adapter.live;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.svmuu.R;
 import com.svmuu.common.ImageOptions;
-import com.svmuu.common.Tests;
 import com.svmuu.common.adapter.BaseAdapter;
 import com.svmuu.common.adapter.BaseHolder;
-import com.svmuu.common.entity.CircleMaster;
 import com.svmuu.common.entity.Live;
 import com.svmuu.ui.activity.live.LiveActivity;
 
@@ -24,7 +19,7 @@ import java.util.List;
 
 public class LiveAdapter extends BaseAdapter<Live, LiveHolder> implements BaseHolder.OnItemListener {
     DisplayImageOptions options;
-    private boolean sortByHot = false;
+    private boolean showIsLive = false;
 
 
     public LiveAdapter(Context context) {
@@ -44,8 +39,8 @@ public class LiveAdapter extends BaseAdapter<Live, LiveHolder> implements BaseHo
         return liveHolder;
     }
 
-    public void sortByHot(boolean sortByHot) {
-        this.sortByHot = sortByHot;
+    public void showIsLive(boolean sortByHot) {
+        this.showIsLive = sortByHot;
     }
 
     @Override
@@ -53,16 +48,13 @@ public class LiveAdapter extends BaseAdapter<Live, LiveHolder> implements BaseHo
         Live live = getData().get(i);
         liveHolder.tvcircleName.setText(live.unick);
         liveHolder.tvcircleNo.setText(getString(R.string.circle_no_s, live.uid));
-        if (sortByHot) {
-            liveHolder.tvfansNumber.setText( live.hot);
-        } else {
-            liveHolder.tvfansNumber.setText(getString(R.string.fans_s, live.fans));
-        }
-        if (live.isOnline){
+        if (live.live) {
             liveHolder.live.setBackgroundColor(0xffe5376b);
-        }else{
+        } else {
             liveHolder.live.setBackgroundColor(0xffcccccc);
         }
+        liveHolder.tvfansNumber.setText(live.hot);
+
 
         ImageLoader.getInstance().displayImage(live.uface, liveHolder.ivcover, options);
     }

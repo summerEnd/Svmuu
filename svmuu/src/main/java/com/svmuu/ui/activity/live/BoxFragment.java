@@ -15,9 +15,8 @@ import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.widget.list.refresh.PullToRefreshBase;
 import com.sp.lib.widget.list.refresh.PullToRefreshRecyclerView;
-import com.svmuu.R;
 import com.svmuu.common.PageUtils;
-import com.svmuu.common.adapter.box.BoxAdapter;
+import com.svmuu.common.adapter.box.BoxGridAdapter;
 import com.svmuu.common.entity.Box;
 import com.svmuu.common.http.HttpHandler;
 import com.svmuu.common.http.HttpManager;
@@ -35,7 +34,7 @@ import java.util.List;
 public class BoxFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener<RecyclerView>{
     RecyclerView recyclerView;
     PageUtils pageUtils;
-    private BoxAdapter adapter;
+    private BoxGridAdapter adapter;
     private boolean doRefresh;
     private PullToRefreshRecyclerView refreshView;
 
@@ -52,8 +51,7 @@ public class BoxFragment extends BaseFragment implements PullToRefreshBase.OnRef
 
         recyclerView= refreshView.getRefreshableView();
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),4));
-        adapter = new BoxAdapter(getActivity(),new ArrayList<Box>());
-        adapter.setViewType(BoxAdapter.VIEW_GRID);
+        adapter = new BoxGridAdapter(getActivity(),new ArrayList<Box>());
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
