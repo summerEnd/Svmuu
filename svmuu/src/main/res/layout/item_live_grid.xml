@@ -2,9 +2,9 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:gravity="center_horizontal"
     android:layout_height="wrap_content"
     android:background="@drawable/clicked_white"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <FrameLayout
@@ -13,46 +13,58 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:scaleType="centerCrop"
             android:id="@+id/iv_cover"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher"/>
 
         <LinearLayout
-           android:id="@+id/transparentCover"
-            android:layout_gravity="bottom"
+            android:id="@+id/transparentCover"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_gravity="bottom"
             android:background="@color/transparentBlack"
+            android:gravity="center"
             android:orientation="horizontal">
             <ImageView
                 android:layout_width="@dimen/dimen_20px"
                 android:layout_height="@dimen/dimen_20px"
-                android:src="@drawable/luc"/>
+                android:src="@drawable/fire"/>
             <TextView
                 android:id="@+id/tv_fansNumber"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_18px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12123"/>
+                android:text="12123"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_18px"/>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/live"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:background="#e5376b"
+            android:paddingLeft="@dimen/dimen_8px"
+            android:paddingRight="@dimen/dimen_8px"
+            android:text="@string/live" android:textColor="#ffffff"
+            android:textSize="@dimen/text_22px"/>
     </FrameLayout>
 
     <TextView
-        android:textColor="@color/textColorBlack"
-        android:textSize="@dimen/text_22px"
         android:id="@+id/tv_circleName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="让票子越飞越高"/>
+        android:text="让票子越飞越高"
+        android:singleLine="true"
+        android:textColor="@color/textColorBlack"
+        android:textSize="@dimen/text_22px"/>
     <TextView
-        android:textColor="#777777"
-        android:textSize="@dimen/text_22px"
         android:id="@+id/tv_circleNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="66666"/>
+        android:text="66666"
+        android:textColor="#777777"
+        android:textSize="@dimen/text_22px"/>
 </LinearLayout>

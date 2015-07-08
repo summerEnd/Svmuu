@@ -8,4 +8,9 @@ public class User {
     public String uid;
     public String money;
     public String fans;
+
+    //是否有视频权限
+    public String video_live;
+    //是否有聊天权限
+    public String chat_live;
 }

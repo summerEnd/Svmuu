@@ -10,4 +10,8 @@ public class Live {
     //人气
     public String desc;
     public String hot;
+    public boolean live;
+
+    //是否正在直播
+    public boolean isOnline = false;
 }

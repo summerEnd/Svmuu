@@ -6,4 +6,5 @@
     <string name="title_activity_pager_title">PagerTitle</string>
     <string name="title_activity_auto_layout_test">AutoLayoutTest</string>
     <string name="title_activity_ji_huan_song_test">JiHuanSongTest</string>
+    <string name="title_activity_lock_test">LockTest</string>
 </resources>

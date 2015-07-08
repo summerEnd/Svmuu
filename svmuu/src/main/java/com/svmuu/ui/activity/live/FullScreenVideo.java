@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
 import com.svmuu.R;
 import com.svmuu.common.LiveManager;
+import com.svmuu.ui.BaseActivity;
 import com.svmuu.ui.pop.ProgressIDialog;
 
-public class FullScreenVideo extends Activity {
+public class FullScreenVideo extends FragmentActivity {
 
 
     //加入口令
@@ -20,7 +22,9 @@ public class FullScreenVideo extends Activity {
     public static final String EXTRA_LIVE_ID = "id";
     //是否为录像
     public static final String EXTRA_IS_VOD = "is_vod";
-    private String id;
+    //直播主题
+    public static final String EXTRA_SUBJECT = "subject";
+
 
     PlayFragment mPlayFragment;
 
@@ -31,28 +35,32 @@ public class FullScreenVideo extends Activity {
         setContentView(R.layout.activity_full_sceen_video);
         mPlayFragment = new PlayFragment();
         mPlayFragment.showMediaController(false);
-        if (getIntent().getBooleanExtra(EXTRA_IS_VOD, false)) {
 
+        mPlayFragment.setSubject(getIntent().getStringExtra(EXTRA_SUBJECT));
+
+        if (getIntent().getBooleanExtra(EXTRA_IS_VOD, false)) {
             Intent i = getIntent();
-            id = i.getStringExtra(EXTRA_LIVE_ID);
-            String password = i.getStringExtra(EXTRA_JOIN_TOKEN);
             mPlayFragment.playVod(
-                    id,
-                    password
+                    i.getStringExtra(EXTRA_LIVE_ID),
+                    i.getStringExtra(EXTRA_JOIN_TOKEN)
             );
         } else {
 
             Intent i = getIntent();
             mPlayFragment.playLive(
-                    i.getStringExtra(EXTRA_JOIN_TOKEN),
-                    i.getStringExtra(EXTRA_LIVE_ID)
+                    i.getStringExtra(EXTRA_LIVE_ID),
+                    i.getStringExtra(EXTRA_JOIN_TOKEN)
             );
         }
+        getSupportFragmentManager().beginTransaction().add(R.id.videoContainer, mPlayFragment).commit();
     }
 
     @Override
     public void onBackPressed() {
-        mPlayFragment.onActivityClose();
+        if (mPlayFragment.onActivityClose()) {
+            super.onBackPressed();
+        }
+
     }
 
 }

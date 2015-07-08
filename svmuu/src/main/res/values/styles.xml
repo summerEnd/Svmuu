@@ -101,7 +101,7 @@
     </style>
 
     <style name="SignInEditStyle" parent="EditStyle_grayFrame">
-        <item name="android:textColor">#bcbcbc</item>
+        <item name="android:textColor">@color/blackA</item>
         <item name="android:drawablePadding">@dimen/dimen_15px</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -110,6 +110,7 @@
         <item name="android:paddingBottom">@dimen/dimen_8px</item>
         <item name="android:paddingLeft">@dimen/dimen_20px</item>
         <item name="android:paddingRight">@dimen/dimen_20px</item>
+        <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
     <style name="liveTabButtonStyle">
@@ -131,6 +132,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/check_red_normal_gray</item>
         <item name="android:textSize">@dimen/text_24px</item>
+        <item name="android:gravity">center</item>
+        <item name="android:drawablePadding">@dimen/dimen_8px</item>
     </style>
 
     <style name="boxTabStyle">
@@ -143,4 +146,17 @@
         <item name="android:textColor">@color/check_red_normal_gray</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="search_text_style">
+        <item name="android:textSize">@dimen/text_22px</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">#0000</item>
+        <item name="android:layout_toLeftOf">@+id/cross</item>
+        <item name="android:layout_toRightOf">@+id/search</item>
+        <item name="android:hint">@string/search_hint</item>
+    </style>
+
+
 </resources>

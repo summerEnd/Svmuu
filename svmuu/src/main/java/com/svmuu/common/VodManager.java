@@ -26,7 +26,6 @@ import java.util.List;
 
 
 public class VodManager {
-    private int DOWNLOAD_PAUSE_OR_PLAY = 0;
     private Activity context;
     private GSVideoView videoView;
     private VodDownLoader mVodDownLoad;
@@ -37,24 +36,24 @@ public class VodManager {
     private boolean adjustVideoSize = false;
     private String nickName;
 
+    private static VodManager INSTANCE;
+
     public static VodManager newInstance(Activity context, GSVideoView videoView) {
-        VodManager manager = new VodManager();
-        manager.setVideoView(videoView);
-        manager.setContext(context);
-        return manager;
+        if (INSTANCE == null) {
+            INSTANCE = new VodManager(context);
+        }
+        INSTANCE.setVideoView(videoView);
+        return INSTANCE;
     }
 
-    private VodManager() {
+    private VodManager(Activity context) {
+        this.context = context;
         nickName = AppDelegate.getInstance().getUser().name;
         mGSOLPlayer = new VODPlayer();
     }
 
     public void adjustVideoSize(boolean adjust) {
         this.adjustVideoSize = adjust;
-    }
-
-    public void setContext(Activity context) {
-        this.context = context;
     }
 
     public SimpleVodListener getCallback() {
@@ -87,12 +86,10 @@ public class VodManager {
         // training - ST_TRAINING
         // meeting - ST_MEETING
         initParam.setServiceType(ServiceType.ST_CASTLINE);
-
         //使用点播编号或点播id来获取详细信息
         VodSite vod = new VodSite(context);
         vod.setVodListener(new VodL());
         vod.getVodObject(initParam);
-
     }
 
     public interface RESULT {
@@ -266,6 +263,7 @@ public class VodManager {
 
     public void setVideoView(GSVideoView videoView) {
         this.videoView = videoView;
+        mGSOLPlayer.setGSVideoView(videoView);
     }
 
     private void initPlayer(GSVideoView videoView, String vodId, String localpath) {
@@ -280,22 +278,16 @@ public class VodManager {
             ContextUtil.toast("路径不对");
             return;
         }
+
+        release();
+
         mGSOLPlayer.setGSVideoView(videoView);
-        //            mGSOLPlayer.setDocView(mDocView);
         mGSOLPlayer.play(vodIdOrLocalPath, callback, "");
     }
 
     public void release() {
-        stopPlay();
-        if (mGSOLPlayer != null) {
-            mGSOLPlayer.release();
-        }
-    }
-
-    public void stopPlay() {
-        if (mGSOLPlayer != null) {
-            mGSOLPlayer.stop();
-        }
+        mGSOLPlayer.stop();
+        mGSOLPlayer.release();
     }
 
     private Handler mHandler = new Handler(new Handler.Callback() {
@@ -309,34 +301,18 @@ public class VodManager {
                     ContextUtil.toast("下载出错");
                     break;
                 case RESULT.DOWNLOAD_STOP:
-                    DOWNLOAD_PAUSE_OR_PLAY = 1;
                     ContextUtil.toast("下载停止");
 
                     break;
                 case RESULT.DOWNLOAD_START:
-                    DOWNLOAD_PAUSE_OR_PLAY = 0;
                     ContextUtil.toast("下载开始");
                     break;
                 case RESULT.BROSTCAST_RECEIVE:
 
-                    // if (null == mVodDownLoad) {
-                    // mVodDownLoad = VodDownLoad.initVodDownLoad(
-                    // getApplicationContext(), MainActivity.this);
-                    // }
                     final VodParam mVodParam = (VodParam) msg.obj;
-                    //				download(mVodParam);
-                    // mVodDownLoad.add(mVodParam);
-                    // // mVodDownLoad.setAutoDownloading(true);
-                    // int ret = mVodDownLoad.start(mVodParam.getVodId());
-                    initPlayer(videoView, mVodParam.getVodId(), "");
-                    // 进行在线播放
 
-                    //                    Intent i = new Intent(context,
-                    //                            PlayActivity.class);
-                    //                    i.putExtra("play_param", mVodParam);
-                    //                    startActivity(i);
-                    // 进行下载
-                    // download(mVodParam.getVodId());
+                    initPlayer(videoView, mVodParam.getVodId(), "");
+
                     break;
                 case RESULT.ON_GET_VODOBJ:
 
@@ -368,7 +344,6 @@ public class VodManager {
                             ViewGroup.LayoutParams lp = videoView.getLayoutParams();
                             lp.height = (int) (videoView.getMeasuredWidth() * ratio);
                             videoView.requestLayout();
-
                         }
 
                     }

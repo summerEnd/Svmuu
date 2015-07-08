@@ -4,18 +4,36 @@ android {
     compileSdkVersion 21
     buildToolsVersion "22.0.1"
 
+    signingConfigs {
+        myconfigs {
+            //windows下地址
+            storeFile file('D:\\workspace\\Svmuu\\rongzhengtong.jks');
+            //mac下的地址
+            // storeFile file("/Users/Lincoln/AndroidStudioProjects/Svmuu/rongzhengtong.jks");
+            keyAlias 'yjy'
+            keyPassword 'yjy998'
+            storePassword 'rzt2014'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.myconfigs
+        }
+        debug {
+            signingConfig signingConfigs.myconfigs
+        }
+    }
     defaultConfig {
         applicationId "com.svmuu"
         minSdkVersion 11
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+        signingConfig signingConfigs.myconfigs
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+    productFlavors {
     }
 }
 

@@ -2,6 +2,7 @@ package com.slib.demo;
 
 import android.app.Activity;
 
+import com.slib.demo.material.AndroidLTest;
 import com.slib.demo.material.MaterialBaseTest;
 import com.slib.demo.material.MaterialTest;
 import com.sp.lib.activity.DEBUGActivity;
@@ -13,6 +14,7 @@ public class MainActivity extends STestActivity {
 
     @Override
     protected void addTest(List<Class<? extends Activity>> activities) {
+        activities.add(AndroidLTest.class);
         activities.add(MaterialTest.class);
         activities.add(PagerTitle.class);
         activities.add(HttpTest.class);

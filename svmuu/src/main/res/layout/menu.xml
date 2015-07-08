@@ -2,16 +2,17 @@
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-
     android:background="#141414">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="@dimen/menuWidth"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,6 +61,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_50px"
             android:orientation="horizontal">
 
             <TextView
@@ -84,76 +86,87 @@
                 android:textColor="@color/grayA"
                 android:textSize="@dimen/text_22px"/>
         </LinearLayout>
+        <android.support.v7.widget.LinearLayoutCompat
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="@dimen/menuWidth"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:divider="@drawable/horizontal_divider"
+            app:showDividers="beginning|middle|end">
+            <LinearLayout
+                android:id="@+id/recharge"
+                style="@style/MenuClickItem">
 
-        <View
-            style="@style/horizontalDivider.menuStyle"
-            android:layout_marginTop="@dimen/dimen_50px"/>
+                <ImageView
 
-        <LinearLayout
-            android:id="@+id/recharge"
-            style="@style/MenuClickItem">
+                    style="@style/MenuIconStyle"
+                    android:contentDescription="@string/recharge"
+                    android:src="@drawable/leftbar_recharge_selector"/>
 
-            <ImageView
+                <TextView
+                    style="@style/MenuTextStyle"
+                    android:text="@string/recharge"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/my_circle"
+                style="@style/MenuClickItem">
 
-                style="@style/MenuIconStyle"
-                android:contentDescription="@string/recharge"
-                android:src="@drawable/leftbar_recharge_selector"/>
+                <ImageView
+                    style="@style/MenuIconStyle"
+                    android:contentDescription="@string/myBox"
+                    android:src="@drawable/my_circle"/>
 
-            <TextView
-                style="@style/MenuTextStyle"
-                android:text="@string/recharge"/>
-        </LinearLayout>
+                <TextView
+                    style="@style/MenuTextStyle"
+                    android:text="我的圈子"/>
+            </LinearLayout>
 
-        <View style="@style/horizontalDivider.menuStyle"/>
 
-        <LinearLayout
-            android:id="@+id/myCircle"
-            style="@style/MenuClickItem">
+            <LinearLayout
+                android:id="@+id/myCircle"
+                style="@style/MenuClickItem">
 
-            <ImageView
+                <ImageView
 
-                style="@style/MenuIconStyle"
-                android:contentDescription="@string/myCareCircle"
-                android:src="@drawable/leftbar_guanzhu_selector"/>
+                    style="@style/MenuIconStyle"
+                    android:contentDescription="@string/myCareCircle"
+                    android:src="@drawable/leftbar_guanzhu_selector"/>
 
-            <TextView
-                style="@style/MenuTextStyle"
-                android:text="@string/myCareCircle"/>
-        </LinearLayout>
+                <TextView
+                    style="@style/MenuTextStyle"
+                    android:text="@string/myCareCircle"/>
+            </LinearLayout>
 
-        <View style="@style/horizontalDivider.menuStyle"/>
 
-        <LinearLayout
-            android:id="@+id/myBox"
-            style="@style/MenuClickItem">
+            <LinearLayout
+                android:id="@+id/myBox"
+                style="@style/MenuClickItem">
 
-            <ImageView
-                style="@style/MenuIconStyle"
-                android:contentDescription="@string/myBox"
-                android:src="@drawable/leftbar_box_selector"/>
+                <ImageView
+                    style="@style/MenuIconStyle"
+                    android:contentDescription="@string/myBox"
+                    android:src="@drawable/leftbar_box_selector"/>
 
-            <TextView
-                style="@style/MenuTextStyle"
-                android:text="@string/myBox"/>
-        </LinearLayout>
+                <TextView
+                    style="@style/MenuTextStyle"
+                    android:text="@string/myBox"/>
+            </LinearLayout>
 
-        <View style="@style/horizontalDivider.menuStyle"/>
 
-        <LinearLayout
-            android:id="@+id/settings"
-            style="@style/MenuClickItem">
+            <LinearLayout
+                android:id="@+id/settings"
+                style="@style/MenuClickItem">
 
-            <ImageView
-                style="@style/MenuIconStyle"
-                android:contentDescription="@string/myBox"
-                android:src="@drawable/setting"/>
+                <ImageView
+                    style="@style/MenuIconStyle"
+                    android:contentDescription="@string/myBox"
+                    android:src="@drawable/setting"/>
 
-            <TextView
-                style="@style/MenuTextStyle"
-                android:text="@string/settings"/>
-        </LinearLayout>
-
-        <View style="@style/horizontalDivider.menuStyle"/>
+                <TextView
+                    style="@style/MenuTextStyle"
+                    android:text="@string/settings"/>
+            </LinearLayout>
+        </android.support.v7.widget.LinearLayoutCompat>
 
     </LinearLayout>
 </ScrollView>

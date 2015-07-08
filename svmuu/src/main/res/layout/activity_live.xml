@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:orientation="vertical"
     tools:context="com.svmuu.ui.activity.live.LiveActivity">
 
@@ -50,10 +51,10 @@
 
             <ImageView
                 android:id="@+id/menuIcon"
-                android:layout_width="@dimen/titleHeight"
-                android:layout_height="@dimen/titleHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:scaleType="centerInside"
-                android:src="@drawable/mode_video_normal"/>
+                android:src="@drawable/ic_mode_video"/>
 
             <ImageView
                 android:id="@+id/indicator"
@@ -66,9 +67,8 @@
     <FrameLayout
         android:id="@+id/playerContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dimen_300px"
         android:visibility="visible"/>
-
 
     <View style="@style/horizontalDivider"/>
 
@@ -89,6 +89,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_8px"
+            android:layout_marginRight="@dimen/dimen_8px"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -134,9 +136,11 @@
         <RadioButton
             android:id="@+id/liveRoom"
             style="@style/liveTabButtonStyle"
-            android:text="@string/liveHouse"/>
+            android:text="@string/liveHouse"
+            />
 
         <View
+            android:id="@+id/dv_1"
             style="@style/verticalDivider"
             android:layout_width="2dp"
             android:background="@color/liveHouseTabRed"/>
@@ -144,9 +148,11 @@
         <RadioButton
             android:id="@+id/video"
             style="@style/liveTabButtonStyle"
-            android:text="@string/live_video"/>
+            android:text="@string/live_video"
+            />
 
         <View
+            android:id="@+id/dv_2"
             style="@style/verticalDivider"
             android:layout_width="2dp"
             android:background="@color/liveHouseTabRed"/>
@@ -154,7 +160,7 @@
         <RadioButton
             android:id="@+id/box"
             style="@style/liveTabButtonStyle"
-            android:text="@string/my_box"/>
+            android:text="@string/my_book"/>
 
     </RadioGroup>
 

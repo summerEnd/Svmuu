@@ -37,6 +37,10 @@ public class JsonUtil {
     public static <T> ArrayList<T> getArray(JSONArray array, Class<T> cls) throws JSONException {
         ArrayList<T> list = new ArrayList<T>();
 
+        if (array==null){
+            return list;
+        }
+
         for (int i = 0; i < array.length(); i++) {
             T t = gson.fromJson(array.get(i).toString(), cls);
             list.add(t);
@@ -51,7 +55,9 @@ public class JsonUtil {
      * @throws JSONException
      */
     public static <T> void getArray(JSONArray array, Class<T> cls, List<T> list) throws JSONException {
-
+        if (array==null){
+            return;
+        }
         for (int i = 0; i < array.length(); i++) {
             T t = gson.fromJson(array.get(i).toString(), cls);
 

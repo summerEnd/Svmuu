@@ -10,6 +10,7 @@ class SlibCopy {
     private SlibCopy() {
         ShareCompat.IntentBuilder builder;
         ActivityManager manager;
+
     }
 
     /**

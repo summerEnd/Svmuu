@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/AlertUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/adapter/box/BoxGridAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/adapter/box/BoxListAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/adapter/video/VideoAdapterForBox.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yjy/src/main/java/com/yjy998/ui/pop/TokenDialog.java" charset="UTF-8" />
   </component>
 </project>

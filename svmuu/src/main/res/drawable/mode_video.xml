@@ -2,5 +2,5 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/mode_video_normal" android:state_checked="false"/>
     <item android:drawable="@drawable/mode_video_checked" android:state_checked="true"/>
-    <item android:drawable="@drawable/mode_video_checked" android:state_pressed="true"/>
+    <item android:drawable="@drawable/ic_mode_video" android:state_pressed="true"/>
 </selector>

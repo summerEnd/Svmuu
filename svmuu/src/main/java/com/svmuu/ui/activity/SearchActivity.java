@@ -26,6 +26,7 @@ import com.svmuu.common.http.HttpManager;
 import com.svmuu.common.http.Response;
 import com.svmuu.ui.BaseActivity;
 import com.svmuu.ui.activity.live.LiveActivity;
+import com.svmuu.ui.activity.live.LiveListFragment;
 import com.svmuu.ui.widget.CustomSearchView;
 
 import org.apache.http.Header;
@@ -131,9 +132,10 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
                 searches.clear();
                 JsonUtil.getArray(new JSONArray(response.data), Search.class, searches);
                 adapter.showResult(searches);
+                searchView.onSearchComplete();
+
             }
         });
     }
-
 
 }

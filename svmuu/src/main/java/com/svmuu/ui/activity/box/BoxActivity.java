@@ -15,13 +15,12 @@ import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 
 import com.sp.lib.common.support.net.client.SRequest;
-import com.sp.lib.common.util.ContextUtil;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.widget.list.refresh.PullToRefreshBase;
 import com.sp.lib.widget.list.refresh.PullToRefreshRecyclerView;
 import com.svmuu.R;
 import com.svmuu.common.PageUtils;
-import com.svmuu.common.adapter.box.BoxAdapter;
+import com.svmuu.common.adapter.box.BoxListAdapter;
 import com.svmuu.common.entity.Box;
 import com.svmuu.common.http.HttpHandler;
 import com.svmuu.common.http.HttpManager;
@@ -37,7 +36,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.support.v7.widget.RecyclerView.*;
+import static android.support.v7.widget.RecyclerView.State;
 
 public class BoxActivity extends SecondActivity {
 
@@ -104,7 +103,7 @@ public class BoxActivity extends SecondActivity {
 
     public static class BoxListFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener<RecyclerView> {
         private RecyclerView recyclerView;
-        private BoxAdapter adapter;
+        private BoxListAdapter adapter;
         PullToRefreshRecyclerView refreshView;
         int type;
         private boolean doRefresh = false;
@@ -142,8 +141,7 @@ public class BoxActivity extends SecondActivity {
             refreshView.setOnRefreshListener(this);
             recyclerView = refreshView.getRefreshableView();
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-            adapter = new BoxAdapter(getActivity(), new ArrayList<Box>());
-            adapter.setViewType(BoxAdapter.VIEW_LIST);
+            adapter = new BoxListAdapter(getActivity(), new ArrayList<Box>());
             recyclerView.setAdapter(adapter);
             recyclerView.addItemDecoration(new ItemDecoration() {
                 @Override

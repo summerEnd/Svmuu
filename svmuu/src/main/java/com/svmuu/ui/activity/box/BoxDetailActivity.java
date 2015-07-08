@@ -36,6 +36,8 @@ public class BoxDetailActivity extends SecondActivity {
         fragment = new PlayFragment();
 
         getSupportFragmentManager().beginTransaction().add(R.id.videoContainer, fragment).commit();
+        fragment.playVod(id, token,true);
+        fragment.setSubject(subject);
     }
 
     @Override
@@ -62,8 +64,6 @@ public class BoxDetailActivity extends SecondActivity {
     protected void onResume() {
         super.onResume();
 
-        fragment.playVod(id, token,true);
-        fragment.setSubject(subject);
         if (isBox) {
             setTitle(R.string.title_activity_box_detail);
         } else {
@@ -80,6 +80,7 @@ public class BoxDetailActivity extends SecondActivity {
 
     @Override
     public void onBackPressed() {
+        finish();
         fragment.onActivityClose();
     }
 }

@@ -31,6 +31,7 @@ public class BaseFragment extends Fragment {
         return getView().findViewById(id);
     }
 
+
     /**
      * 全部刷新，包括网络请求等等
      */
@@ -110,4 +111,5 @@ public class BaseFragment extends Fragment {
     protected void onUserChanged() {
 
     }
+
 }

@@ -2,14 +2,12 @@ package com.svmuu.ui.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ScrollView;
 
 import com.sp.lib.common.support.net.client.SRequest;
@@ -20,20 +18,21 @@ import com.sp.lib.widget.list.refresh.PullToRefreshBase;
 import com.sp.lib.widget.list.refresh.PullToRefreshScrollView;
 import com.svmuu.AppDelegate;
 import com.svmuu.R;
-import com.svmuu.common.config.Constant;
 import com.svmuu.common.adapter.master.RecentAdapter;
 import com.svmuu.common.adapter.other.RecommendAdapter;
+import com.svmuu.common.config.Constant;
 import com.svmuu.common.entity.CircleMaster;
 import com.svmuu.common.entity.Visitor;
 import com.svmuu.common.http.HttpHandler;
 import com.svmuu.common.http.HttpManager;
 import com.svmuu.common.http.Response;
 import com.svmuu.ui.activity.live.LiveActivity;
-import com.svmuu.ui.pop.YAlertDialog;
+import com.svmuu.ui.activity.live.MyCircleActivity;
 import com.svmuu.ui.widget.CustomSearchView;
 
 import org.apache.http.Header;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,6 @@ import java.util.List;
 public class MainActivity extends MenuActivity implements CustomSearchView.Callback {
 
 
-    private CustomSearchView searchView;
     private RecyclerView recentContainer;
     private LinearListView list;
     _DATA mData;
@@ -75,19 +73,12 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
 
     private void initialize() {
 
-        searchView = (CustomSearchView) findViewById(R.id.searchView);
+        CustomSearchView searchView = (CustomSearchView) findViewById(R.id.searchView);
         recentContainer = (RecyclerView) findViewById(R.id.recentContainer);
         list = (LinearListView) findViewById(R.id.list);
         recommendAdapter = new RecommendAdapter(this, new ArrayList<CircleMaster>());
         list.setAdapter(recommendAdapter);
-        list.setOnItemClick(new LinearListView.OnItemClick() {
-            @Override
-            public void onItemClick(LinearListView parent, View view, int position, long id) {
-                CircleMaster master = recommendAdapter.getData().get(position);
-                startActivity(new Intent(MainActivity.this, LiveActivity.class)
-                        .putExtra(LiveActivity.EXTRA_QUANZHU_ID, master.uid));
-            }
-        });
+
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recentContainer.setLayoutManager(manager);
         recentAdapter = new RecentAdapter(this, new ArrayList<Visitor>());
@@ -174,14 +165,23 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
             @Override
             public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException {
                 SLog.debug(response);
-                mData = JsonUtil.get(response.data, _DATA.class);
+                JSONObject data = new JSONObject(response.data);
+//                mData = JsonUtil.get(response.data, _DATA.class);
+                mData = new _DATA();
+
+                mData.quanzhu = JsonUtil.getArray(data.optJSONArray("quanzhu"), CircleMaster.class);
+                mData.visitor = JsonUtil.getArray(data.optJSONArray("visitor"), Visitor.class);
                 List<CircleMaster> recommends = recommendAdapter.getData();
                 recommends.clear();
-                recommends.addAll(mData.quanzhu);
+                if (mData.quanzhu != null) {
+                    recommends.addAll(mData.quanzhu);
+                }
 
                 List<Visitor> visitors = recentAdapter.getData();
                 visitors.clear();
-                visitors.addAll(mData.visitor);
+                if (mData.visitor != null) {
+                    visitors.addAll(mData.visitor);
+                }
 
                 recommendAdapter.notifyDataSetChanged();
                 recentAdapter.notifyDataSetChanged();
