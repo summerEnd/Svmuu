@@ -22,7 +22,7 @@
             android:drawablePadding="-8dp"
             android:gravity="center_vertical"
             android:text="@string/back"
-            android:textColor="@color/white"
+            android:textColor="@color/titleRedText"
             android:textSize="@dimen/titleTextSize"
             />
 
@@ -36,7 +36,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:text="@string/test_circle_name"
-            android:textColor="@color/white"
+            android:textColor="@color/titleRedText"
             android:textSize="@dimen/titleTextSize"/>
 
         <LinearLayout
@@ -76,6 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/liveHouseHorizontalPadding"
+        android:padding="@dimen/dimen_10px"
         android:background="@drawable/white_corner_background"
         android:gravity="center_vertical"
         android:orientation="horizontal">

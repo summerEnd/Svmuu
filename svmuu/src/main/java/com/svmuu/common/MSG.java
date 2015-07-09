@@ -5,4 +5,5 @@ package com.svmuu.common;
  */
 public interface MSG {
     int MSG_ON_VIDEO_SIZE = 0;
+    int ON_GET_VODOBJ = 1;
 }

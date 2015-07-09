@@ -17,6 +17,7 @@
         android:textSize="@dimen/text_22px"
         android:layout_width="wrap_content"
         android:text="第五讲：如何成为巴菲特"
+        android:maxLines="2"
         android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/time"

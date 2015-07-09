@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import com.sp.lib.common.support.adapter.GuidePagerAdapter;
 import com.sp.lib.common.support.cache.FileObjectCache;
 import com.sp.lib.common.support.net.client.SRequest;
+import com.sp.lib.common.util.ContextUtil;
+import com.sp.lib.common.util.DisplayUtil;
 import com.sp.lib.common.util.ShortCut;
 import com.svmuu.AppDelegate;
 import com.svmuu.R;
@@ -37,7 +39,6 @@ public class EnterActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (AppDelegate.getInstance().isFirstStartApplication()) {
             ShortCut.addShortcut(this, getString(R.string.app_name), EnterActivity.class);
             //暂时没有引导页 startGuide();

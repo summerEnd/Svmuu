@@ -78,6 +78,18 @@ public class LiveListFragment extends BaseFragment implements PullToRefreshBase.
                 lives.clear();
                 if (response.data.startsWith("[")) {
                     JsonUtil.getArray(new JSONArray(response.data), Live.class, lives);
+                    ArrayList<Live> online = new ArrayList<>();
+                    //搜集正在直播的圈子
+                    for (Live live : lives) {
+                        if (live.live) {
+                            online.add(live);
+                        }
+                    }
+                    //将直播的圈子移动到前面
+                    for (Live live : online) {
+                        lives.remove(live);
+                        lives.add(0, live);
+                    }
                     adapter.showIsLive(false);
                 } else {
                     JSONObject data = new JSONObject(response.data);

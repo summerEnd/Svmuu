@@ -45,15 +45,14 @@ public class RtImpl extends RtSimpleImpl {
     @Override
     public void onRoomJoin(final int result, UserInfo self) {
         super.onRoomJoin(result, self);
-
         context.runOnUiThread(new Runnable() {
             public void run() {
                 String resultDesc;
                 switch (result) {
                     //加入成功  除了成功其他均需要正常提示给用户
                     case IRTEvent.IRoomEvent.JoinResult.JR_OK:
-                        resultDesc = "--->";
-
+                        resultDesc = "";
+                        ContextUtil.toast_debug("-->");
                         break;
                     //加入错误
                     case IRTEvent.IRoomEvent.JoinResult.JR_ERROR:
@@ -86,7 +85,8 @@ public class RtImpl extends RtSimpleImpl {
                         resultDesc = "";
                         break;
                 }
-                    ContextUtil.toast_debug(resultDesc);
+                if (!TextUtils.isEmpty(resultDesc)) ContextUtil.toast(resultDesc);
+
             }
         });
     }
@@ -149,7 +149,6 @@ public class RtImpl extends RtSimpleImpl {
                     default:
                         break;
                 }
-
             }
         });
     }

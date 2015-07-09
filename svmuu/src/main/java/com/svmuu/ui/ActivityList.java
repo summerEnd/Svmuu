@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.sp.lib.activity.DEBUGActivity;
 import com.sp.lib.activity.STestActivity;
 import com.svmuu.HttpSettings;
+import com.svmuu.R;
 import com.svmuu.ui.activity.EnterActivity;
 import com.svmuu.ui.activity.MainActivity;
 import com.svmuu.ui.activity.live.MyCircleActivity;
@@ -23,5 +24,6 @@ public class ActivityList extends STestActivity {
 //        activities.add(SearchActivity.class);
         activities.add(HttpSettings.class);
         activities.add(DEBUGActivity.class);
+
     }
 }

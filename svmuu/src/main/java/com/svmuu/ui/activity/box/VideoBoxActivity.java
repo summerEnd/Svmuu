@@ -29,6 +29,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * 视频宝盒页面
+ */
 public class VideoBoxActivity extends SecondActivity implements PullToRefreshBase.OnRefreshListener<RecyclerView> {
     public static final String EXTRA_ID = "id";
 
@@ -40,7 +43,7 @@ public class VideoBoxActivity extends SecondActivity implements PullToRefreshBas
     PageUtils pageUtils;
     private VideoAdapterForBox adapter;
 
-    private boolean doRefresh = false;
+
     private Box info;
 
     @Override
@@ -57,7 +60,7 @@ public class VideoBoxActivity extends SecondActivity implements PullToRefreshBas
         refreshView = (PullToRefreshRecyclerView) findViewById(R.id.refreshView);
         refreshView.setPullLoadEnabled(true);
         refreshView.setPullRefreshEnabled(true);
-
+        refreshView.setOnRefreshListener(this);
         //列表
         RecyclerView recyclerView = refreshView.getRefreshableView();
         adapter = new VideoAdapterForBox(this, new ArrayList<BoxVideoDetail>());
@@ -92,8 +95,15 @@ public class VideoBoxActivity extends SecondActivity implements PullToRefreshBas
                     setInfo(info);
                 }
                 ArrayList<BoxVideoDetail> newData = JsonUtil.getArray(object.getJSONArray("data"), BoxVideoDetail.class);
-                pageUtils.addNewPage(adapter.getData(), newData, doRefresh);
+                pageUtils.addNewPage(adapter.getData(), newData);
                 adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                refreshView.onPullDownRefreshComplete();
+                refreshView.onPullUpRefreshComplete();
             }
         });
     }
@@ -110,16 +120,15 @@ public class VideoBoxActivity extends SecondActivity implements PullToRefreshBas
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        doRefresh = true;
+        pageUtils.setIsRefresh(true);
         getDetail(0);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        doRefresh = false;
+        pageUtils.setIsRefresh(false);
         getDetail(pageUtils.getPage() + 1);
     }
-
 
 
 }

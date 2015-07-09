@@ -3,7 +3,7 @@ package com.svmuu.common.entity;
 /**
  * 宝盒里的视频详情
  */
-public class BoxVideoDetail  {
+public class BoxVideoDetail {
     public String collect_amount;
     public String play_amount;
     public String stime;
@@ -23,4 +23,5 @@ public class BoxVideoDetail  {
     public String video_url;
     public String subject;
     public String add_time;
+
 }

@@ -6,9 +6,12 @@ import android.text.TextUtils;
 import com.gensee.view.GSVideoView;
 import com.svmuu.AppDelegate;
 
+import java.util.ArrayList;
+
 public abstract class AbsVideoManager {
     private Activity context;
     private Callback callback;
+    private ArrayList<Callback> callbacks = new ArrayList<>();
 
     /**
      * 启动视频
@@ -76,18 +79,41 @@ public abstract class AbsVideoManager {
         return nickName;
     }
 
-    public Callback getCallback() {
-        return callback;
+    public boolean removeCallback(Callback callback) {
+        return callbacks.remove(callback);
     }
 
-    public void setCallback(Callback callback) {
-        this.callback = callback;
+    public void addCallback(Callback callback) {
+        if (!callbacks.contains(callback))
+            callbacks.add(callback);
+    }
+
+    public final void dispatchVideoStart() {
+        for (Callback callback : callbacks) {
+            callback.onVideoStarted();
+        }
+    }
+
+    public final void dispatchVideoReleased() {
+        for (Callback callback : callbacks) {
+            callback.onVideoReleased();
+        }
+    }
+
+    public final void dispatchFailed() {
+        for (Callback callback : callbacks) {
+            callback.onFailed();
+        }
     }
 
     public abstract boolean isPlaying();
 
+    public abstract void destroy();
+
     public interface Callback {
         void onVideoStarted();
+
+        void onFailed();
 
         void onVideoReleased();
     }

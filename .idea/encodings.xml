@@ -4,7 +4,17 @@
     <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/AlertUtils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/adapter/box/BoxGridAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/adapter/box/BoxListAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/adapter/chat/ChatAdapterImpl.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/adapter/chat/ChatParams.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/adapter/chat/holders/ChatHolderImpl.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/adapter/chat/holders/ChatJPHolder.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/adapter/chat/holders/ChatNormalHolder.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/adapter/chat/holders/ChatNoticeHolder.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/adapter/chat/holders/WhisperChatHolder.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/adapter/video/VideoAdapterForBox.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/common/entity/Chat.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/svmuu/src/main/java/com/svmuu/ui/activity/live/ChatFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yjy/src/main/java/com/yjy998/ui/pop/TokenDialog.java" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

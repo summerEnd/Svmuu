@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_32px">21sp</dimen>
+
+    <!--已确定-->
+    <dimen name="text_18px">13sp</dimen>
+    <dimen name="text_19px">14sp</dimen>
+    <dimen name="text_20px">15sp</dimen>
+    <dimen name="text_22px">15.6sp</dimen>
+    <dimen name="text_24px">17sp</dimen>
+    <dimen name="text_25px">17.5sp</dimen>
+    <dimen name="text_26px">18sp</dimen>
+    <dimen name="text_27px">18.5sp</dimen>
+    <dimen name="text_28px">20.5sp</dimen>
+    <dimen name="text_30px">21sp</dimen>
+    <dimen name="text_34px">22sp</dimen>
+    <dimen name="text_45px">32sp</dimen>
+    <dimen name="text_60px">39sp</dimen>
+
+
+    <!--确定的-->
+    <dimen name="dimen_540px">400dp</dimen>
+    <dimen name="dimen_490px">380.2dp</dimen>
+    <dimen name="dimen_414px">322dp</dimen>
+    <dimen name="dimen_360px">280dp</dimen>
+    <dimen name="dimen_300px">233.1dp</dimen>
+    <dimen name="dimen_270px">210dp</dimen>
+
+    <dimen name="dimen_210px">163.4dp</dimen>
+    <dimen name="dimen_180px">140dp</dimen>
+    <dimen name="dimen_120px">93.2dp</dimen>
+    <dimen name="dimen_99px">75.6dp</dimen>
+
+    <dimen name="dimen_94px">73.1dp</dimen>
+    <dimen name="dimen_93px">52.4dp</dimen>
+    <dimen name="dimen_90px">70dp</dimen>
+    <dimen name="dimen_84px">65.38dp</dimen>
+    <dimen name="dimen_72px">56dp</dimen>
+    <dimen name="dimen_70px">54.3dp</dimen>
+    <dimen name="dimen_60px">46.6dp</dimen>
+    <dimen name="dimen_55px">42.7dp</dimen>
+    <dimen name="dimen_50px">38.8dp</dimen>
+    <dimen name="dimen_45px">35dp</dimen>
+    <dimen name="dimen_40px">30.8dp</dimen>
+
+    <dimen name="dimen_38px">29.5dp</dimen>
+    <dimen name="dimen_36px">28dp</dimen>
+    <dimen name="dimen_32px">24.8dp</dimen>
+
+    <dimen name="dimen_30px">23.1dp</dimen>
+    <dimen name="dimen_27px">21dp</dimen>
+    <dimen name="dimen_25px">19.4dp</dimen>
+    <dimen name="dimen_24px">18.2dp</dimen>
+
+    <dimen name="dimen_20px">15.4dp</dimen>
+    <dimen name="dimen_18px">14dp</dimen>
+    <dimen name="dimen_15px">11.6dp</dimen>
+
+    <dimen name="dimen_11px">8.5dp</dimen>
+    <dimen name="dimen_10px">7.7dp</dimen>
+    <dimen name="dimen_8px">5.6dp</dimen>
+    <dimen name="_dimen_180px">-140dp</dimen>
+</resources>

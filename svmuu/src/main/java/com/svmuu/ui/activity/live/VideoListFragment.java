@@ -33,7 +33,7 @@ import java.util.List;
 
 public class VideoListFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener<RecyclerView> {
     private String quanzhu_id;
-    private boolean isRefresh = false;
+
     private VideoAdapter adapter;
     private PullToRefreshRecyclerView refreshRecyclerView;
     PageUtils pageUtils;
@@ -109,7 +109,7 @@ public class VideoListFragment extends BaseFragment implements PullToRefreshBase
 
                 List<Recording> data = adapter.getData();
                 List<Recording> newData = JsonUtil.getArray(array, Recording.class);
-                pageUtils.addNewPage(data, newData, isRefresh);
+                pageUtils.addNewPage(data, newData);
                 adapter.notifyItemRangeInserted(data.size(), newData.size());
             }
 
@@ -124,13 +124,13 @@ public class VideoListFragment extends BaseFragment implements PullToRefreshBase
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        isRefresh = true;
+        pageUtils.setIsRefresh(true);
         getVideoList(0);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        isRefresh = false;
+        pageUtils.setIsRefresh(false);
         getVideoList(pageUtils.getPage() + 1);
     }
 }

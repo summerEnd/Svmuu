@@ -35,7 +35,7 @@ public class BoxFragment extends BaseFragment implements PullToRefreshBase.OnRef
     RecyclerView recyclerView;
     PageUtils pageUtils;
     private BoxGridAdapter adapter;
-    private boolean doRefresh;
+
     private PullToRefreshRecyclerView refreshView;
 
     @Nullable
@@ -79,7 +79,7 @@ public class BoxFragment extends BaseFragment implements PullToRefreshBase.OnRef
             @Override
             public void onResultOk(int statusCode, Header[] headers, Response response) throws JSONException {
                 List<Box> newData = JsonUtil.getArray(new JSONArray(response.data), Box.class);
-                pageUtils.addNewPage(adapter.getData(), newData, doRefresh);
+                pageUtils.addNewPage(adapter.getData(), newData);
                 adapter.notifyDataSetChanged();
             }
 
@@ -99,13 +99,14 @@ public class BoxFragment extends BaseFragment implements PullToRefreshBase.OnRef
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        doRefresh = true;
+        pageUtils.setIsRefresh(true);
         getBoxList(0);
 
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        pageUtils.setIsRefresh(false);
         getBoxList(pageUtils.getPage() + 1);
     }
 

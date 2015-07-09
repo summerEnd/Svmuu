@@ -82,7 +82,6 @@ public class ChatAdapter extends BaseAdapter<Chat, ChatHolder> {
     public void onBindViewHolder(ChatHolder holder, int position) {
         Chat chat = getData().get(position);
         holder.setData(chat);
-
         holder.getContentTextView().setText(Html.fromHtml(chat.content,imageGetter,null));
         ImageLoader.getInstance().displayImage(chat.uface, holder.getAvatarView(), options);
     }

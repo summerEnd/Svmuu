@@ -30,4 +30,11 @@ public class DisplayUtil {
     public static float dp(float value, Resources res) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, res.getDisplayMetrics());
     }
+
+    public static String getScreenParams(Context context){
+        DisplayMetrics dm=getDisplayMetrics(context);
+
+        ;
+        return dm.toString();
+    }
 }

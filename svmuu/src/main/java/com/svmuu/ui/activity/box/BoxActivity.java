@@ -106,7 +106,6 @@ public class BoxActivity extends SecondActivity {
         private BoxListAdapter adapter;
         PullToRefreshRecyclerView refreshView;
         int type;
-        private boolean doRefresh = false;
         PageUtils mPageUtil;
 
         /**
@@ -170,7 +169,7 @@ public class BoxActivity extends SecondActivity {
                 @Override
                 public void onResultOk(int statusCode, Header[] headers, Response response) throws JSONException {
                     List<Box> newData = JsonUtil.getArray(new JSONArray(response.data), Box.class);
-                    mPageUtil.addNewPage(adapter.getData(), newData, doRefresh);
+                    mPageUtil.addNewPage(adapter.getData(), newData);
                     adapter.notifyDataSetChanged();
                 }
 
@@ -190,13 +189,14 @@ public class BoxActivity extends SecondActivity {
 
         @Override
         public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-            doRefresh = true;
+            mPageUtil.setIsRefresh(true);
             getBoxList(0);
 
         }
 
         @Override
         public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+            mPageUtil.setIsRefresh(false);
             getBoxList(mPageUtil.getPage() + 1);
         }
 

@@ -30,21 +30,10 @@ public class ChatHolder extends BaseHolder {
         Context context = itemView.getContext();
 
         ChatItemView.MsgLayoutInfo info = itemView.getInfo();
-        //        itemView.setMsgType(chat.isSelf);
+        //itemView.setMsgType(chat.isSelf);
         info.timeText.setText(chat.time_m);
         info.nameText.setText(chat.uname);
 
-
-        if ("1".equals(chat.is_admin)) {
-            info.jobText.setVisibility(View.VISIBLE);
-            info.jobText.setText(context.getString(R.string.manager));
-        } else if ("1".equals(chat.is_owner)) {
-            info.jobText.setVisibility(View.VISIBLE);
-            info.jobText.setText(context.getString(R.string.circleMaster));
-        } else {
-            info.jobText.setVisibility(View.INVISIBLE);
-        }
-        //1、普通粉丝；2 铁粉；3 年粉 4 季粉',
         info.fansIcon.setVisibility(View.VISIBLE);
         switch (chat.fans_type) {
             case "4":
@@ -62,19 +51,35 @@ public class ChatHolder extends BaseHolder {
             }
         }
 
-        //消息类型 1 普通 2 解盘 3 问答 4 悄悄话 5 公告',
-        switch (chat.type) {
-
-            case "5": {
-                ((View) info.fansIcon.getParent()).setVisibility(View.GONE);
-                break;
-            }
-            default: {
-                ((View) info.fansIcon.getParent()).setVisibility(View.VISIBLE);
-            }
+        if ("1".equals(chat.is_admin)) {
+            info.jobText.setVisibility(View.VISIBLE);
+            info.jobText.setText(context.getString(R.string.manager));
+        } else if ("1".equals(chat.is_owner)) {
+            info.jobText.setVisibility(View.VISIBLE);
+            info.jobText.setText(context.getString(R.string.circleMaster));
+            info.fansIcon.setVisibility(View.GONE);//圈住不显示粉丝图标
+        } else {
+            info.jobText.setVisibility(View.INVISIBLE);
         }
 
 
+        //消息类型 1 普通 2 解盘 3 问答 4 悄悄话 5 公告',
+        View parent = (View) info.fansIcon.getParent();
+        switch (chat.type) {
+
+            case "5": {
+                parent.setVisibility(View.GONE);
+                break;
+            }
+            case "4":{
+                parent.setVisibility(View.VISIBLE);
+                chat.content="";
+                break;
+            }
+            default: {
+                parent.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     /**
@@ -84,7 +89,7 @@ public class ChatHolder extends BaseHolder {
         return itemView.getInfo().avatarView;
     }
 
-    public MyTextViewEx getContentTextView(){
+    public MyTextViewEx getContentTextView() {
         return itemView.getInfo().contentText;
     }
 }

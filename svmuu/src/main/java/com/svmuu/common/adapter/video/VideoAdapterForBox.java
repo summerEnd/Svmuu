@@ -29,10 +29,9 @@ public class VideoAdapterForBox extends BaseAdapter<BoxVideoDetail, VideoHolder>
 
     public VideoAdapterForBox(Context context, List<BoxVideoDetail> data) {
         super(context, data);
-        options = ImageOptions.getRoundCorner(5);
+        options = ImageOptions.getVideoCoverInstance();
         timeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault());
     }
-
 
     @Override
     public VideoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -55,11 +54,11 @@ public class VideoAdapterForBox extends BaseAdapter<BoxVideoDetail, VideoHolder>
 
     @Override
     public void onClick(View itemView, int position) {
-        BoxVideoDetail detail=getData().get(position);
+        BoxVideoDetail detail = getData().get(position);
         getContext().startActivity(new Intent(getContext(), BoxDetailActivity.class)
-            .putExtra(BoxDetailActivity.EXTRA_SUBJECT,detail.subject)
-            .putExtra(BoxDetailActivity.EXTRA_TOKEN,detail.pwd)
-            .putExtra(BoxDetailActivity.EXTRA_ID,detail.video_url)
+                        .putExtra(BoxDetailActivity.EXTRA_SUBJECT, detail.subject)
+                        .putExtra(BoxDetailActivity.EXTRA_TOKEN, detail.pwd)
+                        .putExtra(BoxDetailActivity.EXTRA_ID, detail.video_url)
         );
     }
 }

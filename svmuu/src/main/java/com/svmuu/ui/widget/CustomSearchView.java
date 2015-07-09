@@ -13,7 +13,9 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -125,6 +127,17 @@ public class CustomSearchView extends LinearLayout {
                 } else {
                     closeIcon.setVisibility(VISIBLE);
                 }
+            }
+        });
+        editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    if (mCallback!=null){
+                        mCallback.onSearch(editSearch.getText().toString());
+                    }
+                }
+                return false;
             }
         });
         setStyle(style);

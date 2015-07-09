@@ -1,5 +1,6 @@
 package com.svmuu.ui.activity.live;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -127,31 +128,42 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
             @Override
             public void onResultError(int statusCOde, Header[] headers, Response response) throws JSONException {
                 super.onResultError(statusCOde, headers, response);
-                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(LiveActivity.this);
-                builder.setTitle(R.string.warn);
-                builder.setMessage(getString(R.string.get_live_info_failed));
-                builder.setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        getLiveInfo();
-                    }
-                });
-
-                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-
-                builder.create().show();
+                noticeGetLiveFailed();
             }
 
             @Override
-            public void onException() {
-                super.onException();
+            public Dialog onCreateDialog() {
+                ProgressIDialog dialog = new ProgressIDialog(LiveActivity.this);
+                dialog.setMessage(getString(R.string.getLiveInfo));
+                return dialog;
+            }
+
+
+        });
+    }
+
+    /**
+     * 提示获取直播信息失败
+     */
+    private void noticeGetLiveFailed() {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(LiveActivity.this);
+        builder.setTitle(R.string.warn);
+        builder.setMessage(getString(R.string.get_live_info_failed));
+        builder.setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                getLiveInfo();
             }
         });
+
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        builder.create().show();
     }
 
     /**
@@ -164,7 +176,6 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         String unick;
         String live_subject;
         String uface;
-
         //是否关注
         boolean isFollow;
         //是否支持聊天
@@ -212,7 +223,9 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         if (supportChat) {
             chatButton.setVisibility(View.VISIBLE);
             div1.setVisibility(View.VISIBLE);
-            radioGroup.check(R.id.liveRoom);
+            if (data!=null){
+                radioGroup.check(R.id.liveRoom);
+            }
         } else {
             chatButton.setVisibility(View.GONE);
             div1.setVisibility(View.GONE);
@@ -251,7 +264,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
 
         fansNumber.setText(getString(R.string.fans_s, fans));
         popularity.setText(getString(R.string.popularity_s, hot));
-        masterName.setText(unick);
+        masterName.setText(unick + "(" + circleId + ")");
         circleName.setText(unick);
         concern.setChecked(isFollow);
         ImageLoader.getInstance().displayImage(uface, avatarImage, ImageOptions.getRoundCorner(6));
@@ -293,7 +306,6 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
                 onBackPressed();
                 break;
             }
-
         }
     }
 
@@ -366,6 +378,12 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
 
         switch (checkedId) {
             case R.id.liveRoom: {
+                if (data == null || data.user_info == null) {
+                    noticeGetLiveFailed();
+                    return;
+                }
+
+                chatFragment.getParams().fans_type = data.user_info.fans_type;
                 displayFragment(chatFragment);
                 break;
             }
@@ -433,6 +451,9 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
             getLiveInfo();
             return;
         }
+        if (mPlayFragment != null) {
+            mPlayFragment.stop();
+        }
 
         UserInfo user_info = data.user_info;
         startActivity(new Intent(this, BoxDetailActivity.class)
@@ -497,6 +518,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         public String chat_live;
         public String video_live;
         public boolean isFollow;
+        public String fans_type;
     }
 
     @Override

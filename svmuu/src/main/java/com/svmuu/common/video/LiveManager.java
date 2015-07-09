@@ -5,15 +5,18 @@ import android.app.Activity;
 import com.gensee.common.ServiceType;
 import com.gensee.entity.InitParam;
 import com.gensee.net.RtComp;
-import com.gensee.routine.LiveodItem;
+import com.gensee.room.RtSdk;
 import com.gensee.taskret.OnTaskRet;
 import com.gensee.view.GSVideoView;
+
+import java.util.ArrayList;
 
 public class LiveManager extends AbsVideoManager {
 
     private static LiveManager manager;
     RtImpl mRtImpl;
-
+    private boolean isPlaying = false;
+    private ArrayList<Callback> callbacks;
 
     public static LiveManager getInstance(Activity activity) {
         if (manager == null) {
@@ -24,7 +27,19 @@ public class LiveManager extends AbsVideoManager {
 
     private LiveManager(Activity activity) {
         setContext(activity);
-        mRtImpl = new RtImpl(activity);
+        mRtImpl = new RtImpl(activity) {
+            @Override
+            protected void onVideoStart() {
+                super.onVideoStart();
+                getContext().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dispatchVideoStart();
+                        isPlaying = true;
+                    }
+                });
+            }
+        };
     }
 
     @Override
@@ -61,16 +76,30 @@ public class LiveManager extends AbsVideoManager {
                     }
 
                     @Override
-                    public void onErr(int i) {
+                    public void onErr(final int i) {
+                        isPlaying = false;
 
+                        getContext().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                dispatchFailed();
+                            }
+                        });
                     }
                 });
         comp.initWithGensee(p);
     }
 
+
     @Override
     public boolean isPlaying() {
-        return mRtImpl.getRtSdk().isAsPlaying();
+        return isPlaying;
+    }
+
+    @Override
+    public void destroy() {
+        release();
+        manager = null;
     }
 
     @Override
@@ -80,18 +109,24 @@ public class LiveManager extends AbsVideoManager {
 
     @Override
     public boolean onRelease() {
-        return mRtImpl.getRtSdk().leave(false, new OnTaskRet() {
+        RtSdk rtSdk = mRtImpl.getRtSdk();
+        boolean leave = rtSdk.leave(false, new OnTaskRet() {
             @Override
             public void onTaskRet(boolean b, int i, String s) {
-
+                dispatchVideoReleased();
             }
         });
+        if (leave) {
+            dispatchVideoReleased();
+        }
+        isPlaying = false;
+        return leave;
     }
 
 
-    public boolean release(OnTaskRet taskRet){
-
-        return mRtImpl.getRtSdk().leave(false,taskRet);
+    public boolean release(OnTaskRet taskRet) {
+        isPlaying = false;
+        return mRtImpl.getRtSdk().leave(false, taskRet);
     }
 
 }

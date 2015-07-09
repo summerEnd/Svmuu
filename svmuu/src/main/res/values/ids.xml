@@ -3,4 +3,18 @@
     <item name="fragmentContainer" type="id"/>
     <item name="menuContainer" type="id"/>
     <item name="divider" type="id"/>
+
+    <!-- 聊天头像的id-->
+    <item name="chatItemAvatar" type="id"/>
+    <!-- 聊天时间id-->
+    <item name="chatItemTime" type="id"/>
+    <!-- 聊天昵称id-->
+    <item name="chatItemNick" type="id"/>
+    <!-- 聊天内容id-->
+    <item name="chatItemContent" type="id"/>
+    <!-- 粉丝图标-->
+    <item name="chatItemFans" type="id"/>
+    <!-- 管理员、圈主-->
+    <item name="chatItemJob" type="id"/>
+
 </resources>

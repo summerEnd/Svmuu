@@ -38,35 +38,12 @@ public class FullScreenVideo extends FragmentActivity {
         setContentView(R.layout.activity_full_sceen_video);
         gsVideoView = (GSVideoView) findViewById(R.id.gsView);
 
-
         if (getIntent().getBooleanExtra(EXTRA_IS_VOD, false)) {
             vodManager = VodManager.getInstance(this);
             vodManager.setGSView(gsVideoView);
-
         } else {
             liveManager = LiveManager.getInstance(this);
             liveManager.setGSView(gsVideoView);
         }
-
     }
-
-    @Override
-    public void onBackPressed() {
-        if (liveManager != null) {
-            liveManager.release(new OnTaskRet() {
-                @Override
-                public void onTaskRet(boolean b, int i, String s) {
-
-                }
-            });
-            super.onBackPressed();
-        }
-
-        if (vodManager != null) {
-            vodManager.release();
-            super.onBackPressed();
-        }
-
-    }
-
 }

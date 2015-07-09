@@ -87,7 +87,8 @@ public class SearchAdapter extends BaseAdapter<History,SearchHolder> {
 
             case TYPE_SEARCH_HISTORY: {
                 SearchHistory h = (SearchHistory) holder;
-                History history = histories.get(position-1);//减1是减去列表的标题
+                int index = position-1;//减1是减去列表的标题
+                History history = histories.get(index);
                 h.tv_search.setText(history.name);
                 break;
             }

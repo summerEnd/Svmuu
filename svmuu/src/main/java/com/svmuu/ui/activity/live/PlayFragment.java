@@ -20,17 +20,15 @@ import android.widget.TextView;
 import com.gensee.taskret.OnTaskRet;
 import com.gensee.view.GSVideoView;
 import com.sp.lib.common.util.ContextUtil;
-import com.sp.lib.common.util.SLog;
 import com.sp.lib.common.util.TextPainUtil;
-import com.svmuu.AppDelegate;
 import com.svmuu.R;
+import com.svmuu.common.video.AbsVideoManager;
 import com.svmuu.common.video.LiveManager;
 import com.svmuu.common.video.VodManager;
 import com.svmuu.ui.BaseFragment;
-import com.svmuu.ui.pop.ProgressIDialog;
 
 
-public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveManager.Callback {
+public class PlayFragment extends BaseFragment {
 
     public static final int TYPE_VIDEO_LIVE = 0;
     public static final int TYPE_AUDIO_LIVE = 1;
@@ -39,13 +37,11 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
     LiveManager liveManager;
     private TextView tv_subject;
     private TextView tv_live;
-    private ImageView nolive;
     private LinearLayout controlLayout;
     private GSVideoView gsView;
     private View videoLayout;
     String subject;
-    //暂时不用弹出进度框
-    ProgressIDialog progressIDialog;
+
     private int mReason;
     private String vodId;
     private String vodPsw;
@@ -55,8 +51,8 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
     private Callback callback;
     private boolean showMediaController = true;
     private int type;
-    private String nickName;
     private boolean isClosed = false;
+    private ImageView nolive;
 
     public void setCallback(Callback callback) {
         this.callback = callback;
@@ -65,7 +61,6 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        nickName = AppDelegate.getInstance().getUser().name;
 
         return inflater.inflate(R.layout.play_fragment, container, false);
     }
@@ -88,7 +83,7 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
         gsView = (GSVideoView) findViewById(R.id.gsView);
         videoLayout = findViewById(R.id.videoLayout);
 
-        gsView.renderDrawble(getLoadingBitmap(), false);
+        gsView.renderDrawble(getLoadingBitmap(ContextUtil.getString(R.string.connecting)), false);
         findViewById(R.id.fullScreen).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +93,7 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
         showMediaController(showMediaController);
     }
 
-    Bitmap getLoadingBitmap() {
+    Bitmap getLoadingBitmap(String text) {
 
         ColorDrawable drawable = new ColorDrawable(0xfff5f5f5);
         int width = 400;
@@ -112,7 +107,6 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
         Canvas canvas = new Canvas(src);
         drawable.setBounds(0, 0, width, height);
         drawable.draw(canvas);
-        String prom = "加载中...";
         Paint p = new Paint();
         p.setAntiAlias(true);
         p.setColor(Color.BLACK);
@@ -121,7 +115,7 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
         float x = width / 2;
         float y = height / 2;
 
-        canvas.drawText(prom, x, y + TextPainUtil.getBaseLineOffset(p), p);
+        canvas.drawText(text, x, y + TextPainUtil.getBaseLineOffset(p), p);
         return src;
     }
 
@@ -139,15 +133,16 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
             isVod = true;
             return;
         }
+       showCover(false);
 
-        if (vodManager == null) {
-            vodManager = VodManager.getInstance(getActivity());
+        vodManager = VodManager.getInstance(getActivity());
+        vodManager.setGSView(gsView);
+
+        if (!vodManager.isPlaying()) {
+            vodManager.adjustVideoSize(adjustVideoSize);
+            vodManager.start(vodId, pwd);
+
         }
-
-        vodManager.release();
-        vodManager.adjustVideoSize(adjustVideoSize);
-        nolive.setVisibility(View.INVISIBLE);
-        vodManager.start(vodId, pwd);
         showSwitchDialog(ContextUtil.getString(R.string.open_vod));
     }
 
@@ -157,7 +152,6 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
     public void playVod(String vodId, String pwd) {
         playVod(vodId, pwd, false);
     }
-
 
     public void showMediaController(boolean show) {
         this.showMediaController = show;
@@ -173,26 +167,21 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
         this.mLiveId = liveId;
         this.mToken = token;
 
-        if (gsView == null) {
-            //如果当前是点播返回
+        if (gsView == null) {//如果当前是点播返回
             isVod = false;
             return;
         }
 
-        if (isClosed()) {
-            //如果已经关闭,返回
+        if (isClosed()) {//如果已经关闭,返回
             return;
         }
 
         if (TextUtils.isEmpty(liveId)) {
-            nolive.setVisibility(View.VISIBLE);
+            showCover(true);
             return;
         }
-        nolive.setVisibility(View.INVISIBLE);
-        if (liveManager == null) {
-            liveManager = LiveManager.getInstance(getActivity());
-        }
-
+        liveManager = LiveManager.getInstance(getActivity());
+        liveManager.addCallback(mCallback);
         if (liveManager.isPlaying()) {
             liveManager.setGSView(gsView);
             return;
@@ -207,6 +196,31 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
         if (isReleased) {
             startLive();
         }
+    }
+
+    private AbsVideoManager.Callback mCallback=new AbsVideoManager.Callback() {
+        @Override
+        public void onVideoStarted() {
+            showCover(false);
+        }
+
+        @Override
+        public void onFailed() {
+          showCover(true);
+        }
+
+        @Override
+        public void onVideoReleased() {
+
+        }
+    };
+
+    /**
+     * 是否展示没有直播
+     * @param show true 显示图片
+     */
+    void showCover(boolean show){
+        nolive.setVisibility(show?View.VISIBLE:View.INVISIBLE);
     }
 
     /**
@@ -294,6 +308,7 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
 
     public void stop() {
         mReason = Reason.STOP_PLAY;
+
         if (!tryRelease()) {
             showSwitchDialog("正在关闭...");
         }
@@ -302,21 +317,17 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
 
     public void toFullScreen() {
 
-        if (true) {
-            Intent intent = new Intent(getActivity(), FullScreenVideo.class);
-            intent.putExtra(FullScreenVideo.EXTRA_IS_VOD, isVod);
+        Intent intent = new Intent(getActivity(), FullScreenVideo.class);
+        intent.putExtra(FullScreenVideo.EXTRA_IS_VOD, isVod);
 
-            if (isVod) {
-                intent.putExtra(FullScreenVideo.EXTRA_JOIN_TOKEN, vodPsw)
-                        .putExtra(FullScreenVideo.EXTRA_LIVE_ID, vodId);
-            } else {
-                intent.putExtra(FullScreenVideo.EXTRA_JOIN_TOKEN, mToken)
-                        .putExtra(FullScreenVideo.EXTRA_LIVE_ID, mLiveId);
-            }
-            startActivity(intent);
+        if (isVod) {
+            intent.putExtra(FullScreenVideo.EXTRA_JOIN_TOKEN, vodPsw)
+                    .putExtra(FullScreenVideo.EXTRA_LIVE_ID, vodId);
         } else {
-            mReason = Reason.FULL_SCREEN;
+            intent.putExtra(FullScreenVideo.EXTRA_JOIN_TOKEN, mToken)
+                    .putExtra(FullScreenVideo.EXTRA_LIVE_ID, mLiveId);
         }
+        startActivity(intent);
     }
 
     public void setVideoVisible(boolean visible) {
@@ -358,30 +369,13 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
     }
 
 
-    @Override
-    public void onLiveJoint() {
-        if (getActivity() != null) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    nolive.setVisibility(View.INVISIBLE);
-                }
-            });
-        }
-
-    }
-
-    @Override
     public void onLeaveRoom(String msg) {
 
         if (callback != null) {
             callback.onReleased(mReason);
         }
         switch (mReason) {
-            case Reason.FULL_SCREEN: {
-                toFullScreen();
-                break;
-            }
+
             case Reason.LIVE_AUDIO: {
                 if (mLiveId != null) {
                     gsView.renderDefault();
@@ -447,19 +441,9 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
 
     private void showSwitchDialog(String message) {
 
-        //        if (progressBar != null) {
-        ////            progressBar.setVisibility(View.VISIBLE);
-        //        }
-        if (getActivity() == null) {
-            return;
+        if (gsView != null) {
+//            gsView.renderDrawble(getLoadingBitmap(message), false);
         }
-        //        if (progressIDialog == null) {
-        //            progressIDialog = new ProgressIDialog(getActivity());
-        //        } else {
-        //            tryDismiss();
-        //        }
-        //        progressIDialog.setMessage(message);
-        //        progressIDialog.show();
     }
 
     public interface Callback {
@@ -472,6 +456,12 @@ public class PlayFragment extends BaseFragment implements com.svmuu.common.LiveM
         super.onDestroy();
         mReason = Reason.STOP_PLAY;
         tryRelease();
+        if (liveManager!=null){
+            liveManager.removeCallback(mCallback);
+        }
+        if (vodManager!=null){
+            vodManager.removeCallback(mCallback);
+        }
     }
 
 }

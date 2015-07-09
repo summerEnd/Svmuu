@@ -7,9 +7,9 @@ android {
     signingConfigs {
         myconfigs {
             //windows�µ�ַ
-            //storeFile file('D:\\workspace\\Svmuu\\rongzhengtong.jks');
+            storeFile file('D:\\workspace\\Svmuu\\rongzhengtong.jks');
             //mac�µĵ�ַ
-             storeFile file("/Users/Lincoln/AndroidStudioProjects/Svmuu/rongzhengtong.jks");
+            // storeFile file("/Users/Lincoln/AndroidStudioProjects/Svmuu/rongzhengtong.jks");
             keyAlias 'yjy'
             keyPassword 'yjy998'
             storePassword 'rzt2014'

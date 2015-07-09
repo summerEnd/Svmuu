@@ -14,7 +14,9 @@ import android.widget.EditText;
 import com.svmuu.R;
 import com.svmuu.common.ChatManager;
 import com.svmuu.common.adapter.chat.ChatAdapter;
+import com.svmuu.common.adapter.chat.ChatAdapterImpl;
 import com.svmuu.common.adapter.chat.ChatItemDec;
+import com.svmuu.common.adapter.chat.ChatParams;
 import com.svmuu.common.entity.Chat;
 import com.svmuu.ui.BaseFragment;
 
@@ -27,8 +29,9 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
     private RecyclerView recyclerView;
     private EditText editContent;
     private List<Chat> data = new ArrayList<>();
-    private ChatAdapter adapter;
+    private ChatAdapterImpl adapter;
     private String quanzhu_id;
+    private ChatParams params;
     ChatManager mChatManager;
     LinkedList<Chat> tempChatPool = new LinkedList<>();
 
@@ -40,6 +43,17 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
 
     public void setCircleId(String circle_id) {
         this.quanzhu_id = circle_id;
+    }
+
+    public void setChatParams(ChatParams params) {
+        this.params = params;
+    }
+
+    public ChatParams getParams() {
+        if(params==null){
+            params=new ChatParams();
+        }
+        return params;
     }
 
     @Override
@@ -79,13 +93,13 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
         };
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(layout);
-        adapter = new ChatAdapter(getActivity(), data);
-
+        //todo  测试
+        adapter = new ChatAdapterImpl(getActivity(), data);
+        adapter.setParams(params);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new ChatItemDec());
 
     }
-
 
 
     @Override

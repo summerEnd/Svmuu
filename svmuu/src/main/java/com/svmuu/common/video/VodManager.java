@@ -6,19 +6,13 @@ import android.os.Message;
 import android.view.ViewGroup;
 
 import com.gensee.common.ServiceType;
-import com.gensee.entity.ChatMsg;
 import com.gensee.entity.InitParam;
-import com.gensee.entity.QAMsg;
-import com.gensee.entity.VodObject;
 import com.gensee.media.VODPlayer;
 import com.gensee.utils.StringUtil;
 import com.gensee.view.GSVideoView;
 import com.gensee.vod.VodSite;
 import com.sp.lib.common.util.ContextUtil;
 import com.svmuu.common.MSG;
-import com.svmuu.common.VodManager.RESULT;
-
-import java.util.List;
 
 /**
  * 点播
@@ -29,6 +23,7 @@ public class VodManager extends AbsVideoManager {
     private final VODPlayer mGSOLPlayer;
     private GSVideoView videoView;
     private boolean adjustVideoSize;
+    private boolean isPlaying;
 
     public static VodManager getInstance(Activity activity) {
         if (manager == null) {
@@ -51,6 +46,8 @@ public class VodManager extends AbsVideoManager {
     @Override
     protected boolean onRelease() {
         mGSOLPlayer.stop();
+        isPlaying = false;
+
         return mGSOLPlayer.release();
     }
 
@@ -84,7 +81,7 @@ public class VodManager extends AbsVideoManager {
 
             @Override
             public void onVodObject(String s) {
-                mHandler.sendMessage(mHandler.obtainMessage(RESULT.ON_GET_VODOBJ, s));
+                mHandler.sendMessage(mHandler.obtainMessage(MSG.ON_GET_VODOBJ, s));
 
             }
         });
@@ -95,7 +92,13 @@ public class VodManager extends AbsVideoManager {
 
     @Override
     public boolean isPlaying() {
-        return true;
+        return isPlaying;
+    }
+
+    @Override
+    public void destroy() {
+        release();
+        manager = null;
     }
 
     void initPlayer(String id) {
@@ -112,6 +115,7 @@ public class VodManager extends AbsVideoManager {
         }
 
         release();
+        isPlaying = true;
         mGSOLPlayer.play(id, new VodListener() {
             @Override
             public void onVideoSize(int position, int w, int h) {
@@ -129,11 +133,9 @@ public class VodManager extends AbsVideoManager {
 
             switch (msg.what) {
 
-                case RESULT.ON_GET_VODOBJ:
-
+                case MSG.ON_GET_VODOBJ:
                     final String vodId = (String) msg.obj;
                     initPlayer(vodId);
-
                     break;
 
                 case MSG.MSG_ON_VIDEO_SIZE: {

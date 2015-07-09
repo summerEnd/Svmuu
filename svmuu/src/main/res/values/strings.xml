@@ -26,6 +26,7 @@
     <string name="fans_s">粉丝：%s</string>
     <string name="settings">设置</string>
     <string name="myBox">我的宝盒</string>
+    <string name="myBookBox">我订阅的宝盒</string>
     <string name="myCareCircle">我关注的圈子</string>
     <string name="recharge">充值</string>
     <string name="avatar_desc">头像</string>
@@ -71,6 +72,7 @@
     <string name="live_not_exist">直播不存在</string>
     <string name="title_activity_vod">VodActivity</string>
     <string name="title_activity_box_detail">宝盒详情</string>
+    <string name="connecting">连接中…</string>
     <string name="open_living">正在打开直播…</string>
     <string name="open_vod">正在打开录像…</string>
     <string name="leaving">正在离开房间…</string>
@@ -89,4 +91,6 @@
     <string name="live_null">未直播</string>
     <string name="get_live_info_failed">获取直播信息失败</string>
     <string name="title_activity_http_settings">HttpSettings</string>
+    <string name="getLiveInfo">获取直播信息...</string>
+    <string name="search">搜索</string>
 </resources>

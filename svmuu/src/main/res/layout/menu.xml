@@ -1,172 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:background="#141414">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="@dimen/menuWidth"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/dimen_25px"
-            android:paddingLeft="@dimen/dimen_36px"
-            android:paddingRight="@dimen/dimen_36px"
-            android:paddingTop="@dimen/dimen_45px">
-
-            <ImageView
-                android:id="@+id/avatarImage"
-                android:layout_width="@dimen/avatarSize"
-                android:layout_height="@dimen/avatarSize"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/avatar_desc"
-                android:src="@drawable/ic_launcher"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_20px"
-                android:layout_marginStart="@dimen/dimen_20px">
-
-                <TextView
-                    android:id="@+id/phoneText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/login"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_24px"/>
-
-                <TextView
-                    android:id="@+id/tv_circleNo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/phoneText"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/circle_no_s"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/text_22px"/>
-            </RelativeLayout>
-        </LinearLayout>
+    android:background="#141414"
+    android:orientation="vertical">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_50px"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_Shuibao"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/shui_bao_s"
-                android:textColor="@color/grayA"
-                android:textSize="@dimen/text_22px"/>
-
-
-            <TextView
-                android:id="@+id/tv_fans"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/xin_guanzhu"
-                android:gravity="start|center_vertical"
-                android:text="@string/fans_s"
-                android:textColor="@color/grayA"
-                android:textSize="@dimen/text_22px"/>
-        </LinearLayout>
-        <android.support.v7.widget.LinearLayoutCompat
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="@dimen/menuWidth"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:divider="@drawable/horizontal_divider"
-            app:showDividers="beginning|middle|end">
-            <LinearLayout
-                android:id="@+id/recharge"
-                style="@style/MenuClickItem">
-
-                <ImageView
-
-                    style="@style/MenuIconStyle"
-                    android:contentDescription="@string/recharge"
-                    android:src="@drawable/leftbar_recharge_selector"/>
-
-                <TextView
-                    style="@style/MenuTextStyle"
-                    android:text="@string/recharge"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/my_circle"
-                style="@style/MenuClickItem">
-
-                <ImageView
-                    style="@style/MenuIconStyle"
-                    android:contentDescription="@string/myBox"
-                    android:src="@drawable/my_circle"/>
-
-                <TextView
-                    style="@style/MenuTextStyle"
-                    android:text="我的圈子"/>
-            </LinearLayout>
-
+            >
 
             <LinearLayout
-                android:id="@+id/myCircle"
-                style="@style/MenuClickItem">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dimen_25px"
+                android:paddingLeft="@dimen/dimen_36px"
+                android:paddingRight="@dimen/dimen_36px"
+                android:paddingTop="@dimen/dimen_45px">
 
                 <ImageView
+                    android:id="@+id/avatarImage"
+                    android:layout_width="@dimen/avatarSize"
+                    android:layout_height="@dimen/avatarSize"
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/avatar_desc"
+                    android:src="@drawable/ic_launcher"/>
 
-                    style="@style/MenuIconStyle"
-                    android:contentDescription="@string/myCareCircle"
-                    android:src="@drawable/leftbar_guanzhu_selector"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_20px"
+                    android:layout_marginStart="@dimen/dimen_20px">
 
-                <TextView
-                    style="@style/MenuTextStyle"
-                    android:text="@string/myCareCircle"/>
+                    <TextView
+                        android:id="@+id/phoneText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_24px"/>
+
+                    <TextView
+                        android:id="@+id/tv_circleNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/phoneText"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/circle_no_s"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/text_22px"/>
+                </RelativeLayout>
             </LinearLayout>
-
 
             <LinearLayout
-                android:id="@+id/myBox"
-                style="@style/MenuClickItem">
-
-                <ImageView
-                    style="@style/MenuIconStyle"
-                    android:contentDescription="@string/myBox"
-                    android:src="@drawable/leftbar_box_selector"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_50px"
+                android:orientation="horizontal">
 
                 <TextView
-                    style="@style/MenuTextStyle"
-                    android:text="@string/myBox"/>
-            </LinearLayout>
+                    android:id="@+id/tv_Shuibao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/shui_bao_s"
+                    android:textColor="@color/grayA"
+                    android:textSize="@dimen/text_22px"/>
 
-
-            <LinearLayout
-                android:id="@+id/settings"
-                style="@style/MenuClickItem">
-
-                <ImageView
-                    style="@style/MenuIconStyle"
-                    android:contentDescription="@string/myBox"
-                    android:src="@drawable/setting"/>
 
                 <TextView
-                    style="@style/MenuTextStyle"
-                    android:text="@string/settings"/>
+                    android:id="@+id/tv_fans"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/xin_guanzhu"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/fans_s"
+                    android:textColor="@color/grayA"
+                    android:textSize="@dimen/text_22px"/>
             </LinearLayout>
-        </android.support.v7.widget.LinearLayoutCompat>
+            <android.support.v7.widget.LinearLayoutCompat
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="@dimen/menuWidth"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:divider="@drawable/horizontal_divider"
+                app:showDividers="beginning|middle|end">
+                <LinearLayout
+                    android:id="@+id/recharge"
+                    style="@style/MenuClickItem">
 
+                    <ImageView
+
+                        style="@style/MenuIconStyle"
+                        android:contentDescription="@string/recharge"
+                        android:src="@drawable/leftbar_recharge_selector"/>
+
+                    <TextView
+                        style="@style/MenuTextStyle"
+                        android:text="@string/recharge"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/my_circle"
+                    style="@style/MenuClickItem">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:contentDescription="@string/myBox"
+                        android:src="@drawable/my_circle"/>
+
+                    <TextView
+                        style="@style/MenuTextStyle"
+                        android:text="我的圈子"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/myCircle"
+                    style="@style/MenuClickItem">
+
+                    <ImageView
+
+                        style="@style/MenuIconStyle"
+                        android:contentDescription="@string/myCareCircle"
+                        android:src="@drawable/leftbar_guanzhu_selector"/>
+
+                    <TextView
+                        style="@style/MenuTextStyle"
+                        android:text="@string/myCareCircle"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/myBox"
+                    style="@style/MenuClickItem">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:contentDescription="@string/myBox"
+                        android:src="@drawable/leftbar_box_selector"/>
+
+                    <TextView
+                        style="@style/MenuTextStyle"
+                        android:text="@string/myBookBox"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.LinearLayoutCompat>
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/settings"
+        style="@style/MenuClickItem"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_15px">
+
+        <ImageView
+            style="@style/MenuIconStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/setting"/>
+        <TextView
+            style="@style/MenuTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:drawableRight="@null"
+            android:text="@string/settings"/>
     </LinearLayout>
-</ScrollView>
+</LinearLayout>

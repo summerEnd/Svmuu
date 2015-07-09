@@ -53,7 +53,6 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
         initialize();
     }
 
-
     @SuppressWarnings("unchecked")
     private void initialize() {
         try {
@@ -94,12 +93,12 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
                     if (position == clearPosition) {
                         histories.clear();
                         adapter.notifyDataSetChanged();
-                    }else{
-                        search(histories.get(position-1).name);
+                    } else {
+                        search(histories.get(position - 1).name);
                     }
                 } else {
-                    startActivity(new Intent(SearchActivity.this,LiveActivity.class)
-                            .putExtra(LiveActivity.EXTRA_QUANZHU_ID,searches.get(position).uid)
+                    startActivity(new Intent(SearchActivity.this, LiveActivity.class)
+                                    .putExtra(LiveActivity.EXTRA_QUANZHU_ID, searches.get(position).uid)
                     );
                 }
             }
@@ -111,10 +110,13 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
     public void onSearch(String key) {
         History history = new History();
         history.name = key;
-        if (!histories.contains(history)) {
-            histories.add(history);
-            CacheManager.getInstance().write(SEARCH_HISTORIES, histories);
+        if (histories.contains(history)) {
+            histories.remove(history);
         }
+        //将搜索记录移动到最新
+        histories.add(0, history);
+        CacheManager.getInstance().write(SEARCH_HISTORIES, histories);
+
         search(key);
     }
 

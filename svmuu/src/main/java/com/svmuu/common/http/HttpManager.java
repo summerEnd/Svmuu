@@ -26,9 +26,9 @@ public class HttpManager {
 
     static {
         HOSTS.put(0, "http://dev.svmuu.com");//dev
-        HOSTS.put(1, "http://m-dev.svmuu.com/index.html");//h5移动版
+        HOSTS.put(1, "http://m-dev.svmuu.com");//h5移动版
         HOSTS.put(2, "http://dev-test.svmuu.com");//test
-        HOSTS.put(3, "http://mtest.svmuu.com/index.html");//h5移动版
+        HOSTS.put(3, "http://mtest.svmuu.com");//h5移动版
         HOSTS.put(4, "http://www.svmuu.com");//h5移动版
     }
 

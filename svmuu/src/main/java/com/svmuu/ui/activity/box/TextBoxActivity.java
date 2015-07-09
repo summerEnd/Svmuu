@@ -32,7 +32,6 @@ public class TextBoxActivity extends SecondActivity implements PullToRefreshBase
     PageUtils pageUtils;
     String boxId;
 
-    private boolean doRefresh = false;
     private TextBoxAdapter adapter;
 
     @Override
@@ -70,7 +69,7 @@ public class TextBoxActivity extends SecondActivity implements PullToRefreshBase
                 JSONObject data = new JSONObject(response.data);
                 JsonUtil.debugJsonObject(data);
                 List<TextBoxDetail> newData = JsonUtil.getArray(data.getJSONArray("data"), TextBoxDetail.class);
-                pageUtils.addNewPage(adapter.getData(), newData, doRefresh);
+                pageUtils.addNewPage(adapter.getData(), newData);
                 Box info=JsonUtil.get(data.getJSONObject("info"),Box.class);
                 adapter.setHeadInfo(info.name,info.desc);
 
@@ -88,13 +87,13 @@ public class TextBoxActivity extends SecondActivity implements PullToRefreshBase
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        doRefresh = true;
+        pageUtils.setIsRefresh(true);
         getDetail(0);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        doRefresh = false;
+        pageUtils.setIsRefresh(false);
         getDetail(pageUtils.getPage() + 1);
     }
 }
