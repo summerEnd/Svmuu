@@ -1,5 +1,6 @@
 package com.svmuu.common.adapter.chat.holders;
 
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 
 /**
@@ -9,5 +10,8 @@ import android.view.View;
 public class ChatNoticeHolder extends ChatHolderImpl {
     protected ChatNoticeHolder(View itemView) {
         super(itemView);
+        if (chatItemContent != null) {
+            chatItemContent.setMovementMethod(LinkMovementMethod.getInstance());
+        }
     }
 }

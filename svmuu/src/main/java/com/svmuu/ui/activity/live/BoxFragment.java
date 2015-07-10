@@ -56,7 +56,7 @@ public class BoxFragment extends BaseFragment implements PullToRefreshBase.OnRef
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.set(6,6,6,6);
+                outRect.set(6,16,6,16);
             }
         });
         return refreshView;
@@ -64,7 +64,6 @@ public class BoxFragment extends BaseFragment implements PullToRefreshBase.OnRef
 
     @Override
     protected void initialize() {
-
       getBoxList(0);
     }
 
@@ -101,7 +100,6 @@ public class BoxFragment extends BaseFragment implements PullToRefreshBase.OnRef
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
         pageUtils.setIsRefresh(true);
         getBoxList(0);
-
     }
 
     @Override

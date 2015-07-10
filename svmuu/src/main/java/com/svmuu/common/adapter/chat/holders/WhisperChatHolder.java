@@ -15,7 +15,7 @@ import com.svmuu.common.entity.Chat;
  * Created by user1 on 2015/7/9.
  * 铁粉悄悄话
  */
-public class WhisperChatHolder extends ChatHolderImpl {
+public class WhisperChatHolder extends MasterChatHolder {
     protected WhisperChatHolder(View itemView) {
         super(itemView);
     }

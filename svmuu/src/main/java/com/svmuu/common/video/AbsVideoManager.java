@@ -10,8 +10,12 @@ import java.util.ArrayList;
 
 public abstract class AbsVideoManager {
     private Activity context;
-    private Callback callback;
     private ArrayList<Callback> callbacks = new ArrayList<>();
+    public static final String domain = "svmuu.gensee.com";
+    public static final String account = "admin@svmuu.com";
+    public static final String pwd = "888888";
+    protected String videoId;
+    protected String token;
 
     /**
      * 启动视频
@@ -20,10 +24,10 @@ public abstract class AbsVideoManager {
      * @param token 加入口令
      */
     public final void start(String id, String token) {
+        this.token=token;
+        this.videoId=id;
         onStart(id, token);
-        if (callback != null) {
-            callback.onVideoStarted();
-        }
+
     }
 
     /**
@@ -37,9 +41,7 @@ public abstract class AbsVideoManager {
      * @return true 成功
      */
     public final boolean release() {
-        if (callback != null) {
-            callback.onVideoReleased();
-        }
+
         return onRelease();
     }
 
@@ -49,6 +51,20 @@ public abstract class AbsVideoManager {
      * @return true 陈宫
      */
     protected abstract boolean onRelease();
+
+    /**
+     * 暂停当前视频
+     *
+     * @return true 暂停成功
+     */
+    public abstract boolean pause();
+
+    /**
+     * 恢复当前视频
+     *
+     * @return true 成功
+     */
+    public abstract boolean resume();
 
     /**
      * 子类启动视频的操作在这里实现
@@ -89,21 +105,39 @@ public abstract class AbsVideoManager {
     }
 
     public final void dispatchVideoStart() {
-        for (Callback callback : callbacks) {
-            callback.onVideoStarted();
-        }
+        getContext().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for (Callback callback : callbacks) {
+                    callback.onVideoStarted();
+                }
+            }
+        });
+
     }
 
     public final void dispatchVideoReleased() {
-        for (Callback callback : callbacks) {
-            callback.onVideoReleased();
-        }
+        getContext().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for (Callback callback : callbacks) {
+                    callback.onVideoReleased();
+                }
+            }
+        });
+
     }
 
     public final void dispatchFailed() {
-        for (Callback callback : callbacks) {
-            callback.onFailed();
-        }
+        getContext().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for (Callback callback : callbacks) {
+                    callback.onFailed();
+                }
+            }
+        });
+
     }
 
     public abstract boolean isPlaying();

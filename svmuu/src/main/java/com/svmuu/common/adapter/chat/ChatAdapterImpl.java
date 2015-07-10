@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,24 +28,16 @@ import java.util.List;
 public class ChatAdapterImpl extends BaseAdapter<Chat, ChatHolderImpl> {
 
     DisplayImageOptions options;
-    private Html.ImageGetter imageGetter;
+    private ChatImageGetter imageGetter;
     private ChatParams params;
 
     public ChatAdapterImpl(Context context, List<Chat> data) {
         super(context, data);
         options = ImageOptions.getRoundCorner(4);
-        imageGetter = new Html.ImageGetter() {
+        imageGetter = new ChatImageGetter(context) {
             @Override
-            public Drawable getDrawable(String source) {
-                File file = ImageLoader.getInstance().getDiskCache().get(source);
-                if (file != null && file.exists()) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-                    BitmapDrawable bitmapDrawable = new BitmapDrawable(getContext().getResources(), bitmap);
-                    bitmapDrawable.setBounds(0, 0, 40, 40);
-                    return bitmapDrawable;
-                }
-                ImageLoader.getInstance().loadImage(source, ImageOptions.getStandard(), listener);
-                return null;
+            public void onNewBitmapLoaded(Bitmap bitmap) {
+                notifyDataSetChanged();
             }
         };
     }
@@ -101,25 +94,5 @@ public class ChatAdapterImpl extends BaseAdapter<Chat, ChatHolderImpl> {
         return super.getItemViewType(position);
     }
 
-    private ImageLoadingListener listener = new ImageLoadingListener() {
-        @Override
-        public void onLoadingStarted(String s, View view) {
 
-        }
-
-        @Override
-        public void onLoadingFailed(String s, View view, FailReason failReason) {
-
-        }
-
-        @Override
-        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-            notifyDataSetChanged();
-        }
-
-        @Override
-        public void onLoadingCancelled(String s, View view) {
-
-        }
-    };
 }

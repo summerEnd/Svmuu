@@ -11,6 +11,7 @@ import com.gensee.routine.State;
 import com.gensee.routine.UserInfo;
 import com.gensee.view.GSVideoView;
 import com.sp.lib.common.util.ContextUtil;
+import com.sp.lib.common.util.SLog;
 
 
 public class RtImpl extends RtSimpleImpl {
@@ -43,7 +44,7 @@ public class RtImpl extends RtSimpleImpl {
     }
 
     @Override
-    public void onRoomJoin(final int result, UserInfo self) {
+    public void onRoomJoin(final int result, final UserInfo self) {
         super.onRoomJoin(result, self);
         context.runOnUiThread(new Runnable() {
             public void run() {
@@ -52,7 +53,7 @@ public class RtImpl extends RtSimpleImpl {
                     //加入成功  除了成功其他均需要正常提示给用户
                     case IRTEvent.IRoomEvent.JoinResult.JR_OK:
                         resultDesc = "";
-                        ContextUtil.toast_debug("-->");
+                        SLog.debug("加入成功>>>"+self);
                         break;
                     //加入错误
                     case IRTEvent.IRoomEvent.JoinResult.JR_ERROR:
@@ -100,8 +101,9 @@ public class RtImpl extends RtSimpleImpl {
         super.onRoomPublish(s);
         // 此逻辑是控制视频要在直播开始后才准许看的逻辑
         byte castState = s.getValue();
-        RtSdk rtSdk = getRtSdk();
 
+        RtSdk rtSdk = getRtSdk();
+        ContextUtil.toast_debug("onRoomPublish:"+castState);
         switch (castState) {
             case 1:
                 setVideoView(gsVideoView);

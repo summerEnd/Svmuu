@@ -18,6 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
+import com.gensee.view.GSVideoView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
@@ -64,6 +65,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
     private RadioGroup radioGroup;
     private View changeLiveType;
     PlayFragment mPlayFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,16 +198,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
             if ("-1".equals(userInfo.video_live)) {
                 supportVideo = false;
             }
-            LiveInfo info = data.liveInfo;
 
-            if (info != null) {
-                //证券娱乐圈(32)默认显示视频直播,其余默认显示文字直播
-                if ("32".equals(circleId)) {
-                    setTitleIcon(0);
-                } else {
-                    setTitleIcon(2);
-                }
-            }
             isFollow = userInfo.isFollow;
         } else {
             fans = "0";
@@ -216,6 +209,13 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
             isFollow = false;
         }
 
+        //证券娱乐圈(32)默认显示视频直播,其余默认显示文字直播
+        if ("32".equals(circleId)) {
+            setTitleIcon(0);
+        } else {
+            setTitleIcon(2);
+        }
+
         //直播室按钮
         RadioButton chatButton = (RadioButton) radioGroup.findViewById(R.id.liveRoom);
         //直播室分割线
@@ -223,7 +223,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         if (supportChat) {
             chatButton.setVisibility(View.VISIBLE);
             div1.setVisibility(View.VISIBLE);
-            if (data!=null){
+            if (data != null) {
                 radioGroup.check(R.id.liveRoom);
             }
         } else {
@@ -481,6 +481,14 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
      */
     @Override
     public void onReleased(int reason) {
+
+    }
+
+    /**
+     * 视频被点击
+     */
+    @Override
+    public void onGSClicked(GSVideoView gsView) {
 
     }
 

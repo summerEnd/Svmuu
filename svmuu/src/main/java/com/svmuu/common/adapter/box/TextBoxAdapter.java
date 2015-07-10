@@ -16,6 +16,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.svmuu.R;
 import com.svmuu.common.ImageOptions;
 import com.svmuu.common.adapter.BaseAdapter;
+import com.svmuu.common.adapter.chat.ChatImageGetter;
 import com.svmuu.common.entity.TextBoxDetail;
 
 import java.io.File;
@@ -35,18 +36,10 @@ public class TextBoxAdapter extends BaseAdapter<TextBoxDetail, TextBoxHolder> {
     public TextBoxAdapter(Context context, List<TextBoxDetail> data) {
         super(context, data);
         format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault());
-        imageGetter = new Html.ImageGetter() {
+        imageGetter = new ChatImageGetter(context) {
             @Override
-            public Drawable getDrawable(String source) {
-                File file = ImageLoader.getInstance().getDiskCache().get(source);
-                if (file != null && file.exists()) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-                    BitmapDrawable bitmapDrawable = new BitmapDrawable(getContext().getResources(), bitmap);
-                    bitmapDrawable.setBounds(0, 0, 40, 40);
-                    return bitmapDrawable;
-                }
-                ImageLoader.getInstance().loadImage(source, ImageOptions.getStandard(), listener);
-                return null;
+            public void onNewBitmapLoaded(Bitmap bitmap) {
+                notifyDataSetChanged();
             }
         };
     }
@@ -91,25 +84,5 @@ public class TextBoxAdapter extends BaseAdapter<TextBoxDetail, TextBoxHolder> {
     public int getItemCount() {
         return super.getItemCount() + 1;
     }
-    private ImageLoadingListener listener = new ImageLoadingListener() {
-        @Override
-        public void onLoadingStarted(String s, View view) {
 
-        }
-
-        @Override
-        public void onLoadingFailed(String s, View view, FailReason failReason) {
-
-        }
-
-        @Override
-        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-            notifyDataSetChanged();
-        }
-
-        @Override
-        public void onLoadingCancelled(String s, View view) {
-
-        }
-    };
 }

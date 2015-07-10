@@ -29,13 +29,16 @@
         <TextView
             android:id="@+id/circleName"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_45px"
+            android:layout_marginRight="@dimen/dimen_45px"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_toLeftOf="@+id/changeLiveType"
-            android:layout_toRightOf="@id/back"
+            android:layout_toRightOf="@+id/back"
             android:gravity="center"
             android:singleLine="true"
-            android:text="@string/test_circle_name"
+            android:text="aasdfaaasdfaaasdfaaasdfaaasdfaaasdfa"
+
             android:textColor="@color/titleRedText"
             android:textSize="@dimen/titleTextSize"/>
 

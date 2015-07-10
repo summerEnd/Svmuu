@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.svmuu"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="com.svmuu"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- 添加快捷方式 -->
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
@@ -25,10 +26,10 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <supports-screens
-        android:normalScreens="true"
-        android:largeScreens="true"
-        android:xlargeScreens="true"
         android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:xlargeScreens="true"
         />
     <application
         android:name=".AppDelegate"
@@ -39,10 +40,10 @@
         <activity
             android:name=".ui.ActivityList"
             android:screenOrientation="portrait">
-            <!-- todo -->
+            <!-- todo 这个activity仅供调试 -->
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--<action android:name="android.intent.action.MAIN"/>-->
+            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             <!--</intent-filter>-->
         </activity>
         <activity

@@ -74,6 +74,7 @@ public class VideoBoxActivity extends SecondActivity implements PullToRefreshBas
         });
 
         boxId = getIntent().getStringExtra(EXTRA_ID);
+        setInfo(null);
         if (TextUtils.isEmpty(boxId)) {
             ContextUtil.toast(R.string.box_detail_get_failed);
         } else {

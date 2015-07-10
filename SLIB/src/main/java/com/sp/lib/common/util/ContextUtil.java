@@ -3,6 +3,9 @@ package com.sp.lib.common.util;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.MainThread;
 import android.telephony.TelephonyManager;
 import android.view.Gravity;
 import android.view.View;
@@ -44,10 +47,10 @@ public class ContextUtil {
     public static int getVersion() {
         try {
             return getPackageInfo().versionCode;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NullPointerException e) {
+            return 0;
         }
-        return 0;
+
     }
 
 
@@ -60,13 +63,28 @@ public class ContextUtil {
         return null;
     }
 
+    /**
+     * 弹出一个toast,可以在任一线程使用
+     *
+     * @param o toast的内容
+     */
     public static void toast(Object o) {
         if (null == o)
             return;
         //要toast的信息
-        String msg = String.valueOf(o);
+
+        final String msg = String.valueOf(o);
+        mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                createToast(msg);
+            }
+        });
+    }
+
+    private static void createToast(String msg) {
         if (mToast == null) {
-            mToast=new Toast(context);
+            mToast = new Toast(context);
             if (mToastLayoutId == 0) {
                 mToastLayoutId = R.layout.toast_layout;
             }
@@ -84,7 +102,6 @@ public class ContextUtil {
         if (tv != null) {
             tv.setText(msg);
         }
-
         mToast.show();
     }
 
@@ -97,7 +114,9 @@ public class ContextUtil {
         }
     }
 
+    @MainThread
     public static void toast_debug(Object o) {
+
         if (SApplication.DEBUG) {
             toast(o);
         }
@@ -106,7 +125,7 @@ public class ContextUtil {
     public static Context getContext() {
         return context;
     }
-
+    private static Handler mainHandler=new Handler(Looper.getMainLooper());
 
     public static String getUUID() {
         String MIEI = "miei";

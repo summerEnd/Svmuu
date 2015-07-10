@@ -24,7 +24,7 @@ public class VideoAdapter extends BaseAdapter<Recording, VideoHolder> {
 
     public VideoAdapter(Context context, List<Recording> data) {
         super(context, data);
-        options = ImageOptions.getRoundCorner(5);
+        options = ImageOptions.getVideoCoverInstance();
     }
 
     public void setListener(OnItemListener listener) {

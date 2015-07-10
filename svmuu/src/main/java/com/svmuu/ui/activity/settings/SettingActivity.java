@@ -50,12 +50,12 @@ public class SettingActivity extends SecondActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.aboutUs: {
-                startActivity(new Intent(this,AboutActivity.class));
+                startActivity(new Intent(this, AboutActivity.class));
 
                 break;
             }
             case R.id.suggestion: {
-                startActivity(new Intent(this,SuggestionActivity.class));
+                startActivity(new Intent(this, SuggestionActivity.class));
                 break;
             }
             case R.id.clear: {
@@ -83,13 +83,14 @@ public class SettingActivity extends SecondActivity {
                             @Override
                             public void onResultOk(int statusCode, Header[] headers, Response response) throws JSONException {
                                 AppDelegate.getInstance().setUser(null);
-                                SharedPreferences sp = Preference.get(getApplicationContext(), Preference.USER.class);
-                                sp.edit()
-                                        .putString(Preference.USER.USER_PASSWORD, "")
-                                        .putBoolean(Preference.USER.IS_SAVE_PASSWORD, false)
-                                        .apply();
+                                //如果要清除密码，就启用下面这段代码
+                                // SharedPreferences sp = Preference.get(getApplicationContext(), Preference.USER.class);
+                                // sp.edit()
+                                //         .putString(Preference.USER.USER_PASSWORD, "")
+                                //         .putBoolean(Preference.USER.IS_SAVE_PASSWORD, false)
+                                //         .apply();
 
-                                Intent useChanged=new Intent(UserChangeReceiver.ACTION_USER_CHANGED);
+                                Intent useChanged = new Intent(UserChangeReceiver.ACTION_USER_CHANGED);
                                 sendBroadcast(useChanged);
                                 finish();
                             }

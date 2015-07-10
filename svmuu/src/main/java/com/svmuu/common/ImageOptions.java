@@ -46,7 +46,7 @@ public class ImageOptions {
     public static DisplayImageOptions getVideoCoverInstance() {
 
         return getBuilder()
-                .displayer(new RoundDisplayer(5))
+                .displayer(new RoundedBitmapDisplayer(5))
                 .showImageOnFail(R.drawable.video_default_cover)
                 .showImageForEmptyUri(R.drawable.video_default_cover)
                 .showImageOnLoading(R.drawable.video_default_cover)

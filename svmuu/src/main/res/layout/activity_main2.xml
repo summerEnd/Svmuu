@@ -108,16 +108,25 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/index_qus"
             android:gravity="center_vertical"
-            android:text="@string/recent_visitor"/>
+            android:text="@string/recent_visitor"
+            android:textSize="@dimen/text_24px"/>
 
-        <android.support.v7.widget.RecyclerView
+        <LinearLayout
             android:id="@+id/recentContainer"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_180px"
             android:layout_marginTop="@dimen/dimen_10px"
-            android:orientation="horizontal">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+            <include layout="@layout/item_recent_avatar"/>
+            <include layout="@layout/item_recent_avatar"/>
+            <include layout="@layout/item_recent_avatar"/>
+            <include layout="@layout/item_recent_avatar"/>
+            <include layout="@layout/item_recent_avatar"/>
 
-        </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
     </LinearLayout>
 
     <View style="@style/horizontalDivider"/>
@@ -136,7 +145,8 @@
             android:layout_centerVertical="true"
             android:drawableLeft="@drawable/index_tuijian"
             android:gravity="center_vertical"
-            android:text="@string/recommend_master"/>
+            android:text="@string/recommend_master"
+            android:textSize="@dimen/text_24px"/>
 
         <TextView
             android:layout_width="wrap_content"

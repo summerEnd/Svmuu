@@ -46,7 +46,7 @@
                 android:textSize="@dimen/text_20px"/>
         </LinearLayout>
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -55,19 +55,21 @@
                 android:id="@+id/fansText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1200"
+                android:layout_gravity="right|top"
+                android:text="0"
                 android:textColor="#5a5a5a"
                 android:textSize="@dimen/text_24px"
                 />
 
             <TextView
                 android:id="@+id/toggle"
-                android:layout_alignParentBottom="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="right|bottom"
                 android:background="#0000"
                 android:text="展开"/>
-        </RelativeLayout>
+        </FrameLayout>
     </LinearLayout>
 
     <View style="@style/horizontalDivider"/>

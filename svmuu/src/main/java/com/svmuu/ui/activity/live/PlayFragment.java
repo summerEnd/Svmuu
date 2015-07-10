@@ -1,6 +1,10 @@
 package com.svmuu.ui.activity.live;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -51,7 +55,9 @@ public class PlayFragment extends BaseFragment {
     private Callback callback;
     private boolean showMediaController = true;
     private int type;
+    //视频是否关闭
     private boolean isClosed = false;
+    //是否显示没有直播
     private ImageView nolive;
 
     public void setCallback(Callback callback) {
@@ -84,6 +90,14 @@ public class PlayFragment extends BaseFragment {
         videoLayout = findViewById(R.id.videoLayout);
 
         gsView.renderDrawble(getLoadingBitmap(ContextUtil.getString(R.string.connecting)), false);
+        gsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callback != null) {
+                    callback.onGSClicked(gsView);
+                }
+            }
+        });
         findViewById(R.id.fullScreen).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +147,7 @@ public class PlayFragment extends BaseFragment {
             isVod = true;
             return;
         }
-       showCover(false);
+        showCover(false);
 
         vodManager = VodManager.getInstance(getActivity());
         vodManager.setGSView(gsView);
@@ -198,7 +212,7 @@ public class PlayFragment extends BaseFragment {
         }
     }
 
-    private AbsVideoManager.Callback mCallback=new AbsVideoManager.Callback() {
+    private AbsVideoManager.Callback mCallback = new AbsVideoManager.Callback() {
         @Override
         public void onVideoStarted() {
             showCover(false);
@@ -206,7 +220,7 @@ public class PlayFragment extends BaseFragment {
 
         @Override
         public void onFailed() {
-          showCover(true);
+            showCover(true);
         }
 
         @Override
@@ -217,10 +231,11 @@ public class PlayFragment extends BaseFragment {
 
     /**
      * 是否展示没有直播
+     *
      * @param show true 显示图片
      */
-    void showCover(boolean show){
-        nolive.setVisibility(show?View.VISIBLE:View.INVISIBLE);
+    void showCover(boolean show) {
+        nolive.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
     }
 
     /**
@@ -331,6 +346,11 @@ public class PlayFragment extends BaseFragment {
     }
 
     public void setVideoVisible(boolean visible) {
+
+        if (videoLayout == null) {
+            //延迟加载
+            return;
+        }
         if (visible) {
             videoLayout.setVisibility(View.VISIBLE);
         } else {
@@ -449,19 +469,58 @@ public class PlayFragment extends BaseFragment {
     public interface Callback {
         void onReleased(int reason);
 
+        /**
+         * GSView被点击时调用
+         */
+        void onGSClicked(GSVideoView gsView);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mReason = Reason.STOP_PLAY;
-        tryRelease();
-        if (liveManager!=null){
+        if (liveManager != null) {
             liveManager.removeCallback(mCallback);
+            liveManager.destroy();
         }
-        if (vodManager!=null){
+        if (vodManager != null) {
             vodManager.removeCallback(mCallback);
         }
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        activity.registerReceiver(mHomeKeyEventReceiver, new IntentFilter(
+                Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        getActivity().unregisterReceiver(mHomeKeyEventReceiver);
+    }
+
+    private BroadcastReceiver mHomeKeyEventReceiver = new BroadcastReceiver() {
+        String SYSTEM_REASON = "reason";
+        String SYSTEM_HOME_KEY = "homekey";
+        String SYSTEM_HOME_KEY_LONG = "recentapps";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
+                String reason = intent.getStringExtra(SYSTEM_REASON);
+                if (TextUtils.equals(reason, SYSTEM_HOME_KEY)) {
+                    //表示按了home键,程序到了后台
+//                    if (liveManager != null) {
+//                        liveManager.pause();
+//                    }
+//                    if (vodManager != null) {
+//                        vodManager.pause();
+//                    }
+//                    isPaused = true;
+                }
+            }
+        }
+    };
 }

@@ -52,20 +52,30 @@ public class VodManager extends AbsVideoManager {
     }
 
     @Override
+    public boolean pause() {
+        return mGSOLPlayer.pause();
+    }
+
+    @Override
+    public boolean resume() {
+        return mGSOLPlayer.resume();
+    }
+
+    @Override
     protected void onStart(String id, String token) {
 
         InitParam initParam = new InitParam();
         // domain 域名
-        initParam.setDomain("svmuu.gensee.com");
+        initParam.setDomain(domain);
         // 点播编号 （不是点播id）
         //initParam.setNumber(strNumber);
         // 设置点播id，和点播编号对应，两者至少要有一个有效才能保证成功
         //        initParam.setLiveId("30d998bdd65b4a2bb6c405cad9d8dee5");
         initParam.setLiveId(id);
         // 站点认证帐号
-        initParam.setLoginAccount("admin@svmuu.com");
+        initParam.setLoginAccount(account);
         // 站点认证密码
-        initParam.setLoginPwd("888888");
+        initParam.setLoginPwd(pwd);
         // 点播口令
         initParam.setVodPwd(token);
         // 昵称 用于统计和显示

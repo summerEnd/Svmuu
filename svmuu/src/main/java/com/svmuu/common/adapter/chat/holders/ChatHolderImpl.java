@@ -3,7 +3,12 @@ package com.svmuu.common.adapter.chat.holders;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ParagraphStyle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +76,9 @@ public class ChatHolderImpl extends BaseHolder<Chat> {
         chatItemContent = (TextView) findViewById(R.id.chatItemContent);
         chatItemFans = (ImageView) findViewById(R.id.chatItemFans);
         chatItemJob = (TextView) findViewById(R.id.chatItemJob);
-
+        if (chatItemContent != null) {
+            //chatItemContent.setMovementMethod(ChatMovementMethod.getInstance());
+        }
     }
 
     public ChatParams getParams() {
@@ -94,6 +101,7 @@ public class ChatHolderImpl extends BaseHolder<Chat> {
      * @param options 用来加载头像
      */
     public void displayWith(Chat chat, DisplayImageOptions options) {
+        Context context = itemView.getContext();
         if (chatItemFans != null) {
             //1、普通粉丝；2 铁粉；3 年粉 4 季粉',
             switch (chat.fans_type) {
@@ -118,12 +126,20 @@ public class ChatHolderImpl extends BaseHolder<Chat> {
         }
 
         if (chatItemJob != null) {
-
+            if ("1".equals(chat.is_admin)) {
+                chatItemJob.setVisibility(View.VISIBLE);
+                chatItemJob.setText(context.getString(R.string.manager));
+            } else {
+                chatItemJob.setVisibility(View.INVISIBLE);
+            }
         }
 
         if (chatItemAvatar != null) {
             ImageLoader.getInstance().displayImage(chat.uface, chatItemAvatar, options);
+        }
 
+        if (chatItemNick != null) {
+            chatItemNick.setText(chat.uname);
         }
     }
 
@@ -131,7 +147,16 @@ public class ChatHolderImpl extends BaseHolder<Chat> {
      * 展示聊天消息
      */
     public void displayContent(Chat chat, Html.ImageGetter imageGetter) {
-        chatItemContent.setText(Html.fromHtml(chat.content, imageGetter, null));
+        Spanned text = Html.fromHtml(chat.content, imageGetter, null);
+
+        chatItemContent.setText(text);
     }
+
+    private ClickableSpan mSpan = new ClickableSpan() {
+        @Override
+        public void onClick(View widget) {
+
+        }
+    };
 
 }

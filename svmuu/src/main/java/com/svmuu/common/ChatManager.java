@@ -3,6 +3,7 @@ package com.svmuu.common;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
@@ -43,6 +44,9 @@ public class ChatManager {
      * @param content 消息内容
      */
     public void sendMessage(String type, String content) {
+        if (TextUtils.isEmpty(content)) {
+            return;
+        }
         SRequest request = new SRequest("sendmssage");
         request.put("quanzhu_id", getCircleId());
         request.put("type", type);
@@ -80,7 +84,7 @@ public class ChatManager {
      */
     public String getMaxMsgId() {
         int max = Integer.parseInt(maxMsgId);
-        return (max ) + "";
+        return (max) + "";
     }
 
     public void setMaxMsgId(String maxMsgId) {

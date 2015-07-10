@@ -10,7 +10,6 @@
         android:id="@+id/icon"
         android:layout_width="@dimen/dimen_99px"
         android:src="@drawable/iron_box"
-        android:scaleType="centerInside"
         android:layout_height="@dimen/dimen_99px"/>
     <TextView
         android:id="@+id/text"

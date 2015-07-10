@@ -18,7 +18,7 @@
 
             <TextView
                 style="@style/chatItemNick"
-                android:text="哒哒哒哒哒哒"/>
+                android:text="哒哒哒哒哒哒哒哒哒哒哒哒"/>
 
             <TextView
                 android:id="@id/chatItemTime"

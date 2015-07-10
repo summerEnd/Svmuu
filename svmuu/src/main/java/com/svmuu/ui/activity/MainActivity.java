@@ -1,15 +1,26 @@
 package com.svmuu.ui.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.common.util.SLog;
@@ -18,6 +29,7 @@ import com.sp.lib.widget.list.refresh.PullToRefreshBase;
 import com.sp.lib.widget.list.refresh.PullToRefreshScrollView;
 import com.svmuu.AppDelegate;
 import com.svmuu.R;
+import com.svmuu.common.ImageOptions;
 import com.svmuu.common.adapter.master.RecentAdapter;
 import com.svmuu.common.adapter.other.RecommendAdapter;
 import com.svmuu.common.config.Constant;
@@ -37,13 +49,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends MenuActivity implements CustomSearchView.Callback {
+public class MainActivity extends MenuActivity implements CustomSearchView.Callback, PullToRefreshBase.OnRefreshListener {
 
 
-    private RecyclerView recentContainer;
+    private LinearLayout recentContainer;
     private LinearListView list;
     _DATA mData;
-    private RecentAdapter recentAdapter;
     private RecommendAdapter recommendAdapter;
     private PullToRefreshScrollView refreshScrollView;
 
@@ -56,17 +67,7 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
         ScrollView scrollView = refreshScrollView.getRefreshableView();
         //把页面加入到下拉刷新中
         getLayoutInflater().inflate(R.layout.activity_main2, scrollView, true);
-        refreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                getRecent();
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-
-            }
-        });
+        refreshScrollView.setOnRefreshListener(this);
         setContentView(refreshScrollView);
         initialize();
     }
@@ -74,15 +75,11 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
     private void initialize() {
 
         CustomSearchView searchView = (CustomSearchView) findViewById(R.id.searchView);
-        recentContainer = (RecyclerView) findViewById(R.id.recentContainer);
+        recentContainer = (LinearLayout) findViewById(R.id.recentContainer);
         list = (LinearListView) findViewById(R.id.list);
         recommendAdapter = new RecommendAdapter(this, new ArrayList<CircleMaster>());
         list.setAdapter(recommendAdapter);
 
-        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recentContainer.setLayoutManager(manager);
-        recentAdapter = new RecentAdapter(this, new ArrayList<Visitor>());
-        recentContainer.setAdapter(recentAdapter);
 
         searchView.setCallback(this);
 
@@ -177,14 +174,8 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
                     recommends.addAll(mData.quanzhu);
                 }
 
-                List<Visitor> visitors = recentAdapter.getData();
-                visitors.clear();
-                if (mData.visitor != null) {
-                    visitors.addAll(mData.visitor);
-                }
-
+                displayRecent(mData.visitor);
                 recommendAdapter.notifyDataSetChanged();
-                recentAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -203,10 +194,19 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
             recommendAdapter.getData().clear();
             recommendAdapter.notifyDataSetChanged();
 
-            recentAdapter.getData().clear();
-            recentAdapter.notifyDataSetChanged();
+            displayRecent(null);
         }
         mMenuFragment.requestRefresh();
+    }
+
+    @Override
+    public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+        getRecent();
+    }
+
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+
     }
 
     private class _DATA {
@@ -214,4 +214,41 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
         ArrayList<CircleMaster> quanzhu;
     }
 
+    /**
+     * 展示最近访问
+     *
+     * @param visitors 可以传null
+     */
+    void displayRecent(@Nullable List<Visitor> visitors) {
+
+        for (int i = 0; i < recentContainer.getChildCount(); i++) {
+            recentContainer.getChildAt(i).setVisibility(View.INVISIBLE);
+        }
+
+        if (visitors == null || visitors.size() == 0) {
+            return;
+        }
+
+        DisplayImageOptions options = ImageOptions.getRoundCorner(5);
+
+        for (int i = 0; i < visitors.size(); i++) {
+            Visitor visitor=visitors.get(i);
+            ViewGroup child = (ViewGroup) recentContainer.getChildAt(i);
+            TextView name = (TextView) child.findViewById(R.id.tv_name);
+            ImageView avatar = (ImageView) child.findViewById(R.id.iv_avatar);
+            name.setText(visitor.unick);
+            ImageLoader.getInstance().displayImage(visitor.uface, avatar, options);
+            child.setTag(visitor);
+            child.setVisibility(View.VISIBLE);
+            child.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = v.getContext();
+                    context.startActivity(new Intent(context, LiveActivity.class)
+                            .putExtra(LiveActivity.EXTRA_QUANZHU_ID, ((Visitor) v.getTag()).id));
+                }
+            });
+        }
+
+    }
 }

@@ -26,7 +26,7 @@ public class MenuActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mMenuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.BEHIND, Position.START, MenuDrawer.MENU_DRAG_WINDOW);
+        mMenuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.BEHIND, Position.START, MenuDrawer.MENU_DRAG_CONTENT);
 
         View contentView = getLayoutInflater().inflate(R.layout.menu_content, null);
         layoutContainer = (ViewGroup) contentView.findViewById(R.id.layoutContainer);
