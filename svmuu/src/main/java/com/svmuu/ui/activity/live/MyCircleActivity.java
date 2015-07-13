@@ -82,6 +82,11 @@ public class MyCircleActivity extends BaseActivity implements SelectBar.OnSelect
     }
 
     @Override
+    public void onEdit(String key) {
+        onSearch(key);
+    }
+
+    @Override
     public void onJump() {
 
     }

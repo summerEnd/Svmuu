@@ -139,6 +139,7 @@
 
         <RadioButton
             android:id="@+id/liveRoom"
+            android:background="@drawable/tab_red_left"
             style="@style/liveTabButtonStyle"
             android:text="@string/liveHouse"
             />
@@ -162,10 +163,10 @@
             android:background="@color/liveHouseTabRed"/>
 
         <RadioButton
+            android:background="@drawable/tab_red_right"
             android:id="@+id/box"
             style="@style/liveTabButtonStyle"
             android:text="@string/my_book"/>
-
     </RadioGroup>
 
     <FrameLayout
@@ -175,6 +176,5 @@
         android:layout_marginLeft="@dimen/liveHouseHorizontalPadding"
         android:layout_marginRight="@dimen/liveHouseHorizontalPadding"
         android:layout_weight="1"/>
-
 
 </LinearLayout>

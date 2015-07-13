@@ -1,24 +1,18 @@
 package com.svmuu.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
 import com.sp.lib.common.support.cache.CacheManager;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.svmuu.R;
 import com.svmuu.common.adapter.BaseHolder;
-import com.svmuu.common.adapter.DividerDecoration;
+import com.svmuu.common.adapter.decoration.DividerDecoration;
 import com.svmuu.common.adapter.search.SearchAdapter;
-import com.svmuu.common.entity.CircleMaster;
 import com.svmuu.common.entity.History;
 import com.svmuu.common.entity.Search;
 import com.svmuu.common.http.HttpHandler;
@@ -26,11 +20,9 @@ import com.svmuu.common.http.HttpManager;
 import com.svmuu.common.http.Response;
 import com.svmuu.ui.BaseActivity;
 import com.svmuu.ui.activity.live.LiveActivity;
-import com.svmuu.ui.activity.live.LiveListFragment;
 import com.svmuu.ui.widget.CustomSearchView;
 
 import org.apache.http.Header;
-import org.apache.http.client.methods.HttpGet;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -92,13 +84,16 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
                     int clearPosition = histories.size() + 1;
                     if (position == clearPosition) {
                         histories.clear();
+                        CacheManager.getInstance().write(SEARCH_HISTORIES,histories);
                         adapter.notifyDataSetChanged();
                     } else {
                         search(histories.get(position - 1).name);
                     }
                 } else {
+                    String uid = searches.get(position).uid;
+                    addToHistory(uid);
                     startActivity(new Intent(SearchActivity.this, LiveActivity.class)
-                                    .putExtra(LiveActivity.EXTRA_QUANZHU_ID, searches.get(position).uid)
+                                    .putExtra(LiveActivity.EXTRA_QUANZHU_ID, uid)
                     );
                 }
             }
@@ -108,6 +103,21 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
 
     @Override
     public void onSearch(String key) {
+        addToHistory(key);
+        search(key);
+    }
+
+    @Override
+    public void onEdit(String key) {
+        search(key);
+    }
+
+    @Override
+    public void onJump() {
+
+    }
+
+    private void addToHistory(String key) {
         History history = new History();
         history.name = key;
         if (histories.contains(history)) {
@@ -116,13 +126,6 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
         //将搜索记录移动到最新
         histories.add(0, history);
         CacheManager.getInstance().write(SEARCH_HISTORIES, histories);
-
-        search(key);
-    }
-
-    @Override
-    public void onJump() {
-
     }
 
     public void search(String key) {

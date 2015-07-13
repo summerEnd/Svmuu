@@ -2,14 +2,13 @@ package com.svmuu.common.adapter.chat.holders;
 
 import android.text.Html;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.style.ClickableSpan;
 import android.view.View;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.sp.lib.common.util.ContextUtil;
 import com.svmuu.common.entity.Chat;
+import com.svmuu.ui.activity.live.ChatFragment;
 
 /**
  * Created by user1 on 2015/7/9.
@@ -29,7 +28,7 @@ public class WhisperChatHolder extends MasterChatHolder {
     @Override
     public void displayContent(Chat chat, Html.ImageGetter imageGetter) {
         //1、普通粉丝；2 铁粉；3 年粉 4 季粉',
-        String fans_type = getParams().fans_type;
+        String fans_type = ChatFragment.getSharedChatParams().fan_type;
         if ("2".equals(fans_type) || "3".equals(fans_type) || "4".equals(fans_type)) {
             super.displayContent(chat, imageGetter);
         } else {

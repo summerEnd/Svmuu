@@ -73,7 +73,7 @@ public class LiveManager extends AbsVideoManager {
                     @Override
                     public void onErr(int i) {
                         isPlaying = false;
-                        if (i != 1) {
+                        if (i != 1 && i != 3) {
                             dispatchFailed();
                         }
                         ContextUtil.toast_debug(i);
@@ -123,7 +123,7 @@ public class LiveManager extends AbsVideoManager {
 
     @Override
     public boolean resume() {
-        start(videoId,token);
+        start(videoId, token);
         return false;
     }
 

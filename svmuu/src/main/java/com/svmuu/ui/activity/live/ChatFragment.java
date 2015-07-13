@@ -30,37 +30,34 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
     private EditText editContent;
     private List<Chat> data = new ArrayList<>();
     private ChatAdapterImpl adapter;
-    private String quanzhu_id;
-    private ChatParams params;
     ChatManager mChatManager;
     LinkedList<Chat> tempChatPool = new LinkedList<>();
+    private static ChatParams mSharedParams;
+
+    /**
+     * 获取当前聊天的参数
+     * 包括:圈号，自己对于当前圈子的粉丝类型
+     */
+    public static ChatParams getSharedChatParams(){
+        if (mSharedParams==null){
+            mSharedParams=new ChatParams();
+        }
+        return mSharedParams;
+    }
 
     public static ChatFragment newInstance(String circleId) {
         ChatFragment fragment = new ChatFragment();
-        fragment.setCircleId(circleId);
+        getSharedChatParams().quanzhu_id=circleId;
         return fragment;
     }
 
-    public void setCircleId(String circle_id) {
-        this.quanzhu_id = circle_id;
-    }
 
-    public void setChatParams(ChatParams params) {
-        this.params = params;
-    }
-
-    public ChatParams getParams() {
-        if(params==null){
-            params=new ChatParams();
-        }
-        return params;
-    }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mChatManager = new ChatManager(activity, this);
-        mChatManager.setCircleId(quanzhu_id);
+        mChatManager.setCircleId(getSharedChatParams().quanzhu_id);
     }
 
     @Nullable
@@ -94,8 +91,9 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(layout);
         //todo  测试
+
         adapter = new ChatAdapterImpl(getActivity(), data);
-        adapter.setParams(params);
+
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new ChatItemDec());
 

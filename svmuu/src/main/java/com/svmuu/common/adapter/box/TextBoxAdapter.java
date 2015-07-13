@@ -33,9 +33,10 @@ public class TextBoxAdapter extends BaseAdapter<TextBoxDetail, TextBoxHolder> {
     private TextView titleText;
     private TextView summaryText;
     private Html.ImageGetter imageGetter;
+
     public TextBoxAdapter(Context context, List<TextBoxDetail> data) {
         super(context, data);
-        format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault());
+        format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         imageGetter = new ChatImageGetter(context) {
             @Override
             public void onNewBitmapLoaded(Bitmap bitmap) {
@@ -44,9 +45,9 @@ public class TextBoxAdapter extends BaseAdapter<TextBoxDetail, TextBoxHolder> {
         };
     }
 
-    public void setHeadInfo(String title,String summary){
-        this.title=title;
-        this.summary=summary;
+    public void setHeadInfo(String title, String summary) {
+        this.title = title;
+        this.summary = summary;
     }
 
     @Override
@@ -65,10 +66,10 @@ public class TextBoxAdapter extends BaseAdapter<TextBoxDetail, TextBoxHolder> {
     @Override
     public void onBindViewHolder(TextBoxHolder holder, int position) {
         if (position != 0) {
-            TextBoxDetail detail = getData().get(position-1);
-            holder.contentText.setText(Html.fromHtml(detail.content,imageGetter,null));
+            TextBoxDetail detail = getData().get(position - 1);
+            holder.contentText.setText(Html.fromHtml(detail.content, imageGetter, null));
             holder.timeText.setText(format.format(new Date(Long.decode(detail.add_time) * 1000)));
-        }else{
+        } else {
             titleText.setText(title);
             summaryText.setText(summary);
         }

@@ -61,7 +61,16 @@ public class SettingActivity extends SecondActivity {
             case R.id.clear: {
                 File cacheDir = getCacheDir();
                 FileUtil.delete(cacheDir);
-                YAlertDialog.show(this, getString(R.string.tips), getString(R.string.cache_clear_ok));
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.warn);
+                builder.setMessage(R.string.cache_clear_ok);
+                builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
                 break;
             }
             case R.id.logout: {

@@ -70,6 +70,9 @@ public class CustomSearchView extends LinearLayout {
         //在编辑状态下，点击搜索时触发
         void onSearch(String key);
 
+        //当输入框内的文字发生改变时调用,可用于做模糊查询
+        void onEdit(String key);
+
         //在不可编辑状态下点击时触发
         void onJump();
     }
@@ -126,6 +129,9 @@ public class CustomSearchView extends LinearLayout {
                     closeIcon.setVisibility(INVISIBLE);
                 } else {
                     closeIcon.setVisibility(VISIBLE);
+                    if (mCallback != null) {
+                        mCallback.onEdit(s.toString());
+                    }
                 }
             }
         });
@@ -133,7 +139,7 @@ public class CustomSearchView extends LinearLayout {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    if (mCallback!=null){
+                    if (mCallback != null) {
                         mCallback.onSearch(editSearch.getText().toString());
                     }
                 }
@@ -152,13 +158,11 @@ public class CustomSearchView extends LinearLayout {
     public void setStyle(int style) {
         if (style == STYLE_EDIT) {
             setOnClickListener(null);
-            closeIcon.setVisibility(VISIBLE);
             editSearch.setVisibility(VISIBLE);
             textSearch.setVisibility(INVISIBLE);
             searchIcon.setOnClickListener(searchListener);
         } else {
             setOnClickListener(jumpListener);
-            closeIcon.setVisibility(INVISIBLE);
             editSearch.setVisibility(INVISIBLE);
             textSearch.setVisibility(VISIBLE);
             searchIcon.setOnClickListener(null);

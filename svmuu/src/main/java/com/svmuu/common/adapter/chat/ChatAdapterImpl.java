@@ -29,7 +29,6 @@ public class ChatAdapterImpl extends BaseAdapter<Chat, ChatHolderImpl> {
 
     DisplayImageOptions options;
     private ChatImageGetter imageGetter;
-    private ChatParams params;
 
     public ChatAdapterImpl(Context context, List<Chat> data) {
         super(context, data);
@@ -42,14 +41,11 @@ public class ChatAdapterImpl extends BaseAdapter<Chat, ChatHolderImpl> {
         };
     }
 
-    public void setParams(ChatParams params) {
-        this.params = params;
-    }
+
 
     @Override
     public ChatHolderImpl onCreateViewHolder(ViewGroup parent, int viewType) {
         ChatHolderImpl chatHolder = ChatHolderImpl.newInstance(getContext(), parent, viewType);
-        chatHolder.setParams(params);
         return chatHolder;
     }
 

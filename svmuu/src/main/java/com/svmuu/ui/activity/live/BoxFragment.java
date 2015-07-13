@@ -1,7 +1,9 @@
 package com.svmuu.ui.activity.live;
 
 import android.app.Dialog;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,10 +15,13 @@ import android.view.ViewGroup;
 
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
+import com.sp.lib.common.util.TextPainUtil;
 import com.sp.lib.widget.list.refresh.PullToRefreshBase;
 import com.sp.lib.widget.list.refresh.PullToRefreshRecyclerView;
+import com.svmuu.R;
 import com.svmuu.common.PageUtils;
 import com.svmuu.common.adapter.box.BoxGridAdapter;
+import com.svmuu.common.adapter.decoration.EmptyDecoration;
 import com.svmuu.common.entity.Box;
 import com.svmuu.common.http.HttpHandler;
 import com.svmuu.common.http.HttpManager;
@@ -31,7 +36,11 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoxFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener<RecyclerView>{
+/**
+ * 我的宝盒
+ * 暂时更改为我的订阅
+ */
+public class BoxFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener<RecyclerView> {
     RecyclerView recyclerView;
     PageUtils pageUtils;
     private BoxGridAdapter adapter;
@@ -47,24 +56,19 @@ public class BoxFragment extends BaseFragment implements PullToRefreshBase.OnRef
         refreshView.setBackgroundColor(Color.WHITE);
         refreshView.setPullLoadEnabled(true);
         refreshView.setPullRefreshEnabled(true);
-        pageUtils=new PageUtils();
+        pageUtils = new PageUtils();
 
-        recyclerView= refreshView.getRefreshableView();
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),4));
-        adapter = new BoxGridAdapter(getActivity(),new ArrayList<Box>());
+        recyclerView = refreshView.getRefreshableView();
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        adapter = new BoxGridAdapter(getActivity(), new ArrayList<Box>());
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.set(6,16,6,16);
-            }
-        });
+        recyclerView.addItemDecoration(new EmptyDecoration(getActivity(),getString(R.string.empty_book)));
         return refreshView;
     }
 
     @Override
     protected void initialize() {
-      getBoxList(0);
+        getBoxList(0);
     }
 
     /**

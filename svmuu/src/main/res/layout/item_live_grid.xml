@@ -26,7 +26,9 @@
             android:layout_gravity="bottom"
             android:background="@color/transparentBlack"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp">
             <ImageView
                 android:layout_width="@dimen/dimen_20px"
                 android:layout_height="@dimen/dimen_20px"
@@ -37,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:text="12123"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_18px"/>
+                android:textSize="@dimen/text_20px"/>
         </LinearLayout>
 
         <TextView
@@ -56,15 +58,15 @@
         android:id="@+id/tv_circleName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="让票子越飞越高"
         android:singleLine="true"
+        android:text="让票子越飞越高"
         android:textColor="@color/textColorBlack"
-        android:textSize="@dimen/text_22px"/>
+        android:textSize="@dimen/text_20px"/>
     <TextView
         android:id="@+id/tv_circleNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="66666"
         android:textColor="#777777"
-        android:textSize="@dimen/text_22px"/>
+        android:textSize="@dimen/text_19px"/>
 </LinearLayout>

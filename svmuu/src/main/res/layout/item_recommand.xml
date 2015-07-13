@@ -58,7 +58,7 @@
                 android:layout_gravity="right|top"
                 android:text="0"
                 android:textColor="#5a5a5a"
-                android:textSize="@dimen/text_24px"
+                android:textSize="@dimen/text_19px"
                 />
 
             <TextView
@@ -67,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="right|bottom"
+                android:textSize="@dimen/text_19px"
                 android:background="#0000"
                 android:text="展开"/>
         </FrameLayout>

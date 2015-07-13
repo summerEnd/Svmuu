@@ -93,4 +93,5 @@
     <string name="title_activity_http_settings">HttpSettings</string>
     <string name="getLiveInfo">获取直播信息...</string>
     <string name="search">搜索</string>
+    <string name="empty_book">您暂无订阅！</string>
 </resources>

@@ -92,7 +92,18 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        getRecent();
+    }
+
+    @Override
     public void onSearch(String key) {
+
+    }
+
+    @Override
+    public void onEdit(String key) {
 
     }
 
@@ -230,9 +241,12 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
         }
 
         DisplayImageOptions options = ImageOptions.getRoundCorner(5);
-
         for (int i = 0; i < visitors.size(); i++) {
-            Visitor visitor=visitors.get(i);
+            if (i >= 5) {
+                break;
+            }
+            Visitor visitor = visitors.get(i);
+
             ViewGroup child = (ViewGroup) recentContainer.getChildAt(i);
             TextView name = (TextView) child.findViewById(R.id.tv_name);
             ImageView avatar = (ImageView) child.findViewById(R.id.iv_avatar);

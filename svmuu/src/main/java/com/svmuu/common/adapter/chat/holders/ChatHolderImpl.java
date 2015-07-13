@@ -25,7 +25,6 @@ import com.svmuu.common.entity.Chat;
 
 public class ChatHolderImpl extends BaseHolder<Chat> {
 
-    private ChatParams params;
 
     //圈主
     public static final int TYPE_MASTER = 0;
@@ -81,18 +80,6 @@ public class ChatHolderImpl extends BaseHolder<Chat> {
         }
     }
 
-    public ChatParams getParams() {
-        return params;
-    }
-
-    /**
-     * 在adapter启动之前就要设置这个参数，并且不能为空
-     *
-     * @param params 聊天的基本信息
-     */
-    public void setParams(@NonNull ChatParams params) {
-        this.params = params;
-    }
 
     /**
      * 展示聊天的基本信息
@@ -108,10 +95,12 @@ public class ChatHolderImpl extends BaseHolder<Chat> {
                 case "4":
                 case "2": {
                     chatItemFans.setImageResource(R.drawable.iron_fans);
+                    chatItemFans.setVisibility(View.VISIBLE);
                     break;
                 }
                 case "3": {
                     chatItemFans.setImageResource(R.drawable.year_fans);
+                    chatItemFans.setVisibility(View.VISIBLE);
                     break;
                 }
 

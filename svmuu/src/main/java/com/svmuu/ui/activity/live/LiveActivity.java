@@ -71,7 +71,6 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live);
-
         initialize();
     }
 
@@ -383,7 +382,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
                     return;
                 }
 
-                chatFragment.getParams().fans_type = data.user_info.fans_type;
+                ChatFragment.getSharedChatParams().fan_type = data.user_info.fan_type;
                 displayFragment(chatFragment);
                 break;
             }
@@ -526,7 +525,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         public String chat_live;
         public String video_live;
         public boolean isFollow;
-        public String fans_type;
+        public String fan_type;
     }
 
     @Override
@@ -543,7 +542,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
         circleId = saveInstance.getString("circleId");
         if (videoListFragment != null) {
             videoListFragment.setQuanzhu_id(circleId);
-            chatFragment.setCircleId(circleId);
+            ChatFragment.getSharedChatParams().setQuanzhu_id(circleId);
         }
     }
 }

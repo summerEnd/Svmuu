@@ -42,8 +42,10 @@ public class SuggestionActivity extends BaseActivity {
         findViewById(R.id.send).setOnClickListener(this);
         circle = (TextView) findViewById(R.id.circle);
         content = (EditText) findViewById(R.id.content);
-        User user = AppDelegate.getInstance().getUser();
-        circle.setText(user.name+"("+user.uid+")");
+        if (AppDelegate.getInstance().isLogin()) {
+            User user = AppDelegate.getInstance().getUser();
+            circle.setText(user.name + "(" + user.uid + ")");
+        }
     }
 
     @Override

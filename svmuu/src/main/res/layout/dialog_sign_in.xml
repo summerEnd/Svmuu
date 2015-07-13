@@ -44,11 +44,13 @@
         android:inputType="textPassword"/>
 
     <CheckBox
+        android:button="@drawable/save_login"
         android:id="@+id/save_psw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_20px"
         android:text="@string/save_psw"
+        android:paddingLeft="@dimen/dimen_8px"
         android:textColor="#9ba19f"
         android:textSize="@dimen/text_20px"/>
 

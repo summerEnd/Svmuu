@@ -10,7 +10,7 @@ import com.sp.lib.widget.list.refresh.PullToRefreshBase;
 import com.sp.lib.widget.list.refresh.PullToRefreshRecyclerView;
 import com.svmuu.R;
 import com.svmuu.common.PageUtils;
-import com.svmuu.common.adapter.DividerDecoration;
+import com.svmuu.common.adapter.decoration.DividerDecoration;
 import com.svmuu.common.adapter.box.TextBoxAdapter;
 import com.svmuu.common.entity.Box;
 import com.svmuu.common.entity.TextBoxDetail;
