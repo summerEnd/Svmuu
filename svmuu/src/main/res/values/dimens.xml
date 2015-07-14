@@ -5,7 +5,7 @@
     <dimen name="menuWidth">@dimen/dimen_490px</dimen>
     <dimen name="titleHeight">@dimen/dimen_90px</dimen>
     <dimen name="avatarSize">@dimen/dimen_99px</dimen>
-    <dimen name="avatarSizeSmall">@dimen/dimen_72px</dimen>
+    <dimen name="avatarSizeSmall">@dimen/dimen_70px</dimen>
     <dimen name="menuIconSize">@dimen/dimen_50px</dimen>
     <dimen name="titleTextSize">@dimen/text_27px</dimen>
     <dimen name="liveHouseHorizontalPadding">@dimen/dimen_15px</dimen>

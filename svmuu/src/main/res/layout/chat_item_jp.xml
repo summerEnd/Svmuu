@@ -1,46 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="right|center_vertical"
+    android:gravity="right"
     android:orientation="horizontal" tools:ignore="RtlHardcoded">
+
     <LinearLayout
-        style="@style/chatItemBackground">
+        style="@style/chatItemBackground"
+        android:layout_marginLeft="@dimen/avatarSizeSmall"
+        android:layout_toLeftOf="@+id/avatarLayout">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:background="@drawable/jiepan"
+                android:text="解盘"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimen_8px"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/text_19px"/>
             <TextView
                 style="@style/chatItemNick"
-                android:text="哒哒哒哒哒哒"/>
-
-            <ImageView
-                style="@style/chatItemFansIcon" android:src="@drawable/year_fans"/>
+                android:text="哒哒哒哒哒哒哒哒哒哒哒哒"/>
 
             <TextView
                 android:id="@id/chatItemTime"
                 style="@style/chatItemNick"
                 android:text="21:59"/>
+
         </LinearLayout>
 
         <com.gensee.view.MyTextViewEx
             style="@style/chatItemContent"
-            android:text="wewerqewr"/>
+            android:text="a"/>
 
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/avatarLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:orientation="vertical">
 
         <ImageView
             style="@style/chatItemAvatar" android:src="@drawable/ic_launcher"/>
 
         <TextView
+            android:id="@+id/jp_job"
             style="@style/chatItemJob"
             android:text="@string/circleMaster"/>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

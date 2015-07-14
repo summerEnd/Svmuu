@@ -133,6 +133,11 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
             }
 
             @Override
+            public void onException() {
+                noticeGetLiveFailed();
+            }
+
+            @Override
             public Dialog onCreateDialog() {
                 ProgressIDialog dialog = new ProgressIDialog(LiveActivity.this);
                 dialog.setMessage(getString(R.string.getLiveInfo));
@@ -208,12 +213,16 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
             isFollow = false;
         }
 
-        //证券娱乐圈(32)默认显示视频直播,其余默认显示文字直播
-        if ("32".equals(circleId)) {
-            setTitleIcon(0);
-        } else {
-            setTitleIcon(2);
+        //当前直播信息不为空时再做处理
+        if (data != null) {
+            //证券娱乐圈(32)默认显示视频直播,其余默认显示文字直播
+            if ("32".equals(circleId)) {
+                setTitleIcon(0);
+            } else {
+                setTitleIcon(2);
+            }
         }
+
 
         //直播室按钮
         RadioButton chatButton = (RadioButton) radioGroup.findViewById(R.id.liveRoom);

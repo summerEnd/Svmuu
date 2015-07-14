@@ -19,7 +19,7 @@ public class Chat {
     public String userLevel;
     public String msg_id;
     public String certify_status;
-    Question question;
+    public Question question;
 
     public boolean isOwner(){
         return "1".equals(is_owner);

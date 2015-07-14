@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -17,6 +18,7 @@ import com.sp.lib.common.util.DisplayUtil;
 import com.sp.lib.common.util.ShortCut;
 import com.svmuu.AppDelegate;
 import com.svmuu.R;
+import com.svmuu.common.adapter.chat.ChatTagHandler;
 import com.svmuu.common.config.Preference;
 import com.svmuu.common.config.Preference.USER;
 import com.svmuu.common.entity.User;
@@ -98,7 +100,9 @@ public class EnterActivity extends BaseActivity {
         setContentView(imageView);
         imageView.setImageResource(R.drawable.loading);
         tryLogin();
+
     }
+
 
     private void tryLogin() {
         SharedPreferences sp_user = Preference.get(this, USER.class);

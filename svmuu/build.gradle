@@ -50,4 +50,5 @@ dependencies {
     compile files('libs/gensee_rtsdk.jar')
     compile files('libs/gensee_vod_ol.jar')
     compile 'com.android.support:gridlayout-v7:22.2.0'
+    compile files('libs/tagsoup-1.1.3.jar')
 }

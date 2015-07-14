@@ -8,24 +8,31 @@
         android:id="@+id/search"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:src="@drawable/ic_search"/>
+
     <EditText
-        android:imeActionLabel="@string/search"
-        android:id="@+id/editSearch" style="@style/search_text_style"/>
+        android:id="@+id/editSearch"
+        style="@style/search_text_style"
+        android:imeOptions="actionSearch"
+        android:singleLine="true"/>
+
     <TextView
         android:id="@+id/textSearch" style="@style/search_text_style"/>
 
     <ImageView
-        android:visibility="invisible"
         android:id="@+id/cross"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_alignParentRight="true"
-        android:src="@drawable/ic_cross"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_cross"
+        android:visibility="invisible"/>
+
     <ProgressBar
+        android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:visibility="invisible"
-        android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/editSearch" android:layout_alignEnd="@+id/editSearch"/>
+        android:layout_alignEnd="@+id/editSearch"
+        android:layout_alignRight="@+id/editSearch"
+        android:layout_centerVertical="true" android:visibility="invisible"/>
+
 </RelativeLayout>

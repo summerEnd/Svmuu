@@ -2,11 +2,13 @@ package com.svmuu;
 
 import android.app.Dialog;
 import android.test.AndroidTestCase;
+import android.text.Html;
 
 import com.sp.lib.common.support.net.client.SHttpClient;
 import com.sp.lib.common.support.net.client.SHttpProgressHandler;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.SLog;
+import com.svmuu.common.adapter.chat.ChatTagHandler;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -36,6 +38,10 @@ public class MyTest extends AndroidTestCase {
                 SLog.debug("finish");
             }
         });
+    }
+
+    public void testSpan(){
+
     }
 
     public void testA() {

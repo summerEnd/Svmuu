@@ -79,7 +79,7 @@
     <string name="data_load_done">数据加载完毕</string>
     <string name="title_activity_box_info">宝盒详情</string>
     <string name="box_detail_get_failed">查询宝盒详情失败</string>
-    <string name="title_activity_text_box">文字宝盒</string>
+    <string name="title_activity_text_box">宝盒详情</string>
     <string name="circleMaster">圈主</string>
     <string name="manager">管理员</string>
     <string name="title_activity_suggestion">意见反馈</string>
@@ -91,7 +91,7 @@
     <string name="live_null">未直播</string>
     <string name="get_live_info_failed">获取直播信息失败</string>
     <string name="title_activity_http_settings">HttpSettings</string>
-    <string name="getLiveInfo">获取直播信息...</string>
+    <string name="getLiveInfo">获取直播信息…</string>
     <string name="search">搜索</string>
     <string name="empty_book">您暂无订阅！</string>
 </resources>

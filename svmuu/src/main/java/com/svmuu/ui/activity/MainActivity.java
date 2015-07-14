@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import com.sp.lib.widget.list.refresh.PullToRefreshScrollView;
 import com.svmuu.AppDelegate;
 import com.svmuu.R;
 import com.svmuu.common.ImageOptions;
+import com.svmuu.common.adapter.chat.ChatTagHandler;
 import com.svmuu.common.adapter.master.RecentAdapter;
 import com.svmuu.common.adapter.other.RecommendAdapter;
 import com.svmuu.common.config.Constant;
@@ -143,6 +145,10 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
 
                     builder.show();
                 }
+                //todo test
+                ChatTagHandler handler = new ChatTagHandler();
+                String source = "<p><span style=\"color: rgb(0, 176, 80);\">娃儿问问二为二为二为二热污染二为二</span><br/></p>";
+                Html.fromHtml(source, null, handler);
                 break;
             }
             case R.id.stockSchool: {

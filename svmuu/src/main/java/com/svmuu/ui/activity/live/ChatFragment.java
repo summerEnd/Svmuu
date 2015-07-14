@@ -17,6 +17,7 @@ import com.svmuu.common.adapter.chat.ChatAdapter;
 import com.svmuu.common.adapter.chat.ChatAdapterImpl;
 import com.svmuu.common.adapter.chat.ChatItemDec;
 import com.svmuu.common.adapter.chat.ChatParams;
+import com.svmuu.common.adapter.chat.holders.ChatQAHolder;
 import com.svmuu.common.entity.Chat;
 import com.svmuu.ui.BaseFragment;
 
@@ -90,13 +91,12 @@ public class ChatFragment extends BaseFragment implements ChatManager.Callback {
         };
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(layout);
-        //todo  测试
 
         adapter = new ChatAdapterImpl(getActivity(), data);
 
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new ChatItemDec());
-
+        recyclerView.addItemDecoration(new ChatQAHolder.QADecoration(getActivity()));
     }
 
 

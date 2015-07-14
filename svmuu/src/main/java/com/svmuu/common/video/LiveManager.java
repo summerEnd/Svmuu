@@ -48,7 +48,6 @@ public class LiveManager extends AbsVideoManager {
         }
         InitParam p = new InitParam();
 
-
         //domain
         p.setDomain(domain);
         //编号（直播间号）,如果没有编号却有直播id的情况请使用setLiveId("此处直播id或课堂id");

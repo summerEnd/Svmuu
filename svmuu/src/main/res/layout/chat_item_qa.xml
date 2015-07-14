@@ -1,12 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="right|center_vertical"
-    android:orientation="horizontal" tools:ignore="RtlHardcoded">
+    android:gravity="left"
+    android:orientation="vertical" tools:ignore="RtlHardcoded">
+
+
     <LinearLayout
-        style="@style/chatItemBackground">
+        android:id="@+id/questionAvatarLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dimen_15px"
+        android:layout_marginTop="@dimen/dimen_15px"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/questionAvatar"
+            style="@style/chatItemAvatar" android:src="@drawable/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/questionJob"
+            style="@style/chatItemJob"
+            android:text="@string/circleMaster"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/questionTimeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/questionAvatarLayout"
+        android:layout_toRightOf="@id/questionAvatarLayout"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/questionName"
+            style="@style/chatItemNick"
+            android:drawableLeft="@drawable/question"
+            android:drawablePadding="@dimen/dimen_8px"
+            android:text="哒哒哒哒哒哒"/>
+
+        <ImageView
+            style="@style/chatItemFansIcon" android:src="@drawable/year_fans"/>
+
+        <TextView
+            android:id="@+id/questionTime"
+            style="@style/chatItemNick"
+            android:text="21:59"/>
+    </LinearLayout>
+
+    <com.gensee.view.MyTextViewEx
+        android:id="@+id/questionContent"
+        style="@style/chatItemContent"
+        android:layout_below="@id/questionTimeLayout"
+        android:layout_toRightOf="@+id/questionAvatarLayout"
+        android:text="wewerqewrwewerqewrwewerqewrwewerqewrwewerqewrwewerqewrwewerqewrwewerqewrwewerqewr"/>
+
+
+    <LinearLayout
+        android:id="@+id/masterAvatarLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/questionContent"
+        android:layout_marginRight="@dimen/dimen_15px"
+        android:layout_marginTop="@dimen/dimen_20px"
+        android:orientation="vertical">
+
+        <ImageView
+            style="@style/chatItemAvatar" android:src="@drawable/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/masterJob"
+            style="@style/chatItemJob"
+            android:text="@string/circleMaster"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/masterAvatarLayout"
+        android:layout_toRightOf="@id/masterAvatarLayout"
+        android:background="#0000"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -15,13 +89,11 @@
 
             <TextView
                 style="@style/chatItemNick"
+                android:drawableLeft="@drawable/answer"
+                android:drawablePadding="@dimen/dimen_8px"
                 android:text="哒哒哒哒哒哒"/>
 
-            <ImageView
-                style="@style/chatItemFansIcon" android:src="@drawable/year_fans"/>
-
             <TextView
-                android:id="@id/chatItemTime"
                 style="@style/chatItemNick"
                 android:text="21:59"/>
         </LinearLayout>
@@ -31,16 +103,4 @@
             android:text="wewerqewr"/>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <ImageView
-            style="@style/chatItemAvatar" android:src="@drawable/ic_launcher"/>
-
-        <TextView
-            style="@style/chatItemJob"
-            android:text="@string/circleMaster"/>
-    </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

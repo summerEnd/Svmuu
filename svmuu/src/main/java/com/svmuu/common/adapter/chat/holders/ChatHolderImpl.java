@@ -1,14 +1,9 @@
 package com.svmuu.common.adapter.chat.holders;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.text.style.ParagraphStyle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +14,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.svmuu.R;
 import com.svmuu.common.adapter.BaseHolder;
-import com.svmuu.common.adapter.chat.ChatParams;
 import com.svmuu.common.entity.Chat;
 
 
@@ -27,7 +21,7 @@ public class ChatHolderImpl extends BaseHolder<Chat> {
 
 
     //圈主
-    public static final int TYPE_MASTER = 0;
+    public static final int TYPE_OWNER = 0;
     public static final int TYPE_NORMAL = 1;//普通
     public static final int TYPE_WHISPER = 2; //悄悄话
     public static final int TYPE_JP = 3;//解盘
@@ -45,7 +39,7 @@ public class ChatHolderImpl extends BaseHolder<Chat> {
         LayoutInflater inflater = LayoutInflater.from(context);
 
         switch (type) {
-            case TYPE_MASTER: {
+            case TYPE_OWNER: {
                 return new MasterChatHolder(inflater.inflate(R.layout.chat_item_master, parent, false));
             }
             case TYPE_NORMAL: {
@@ -54,12 +48,12 @@ public class ChatHolderImpl extends BaseHolder<Chat> {
             case TYPE_WHISPER: {
                 return new WhisperChatHolder(inflater.inflate(R.layout.chat_item_whisper, parent, false));
             }
-//            case TYPE_JP: {
-//                return new WhisperChatHolder(inflater.inflate(R.layout.chat_item_jp, parent, false));
-//            }
-//            case TYPE_QA: {
-//                return new WhisperChatHolder(inflater.inflate(R.layout.chat_item_qa, parent, false));
-//            }
+            case TYPE_JP: {
+                return new ChatJPHolder(inflater.inflate(R.layout.chat_item_jp, parent, false));
+            }
+            case TYPE_QA: {
+                return new ChatQAHolder(inflater.inflate(R.layout.chat_item_qa, parent, false));
+            }
             case TYPE_NOTICE: {
                 return new ChatNoticeHolder(inflater.inflate(R.layout.chat_item_notice, parent, false));
             }
@@ -135,17 +129,12 @@ public class ChatHolderImpl extends BaseHolder<Chat> {
     /**
      * 展示聊天消息
      */
-    public void displayContent(Chat chat, Html.ImageGetter imageGetter) {
-        Spanned text = Html.fromHtml(chat.content, imageGetter, null);
+    public void displayContent(Chat chat, Html.ImageGetter imageGetter,Html.TagHandler handler) {
+        String content = chat.content;
+        chat.content = content.replace("<p>", "")
+                .replace("</p>", "");
+        Spanned text = Html.fromHtml(chat.content, imageGetter, handler);
 
         chatItemContent.setText(text);
     }
-
-    private ClickableSpan mSpan = new ClickableSpan() {
-        @Override
-        public void onClick(View widget) {
-
-        }
-    };
-
 }

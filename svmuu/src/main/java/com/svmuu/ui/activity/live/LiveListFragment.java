@@ -86,9 +86,10 @@ public class LiveListFragment extends BaseFragment implements PullToRefreshBase.
                         }
                     }
                     //将直播的圈子移动到前面
+                    int index=0;
                     for (Live live : online) {
                         lives.remove(live);
-                        lives.add(0, live);
+                        lives.add(index++, live);
                     }
                     adapter.showIsLive(false);
                 } else {

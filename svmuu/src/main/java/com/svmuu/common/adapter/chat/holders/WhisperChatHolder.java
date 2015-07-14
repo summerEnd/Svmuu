@@ -26,11 +26,11 @@ public class WhisperChatHolder extends MasterChatHolder {
     }
 
     @Override
-    public void displayContent(Chat chat, Html.ImageGetter imageGetter) {
+    public void displayContent(Chat chat, Html.ImageGetter imageGetter, Html.TagHandler handler) {
         //1、普通粉丝；2 铁粉；3 年粉 4 季粉',
         String fans_type = ChatFragment.getSharedChatParams().fan_type;
-        if ("2".equals(fans_type) || "3".equals(fans_type) || "4".equals(fans_type)) {
-            super.displayContent(chat, imageGetter);
+        if ("2".equals(fans_type) || "3".equals(fans_type) || "4".equals(fans_type)||chat.isOwner()) {
+            super.displayContent(chat, imageGetter, handler);
         } else {
             //既不是铁粉也不是年粉
             String click = "";

@@ -135,17 +135,17 @@ public class CustomSearchView extends LinearLayout {
                 }
             }
         });
-        editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    if (mCallback != null) {
-                        mCallback.onSearch(editSearch.getText().toString());
-                    }
-                }
-                return false;
-            }
-        });
+//        editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+//                    if (mCallback != null) {
+//                        mCallback.onSearch(editSearch.getText().toString());
+//                    }
+//                }
+//                return false;
+//            }
+//        });
         setStyle(style);
 
         //背景图片
