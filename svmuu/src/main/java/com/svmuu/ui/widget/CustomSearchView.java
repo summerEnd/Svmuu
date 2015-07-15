@@ -50,7 +50,7 @@ public class CustomSearchView extends LinearLayout {
             }
         }
     };
-    private OnClickListener searchListener = new OnClickListener() {
+    protected OnClickListener searchListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
             //没有输入内容就不发起搜索,产品这么说的- -!
@@ -92,14 +92,25 @@ public class CustomSearchView extends LinearLayout {
         init(context, attrs, defStyle);
     }
 
+    /**
+     * 搜索图标：R.id.search
+     * 删除图标：R.id.cross
+     * 内容编辑：R.id.editSearch
+     * 内容点击：R.id.textSearch
+     * 进度条：R.id.progressBar
+     */
+    protected View onCreateView(Context context) {
+        return View.inflate(context, R.layout.search_view, this);
+    }
+
     @SuppressWarnings("deprecation")
     private void init(Context context, AttributeSet attrs, int defStyle) {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CustomSearchView);
-        int iconSize = (int) a.getDimension(R.styleable.CustomSearchView_iconSize, LayoutParams.WRAP_CONTENT);
+
         int style = a.getInt(R.styleable.CustomSearchView_searchStyle, STYLE_EDIT);
         a.recycle();
-        View v = View.inflate(context, R.layout.search_view, this);
+        View v = onCreateView(context);
         searchIcon = (ImageView) v.findViewById(R.id.search);
         closeIcon = (ImageView) v.findViewById(R.id.cross);
         editSearch = (EditText) findViewById(R.id.editSearch);
@@ -135,17 +146,17 @@ public class CustomSearchView extends LinearLayout {
                 }
             }
         });
-//        editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-//                    if (mCallback != null) {
-//                        mCallback.onSearch(editSearch.getText().toString());
-//                    }
-//                }
-//                return false;
-//            }
-//        });
+        editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    if (mCallback != null) {
+                        mCallback.onSearch(editSearch.getText().toString());
+                    }
+                }
+                return false;
+            }
+        });
         setStyle(style);
 
         //背景图片

@@ -4,24 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal" tools:ignore="RtlHardcoded">
+    <ImageView
+        android:id="@+id/noticeImage"
+        style="@style/chatItemAvatar" android:src="@drawable/sys_notice"/>
     <LinearLayout
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="@dimen/avatarSizeSmall"
         style="@style/chatItemBackground"
-        android:layout_toLeftOf="@+id/avatarLayout">
+        android:layout_marginLeft="@dimen/dimen_8px"
+        android:layout_toRightOf="@+id/noticeImage">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="gone">
+            >
 
             <TextView
+                android:id="@+id/systemNotice"
                 style="@style/chatItemNick"
-                android:text="哒哒哒哒哒哒"/>
+                android:text="@string/system_notice"/>
 
-            <ImageView
-                style="@style/chatItemFansIcon" android:src="@drawable/year_fans"/>
 
             <TextView
                 android:id="@id/chatItemTime"
@@ -34,19 +35,6 @@
             android:text="wewerqewr"/>
 
     </LinearLayout>
-    <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/avatarLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:orientation="vertical">
 
-        <ImageView
-            style="@style/chatItemAvatar" android:src="@drawable/ic_launcher"/>
 
-        <TextView
-            style="@style/chatItemJob"
-            android:text="@string/circleMaster"/>
-    </LinearLayout>
 </RelativeLayout>

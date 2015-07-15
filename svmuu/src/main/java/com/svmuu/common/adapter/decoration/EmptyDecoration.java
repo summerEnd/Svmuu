@@ -16,7 +16,7 @@ import com.svmuu.R;
 public class EmptyDecoration extends RecyclerView.ItemDecoration {
 
     private Context context;
-    private String empty = null;
+    private CharSequence empty = null;
     private Paint p = new Paint();
 
     public EmptyDecoration(Context context, String empty) {
@@ -35,10 +35,21 @@ public class EmptyDecoration extends RecyclerView.ItemDecoration {
         return p;
     }
 
+    public void setEmpty(CharSequence empty) {
+        this.empty = empty;
+    }
+
     @Override
     public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
         if (state.getItemCount() == 0) {
-            c.drawText(empty, parent.getWidth() / 2, parent.getHeight() / 2 - TextPainUtil.getBaseLineOffset(p), p);
+            CharSequence text;
+            String empty = this.empty.toString();
+            if (p.measureText(empty) < parent.getWidth()) {
+                text = this.empty;
+            } else {
+                text = empty.substring(0, p.breakText(this.empty, 0, this.empty.length(), true, parent.getWidth(), null));
+            }
+            c.drawText(text, 0, text.length(), parent.getWidth() / 2, parent.getHeight() / 2 - TextPainUtil.getBaseLineOffset(p), p);
         }
 
         super.onDrawOver(c, parent, state);

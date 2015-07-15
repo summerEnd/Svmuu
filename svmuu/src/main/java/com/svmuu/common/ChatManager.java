@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.svmuu.common.entity.Chat;
+import com.svmuu.common.entity.notice.BaseSystemNotice;
 import com.svmuu.common.http.HttpHandler;
 import com.svmuu.common.http.HttpManager;
 import com.svmuu.common.http.Response;
@@ -15,6 +16,7 @@ import com.svmuu.common.http.Response;
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -25,6 +27,10 @@ import java.util.TimerTask;
  */
 public class ChatManager {
 
+    public static final String MSG_TYPE_NORMAL = "1";//普通消息
+    public static final String MSG_TYPE_JP = "2";//解盘消息
+    public static final String MSG_TYPE_WHISPER = "4";//铁粉悄悄话
+    public static final String MSG_TYPE_NOTICE = "6";//系统公告
 
     private Context context;
     private Callback callback;
@@ -40,7 +46,7 @@ public class ChatManager {
     /**
      * groupid 圈主id
      *
-     * @param type    消息类型 1、普通消息 2、解盘消息    4、铁粉悄悄话  5、系统公告
+     * @param type    消息类型 1、普通消息 2、解盘消息    4、铁粉悄悄话  6、系统公告
      * @param content 消息内容
      */
     public void sendMessage(String type, String content) {
@@ -69,10 +75,29 @@ public class ChatManager {
         HttpManager.getInstance().postMobileApi(context, request, new HttpHandler(false) {
             @Override
             public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException {
-                ArrayList<Chat> newChats = JsonUtil.getArray(new JSONArray(response.data), Chat.class);
-                if (newChats == null || newChats.size() == 0) {
+
+                JSONArray array = new JSONArray(response.data);
+                ArrayList<Chat> newChats = new ArrayList<Chat>();
+
+                if (array.length() == 0) {
                     return;
                 }
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject chatObject = array.getJSONObject(i);
+                    Chat chat = JsonUtil.get(chatObject, Chat.class);
+                    //处理消息内容，主要是针对系统公告content类型为object会抛出异常
+                    if (MSG_TYPE_NOTICE.equals(chat.type)) {
+                        JSONObject noticeContent = chatObject.getJSONObject("content");
+                        //根据type获取对应的class
+                        Class<? extends BaseSystemNotice> noticeType = BaseSystemNotice.newInstance(noticeContent.getString("type")).getClass();
+                        chat.systemNotice = JsonUtil.get(noticeContent, noticeType);
+                    } else {
+                        chat.chatContent = chatObject.getString("content");
+                    }
+                    newChats.add(chat);
+                }
+
+
                 maxMsgId = newChats.get(newChats.size() - 1).msg_id;
                 callback.onNewMessageLoaded(newChats);
             }

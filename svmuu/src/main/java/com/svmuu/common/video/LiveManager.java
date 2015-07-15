@@ -1,19 +1,17 @@
 package com.svmuu.common.video;
 
 import android.app.Activity;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 
 import com.gensee.common.ServiceType;
 import com.gensee.entity.InitParam;
 import com.gensee.net.RtComp;
 import com.gensee.room.RtSdk;
-import com.gensee.routine.UserInfo;
 import com.gensee.taskret.OnTaskRet;
 import com.gensee.view.GSVideoView;
 import com.sp.lib.common.util.ContextUtil;
-import com.svmuu.common.http.HttpManager;
-
-import java.util.ArrayList;
 
 public class LiveManager extends AbsVideoManager {
 
@@ -67,6 +65,7 @@ public class LiveManager extends AbsVideoManager {
                     @Override
                     public void onInited(String s) {
                         mRtImpl.joinWithParam("", s);
+                        dispatchFailAfter(20 * 1000);
                     }
 
                     @Override
@@ -88,6 +87,9 @@ public class LiveManager extends AbsVideoManager {
         return isPlaying;
     }
 
+    /**
+     * 在当前activity退出时，一定要调用destroy
+     */
     @Override
     public void destroy() {
         release();
@@ -132,5 +134,21 @@ public class LiveManager extends AbsVideoManager {
         return mRtImpl.getRtSdk().leave(false, taskRet);
     }
 
+    /**
+     * 当视频加载超过一定时间时，分发失败
+     *
+     * @param time 延迟时间 单位ms
+     */
+    private void dispatchFailAfter(int time) {
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!isPlaying()) {
+                    dispatchFailed();
+                    release();
+                }
+            }
+        }, time);
+    }
 
 }

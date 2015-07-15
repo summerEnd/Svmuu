@@ -10,14 +10,11 @@ import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gensee.chat.gif.GifDrawalbe;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.svmuu.R;
 import com.svmuu.common.ImageOptions;
-import com.svmuu.common.Tests;
 import com.svmuu.common.adapter.BaseAdapter;
 import com.svmuu.common.entity.Chat;
 import com.svmuu.ui.widget.ChatItemView;
@@ -82,7 +79,7 @@ public class ChatAdapter extends BaseAdapter<Chat, ChatHolder> {
     public void onBindViewHolder(ChatHolder holder, int position) {
         Chat chat = getData().get(position);
         holder.setData(chat);
-        holder.getContentTextView().setText(Html.fromHtml(chat.content,imageGetter,null));
+        holder.getContentTextView().setText(Html.fromHtml(chat.chatContent,imageGetter,null));
         ImageLoader.getInstance().displayImage(chat.uface, holder.getAvatarView(), options);
     }
 

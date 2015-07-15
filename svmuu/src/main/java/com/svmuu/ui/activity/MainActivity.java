@@ -71,6 +71,7 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
         getLayoutInflater().inflate(R.layout.activity_main2, scrollView, true);
         refreshScrollView.setOnRefreshListener(this);
         setContentView(refreshScrollView);
+
         initialize();
     }
 
@@ -81,7 +82,6 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
         list = (LinearListView) findViewById(R.id.list);
         recommendAdapter = new RecommendAdapter(this, new ArrayList<CircleMaster>());
         list.setAdapter(recommendAdapter);
-
 
         searchView.setCallback(this);
 
@@ -145,10 +145,6 @@ public class MainActivity extends MenuActivity implements CustomSearchView.Callb
 
                     builder.show();
                 }
-                //todo test
-                ChatTagHandler handler = new ChatTagHandler();
-                String source = "<p><span style=\"color: rgb(0, 176, 80);\">娃儿问问二为二为二为二热污染二为二</span><br/></p>";
-                Html.fromHtml(source, null, handler);
                 break;
             }
             case R.id.stockSchool: {

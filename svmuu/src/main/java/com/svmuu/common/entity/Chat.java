@@ -1,6 +1,8 @@
 package com.svmuu.common.entity;
 
 
+import com.svmuu.common.entity.notice.BaseSystemNotice;
+
 public class Chat {
 
 
@@ -9,7 +11,7 @@ public class Chat {
     public String uname;
     public String type;
     public String uface;
-    public String content;
+
     public String addtime;
     public String is_owner;
     public String is_admin;
@@ -19,9 +21,11 @@ public class Chat {
     public String userLevel;
     public String msg_id;
     public String certify_status;
-    public Question question;
+    public Question question;//提问，只有问答时有效
+    public BaseSystemNotice systemNotice;//系统公告
+    public String chatContent;//聊天的内容
 
-    public boolean isOwner(){
+    public boolean isOwner() {
         return "1".equals(is_owner);
     }
 }

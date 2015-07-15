@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.sp.lib.common.util.ContextUtil;
+import com.svmuu.R;
 import com.svmuu.common.entity.Chat;
 import com.svmuu.ui.activity.live.ChatFragment;
 
@@ -34,7 +35,7 @@ public class WhisperChatHolder extends MasterChatHolder {
         } else {
             //既不是铁粉也不是年粉
             String click = "";
-            String msg = "本条信息为铁粉悄悄话，加入铁粉后即可查看！";
+            String msg = itemView.getContext().getString(R.string.fans_whisper);
             SpannableString spannableString = new SpannableString(msg + click);
             spannableString.setSpan(new ClickableSpan() {
                 @Override

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.loopj.android.http.RequestHandle;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.sp.lib.widget.list.refresh.PullToRefreshBase;
@@ -35,7 +36,7 @@ public class LiveListFragment extends BaseFragment implements PullToRefreshBase.
     private String url;
     private String kw;
     Callback callback;
-
+    RequestHandle searchRequest;
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -69,10 +70,13 @@ public class LiveListFragment extends BaseFragment implements PullToRefreshBase.
      * @param kw 搜索的关键词
      */
     private void search(String url, String kw) {
-
+        //取消上一个请求
+        if (searchRequest != null && !searchRequest.isCancelled()) {
+            searchRequest.cancel(true);
+        }
         SRequest request = new SRequest(url);
         request.put("kw", kw);
-        HttpManager.getInstance().postMobileApi(getActivity(), request, new HttpHandler() {
+        searchRequest= HttpManager.getInstance().postMobileApi(getActivity(), request, new HttpHandler() {
             @Override
             public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException {
                 lives.clear();

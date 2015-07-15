@@ -34,7 +34,6 @@ public class ChatAdapterImpl extends BaseAdapter<Chat, ChatHolderImpl> {
     }
 
 
-
     @Override
     public ChatHolderImpl onCreateViewHolder(ViewGroup parent, int viewType) {
         return ChatHolderImpl.newInstance(getContext(), parent, viewType);
@@ -44,24 +43,24 @@ public class ChatAdapterImpl extends BaseAdapter<Chat, ChatHolderImpl> {
     public void onBindViewHolder(ChatHolderImpl holder, int position) {
         Chat chat = getData().get(position);
         holder.displayWith(chat, options);
-        holder.displayContent(chat, imageGetter,tagHandler);
+        holder.displayContent(chat, imageGetter, tagHandler);
     }
 
     @Override
     public int getItemViewType(int position) {
         Chat chat = getData().get(position);
-        //消息类型 1 普通 2 解盘 3 问答 4 悄悄话 5 公告',
+        //消息类型 1 普通 2 解盘 3 问答 4 悄悄话 6 公告',
 
         if (chat.isOwner()) {
             if ("4".equals(chat.type)) {
                 return TYPE_WHISPER;
             }
 
-            if ("2".equals(chat.type)){
+            if ("2".equals(chat.type)) {
                 return TYPE_JP;
             }
 
-            if ("3".equals(chat.type)){
+            if ("3".equals(chat.type)) {
                 return TYPE_QA;
             }
 
@@ -73,7 +72,7 @@ public class ChatAdapterImpl extends BaseAdapter<Chat, ChatHolderImpl> {
                 return TYPE_NORMAL;
             }
 
-            case "5": {
+            case "6": {
                 return TYPE_NOTICE;
             }
         }

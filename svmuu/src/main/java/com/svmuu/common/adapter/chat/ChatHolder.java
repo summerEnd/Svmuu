@@ -1,21 +1,14 @@
 package com.svmuu.common.adapter.chat;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.text.Editable;
-import android.text.Html;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.gensee.view.MyTextViewEx;
 import com.svmuu.R;
 import com.svmuu.common.adapter.BaseHolder;
 import com.svmuu.common.entity.Chat;
 import com.svmuu.ui.widget.ChatItemView;
-
-import org.xml.sax.XMLReader;
 
 
 public class ChatHolder extends BaseHolder {
@@ -73,7 +66,7 @@ public class ChatHolder extends BaseHolder {
             }
             case "4":{
                 parent.setVisibility(View.VISIBLE);
-                chat.content="";
+                chat.chatContent ="";
                 break;
             }
             default: {

@@ -6,12 +6,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.loopj.android.http.RequestHandle;
 import com.sp.lib.common.support.cache.CacheManager;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.sp.lib.common.util.JsonUtil;
 import com.svmuu.R;
 import com.svmuu.common.adapter.BaseHolder;
 import com.svmuu.common.adapter.decoration.DividerDecoration;
+import com.svmuu.common.adapter.decoration.EmptyDecoration;
 import com.svmuu.common.adapter.search.SearchAdapter;
 import com.svmuu.common.entity.History;
 import com.svmuu.common.entity.Search;
@@ -37,6 +39,8 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
     private SearchAdapter adapter;
     ArrayList<History> histories;
     ArrayList<Search> searches = new ArrayList<>();
+    private EmptyDecoration emptyDecoration;
+    RequestHandle searchRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +62,7 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
         }
 
         searchView = (CustomSearchView) findViewById(R.id.searchView);
-        findViewById(R.id.cancel_action).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         searchView.setCallback(this);
         LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -72,6 +71,8 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
         adapter = new SearchAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerDecoration(this));
+        emptyDecoration = new EmptyDecoration(this, getString(R.string.search_not_found, ""));
+        recyclerView.addItemDecoration(emptyDecoration);
         adapter.showHistory(histories);
         adapter.setListener(new BaseHolder.OnItemListener() {
             @Override
@@ -84,7 +85,7 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
                     int clearPosition = histories.size() + 1;
                     if (position == clearPosition) {
                         histories.clear();
-                        CacheManager.getInstance().write(SEARCH_HISTORIES,histories);
+                        CacheManager.getInstance().write(SEARCH_HISTORIES, histories);
                         adapter.notifyDataSetChanged();
                     } else {
                         search(histories.get(position - 1).name);
@@ -128,18 +129,45 @@ public class SearchActivity extends BaseActivity implements CustomSearchView.Cal
         CacheManager.getInstance().write(SEARCH_HISTORIES, histories);
     }
 
+
     public void search(String key) {
+        //取消上一个请求
+        if (searchRequest != null && !searchRequest.isCancelled()) {
+            searchRequest.cancel(true);
+        }
+
         SRequest request = new SRequest("find");
         request.put("kw", key);
-        HttpManager.getInstance().postMobileApi(this, request, new HttpHandler() {
+        emptyDecoration.setEmpty(getString(R.string.search_not_found, key));
+        searchRequest = HttpManager.getInstance().postMobileApi(this, request, new HttpHandler() {
             @Override
             public void onResultOk(int statusCOde, Header[] headers, Response response) throws JSONException {
                 searches.clear();
                 JsonUtil.getArray(new JSONArray(response.data), Search.class, searches);
                 adapter.showResult(searches);
                 searchView.onSearchComplete();
-
+                notifyChange();
             }
+
+            @Override
+            public void onException() {
+                super.onException();
+                searches.clear();
+                notifyChange();
+            }
+
+            @Override
+            public void onResultError(int statusCOde, Header[] headers, Response response) throws JSONException {
+                super.onResultError(statusCOde, headers, response);
+                searches.clear();
+                notifyChange();
+            }
+
+            void notifyChange() {
+                adapter.notifyDataSetChanged();
+                recyclerView.invalidate();
+            }
+
         });
     }
 

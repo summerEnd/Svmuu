@@ -52,7 +52,7 @@ public class HttpManager {
      * 开发：0
      * 正式：4
      */
-    private static int type = 2;
+    private static int type = 0;
 
     public String getHost() {
         return HOSTS.get(type);

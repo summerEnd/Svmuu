@@ -107,6 +107,11 @@ public class PlayFragment extends BaseFragment {
         showMediaController(showMediaController);
     }
 
+    /**
+     * 获取加载框
+     *
+     * @param text 加载框文字
+     */
     Bitmap getLoadingBitmap(String text) {
 
         ColorDrawable drawable = new ColorDrawable(0xfff5f5f5);
@@ -235,7 +240,13 @@ public class PlayFragment extends BaseFragment {
      * @param show true 显示图片
      */
     void showCover(boolean show) {
-        nolive.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+        if (show) {
+            nolive.setVisibility(View.VISIBLE);
+            showMediaController(false);//隐藏放大功能
+        } else {
+            nolive.setVisibility(View.INVISIBLE);
+            showMediaController(true);
+        }
     }
 
     /**

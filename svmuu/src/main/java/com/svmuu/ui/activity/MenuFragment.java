@@ -12,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gensee.chat.gif.GifDrawalbe;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sp.lib.common.support.net.client.SRequest;
 import com.svmuu.AppDelegate;
 import com.svmuu.R;
+import com.svmuu.common.AvatarUtil;
 import com.svmuu.common.ImageOptions;
 import com.svmuu.common.entity.User;
 import com.svmuu.common.http.HttpHandler;
@@ -27,10 +29,15 @@ import com.svmuu.ui.activity.live.LiveActivity;
 import com.svmuu.ui.activity.live.MyCircleActivity;
 import com.svmuu.ui.activity.settings.SettingActivity;
 import com.svmuu.ui.pop.LoginActivity;
+import com.svmuu.ui.widget.GifDrawable;
 
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class MenuFragment extends BaseFragment implements View.OnClickListener {
 
@@ -170,8 +177,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         tvcircleNo.setText(getString(R.string.circle_no_s, circleNo));
         tvfans.setText(getString(R.string.fans_s, fans));
         tvShuibao.setText(getString(R.string.shui_bao_s, shuibao));
-        ImageLoader.getInstance().displayImage(avatar, avatarImage,
-                ImageOptions.getRound((int) getResources().getDimension(R.dimen.avatarSize)));
+        ImageLoader.getInstance().displayImage(avatar,avatarImage,ImageOptions.getRound(getResources().getDimensionPixelSize(R.dimen.avatarSize)));
     }
 
     @Override

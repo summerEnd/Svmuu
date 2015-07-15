@@ -3,7 +3,6 @@ package com.svmuu.common.adapter.chat.holders;
 import android.content.Context;
 import android.text.Html;
 import android.text.Spanned;
-import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -130,10 +129,10 @@ public class ChatHolderImpl extends BaseHolder<Chat> {
      * 展示聊天消息
      */
     public void displayContent(Chat chat, Html.ImageGetter imageGetter,Html.TagHandler handler) {
-        String content = chat.content;
-        chat.content = content.replace("<p>", "")
+        String content = chat.chatContent;
+        chat.chatContent = content.replace("<p>", "")
                 .replace("</p>", "");
-        Spanned text = Html.fromHtml(chat.content, imageGetter, handler);
+        Spanned text = Html.fromHtml(chat.chatContent, imageGetter, handler);
 
         chatItemContent.setText(text);
     }

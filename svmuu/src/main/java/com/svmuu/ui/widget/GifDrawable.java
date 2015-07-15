@@ -32,7 +32,7 @@ public class GifDrawable extends AnimationDrawable {
     private Context context;
     private AtomicBoolean bParsing = new AtomicBoolean(false);
     GifHelper helper;
-    private List<GifDrawalbe.UpdateUIListen> updateUIListenList;
+    private List<UpdateUIListen> updateUIListenList;
     private Handler handler = new Handler(new Handler.Callback() {
         public boolean handleMessage(Message msg) {
             if (((Boolean) msg.obj).booleanValue()) {
@@ -87,7 +87,7 @@ public class GifDrawable extends AnimationDrawable {
         synchronized (this) {
             if (!this.bParsing.get()) {
                 GifHelper helper = new GifHelper();
-                helper.read(stream);
+               int status=helper.read(stream);
                 int gifCount = helper.getFrameCount();
                 if (gifCount <= 0) {
                     this.bParsing.set(false);
@@ -121,7 +121,7 @@ public class GifDrawable extends AnimationDrawable {
         }
     }
 
-    public void addListen(GifDrawalbe.UpdateUIListen listen) {
+    public void addListen(UpdateUIListen listen) {
         synchronized (this) {
             if (!this.updateUIListenList.contains(listen)) {
                 this.updateUIListenList.add(listen);

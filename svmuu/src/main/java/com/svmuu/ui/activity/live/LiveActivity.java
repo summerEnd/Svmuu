@@ -424,7 +424,7 @@ public class LiveActivity extends BaseActivity implements OnCheckedChangeListene
             ft.hide(curFragment);
         }
 
-        ft.commit();
+        ft.commitAllowingStateLoss();
         curFragment = fragment;
     }
 

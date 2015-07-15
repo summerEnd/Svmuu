@@ -58,7 +58,6 @@ public class BoxActivity extends SecondActivity {
                     .commit();
         }
         initialize();
-
     }
 
     private void initialize() {

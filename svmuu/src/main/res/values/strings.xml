@@ -94,4 +94,7 @@
     <string name="getLiveInfo">获取直播信息…</string>
     <string name="search">搜索</string>
     <string name="empty_book">您暂无订阅！</string>
+    <string name="fans_whisper">本条信息为铁粉悄悄话，加入铁粉后即可查看！</string>
+    <string name="search_not_found">没有查找到%s</string>
+    <string name="system_notice">系统公告</string>
 </resources>
